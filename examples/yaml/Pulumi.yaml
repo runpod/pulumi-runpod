@@ -1,16 +1,56 @@
-name: provider-boilerplate
+name: runpod-example
 runtime: yaml
 
+config:
+  runpod:apiKey:
+    secret: true
+
 resources:
-  myRandomResource:
-    type: provider-boilerplate:Random
+  # Create a network volume for persistent storage
+  myVolume:
+    type: runpod:NetworkVolume
     properties:
-      length: 24
-  myRandomComponent:
-    type: provider-boilerplate:RandomComponent
+      name: my-volume
+      size: 20
+      dataCenterId: US-TX-3
+
+  # Create a pod template
+  myTemplate:
+    type: runpod:Template
     properties:
-      length: 24
+      name: my-template
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 20
+      volumeInGb: 20
+      dockerArgs: ""
+      startSsh: true
+
+  # Create a GPU pod
+  myPod:
+    type: runpod:Pod
+    properties:
+      name: my-gpu-pod
+      gpuTypeId: NVIDIA RTX A4000
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 20
+      volumeInGb: 20
+      startSsh: true
+      env:
+        MY_VAR: hello
+
+  # Create a serverless endpoint
+  myEndpoint:
+    type: runpod:Endpoint
+    properties:
+      name: my-endpoint
+      templateId: ${myTemplate.templateId}
+      gpuIds: AMPERE_16
+      workersMin: 0
+      workersMax: 3
+      idleTimeout: 5
 
 outputs:
-  output:
-    value: ${myRandomResource.result}
+  podId: ${myPod.podId}
+  volumeId: ${myVolume.networkVolumeId}
+  endpointId: ${myEndpoint.endpointId}
+  templateId: ${myTemplate.templateId}
