@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.ProviderBoilerplate
+namespace Pulumi.Runpod
 {
-    [ProviderBoilerplateResourceType("pulumi:providers:provider-boilerplate")]
+    [RunpodResourceType("pulumi:providers:runpod")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace Pulumi.ProviderBoilerplate
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("provider-boilerplate", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("runpod", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 

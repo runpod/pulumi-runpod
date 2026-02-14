@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.ProviderBoilerplate
+namespace Pulumi.Runpod
 {
     public static class Config
     {
@@ -30,7 +30,7 @@ namespace Pulumi.ProviderBoilerplate
             }
         }
 
-        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("provider-boilerplate");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("runpod");
 
         private static readonly __Value<bool?> _itsasecret = new __Value<bool?>(() => __config.GetBoolean("itsasecret"));
         public static bool? Itsasecret

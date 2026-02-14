@@ -1,11 +1,51 @@
-# Pulumi Native Provider Boilerplate
+# Pulumi RunPod Provider (🚧 Under Development)
 
-This repository is a boilerplate showing how to create and locally test a native Pulumi provider (with examples of both CustomResource and ComponentResource [resource types](https://www.pulumi.com/docs/iac/concepts/resources/)). 
+The Pulumi RunPod provider enables you to manage [RunPod](https://www.runpod.io/) GPU cloud infrastructure and serverless endpoints using infrastructure as code.
 
-## Authoring a Pulumi Native Provider
+## 🚀 Project Status
 
-This boilerplate creates a working Pulumi-owned provider named `provider-boilerplate`.
-It implements a random number generator that you can [build and test out for yourself](#test-against-the-example) and then replace the Random code with code specific to your provider.
+**Current Phase**: Foundation & Setup (Phase 1 of 6)
+**Progress**: 1/150 tasks completed (0.7%)
+**Last Updated**: 2025-09-30
+
+### ✅ Completed
+- GraphQL schema extraction from RunPod API
+- Complete task breakdown (150 tasks) with dependencies
+- Implementation guide with code examples
+- Project structure initialized
+
+### 🏗️ In Progress
+- Phase 1: Foundation & Setup (genqlient configuration, provider framework, utilities)
+
+### 📋 Roadmap
+- **Phase 1** (Current): Foundation & Setup → 1-2 days
+- **Phase 2**: Core Resources (Pod, Serverless, Volume) → 5-7 days
+- **Phase 3**: Supporting Resources (Template, Network, SSH Key, Secret, Registry, Cluster) → 4-5 days
+- **Phase 4**: Schema & Multi-Language SDK Generation → 1 day
+- **Phase 5**: Integration Tests & Examples → 2 days
+- **Phase 6**: Polish & Documentation → 2-3 days
+
+**Estimated Time to Completion**: 15-20 days of focused development
+
+## 📚 Documentation
+
+- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Setup and first steps
+- **[Implementation Status](docs/IMPLEMENTATION_STATUS.md)** - Detailed progress and code examples
+- **[Implementation Summary](docs/IMPLEMENTATION_SUMMARY.md)** - Executive overview
+- **[Task Breakdown](specs/001-pulumi-provider-we/tasks.md)** - Complete 150-task plan
+
+## Overview
+
+RunPod is a cloud platform for deploying and scaling GPU workloads. This provider will allow you to:
+
+- ✅ Manage GPU pods and deployments (Planned)
+- ✅ Configure serverless endpoints (Planned)
+- ✅ Manage network volumes (Planned)
+- ✅ Control templates, SSH keys, secrets (Planned)
+- ✅ Manage registry credentials (Planned)
+- ✅ Deploy and scale clusters (Planned)
+
+> **⚠️ Development Status**: This provider is in active development following a Test-Driven Development approach. The foundation (GraphQL schema, task breakdown, implementation guides) is complete. Resource implementation is next.
 
 
 ### Prerequisites
@@ -35,7 +75,7 @@ Pulumi offers this repository as a [GitHub template repository](https://docs.git
 1. Click "Use this template".
 1. Set the following options:
    * Owner: pulumi 
-   * Repository name: pulumi-provider-boilerplate (replace "provider-boilerplate" with the name of your provider)
+   * Repository name: pulumi-runpod (replace "runpod" with the name of your provider)
    * Description: Pulumi provider for xyz
    * Repository type: Public
 1. Clone the generated repository.
@@ -51,9 +91,9 @@ From the templated repository:
    This will do the following:
    - rename folders in `provider/cmd` to `pulumi-resource-{NAME}`
    - replace dependencies in `provider/go.mod` to reflect your repository name
-   - find and replace all instances of `provider-boilerplate` with the `NAME` of your provider.
+   - find and replace all instances of `runpod` with the `NAME` of your provider.
    - find and replace all instances of the boilerplate `abc` with the `ORG` of your provider.
-   - replace all instances of the `github.com/pulumi/pulumi-provider-boilerplate` repository with the `REPOSITORY` location
+   - replace all instances of the `github.com/runpod/pulumi-runpod` repository with the `REPOSITORY` location
 
 #### Build the provider and install the plugin
 
@@ -72,7 +112,7 @@ This will:
    
 ```bash
 $ cd examples/simple
-$ yarn link @pulumi/provider-boilerplate
+$ yarn link @pulumi/runpod
 $ yarn install
 $ pulumi stack init test
 $ pulumi up
@@ -85,7 +125,7 @@ Now that you have completed all of the above steps, you have a working provider 
 You now have:
 
 1. A `provider/` folder containing the building and implementation logic.
-    1. `cmd/pulumi-resource-provider-boilerplate/main.go` - holds the provider's sample implementation logic.
+    1. `cmd/pulumi-resource-runpod/main.go` - holds the provider's sample implementation logic.
 2. `Makefile` - targets to help with building and publishing the provider. Run `make ci-mgmt` to regenerate CI workflows.
 3. `sdk` - holds the generated code libraries created by `pulumi gen-sdk`.
 4. `examples` a folder of Pulumi programs to try locally and/or use in CI.

@@ -1,11 +1,11 @@
-module github.com/pulumi/pulumi-provider-boilerplate/examples/go
+module github.com/runpod/pulumi-runpod/examples/go
 
 go 1.24.2
 
-replace github.com/pulumi/pulumi-provider-boilerplate/sdk/go/pulumi-provider-boilerplate => ../../sdk/go/pulumi-provider-boilerplate
+replace github.com/runpod/pulumi-runpod/sdk/go/pulumi-runpod => ../../sdk/go/pulumi-runpod
 
 require (
-	github.com/pulumi/pulumi-provider-boilerplate/sdk/go/pulumi-provider-boilerplate v0.0.3
+	github.com/runpod/pulumi-runpod/sdk/go/pulumi-runpod v0.0.3
 	github.com/pulumi/pulumi/sdk/v3 v3.175.0
 )
 

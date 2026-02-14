@@ -1,0 +1,82 @@
+# @genqlient
+mutation CreatePod($input: PodFindAndDeployOnDemandInput!) {
+  # @genqlient(typename: "PodResponse")
+  podFindAndDeployOnDemand(input: $input) {
+    id
+    name
+    machineId
+    imageName
+    dockerArgs
+    gpuCount
+    vcpuCount
+    memoryInGb
+    containerDiskInGb
+    volumeInGb
+    volumeMountPath
+    desiredStatus
+    costPerHr
+    env
+    ports
+    templateId
+    networkVolumeId
+    containerRegistryAuthId
+    podType
+  }
+}
+
+# @genqlient
+query GetPod($input: PodFilter!) {
+  # @genqlient(typename: "PodResponse")
+  pod(input: $input) {
+    id
+    name
+    machineId
+    imageName
+    dockerArgs
+    gpuCount
+    vcpuCount
+    memoryInGb
+    containerDiskInGb
+    volumeInGb
+    volumeMountPath
+    desiredStatus
+    costPerHr
+    env
+    ports
+    templateId
+    networkVolumeId
+    containerRegistryAuthId
+    podType
+  }
+}
+
+# @genqlient
+mutation UpdatePod($input: PodEditJobInput!) {
+  # @genqlient(typename: "PodResponse")
+  podEditJob(input: $input) {
+    id
+    name
+    machineId
+    imageName
+    dockerArgs
+    gpuCount
+    vcpuCount
+    memoryInGb
+    containerDiskInGb
+    volumeInGb
+    volumeMountPath
+    desiredStatus
+    costPerHr
+    env
+    ports
+    templateId
+    networkVolumeId
+    containerRegistryAuthId
+    podType
+  }
+}
+
+# @genqlient
+mutation TerminatePod($input: PodTerminateInput!) {
+  podTerminate(input: $input)
+}

@@ -6,7 +6,7 @@ on:
     tags:
     - v*.*.*-**
 env:
-  PROVIDER: provider-boilerplate
+  PROVIDER: runpod
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   TRAVIS_OS_NAME: linux
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
@@ -749,8 +749,8 @@ jobs:
       with:
         repository: ${{ github.repository }}
         base-ref: ${{ github.sha }}
-        source: sdk/go/pulumi-provider-boilerplate
-        path: sdk/go/pulumi-provider-boilerplate
+        source: sdk/go/pulumi-runpod
+        path: sdk/go/pulumi-runpod
         version: ${{ steps.version.outputs.version }}
         additive: false
         files: "**"

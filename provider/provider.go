@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 
@@ -51,8 +52,8 @@ type Config struct {
 	APIURL string `pulumi:"apiUrl,optional"`
 }
 
-// getClient creates a RunPod API client from the provider config in context.
-func getClient(ctx context.Context) *runpod.Client {
+// getClient creates a genqlient GraphQL client from the provider config in context.
+func getClient(ctx context.Context) graphql.Client {
 	config := infer.GetConfig[Config](ctx)
 	apiKey := config.APIKey
 	if apiKey == "" {

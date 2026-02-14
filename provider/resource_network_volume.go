@@ -41,19 +41,24 @@ func (NetworkVolume) Create(
 	client := getClient(ctx)
 
 	createInput := runpod.CreateNetworkVolumeInput{
-		Name:         input.Name,
-		Size:         input.Size,
-		DataCenterID: input.DataCenterID,
+		Name:         &input.Name,
+		Size:         &input.Size,
+		DataCenterId: input.DataCenterID,
 	}
 
-	vol, err := client.CreateNetworkVolume(ctx, createInput)
+	resp, err := runpod.CreateNetworkVolume(ctx, client, createInput)
 	if err != nil {
 		return infer.CreateResponse[NetworkVolumeState]{}, err
 	}
 
-	state := networkVolumeToState(input, vol)
+	if resp.CreateNetworkVolume == nil {
+		return infer.CreateResponse[NetworkVolumeState]{}, fmt.Errorf("API returned nil network volume")
+	}
+
+	vol := resp.CreateNetworkVolume
+	state := networkVolumeResponseToState(input, vol)
 	return infer.CreateResponse[NetworkVolumeState]{
-		ID:     vol.ID,
+		ID:     runpod.PtrString(vol.Id),
 		Output: state,
 	}, nil
 }
@@ -65,22 +70,29 @@ func (NetworkVolume) Read(
 ) (infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState], error) {
 	client := getClient(ctx)
 
-	vol, err := client.GetNetworkVolume(ctx, req.ID)
+	resp, err := runpod.GetMyNetworkVolumes(ctx, client)
 	if err != nil {
 		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{}, err
 	}
 
-	if vol == nil {
+	if resp.Myself == nil {
 		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{},
 			fmt.Errorf("network volume %q not found", req.ID)
 	}
 
-	state := networkVolumeToState(req.Inputs, vol)
-	return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{
-		ID:     vol.ID,
-		Inputs: req.Inputs,
-		State:  state,
-	}, nil
+	for _, v := range resp.Myself.NetworkVolumes {
+		if v != nil && runpod.PtrString(v.Id) == req.ID {
+			state := networkVolumeResponseToState(req.Inputs, v)
+			return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{
+				ID:     req.ID,
+				Inputs: req.Inputs,
+				State:  state,
+			}, nil
+		}
+	}
+
+	return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{},
+		fmt.Errorf("network volume %q not found", req.ID)
 }
 
 // Update modifies a network volume (name and size are mutable).
@@ -97,32 +109,36 @@ func (NetworkVolume) Update(
 	client := getClient(ctx)
 
 	updateInput := runpod.UpdateNetworkVolumeInput{
-		ID:   req.ID,
-		Name: req.Inputs.Name,
-		Size: req.Inputs.Size,
+		Id:   req.ID,
+		Name: &req.Inputs.Name,
+		Size: &req.Inputs.Size,
 	}
 
-	vol, err := client.UpdateNetworkVolume(ctx, updateInput)
+	resp, err := runpod.UpdateNetworkVolume(ctx, client, updateInput)
 	if err != nil {
 		return infer.UpdateResponse[NetworkVolumeState]{}, err
 	}
 
-	state := networkVolumeToState(req.Inputs, vol)
+	if resp.UpdateNetworkVolume == nil {
+		return infer.UpdateResponse[NetworkVolumeState]{}, fmt.Errorf("API returned nil network volume on update")
+	}
+
+	state := networkVolumeResponseToState(req.Inputs, resp.UpdateNetworkVolume)
 	return infer.UpdateResponse[NetworkVolumeState]{Output: state}, nil
 }
 
 // Delete removes a network volume.
 func (NetworkVolume) Delete(ctx context.Context, req infer.DeleteRequest[NetworkVolumeState]) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if err := client.DeleteNetworkVolume(ctx, req.ID); err != nil {
+	if _, err := runpod.DeleteNetworkVolume(ctx, client, runpod.DeleteNetworkVolumeInput{Id: req.ID}); err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
 }
 
-func networkVolumeToState(input NetworkVolumeArgs, vol *runpod.NetworkVolume) NetworkVolumeState {
+func networkVolumeResponseToState(input NetworkVolumeArgs, vol *runpod.NetworkVolumeResponse) NetworkVolumeState {
 	return NetworkVolumeState{
 		NetworkVolumeArgs: input,
-		NetworkVolumeID:   vol.ID,
+		NetworkVolumeID:   runpod.PtrString(vol.Id),
 	}
 }

@@ -49,16 +49,17 @@ func (Endpoint) Create(
 	}
 
 	client := getClient(ctx)
+	saveInput := endpointArgsToInput(nil, input)
 
-	saveInput := endpointArgsToSaveInput("", input)
-	ep, err := client.CreateEndpoint(ctx, saveInput)
+	resp, err := runpod.SaveEndpoint(ctx, client, saveInput)
 	if err != nil {
 		return infer.CreateResponse[EndpointState]{}, err
 	}
 
-	state := endpointToState(input, ep)
+	ep := &resp.SaveEndpoint
+	state := endpointResponseToState(input, ep)
 	return infer.CreateResponse[EndpointState]{
-		ID:     ep.ID,
+		ID:     runpod.PtrString(ep.Id),
 		Output: state,
 	}, nil
 }
@@ -70,22 +71,29 @@ func (Endpoint) Read(
 ) (infer.ReadResponse[EndpointArgs, EndpointState], error) {
 	client := getClient(ctx)
 
-	ep, err := client.GetEndpoint(ctx, req.ID)
+	resp, err := runpod.GetMyEndpoints(ctx, client)
 	if err != nil {
 		return infer.ReadResponse[EndpointArgs, EndpointState]{}, err
 	}
 
-	if ep == nil {
+	if resp.Myself == nil {
 		return infer.ReadResponse[EndpointArgs, EndpointState]{},
 			fmt.Errorf("endpoint %q not found", req.ID)
 	}
 
-	state := endpointToState(req.Inputs, ep)
-	return infer.ReadResponse[EndpointArgs, EndpointState]{
-		ID:     ep.ID,
-		Inputs: req.Inputs,
-		State:  state,
-	}, nil
+	for _, e := range resp.Myself.Endpoints {
+		if e != nil && runpod.PtrString(e.Id) == req.ID {
+			state := endpointResponseToState(req.Inputs, e)
+			return infer.ReadResponse[EndpointArgs, EndpointState]{
+				ID:     req.ID,
+				Inputs: req.Inputs,
+				State:  state,
+			}, nil
+		}
+	}
+
+	return infer.ReadResponse[EndpointArgs, EndpointState]{},
+		fmt.Errorf("endpoint %q not found", req.ID)
 }
 
 // Update modifies an endpoint using the upsert pattern (saveEndpoint with id).
@@ -100,69 +108,51 @@ func (Endpoint) Update(
 	}
 
 	client := getClient(ctx)
+	id := req.ID
+	saveInput := endpointArgsToInput(&id, req.Inputs)
 
-	saveInput := endpointArgsToSaveInput(req.ID, req.Inputs)
-	ep, err := client.UpdateEndpoint(ctx, saveInput)
+	resp, err := runpod.SaveEndpoint(ctx, client, saveInput)
 	if err != nil {
 		return infer.UpdateResponse[EndpointState]{}, err
 	}
 
-	state := endpointToState(req.Inputs, ep)
+	ep := &resp.SaveEndpoint
+	state := endpointResponseToState(req.Inputs, ep)
 	return infer.UpdateResponse[EndpointState]{Output: state}, nil
 }
 
 // Delete removes an endpoint.
 func (Endpoint) Delete(ctx context.Context, req infer.DeleteRequest[EndpointState]) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if err := client.DeleteEndpoint(ctx, req.ID); err != nil {
+	if _, err := runpod.DeleteEndpoint(ctx, client, req.ID); err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
 }
 
-func endpointArgsToSaveInput(id string, args EndpointArgs) runpod.SaveEndpointInput {
-	input := runpod.SaveEndpointInput{
-		ID:          id,
-		Name:        args.Name,
-		InstanceIds: args.InstanceIds,
-		Env:         runpod.EnvMapToGQL(args.Env),
-	}
-	if args.TemplateID != nil {
-		input.TemplateID = *args.TemplateID
-	}
-	if args.GpuIds != nil {
-		input.GpuIds = *args.GpuIds
-	}
-	if args.WorkersMin != nil {
-		input.WorkersMin = *args.WorkersMin
-	}
-	if args.WorkersMax != nil {
-		input.WorkersMax = *args.WorkersMax
-	}
-	if args.IdleTimeout != nil {
-		input.IdleTimeout = *args.IdleTimeout
-	}
-	if args.Locations != nil {
-		input.Locations = *args.Locations
-	}
-	if args.ScalerType != nil {
-		input.ScalerType = *args.ScalerType
-	}
-	if args.ScalerValue != nil {
-		input.ScalerValue = *args.ScalerValue
-	}
-	if args.NetworkVolumeID != nil {
-		input.NetworkVolumeID = *args.NetworkVolumeID
-	}
-	if args.GpuCount != nil {
-		input.GpuCount = *args.GpuCount
+func endpointArgsToInput(id *string, args EndpointArgs) runpod.EndpointInput {
+	input := runpod.EndpointInput{
+		Id:              id,
+		Name:            args.Name,
+		TemplateId:      args.TemplateID,
+		GpuIds:          args.GpuIds,
+		WorkersMin:      args.WorkersMin,
+		WorkersMax:      args.WorkersMax,
+		IdleTimeout:     args.IdleTimeout,
+		Locations:       args.Locations,
+		ScalerType:      args.ScalerType,
+		ScalerValue:     args.ScalerValue,
+		NetworkVolumeId: args.NetworkVolumeID,
+		GpuCount:        args.GpuCount,
+		InstanceIds:     runpod.StringPtrSlice(args.InstanceIds),
+		Env:             runpod.EnvMapToGQL(args.Env),
 	}
 	return input
 }
 
-func endpointToState(input EndpointArgs, ep *runpod.Endpoint) EndpointState {
+func endpointResponseToState(input EndpointArgs, ep *runpod.EndpointResponse) EndpointState {
 	return EndpointState{
 		EndpointArgs: input,
-		EndpointID:   ep.ID,
+		EndpointID:   runpod.PtrString(ep.Id),
 	}
 }

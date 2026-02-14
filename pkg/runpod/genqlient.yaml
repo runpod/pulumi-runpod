@@ -1,0 +1,18 @@
+schema: schema.graphql
+operations:
+  - operations/*.graphql
+generated: generated.go
+package: runpod
+optional: pointer
+
+bindings:
+  DateTime:
+    type: string
+  JSON:
+    type: interface{}
+  Port:
+    type: interface{}
+  BigInt:
+    type: int64
+  Void:
+    type: interface{}

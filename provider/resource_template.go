@@ -50,16 +50,20 @@ func (Template) Create(
 	}
 
 	client := getClient(ctx)
+	saveInput := templateArgsToSaveInput(nil, input)
 
-	saveInput := templateArgsToSaveInput("", input)
-	tmpl, err := client.CreateTemplate(ctx, saveInput)
+	resp, err := runpod.SaveTemplate(ctx, client, &saveInput)
 	if err != nil {
 		return infer.CreateResponse[TemplateState]{}, err
 	}
 
-	state := templateToState(input, tmpl)
+	if resp.SaveTemplate == nil {
+		return infer.CreateResponse[TemplateState]{}, fmt.Errorf("API returned nil template")
+	}
+
+	state := templateResponseToState(input, resp.SaveTemplate)
 	return infer.CreateResponse[TemplateState]{
-		ID:     tmpl.ID,
+		ID:     runpod.PtrString(resp.SaveTemplate.Id),
 		Output: state,
 	}, nil
 }
@@ -71,22 +75,29 @@ func (Template) Read(
 ) (infer.ReadResponse[TemplateArgs, TemplateState], error) {
 	client := getClient(ctx)
 
-	tmpl, err := client.GetTemplate(ctx, req.ID)
+	resp, err := runpod.GetMyTemplates(ctx, client)
 	if err != nil {
 		return infer.ReadResponse[TemplateArgs, TemplateState]{}, err
 	}
 
-	if tmpl == nil {
+	if resp.Myself == nil {
 		return infer.ReadResponse[TemplateArgs, TemplateState]{},
 			fmt.Errorf("template %q not found", req.ID)
 	}
 
-	state := templateToState(req.Inputs, tmpl)
-	return infer.ReadResponse[TemplateArgs, TemplateState]{
-		ID:     tmpl.ID,
-		Inputs: req.Inputs,
-		State:  state,
-	}, nil
+	for _, t := range resp.Myself.PodTemplates {
+		if t != nil && runpod.PtrString(t.Id) == req.ID {
+			state := templateResponseToState(req.Inputs, t)
+			return infer.ReadResponse[TemplateArgs, TemplateState]{
+				ID:     req.ID,
+				Inputs: req.Inputs,
+				State:  state,
+			}, nil
+		}
+	}
+
+	return infer.ReadResponse[TemplateArgs, TemplateState]{},
+		fmt.Errorf("template %q not found", req.ID)
 }
 
 // Update modifies a template using the upsert pattern (saveTemplate with id).
@@ -101,14 +112,19 @@ func (Template) Update(
 	}
 
 	client := getClient(ctx)
+	id := req.ID
+	saveInput := templateArgsToSaveInput(&id, req.Inputs)
 
-	saveInput := templateArgsToSaveInput(req.ID, req.Inputs)
-	tmpl, err := client.UpdateTemplate(ctx, saveInput)
+	resp, err := runpod.SaveTemplate(ctx, client, &saveInput)
 	if err != nil {
 		return infer.UpdateResponse[TemplateState]{}, err
 	}
 
-	state := templateToState(req.Inputs, tmpl)
+	if resp.SaveTemplate == nil {
+		return infer.UpdateResponse[TemplateState]{}, fmt.Errorf("API returned nil template")
+	}
+
+	state := templateResponseToState(req.Inputs, resp.SaveTemplate)
 	return infer.UpdateResponse[TemplateState]{Output: state}, nil
 }
 
@@ -116,47 +132,42 @@ func (Template) Update(
 // Note: RunPod's deleteTemplate mutation takes the template name, not ID.
 func (Template) Delete(ctx context.Context, req infer.DeleteRequest[TemplateState]) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if err := client.DeleteTemplate(ctx, req.State.Name); err != nil {
+	name := req.State.Name
+	if _, err := runpod.DeleteTemplate(ctx, client, &name); err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
 }
 
-func templateArgsToSaveInput(id string, args TemplateArgs) runpod.SaveTemplateInput {
-	input := runpod.SaveTemplateInput{
-		ID:                id,
-		Name:              args.Name,
-		ImageName:         args.ImageName,
-		ContainerDiskInGb: args.ContainerDiskInGb,
-		VolumeInGb:        args.VolumeInGb,
-		Env:               runpod.EnvMapToGQL(args.Env),
-		StartJupyter:      args.StartJupyter,
-		StartSsh:          args.StartSsh,
-		IsServerless:      args.IsServerless,
-		IsPublic:          args.IsPublic,
-	}
+func templateArgsToSaveInput(id *string, args TemplateArgs) runpod.SaveTemplateInput {
+	dockerArgs := ""
 	if args.DockerArgs != nil {
-		input.DockerArgs = *args.DockerArgs
+		dockerArgs = *args.DockerArgs
 	}
-	if args.Ports != nil {
-		input.Ports = *args.Ports
+
+	return runpod.SaveTemplateInput{
+		Id:                      id,
+		Name:                    args.Name,
+		ImageName:               &args.ImageName,
+		ContainerDiskInGb:       args.ContainerDiskInGb,
+		VolumeInGb:              args.VolumeInGb,
+		DockerArgs:              dockerArgs,
+		Env:                     runpod.EnvMapToGQL(args.Env),
+		Ports:                   args.Ports,
+		VolumeMountPath:         args.VolumeMountPath,
+		StartJupyter:            args.StartJupyter,
+		StartSsh:                args.StartSsh,
+		StartScript:             args.StartScript,
+		IsServerless:            args.IsServerless,
+		IsPublic:                args.IsPublic,
+		ContainerRegistryAuthId: args.ContainerRegistryAuthID,
 	}
-	if args.VolumeMountPath != nil {
-		input.VolumeMountPath = *args.VolumeMountPath
-	}
-	if args.StartScript != nil {
-		input.StartScript = *args.StartScript
-	}
-	if args.ContainerRegistryAuthID != nil {
-		input.ContainerRegistryAuthID = *args.ContainerRegistryAuthID
-	}
-	return input
 }
 
-func templateToState(input TemplateArgs, tmpl *runpod.PodTemplate) TemplateState {
+func templateResponseToState(input TemplateArgs, tmpl *runpod.TemplateResponse) TemplateState {
 	state := TemplateState{
 		TemplateArgs: input,
-		TemplateID:   tmpl.ID,
+		TemplateID:   runpod.PtrString(tmpl.Id),
 	}
 	if env := runpod.EnvGQLToMap(tmpl.Env); len(env) > 0 {
 		state.Env = env

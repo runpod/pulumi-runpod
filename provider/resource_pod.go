@@ -64,68 +64,48 @@ func (Pod) Create(
 
 	client := getClient(ctx)
 
-	createInput := runpod.CreatePodInput{
-		Name:            input.Name,
-		GpuTypeID:       input.GpuTypeID,
-		Env:             runpod.EnvMapToGQL(input.Env),
-		StartJupyter:    input.StartJupyter,
-		StartSsh:        input.StartSsh,
-		SupportPublicIP: input.SupportPublicIP,
-	}
-	if input.GpuCount != nil {
-		createInput.GpuCount = *input.GpuCount
-	}
-	if input.CloudType != nil {
-		createInput.CloudType = *input.CloudType
-	}
-	if input.ImageName != nil {
-		createInput.ImageName = *input.ImageName
-	}
-	if input.DockerArgs != nil {
-		createInput.DockerArgs = *input.DockerArgs
-	}
-	if input.Ports != nil {
-		createInput.Ports = *input.Ports
-	}
-	if input.VolumeInGb != nil {
-		createInput.VolumeInGb = *input.VolumeInGb
-	}
-	if input.VolumeMountPath != nil {
-		createInput.VolumeMountPath = *input.VolumeMountPath
-	}
-	if input.ContainerDiskInGb != nil {
-		createInput.ContainerDiskInGb = *input.ContainerDiskInGb
-	}
-	if input.TemplateID != nil {
-		createInput.TemplateID = *input.TemplateID
-	}
-	if input.NetworkVolumeID != nil {
-		createInput.NetworkVolumeID = *input.NetworkVolumeID
-	}
-	if input.ContainerRegistryAuthID != nil {
-		createInput.ContainerRegistryAuthID = *input.ContainerRegistryAuthID
-	}
-	if input.DataCenterID != nil {
-		createInput.DataCenterID = *input.DataCenterID
-	}
-	if input.MinVcpuCount != nil {
-		createInput.MinVcpuCount = *input.MinVcpuCount
-	}
-	if input.MinMemoryInGb != nil {
-		createInput.MinMemoryInGb = *input.MinMemoryInGb
-	}
-	if input.CudaVersion != nil {
-		createInput.CudaVersion = *input.CudaVersion
+	createInput := runpod.PodFindAndDeployOnDemandInput{
+		Name:                    &input.Name,
+		GpuTypeId:               &input.GpuTypeID,
+		GpuCount:                input.GpuCount,
+		ImageName:               input.ImageName,
+		DockerArgs:              input.DockerArgs,
+		Env:                     runpod.EnvMapToGQL(input.Env),
+		Ports:                   input.Ports,
+		VolumeInGb:              input.VolumeInGb,
+		VolumeMountPath:         input.VolumeMountPath,
+		ContainerDiskInGb:       input.ContainerDiskInGb,
+		TemplateId:              input.TemplateID,
+		NetworkVolumeId:         input.NetworkVolumeID,
+		ContainerRegistryAuthId: input.ContainerRegistryAuthID,
+		DataCenterId:            input.DataCenterID,
+		StartJupyter:            input.StartJupyter,
+		StartSsh:                input.StartSsh,
+		SupportPublicIp:         input.SupportPublicIP,
+		MinVcpuCount:            input.MinVcpuCount,
+		MinMemoryInGb:           input.MinMemoryInGb,
+		CudaVersion:             input.CudaVersion,
 	}
 
-	pod, err := client.CreatePod(ctx, createInput)
+	// CloudType needs conversion to the enum
+	if input.CloudType != nil {
+		ct := runpod.CloudTypeEnum(*input.CloudType)
+		createInput.CloudType = &ct
+	}
+
+	resp, err := runpod.CreatePod(ctx, client, createInput)
 	if err != nil {
 		return infer.CreateResponse[PodState]{}, err
 	}
 
-	state := podToState(input, pod)
+	if resp.PodFindAndDeployOnDemand == nil {
+		return infer.CreateResponse[PodState]{}, fmt.Errorf("API returned nil pod")
+	}
+
+	pod := resp.PodFindAndDeployOnDemand
+	state := podResponseToState(input, pod)
 	return infer.CreateResponse[PodState]{
-		ID:     pod.ID,
+		ID:     pod.Id,
 		Output: state,
 	}, nil
 }
@@ -137,18 +117,18 @@ func (Pod) Read(
 ) (infer.ReadResponse[PodArgs, PodState], error) {
 	client := getClient(ctx)
 
-	pod, err := client.GetPod(ctx, req.ID)
+	resp, err := runpod.GetPod(ctx, client, runpod.PodFilter{PodId: req.ID})
 	if err != nil {
 		return infer.ReadResponse[PodArgs, PodState]{}, err
 	}
 
-	if pod == nil {
+	if resp.Pod == nil {
 		return infer.ReadResponse[PodArgs, PodState]{}, fmt.Errorf("pod %q not found", req.ID)
 	}
 
-	state := podToState(req.Inputs, pod)
+	state := podResponseToState(req.Inputs, resp.Pod)
 	return infer.ReadResponse[PodArgs, PodState]{
-		ID:     pod.ID,
+		ID:     resp.Pod.Id,
 		Inputs: req.Inputs,
 		State:  state,
 	}, nil
@@ -167,51 +147,56 @@ func (Pod) Update(
 
 	client := getClient(ctx)
 
-	updateInput := runpod.UpdatePodInput{
-		PodID: req.ID,
-		Env:   runpod.EnvMapToGQL(req.Inputs.Env),
-	}
+	imageName := ""
 	if req.Inputs.ImageName != nil {
-		updateInput.ImageName = *req.Inputs.ImageName
-	}
-	if req.Inputs.DockerArgs != nil {
-		updateInput.DockerArgs = *req.Inputs.DockerArgs
+		imageName = *req.Inputs.ImageName
 	}
 
-	pod, err := client.UpdatePod(ctx, updateInput)
+	updateInput := runpod.PodEditJobInput{
+		PodId:     req.ID,
+		ImageName: imageName,
+		DockerArgs: req.Inputs.DockerArgs,
+		Env:       runpod.EnvMapToGQL(req.Inputs.Env),
+	}
+
+	resp, err := runpod.UpdatePod(ctx, client, updateInput)
 	if err != nil {
 		return infer.UpdateResponse[PodState]{}, err
 	}
 
-	state := podToState(req.Inputs, pod)
+	if resp.PodEditJob == nil {
+		return infer.UpdateResponse[PodState]{}, fmt.Errorf("API returned nil pod on update")
+	}
+
+	state := podResponseToState(req.Inputs, resp.PodEditJob)
 	return infer.UpdateResponse[PodState]{Output: state}, nil
 }
 
 // Delete terminates the pod.
 func (Pod) Delete(ctx context.Context, req infer.DeleteRequest[PodState]) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if err := client.TerminatePod(ctx, req.ID); err != nil {
+	if _, err := runpod.TerminatePod(ctx, client, runpod.PodTerminateInput{PodId: req.ID}); err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
 }
 
-func podToState(input PodArgs, pod *runpod.Pod) PodState {
+func podResponseToState(input PodArgs, pod *runpod.PodResponse) PodState {
 	state := PodState{
 		PodArgs:       input,
-		PodID:         pod.ID,
-		MachineID:     pod.MachineID,
+		PodID:         pod.Id,
+		MachineID:     pod.MachineId,
 		CostPerHr:     pod.CostPerHr,
-		DesiredStatus: pod.DesiredStatus,
+		DesiredStatus: string(pod.DesiredStatus),
 		VcpuCount:     pod.VcpuCount,
 		MemoryInGb:    pod.MemoryInGb,
 	}
 	// Sync mutable fields from API response
-	if pod.ImageName != "" {
-		state.ImageName = &pod.ImageName
+	if pod.ImageName != nil {
+		state.ImageName = pod.ImageName
 	}
-	if pod.DockerArgs != "" {
-		state.DockerArgs = &pod.DockerArgs
+	if pod.DockerArgs != nil {
+		state.DockerArgs = pod.DockerArgs
 	}
 	if env := runpod.EnvSliceToMap(pod.Env); len(env) > 0 {
 		state.Env = env

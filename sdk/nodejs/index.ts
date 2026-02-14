@@ -32,20 +32,20 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "provider-boilerplate:index:Random":
+            case "runpod:index:Random":
                 return new Random(name, <any>undefined, { urn })
-            case "provider-boilerplate:index:RandomComponent":
+            case "runpod:index:RandomComponent":
                 return new RandomComponent(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("provider-boilerplate", "index", _module)
-pulumi.runtime.registerResourcePackage("provider-boilerplate", {
+pulumi.runtime.registerResourceModule("runpod", "index", _module)
+pulumi.runtime.registerResourcePackage("runpod", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:provider-boilerplate") {
+        if (type !== "pulumi:providers:runpod") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });

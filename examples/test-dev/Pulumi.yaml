@@ -1,0 +1,63 @@
+name: runpod-dev-test
+runtime: yaml
+description: Test RunPod provider against dev API
+
+resources:
+  # 1. Template (no cost)
+  testTemplate:
+    type: runpod:Template
+    properties:
+      name: pulumi-test-template
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 5
+      volumeInGb: 0
+      dockerArgs: ""
+      startSsh: true
+      isServerless: true
+      env:
+        TEST_KEY: test_value
+
+  # 2. Endpoint (no cost at 0 workers)
+  testEndpoint:
+    type: runpod:Endpoint
+    properties:
+      name: pulumi-test-endpoint
+      templateId: ${testTemplate.templateId}
+      gpuIds: "NVIDIA GeForce RTX 4090"
+      workersMin: 0
+      workersMax: 1
+      gpuCount: 1
+      idleTimeout: 5
+
+  # 3. GPU Pod
+  gpuPod:
+    type: runpod:Pod
+    properties:
+      name: pulumi-test-gpu-pod
+      gpuTypeId: "NVIDIA GeForce RTX 4090"
+      gpuCount: 1
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 5
+      cloudType: ALL
+      startSsh: true
+      env:
+        GPU_TEST: "true"
+
+  # 4. CPU Pod
+  cpuPod:
+    type: runpod:Pod
+    properties:
+      name: pulumi-test-cpu-pod
+      gpuTypeId: "cpu3"
+      gpuCount: 1
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 5
+      startSsh: true
+      env:
+        CPU_TEST: "true"
+
+outputs:
+  templateId: ${testTemplate.templateId}
+  endpointId: ${testEndpoint.endpointId}
+  gpuPodId: ${gpuPod.podId}
+  cpuPodId: ${cpuPod.podId}

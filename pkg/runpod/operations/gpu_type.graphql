@@ -1,0 +1,14 @@
+# @genqlient
+query GetGpuTypes($input: GpuTypeFilter) {
+  # @genqlient(typename: "GpuTypeResponse")
+  gpuTypes(input: $input) {
+    id
+    displayName
+    memoryInGb
+    secureCloud
+    communityCloud
+    securePrice
+    communityPrice
+    maxGpuCount
+  }
+}

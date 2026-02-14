@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 declare var exports: any;
-const __config = new pulumi.Config("provider-boilerplate");
+const __config = new pulumi.Config("runpod");
 
 export declare const itsasecret: boolean | undefined;
 Object.defineProperty(exports, "itsasecret", {

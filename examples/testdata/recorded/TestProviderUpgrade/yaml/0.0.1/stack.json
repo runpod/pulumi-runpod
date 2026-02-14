@@ -14,7 +14,7 @@
     },
     "resources": [
       {
-        "urn": "urn:pulumi:test::provider-boilerplate::pulumi:pulumi:Stack::provider-boilerplate-test",
+        "urn": "urn:pulumi:test::runpod::pulumi:pulumi:Stack::runpod-test",
         "custom": false,
         "type": "pulumi:pulumi:Stack",
         "outputs": {
@@ -26,10 +26,10 @@
         "modified": "2025-05-30T21:47:31.971519Z"
       },
       {
-        "urn": "urn:pulumi:test::provider-boilerplate::pulumi:providers:provider-boilerplate::default",
+        "urn": "urn:pulumi:test::runpod::pulumi:providers:runpod::default",
         "custom": true,
         "id": "8ebefee5-0c5c-483f-ad91-407e3909b8ee",
-        "type": "pulumi:providers:provider-boilerplate",
+        "type": "pulumi:providers:runpod",
         "inputs": {
           "__internal": {
             "pulumi-go-provider-infer": true,
@@ -40,10 +40,10 @@
         "modified": "2025-05-30T21:47:31.979385Z"
       },
       {
-        "urn": "urn:pulumi:test::provider-boilerplate::provider-boilerplate:index:Random::myRandomResource",
+        "urn": "urn:pulumi:test::runpod::runpod:index:Random::myRandomResource",
         "custom": true,
         "id": "myRandomResource",
-        "type": "provider-boilerplate:index:Random",
+        "type": "runpod:index:Random",
         "inputs": {
           "length": 24
         },
@@ -51,8 +51,8 @@
           "length": 24,
           "result": "n31imZ04vLfP2Cbzp9GLnuwq"
         },
-        "parent": "urn:pulumi:test::provider-boilerplate::pulumi:pulumi:Stack::provider-boilerplate-test",
-        "provider": "urn:pulumi:test::provider-boilerplate::pulumi:providers:provider-boilerplate::default::8ebefee5-0c5c-483f-ad91-407e3909b8ee",
+        "parent": "urn:pulumi:test::runpod::pulumi:pulumi:Stack::runpod-test",
+        "provider": "urn:pulumi:test::runpod::pulumi:providers:runpod::default::8ebefee5-0c5c-483f-ad91-407e3909b8ee",
         "propertyDependencies": {
           "length": []
         },
@@ -60,9 +60,9 @@
         "modified": "2025-05-30T21:47:31.98239Z"
       },
       {
-        "urn": "urn:pulumi:test::provider-boilerplate::provider-boilerplate:index:RandomComponent::myRandomComponent",
+        "urn": "urn:pulumi:test::runpod::runpod:index:RandomComponent::myRandomComponent",
         "custom": false,
-        "type": "provider-boilerplate:index:RandomComponent",
+        "type": "runpod:index:RandomComponent",
         "outputs": {
           "length": 24,
           "password": {
@@ -70,12 +70,12 @@
             "plaintext": "\"REDACTED BY PROVIDERTEST\""
           }
         },
-        "parent": "urn:pulumi:test::provider-boilerplate::pulumi:pulumi:Stack::provider-boilerplate-test",
+        "parent": "urn:pulumi:test::runpod::pulumi:pulumi:Stack::runpod-test",
         "created": "2025-05-30T21:47:31.984582Z",
         "modified": "2025-05-30T21:47:31.984582Z"
       },
       {
-        "urn": "urn:pulumi:test::provider-boilerplate::pulumi:providers:random::default_4_18_2",
+        "urn": "urn:pulumi:test::runpod::pulumi:providers:random::default_4_18_2",
         "custom": true,
         "id": "2cf21826-def2-47bb-b564-a49a873c09d0",
         "type": "pulumi:providers:random",
@@ -90,7 +90,7 @@
         "modified": "2025-05-30T21:47:32.155789Z"
       },
       {
-        "urn": "urn:pulumi:test::provider-boilerplate::provider-boilerplate:index:RandomComponent$random:index/randomPassword:RandomPassword::myRandomComponent-password",
+        "urn": "urn:pulumi:test::runpod::runpod:index:RandomComponent$random:index/randomPassword:RandomPassword::myRandomComponent-password",
         "custom": true,
         "id": "none",
         "type": "random:index/randomPassword:RandomPassword",
@@ -133,8 +133,8 @@
           "special": true,
           "upper": true
         },
-        "parent": "urn:pulumi:test::provider-boilerplate::provider-boilerplate:index:RandomComponent::myRandomComponent",
-        "provider": "urn:pulumi:test::provider-boilerplate::pulumi:providers:random::default_4_18_2::2cf21826-def2-47bb-b564-a49a873c09d0",
+        "parent": "urn:pulumi:test::runpod::runpod:index:RandomComponent::myRandomComponent",
+        "provider": "urn:pulumi:test::runpod::pulumi:providers:random::default_4_18_2::2cf21826-def2-47bb-b564-a49a873c09d0",
         "propertyDependencies": {
           "length": []
         },

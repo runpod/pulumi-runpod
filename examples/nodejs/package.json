@@ -1,11 +1,11 @@
 {
-  "name": "provider-boilerplate",
+  "name": "runpod",
   "devDependencies": {
     "@types/node": "^20"
   },
   "dependencies": {
     "typescript": "^4.0.0",
     "@pulumi/pulumi": "3.176.0",
-    "@mynamespace/provider-boilerplate": "1.0.0-alpha.0+dev"
+    "@mynamespace/runpod": "1.0.0-alpha.0+dev"
   }
 }

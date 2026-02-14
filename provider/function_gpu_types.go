@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/pulumi/pulumi-go-provider/infer"
+
+	"github.com/runpod/pulumi-runpod/pkg/runpod"
 )
 
 // GetGpuTypes is the controller for the runpod:index:getGpuTypes function (invoke).
@@ -36,22 +38,25 @@ func (GetGpuTypes) Invoke(
 ) (infer.FunctionResponse[GetGpuTypesResult], error) {
 	client := getClient(ctx)
 
-	gpuTypes, err := client.GetGpuTypes(ctx)
+	resp, err := runpod.GetGpuTypes(ctx, client, nil)
 	if err != nil {
 		return infer.FunctionResponse[GetGpuTypesResult]{}, err
 	}
 
-	result := make([]GpuTypeOutput, len(gpuTypes))
-	for i, g := range gpuTypes {
+	result := make([]GpuTypeOutput, len(resp.GpuTypes))
+	for i, g := range resp.GpuTypes {
+		if g == nil {
+			continue
+		}
 		result[i] = GpuTypeOutput{
-			ID:             g.ID,
-			DisplayName:    g.DisplayName,
-			MemoryInGb:     g.MemoryInGb,
-			SecureCloud:    g.SecureCloud,
-			CommunityCloud: g.CommunityCloud,
-			SecurePrice:    g.SecurePrice,
-			CommunityPrice: g.CommunityPrice,
-			MaxGpuCount:    g.MaxGpuCount,
+			ID:             runpod.PtrString(g.Id),
+			DisplayName:    runpod.PtrString(g.DisplayName),
+			MemoryInGb:     runpod.PtrInt(g.MemoryInGb),
+			SecureCloud:    runpod.PtrBool(g.SecureCloud),
+			CommunityCloud: runpod.PtrBool(g.CommunityCloud),
+			SecurePrice:    runpod.PtrFloat64(g.SecurePrice),
+			CommunityPrice: runpod.PtrFloat64(g.CommunityPrice),
+			MaxGpuCount:    runpod.PtrInt(g.MaxGpuCount),
 		}
 	}
 
