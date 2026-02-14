@@ -6,10 +6,8 @@ import (
 )
 
 // EnvMapToGQL converts a map of env vars to the GraphQL input format.
+// Returns an empty slice (not nil) when no env vars — many GQL mutations require non-null.
 func EnvMapToGQL(env map[string]string) []EnvironmentVariable {
-	if len(env) == 0 {
-		return nil
-	}
 	result := make([]EnvironmentVariable, 0, len(env))
 	for k, v := range env {
 		result = append(result, EnvironmentVariable{Key: k, Value: v})

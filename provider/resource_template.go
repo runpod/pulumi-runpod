@@ -113,9 +113,10 @@ func (Template) Update(
 }
 
 // Delete removes a template.
+// Note: RunPod's deleteTemplate mutation takes the template name, not ID.
 func (Template) Delete(ctx context.Context, req infer.DeleteRequest[TemplateState]) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if err := client.DeleteTemplate(ctx, req.ID); err != nil {
+	if err := client.DeleteTemplate(ctx, req.State.Name); err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil

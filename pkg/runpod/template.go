@@ -77,8 +77,8 @@ query myself {
 `
 
 const deleteTemplateQuery = `
-mutation deleteTemplate($id: String!) {
-  deleteTemplate(id: $id)
+mutation deleteTemplate($templateName: String!) {
+  deleteTemplate(templateName: $templateName)
 }
 `
 
@@ -134,11 +134,12 @@ func (c *Client) GetTemplate(ctx context.Context, templateID string) (*PodTempla
 	return nil, nil // Not found
 }
 
-// DeleteTemplate deletes a template by ID.
-func (c *Client) DeleteTemplate(ctx context.Context, templateID string) error {
-	vars := map[string]any{"id": templateID}
+// DeleteTemplate deletes a template by name.
+// Note: The RunPod API deleteTemplate mutation takes the template name, not ID.
+func (c *Client) DeleteTemplate(ctx context.Context, templateName string) error {
+	vars := map[string]any{"templateName": templateName}
 	if err := c.Do(ctx, deleteTemplateQuery, vars, nil); err != nil {
-		return FormatError("deleting", "template", templateID, err)
+		return FormatError("deleting", "template", templateName, err)
 	}
 	return nil
 }
