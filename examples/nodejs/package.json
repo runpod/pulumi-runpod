@@ -5,7 +5,7 @@
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.0.0",
-        "@pulumi/runpod": "file:../../sdk/nodejs/pulumi-runpod-1.0.0-alpha.0+dev.tgz",
+        "@runpod/pulumi": "file:../../sdk/nodejs/pulumi-runpod-1.0.0-alpha.0+dev.tgz",
         "typescript": "^4.0.0"
     }
 }

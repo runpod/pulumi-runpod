@@ -1,14 +1,18 @@
 template: native
 provider: runpod
+organization: runpod
 major-version: 0
 providerDefaultBranch: main
 publishRegistry: true
 providerVersion: github.com/runpod/pulumi-runpod/provider.Version
 parallel: 3
 sdkModuleDir: sdk/go/runpod
-esc:
-    enabled: true
-    environment: imports/github-secrets
-# For some reason this is required. If it's omitted all of the env keys get duplicated.
-envOverride:
-    FOO: BAR
+languages:
+    - nodejs
+    - python
+    - go
+    - dotnet
+publish:
+    cdn: false
+github-app:
+    enabled: false

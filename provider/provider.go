@@ -1,4 +1,4 @@
-// Copyright 2025, Pulumi Corporation.
+// Copyright 2025, RunPod, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -41,6 +41,9 @@ func Provider() p.Provider {
 		WithDescription("Manage RunPod GPU cloud resources.").
 		WithHomepage("https://www.runpod.io").
 		WithNamespace("runpod").
+		WithPublisher("RunPod").
+		WithKeywords("category/infrastructure", "kind/native").
+		WithLicense("Apache-2.0").
 		WithPluginDownloadURL("github://api.github.com/runpod/pulumi-runpod").
 		WithRepository("https://github.com/runpod/pulumi-runpod").
 		WithLanguageMap(map[string]any{

@@ -24,7 +24,7 @@ The provider plugin is installed automatically when you use it in a Pulumi progr
 ### Node.js (TypeScript/JavaScript)
 
 ```bash
-npm install @pulumi/runpod
+npm install @runpod/pulumi
 ```
 
 ### Python
@@ -66,7 +66,7 @@ pulumi config set runpod:apiUrl https://api.runpod.io/graphql
 ### TypeScript
 
 ```typescript
-import * as runpod from "@pulumi/runpod";
+import * as runpod from "@runpod/pulumi";
 
 const template = new runpod.Template("myTemplate", {
     name: "my-template",

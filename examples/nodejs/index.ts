@@ -1,4 +1,4 @@
-import * as runpod from "@pulumi/runpod";
+import * as runpod from "@runpod/pulumi";
 
 const myTemplate = new runpod.Template("myTemplate", {
     name: "my-pulumi-template",

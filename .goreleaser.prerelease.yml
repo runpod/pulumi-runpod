@@ -13,31 +13,14 @@ builds:
   goarch:
   - amd64
   - arm64
-  ignore: &a1 []
+  ignore: []
   main: ./cmd/pulumi-resource-runpod/
-  ldflags: &a2
+  ldflags:
     - -s
     - -w
     - -X
       github.com/runpod/pulumi-runpod/provider.Version={{.Tag}}
   binary: pulumi-resource-runpod
-- id: build-provider-sign-windows
-  dir: provider
-  env:
-  - CGO_ENABLED=0
-  - GO111MODULE=on
-  goos:
-  - windows
-  goarch:
-  - amd64
-  - arm64
-  ignore: *a1
-  main: ./cmd/pulumi-resource-runpod/
-  ldflags: *a2
-  binary: pulumi-resource-runpod
-  hooks:
-    post:
-    - make sign-goreleaser-exe-{{ .Arch }}
 archives:
 - name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
   id: archive
@@ -47,10 +30,3 @@ changelog:
   skip: true
 release:
   disable: true
-blobs:
-- provider: s3
-  region: us-west-2
-  bucket: get.pulumi.com
-  folder: releases/plugins/
-  ids:
-  - archive

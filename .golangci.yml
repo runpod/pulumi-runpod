@@ -40,7 +40,7 @@ linters-settings:
       - blank # Blank section: contains all blank imports.
       - default # Default section: contains all imports that could not be matched to another section type.
       - prefix(github.com/pulumi/) # Custom section: groups all imports with the github.com/pulumi/ prefix.
-      - prefix(github.com/pulumi/pulumi-dockerbuild/) # Custom section: local imports
+      - prefix(github.com/runpod/pulumi-runpod/) # Custom section: local imports
     custom-order: true
   gocritic:
     enable-all: true
@@ -49,7 +49,7 @@ linters-settings:
       - importShadow
   goheader:
     template: |-
-      Copyright 2025, Pulumi Corporation.
+      Copyright 2025, RunPod, Inc.
 
       Licensed under the Apache License, Version 2.0 (the "License");
       you may not use this file except in compliance with the License.
