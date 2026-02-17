@@ -1,12 +1,26 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/pulumi/pulumi-go-provider/infer"
+	"errors"
 
 	"github.com/runpod/pulumi-runpod/pkg/runpod"
+
+	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
 // ContainerRegistryAuth is the controller for the runpod:index:ContainerRegistryAuth resource.
@@ -21,9 +35,12 @@ type ContainerRegistryAuthArgs struct {
 
 // Annotate provides descriptions for ContainerRegistryAuthArgs fields.
 func (a *ContainerRegistryAuthArgs) Annotate(an infer.Annotator) {
-	an.Describe(&a.Name, "A name for the registry auth credentials.")
-	an.Describe(&a.Username, "The username for the container registry.")
-	an.Describe(&a.Password, "The password or access token for the container registry.")
+	an.Describe(&a.Name,
+		"A name for the registry auth credentials.")
+	an.Describe(&a.Username,
+		"The username for the container registry.")
+	an.Describe(&a.Password,
+		"The password or access token for the container registry.")
 }
 
 // ContainerRegistryAuthState is the persisted state of a container registry auth resource.
@@ -34,7 +51,8 @@ type ContainerRegistryAuthState struct {
 
 // Annotate provides descriptions for ContainerRegistryAuthState fields.
 func (s *ContainerRegistryAuthState) Annotate(a infer.Annotator) {
-	a.Describe(&s.RegistryAuthID, "The unique identifier of the registry auth.")
+	a.Describe(&s.RegistryAuthID,
+		"The unique identifier of the registry auth.")
 }
 
 // Create creates a new container registry auth.
@@ -45,8 +63,10 @@ func (ContainerRegistryAuth) Create(
 	input := req.Inputs
 	if req.DryRun {
 		return infer.CreateResponse[ContainerRegistryAuthState]{
-			ID:     req.Name,
-			Output: ContainerRegistryAuthState{ContainerRegistryAuthArgs: input},
+			ID: req.Name,
+			Output: ContainerRegistryAuthState{
+				ContainerRegistryAuthArgs: input,
+			},
 		}, nil
 	}
 
@@ -64,7 +84,8 @@ func (ContainerRegistryAuth) Create(
 	}
 
 	if resp.SaveRegistryAuth == nil {
-		return infer.CreateResponse[ContainerRegistryAuthState]{}, fmt.Errorf("API returned nil registry auth")
+		return infer.CreateResponse[ContainerRegistryAuthState]{},
+			errors.New("API returned nil registry auth")
 	}
 
 	ra := resp.SaveRegistryAuth
@@ -78,23 +99,34 @@ func (ContainerRegistryAuth) Create(
 // Read refreshes the registry auth state from the API.
 func (ContainerRegistryAuth) Read(
 	ctx context.Context,
-	req infer.ReadRequest[ContainerRegistryAuthArgs, ContainerRegistryAuthState],
-) (infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState], error) {
+	req infer.ReadRequest[
+		ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+	],
+) (infer.ReadResponse[
+	ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+], error,
+) {
 	client := getClient(ctx)
 
 	resp, err := runpod.GetMyRegistryAuths(ctx, client)
 	if err != nil {
-		return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{}, err
+		return infer.ReadResponse[
+			ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+		]{}, err
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{ID: ""}, nil
+		return infer.ReadResponse[
+			ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+		]{ID: ""}, nil
 	}
 
 	for _, ra := range resp.Myself.ContainerRegistryCreds {
 		if ra != nil && runpod.PtrString(ra.Id) == req.ID {
 			state := registryAuthResponseToState(req.Inputs, ra)
-			return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{
+			return infer.ReadResponse[
+				ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+			]{
 				ID:     req.ID,
 				Inputs: req.Inputs,
 				State:  state,
@@ -102,17 +134,23 @@ func (ContainerRegistryAuth) Read(
 		}
 	}
 
-	return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{ID: ""}, nil
+	return infer.ReadResponse[
+		ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+	]{ID: ""}, nil
 }
 
 // Update modifies a container registry auth's credentials.
 func (ContainerRegistryAuth) Update(
 	ctx context.Context,
-	req infer.UpdateRequest[ContainerRegistryAuthArgs, ContainerRegistryAuthState],
+	req infer.UpdateRequest[
+		ContainerRegistryAuthArgs, ContainerRegistryAuthState,
+	],
 ) (infer.UpdateResponse[ContainerRegistryAuthState], error) {
 	if req.DryRun {
 		return infer.UpdateResponse[ContainerRegistryAuthState]{
-			Output: ContainerRegistryAuthState{ContainerRegistryAuthArgs: req.Inputs},
+			Output: ContainerRegistryAuthState{
+				ContainerRegistryAuthArgs: req.Inputs,
+			},
 		}, nil
 	}
 
@@ -130,24 +168,36 @@ func (ContainerRegistryAuth) Update(
 	}
 
 	if resp.UpdateRegistryAuth == nil {
-		return infer.UpdateResponse[ContainerRegistryAuthState]{}, fmt.Errorf("API returned nil registry auth on update")
+		return infer.UpdateResponse[ContainerRegistryAuthState]{},
+			errors.New("API returned nil registry auth on update")
 	}
 
-	state := registryAuthResponseToState(req.Inputs, resp.UpdateRegistryAuth)
-	return infer.UpdateResponse[ContainerRegistryAuthState]{Output: state}, nil
+	state := registryAuthResponseToState(
+		req.Inputs, resp.UpdateRegistryAuth,
+	)
+	return infer.UpdateResponse[ContainerRegistryAuthState]{
+		Output: state,
+	}, nil
 }
 
 // Delete removes a container registry auth.
-func (ContainerRegistryAuth) Delete(ctx context.Context, req infer.DeleteRequest[ContainerRegistryAuthState]) (infer.DeleteResponse, error) {
+func (ContainerRegistryAuth) Delete(
+	ctx context.Context,
+	req infer.DeleteRequest[ContainerRegistryAuthState],
+) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
 	id := req.ID
-	if _, err := runpod.DeleteRegistryAuth(ctx, client, &id); err != nil {
+	_, err := runpod.DeleteRegistryAuth(ctx, client, &id)
+	if err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
 }
 
-func registryAuthResponseToState(input ContainerRegistryAuthArgs, ra *runpod.RegistryAuthResponse) ContainerRegistryAuthState {
+func registryAuthResponseToState(
+	input ContainerRegistryAuthArgs,
+	ra *runpod.RegistryAuthResponse,
+) ContainerRegistryAuthState {
 	state := ContainerRegistryAuthState{
 		ContainerRegistryAuthArgs: input,
 		RegistryAuthID:            runpod.PtrString(ra.Id),

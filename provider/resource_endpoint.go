@@ -1,11 +1,25 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
 	"context"
 
-	"github.com/pulumi/pulumi-go-provider/infer"
-
 	"github.com/runpod/pulumi-runpod/pkg/runpod"
+
+	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
 // Endpoint is the controller for the runpod:index:Endpoint resource.
@@ -15,7 +29,7 @@ type Endpoint struct{}
 type EndpointArgs struct {
 	Name            string            `pulumi:"name"`
 	TemplateID      *string           `pulumi:"templateId,optional"`
-	GpuIds          *string           `pulumi:"gpuIds,optional"`
+	GpuIDs          *string           `pulumi:"gpuIds,optional"`
 	WorkersMin      *int              `pulumi:"workersMin,optional"`
 	WorkersMax      *int              `pulumi:"workersMax,optional"`
 	IdleTimeout     *int              `pulumi:"idleTimeout,optional"`
@@ -24,7 +38,7 @@ type EndpointArgs struct {
 	ScalerValue     *int              `pulumi:"scalerValue,optional"`
 	NetworkVolumeID *string           `pulumi:"networkVolumeId,optional"`
 	GpuCount        *int              `pulumi:"gpuCount,optional"`
-	InstanceIds     []string          `pulumi:"instanceIds,optional"`
+	InstanceIDs     []string          `pulumi:"instanceIds,optional"`
 	Env             map[string]string `pulumi:"env,optional"`
 	// New fields
 	FlashBootType       *string  `pulumi:"flashBootType,optional"`
@@ -42,28 +56,51 @@ type EndpointArgs struct {
 // Annotate provides descriptions for EndpointArgs fields.
 func (a *EndpointArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.Name, "A name for the endpoint.")
-	an.Describe(&a.TemplateID, "The template ID to use for the endpoint workers.")
-	an.Describe(&a.GpuIds, "The GPU type IDs to use (e.g. \"AMPERE_16\").")
-	an.Describe(&a.WorkersMin, "The minimum number of workers to keep running.")
-	an.Describe(&a.WorkersMax, "The maximum number of workers to scale up to.")
-	an.Describe(&a.IdleTimeout, "The number of seconds a worker can remain idle before being scaled down.")
-	an.Describe(&a.Locations, "Comma-separated data center locations for worker deployment.")
-	an.Describe(&a.ScalerType, "The autoscaler type (e.g. \"QUEUE_DELAY\", \"REQUEST_COUNT\").")
-	an.Describe(&a.ScalerValue, "The autoscaler target value.")
-	an.Describe(&a.NetworkVolumeID, "The network volume ID to attach to endpoint workers.")
-	an.Describe(&a.GpuCount, "The number of GPUs per worker.")
-	an.Describe(&a.InstanceIds, "Specific instance IDs to use for workers.")
-	an.Describe(&a.Env, "Environment variables as key-value pairs.")
-	an.Describe(&a.FlashBootType, "The flash boot type.")
-	an.Describe(&a.ExecutionTimeoutMs, "Maximum execution time in milliseconds before a request is terminated.")
-	an.Describe(&a.AllowedCudaVersions, "Comma-separated list of allowed CUDA versions.")
-	an.Describe(&a.MinCudaVersion, "The minimum CUDA version required.")
-	an.Describe(&a.FlashEnvironmentID, "The flash environment ID.")
-	an.Describe(&a.BindEndpoint, "Whether to bind the endpoint to specific workers.")
+	an.Describe(&a.TemplateID,
+		"The template ID to use for the endpoint workers.")
+	an.Describe(&a.GpuIDs,
+		"The GPU type IDs to use (e.g. \"AMPERE_16\").")
+	an.Describe(&a.WorkersMin,
+		"The minimum number of workers to keep running.")
+	an.Describe(&a.WorkersMax,
+		"The maximum number of workers to scale up to.")
+	an.Describe(&a.IdleTimeout,
+		"The number of seconds a worker can remain idle "+
+			"before being scaled down.")
+	an.Describe(&a.Locations,
+		"Comma-separated data center locations for worker deployment.")
+	an.Describe(&a.ScalerType,
+		"The autoscaler type (e.g. \"QUEUE_DELAY\", \"REQUEST_COUNT\").")
+	an.Describe(&a.ScalerValue,
+		"The autoscaler target value.")
+	an.Describe(&a.NetworkVolumeID,
+		"The network volume ID to attach to endpoint workers.")
+	an.Describe(&a.GpuCount,
+		"The number of GPUs per worker.")
+	an.Describe(&a.InstanceIDs,
+		"Specific instance IDs to use for workers.")
+	an.Describe(&a.Env,
+		"Environment variables as key-value pairs.")
+	an.Describe(&a.FlashBootType,
+		"The flash boot type.")
+	an.Describe(&a.ExecutionTimeoutMs,
+		"Maximum execution time in milliseconds "+
+			"before a request is terminated.")
+	an.Describe(&a.AllowedCudaVersions,
+		"Comma-separated list of allowed CUDA versions.")
+	an.Describe(&a.MinCudaVersion,
+		"The minimum CUDA version required.")
+	an.Describe(&a.FlashEnvironmentID,
+		"The flash environment ID.")
+	an.Describe(&a.BindEndpoint,
+		"Whether to bind the endpoint to specific workers.")
 	an.Describe(&a.Type, "The endpoint type.")
-	an.Describe(&a.ModelName, "The model name for the endpoint.")
-	an.Describe(&a.HubReleaseID, "The hub release ID for the endpoint.")
-	an.Describe(&a.ModelReferences, "Model references for the endpoint.")
+	an.Describe(&a.ModelName,
+		"The model name for the endpoint.")
+	an.Describe(&a.HubReleaseID,
+		"The hub release ID for the endpoint.")
+	an.Describe(&a.ModelReferences,
+		"Model references for the endpoint.")
 }
 
 // EndpointState is the persisted state of an endpoint resource.
@@ -74,7 +111,8 @@ type EndpointState struct {
 
 // Annotate provides descriptions for EndpointState fields.
 func (s *EndpointState) Annotate(a infer.Annotator) {
-	a.Describe(&s.EndpointID, "The unique identifier of the endpoint.")
+	a.Describe(&s.EndpointID,
+		"The unique identifier of the endpoint.")
 }
 
 // Create creates a new serverless endpoint.
@@ -119,7 +157,9 @@ func (Endpoint) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[EndpointArgs, EndpointState]{ID: ""}, nil
+		return infer.ReadResponse[EndpointArgs, EndpointState]{
+			ID: "",
+		}, nil
 	}
 
 	for _, e := range resp.Myself.Endpoints {
@@ -133,7 +173,9 @@ func (Endpoint) Read(
 		}
 	}
 
-	return infer.ReadResponse[EndpointArgs, EndpointState]{ID: ""}, nil
+	return infer.ReadResponse[EndpointArgs, EndpointState]{
+		ID: "",
+	}, nil
 }
 
 // Update modifies an endpoint using the upsert pattern (saveEndpoint with id).
@@ -162,7 +204,10 @@ func (Endpoint) Update(
 }
 
 // Delete removes an endpoint.
-func (Endpoint) Delete(ctx context.Context, req infer.DeleteRequest[EndpointState]) (infer.DeleteResponse, error) {
+func (Endpoint) Delete(
+	ctx context.Context,
+	req infer.DeleteRequest[EndpointState],
+) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
 	if _, err := runpod.DeleteEndpoint(ctx, client, req.ID); err != nil {
 		return infer.DeleteResponse{}, err
@@ -170,12 +215,14 @@ func (Endpoint) Delete(ctx context.Context, req infer.DeleteRequest[EndpointStat
 	return infer.DeleteResponse{}, nil
 }
 
-func endpointArgsToInput(id *string, args EndpointArgs) runpod.EndpointInput {
+func endpointArgsToInput(
+	id *string, args EndpointArgs,
+) runpod.EndpointInput {
 	input := runpod.EndpointInput{
 		Id:                  id,
 		Name:                args.Name,
 		TemplateId:          args.TemplateID,
-		GpuIds:              args.GpuIds,
+		GpuIds:              args.GpuIDs,
 		WorkersMin:          args.WorkersMin,
 		WorkersMax:          args.WorkersMax,
 		IdleTimeout:         args.IdleTimeout,
@@ -184,7 +231,7 @@ func endpointArgsToInput(id *string, args EndpointArgs) runpod.EndpointInput {
 		ScalerValue:         args.ScalerValue,
 		NetworkVolumeId:     args.NetworkVolumeID,
 		GpuCount:            args.GpuCount,
-		InstanceIds:         runpod.StringPtrSlice(args.InstanceIds),
+		InstanceIds:         runpod.StringPtrSlice(args.InstanceIDs),
 		Env:                 runpod.EnvMapToGQL(args.Env),
 		ExecutionTimeoutMs:  args.ExecutionTimeoutMs,
 		AllowedCudaVersions: args.AllowedCudaVersions,
@@ -205,7 +252,9 @@ func endpointArgsToInput(id *string, args EndpointArgs) runpod.EndpointInput {
 	return input
 }
 
-func endpointResponseToState(input EndpointArgs, ep *runpod.EndpointResponse) EndpointState {
+func endpointResponseToState(
+	input EndpointArgs, ep *runpod.EndpointResponse,
+) EndpointState {
 	return EndpointState{
 		EndpointArgs: input,
 		EndpointID:   runpod.PtrString(ep.Id),

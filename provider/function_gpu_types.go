@@ -1,11 +1,25 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
 	"context"
 
-	"github.com/pulumi/pulumi-go-provider/infer"
-
 	"github.com/runpod/pulumi-runpod/pkg/runpod"
+
+	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
 // GetGpuTypes is the controller for the runpod:index:getGpuTypes function (invoke).
@@ -41,11 +55,16 @@ func (g *GpuTypeOutput) Annotate(a infer.Annotator) {
 	a.Describe(&g.ID, "The unique identifier of the GPU type.")
 	a.Describe(&g.DisplayName, "The display name of the GPU type.")
 	a.Describe(&g.MemoryInGb, "The amount of VRAM in GB.")
-	a.Describe(&g.SecureCloud, "Whether the GPU is available in secure cloud.")
-	a.Describe(&g.CommunityCloud, "Whether the GPU is available in community cloud.")
-	a.Describe(&g.SecurePrice, "The price per hour in secure cloud (USD).")
-	a.Describe(&g.CommunityPrice, "The price per hour in community cloud (USD).")
-	a.Describe(&g.MaxGpuCount, "The maximum number of this GPU type that can be allocated.")
+	a.Describe(&g.SecureCloud,
+		"Whether the GPU is available in secure cloud.")
+	a.Describe(&g.CommunityCloud,
+		"Whether the GPU is available in community cloud.")
+	a.Describe(&g.SecurePrice,
+		"The price per hour in secure cloud (USD).")
+	a.Describe(&g.CommunityPrice,
+		"The price per hour in community cloud (USD).")
+	a.Describe(&g.MaxGpuCount,
+		"The maximum number of this GPU type that can be allocated.")
 }
 
 // Invoke executes the GPU types query.

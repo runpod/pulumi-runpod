@@ -1,3 +1,18 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Package provider implements the RunPod Pulumi provider.
 package provider
 
 import (
@@ -6,12 +21,11 @@ import (
 	"os"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/pulumi/pulumi-go-provider/infer"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	"github.com/runpod/pulumi-runpod/pkg/runpod"
 
 	p "github.com/pulumi/pulumi-go-provider"
-
-	"github.com/runpod/pulumi-runpod/pkg/runpod"
+	"github.com/pulumi/pulumi-go-provider/infer"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 )
 
 // Version is initialized by the Go linker to contain the semver of this build.
@@ -36,7 +50,7 @@ func Provider() p.Provider {
 				"respectSchemaVersion":           true,
 			},
 			"nodejs": map[string]any{
-				"packageName":         "@runpod/pulumi",
+				"packageName":          "@runpod/pulumi",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -80,9 +94,13 @@ type Config struct {
 
 // Annotate provides descriptions for Config fields.
 func (c *Config) Annotate(a infer.Annotator) {
-	a.Describe(&c.APIKey, "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.")
+	a.Describe(&c.APIKey,
+		"The RunPod API key for authentication. "+
+			"Can also be set via the RUNPOD_API_KEY environment variable.")
 	a.SetDefault(&c.APIKey, nil, "RUNPOD_API_KEY")
-	a.Describe(&c.APIURL, "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.")
+	a.Describe(&c.APIURL,
+		"The RunPod API URL. Defaults to https://api.runpod.io/graphql. "+
+			"Can also be set via the RUNPOD_API_URL environment variable.")
 	a.SetDefault(&c.APIURL, nil, "RUNPOD_API_URL")
 }
 

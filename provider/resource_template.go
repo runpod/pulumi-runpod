@@ -1,12 +1,26 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/pulumi/pulumi-go-provider/infer"
+	"errors"
 
 	"github.com/runpod/pulumi-runpod/pkg/runpod"
+
+	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
 // Template is the controller for the runpod:index:Template resource.
@@ -23,7 +37,7 @@ type TemplateArgs struct {
 	Ports                   *string           `pulumi:"ports,optional"`
 	VolumeMountPath         *string           `pulumi:"volumeMountPath,optional"`
 	StartJupyter            *bool             `pulumi:"startJupyter,optional"`
-	StartSsh                *bool             `pulumi:"startSsh,optional"`
+	StartSSH                *bool             `pulumi:"startSsh,optional"`
 	StartScript             *string           `pulumi:"startScript,optional"`
 	IsServerless            *bool             `pulumi:"isServerless,optional"`
 	IsPublic                *bool             `pulumi:"isPublic,optional"`
@@ -37,22 +51,38 @@ type TemplateArgs struct {
 // Annotate provides descriptions for TemplateArgs fields.
 func (a *TemplateArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.Name, "A name for the template.")
-	an.Describe(&a.ImageName, "The Docker image to use for the template.")
-	an.Describe(&a.ContainerDiskInGb, "The size of the container disk in GB.")
-	an.Describe(&a.VolumeInGb, "The size of the persistent volume in GB. Use 0 for no volume.")
-	an.Describe(&a.DockerArgs, "Docker arguments to pass to the container.")
-	an.Describe(&a.Env, "Environment variables as key-value pairs.")
-	an.Describe(&a.Ports, "Ports to expose (e.g. \"8080/http,22/tcp\").")
-	an.Describe(&a.VolumeMountPath, "The path to mount the persistent volume.")
-	an.Describe(&a.StartJupyter, "Whether to start Jupyter notebook server.")
-	an.Describe(&a.StartSsh, "Whether to start an SSH server.")
-	an.Describe(&a.StartScript, "A bash script to run on container start.")
-	an.Describe(&a.IsServerless, "Whether this template is for serverless endpoints.")
-	an.Describe(&a.IsPublic, "Whether this template is publicly visible.")
-	an.Describe(&a.ContainerRegistryAuthID, "The ID of the container registry auth credentials to use.")
-	an.Describe(&a.Readme, "A readme/description for the template in Markdown.")
-	an.Describe(&a.AdvancedStart, "Whether to use advanced start mode.")
-	an.Describe(&a.Category, "The category of the template.")
+	an.Describe(&a.ImageName,
+		"The Docker image to use for the template.")
+	an.Describe(&a.ContainerDiskInGb,
+		"The size of the container disk in GB.")
+	an.Describe(&a.VolumeInGb,
+		"The size of the persistent volume in GB. Use 0 for no volume.")
+	an.Describe(&a.DockerArgs,
+		"Docker arguments to pass to the container.")
+	an.Describe(&a.Env,
+		"Environment variables as key-value pairs.")
+	an.Describe(&a.Ports,
+		"Ports to expose (e.g. \"8080/http,22/tcp\").")
+	an.Describe(&a.VolumeMountPath,
+		"The path to mount the persistent volume.")
+	an.Describe(&a.StartJupyter,
+		"Whether to start Jupyter notebook server.")
+	an.Describe(&a.StartSSH,
+		"Whether to start an SSH server.")
+	an.Describe(&a.StartScript,
+		"A bash script to run on container start.")
+	an.Describe(&a.IsServerless,
+		"Whether this template is for serverless endpoints.")
+	an.Describe(&a.IsPublic,
+		"Whether this template is publicly visible.")
+	an.Describe(&a.ContainerRegistryAuthID,
+		"The ID of the container registry auth credentials to use.")
+	an.Describe(&a.Readme,
+		"A readme/description for the template in Markdown.")
+	an.Describe(&a.AdvancedStart,
+		"Whether to use advanced start mode.")
+	an.Describe(&a.Category,
+		"The category of the template.")
 }
 
 // TemplateState is the persisted state of a template resource.
@@ -63,7 +93,8 @@ type TemplateState struct {
 
 // Annotate provides descriptions for TemplateState fields.
 func (s *TemplateState) Annotate(a infer.Annotator) {
-	a.Describe(&s.TemplateID, "The unique identifier of the template.")
+	a.Describe(&s.TemplateID,
+		"The unique identifier of the template.")
 }
 
 // Create creates a new template.
@@ -88,7 +119,8 @@ func (Template) Create(
 	}
 
 	if resp.SaveTemplate == nil {
-		return infer.CreateResponse[TemplateState]{}, fmt.Errorf("API returned nil template")
+		return infer.CreateResponse[TemplateState]{},
+			errors.New("API returned nil template")
 	}
 
 	state := templateResponseToState(input, resp.SaveTemplate)
@@ -111,7 +143,9 @@ func (Template) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[TemplateArgs, TemplateState]{ID: ""}, nil
+		return infer.ReadResponse[TemplateArgs, TemplateState]{
+			ID: "",
+		}, nil
 	}
 
 	for _, t := range resp.Myself.PodTemplates {
@@ -126,7 +160,9 @@ func (Template) Read(
 	}
 
 	// Resource was deleted externally — return empty ID so Pulumi removes it from state.
-	return infer.ReadResponse[TemplateArgs, TemplateState]{ID: ""}, nil
+	return infer.ReadResponse[TemplateArgs, TemplateState]{
+		ID: "",
+	}, nil
 }
 
 // Update modifies a template using the upsert pattern (saveTemplate with id).
@@ -150,7 +186,8 @@ func (Template) Update(
 	}
 
 	if resp.SaveTemplate == nil {
-		return infer.UpdateResponse[TemplateState]{}, fmt.Errorf("API returned nil template")
+		return infer.UpdateResponse[TemplateState]{},
+			errors.New("API returned nil template")
 	}
 
 	state := templateResponseToState(req.Inputs, resp.SaveTemplate)
@@ -159,7 +196,10 @@ func (Template) Update(
 
 // Delete removes a template.
 // Note: RunPod's deleteTemplate mutation takes the template name, not ID.
-func (Template) Delete(ctx context.Context, req infer.DeleteRequest[TemplateState]) (infer.DeleteResponse, error) {
+func (Template) Delete(
+	ctx context.Context,
+	req infer.DeleteRequest[TemplateState],
+) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
 	name := req.State.Name
 	if _, err := runpod.DeleteTemplate(ctx, client, &name); err != nil {
@@ -168,7 +208,9 @@ func (Template) Delete(ctx context.Context, req infer.DeleteRequest[TemplateStat
 	return infer.DeleteResponse{}, nil
 }
 
-func templateArgsToSaveInput(id *string, args TemplateArgs) runpod.SaveTemplateInput {
+func templateArgsToSaveInput(
+	id *string, args TemplateArgs,
+) runpod.SaveTemplateInput {
 	dockerArgs := ""
 	if args.DockerArgs != nil {
 		dockerArgs = *args.DockerArgs
@@ -185,7 +227,7 @@ func templateArgsToSaveInput(id *string, args TemplateArgs) runpod.SaveTemplateI
 		Ports:                   args.Ports,
 		VolumeMountPath:         args.VolumeMountPath,
 		StartJupyter:            args.StartJupyter,
-		StartSsh:                args.StartSsh,
+		StartSsh:                args.StartSSH,
 		StartScript:             args.StartScript,
 		IsServerless:            args.IsServerless,
 		IsPublic:                args.IsPublic,
@@ -202,7 +244,9 @@ func templateArgsToSaveInput(id *string, args TemplateArgs) runpod.SaveTemplateI
 	return input
 }
 
-func templateResponseToState(input TemplateArgs, tmpl *runpod.TemplateResponse) TemplateState {
+func templateResponseToState(
+	input TemplateArgs, tmpl *runpod.TemplateResponse,
+) TemplateState {
 	state := TemplateState{
 		TemplateArgs: input,
 		TemplateID:   runpod.PtrString(tmpl.Id),

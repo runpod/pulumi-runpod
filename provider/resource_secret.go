@@ -1,12 +1,26 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/pulumi/pulumi-go-provider/infer"
+	"errors"
 
 	"github.com/runpod/pulumi-runpod/pkg/runpod"
+
+	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
 // Secret is the controller for the runpod:index:Secret resource.
@@ -23,7 +37,8 @@ type SecretArgs struct {
 func (a *SecretArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.Name, "A name for the secret.")
 	an.Describe(&a.Value, "The secret value.")
-	an.Describe(&a.Description, "A human-readable description of the secret.")
+	an.Describe(&a.Description,
+		"A human-readable description of the secret.")
 }
 
 // SecretState is the persisted state of a secret resource.
@@ -34,7 +49,8 @@ type SecretState struct {
 
 // Annotate provides descriptions for SecretState fields.
 func (s *SecretState) Annotate(a infer.Annotator) {
-	a.Describe(&s.SecretID, "The unique identifier of the secret.")
+	a.Describe(&s.SecretID,
+		"The unique identifier of the secret.")
 }
 
 // Create creates a new secret.
@@ -64,7 +80,8 @@ func (Secret) Create(
 	}
 
 	if resp.SecretCreate == nil {
-		return infer.CreateResponse[SecretState]{}, fmt.Errorf("API returned nil secret")
+		return infer.CreateResponse[SecretState]{},
+			errors.New("API returned nil secret")
 	}
 
 	secret := resp.SecretCreate
@@ -88,7 +105,9 @@ func (Secret) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[SecretArgs, SecretState]{ID: ""}, nil
+		return infer.ReadResponse[SecretArgs, SecretState]{
+			ID: "",
+		}, nil
 	}
 
 	for _, s := range resp.Myself.Secrets {
@@ -102,7 +121,9 @@ func (Secret) Read(
 		}
 	}
 
-	return infer.ReadResponse[SecretArgs, SecretState]{ID: ""}, nil
+	return infer.ReadResponse[SecretArgs, SecretState]{
+		ID: "",
+	}, nil
 }
 
 // Update modifies a secret's value and/or description.
@@ -120,10 +141,12 @@ func (Secret) Update(
 
 	// Update value
 	if req.Inputs.Value != req.State.Value {
-		_, err := runpod.SecretValueUpdate(ctx, client, runpod.SecretValueUpdateInput{
-			Id:    req.ID,
-			Value: req.Inputs.Value,
-		})
+		_, err := runpod.SecretValueUpdate(
+			ctx, client, runpod.SecretValueUpdateInput{
+				Id:    req.ID,
+				Value: req.Inputs.Value,
+			},
+		)
 		if err != nil {
 			return infer.UpdateResponse[SecretState]{}, err
 		}
@@ -136,10 +159,12 @@ func (Secret) Update(
 			oldDesc = *req.State.Description
 		}
 		if *req.Inputs.Description != oldDesc {
-			_, err := runpod.SecretDescriptionUpdate(ctx, client, runpod.SecretDescriptionUpdateInput{
-				Id:          req.ID,
-				Description: *req.Inputs.Description,
-			})
+			_, err := runpod.SecretDescriptionUpdate(
+				ctx, client, runpod.SecretDescriptionUpdateInput{
+					Id:          req.ID,
+					Description: *req.Inputs.Description,
+				},
+			)
 			if err != nil {
 				return infer.UpdateResponse[SecretState]{}, err
 			}
@@ -156,7 +181,9 @@ func (Secret) Update(
 		for _, s := range readResp.Myself.Secrets {
 			if s.Id == req.ID {
 				state := secretResponseToState(req.Inputs, &s)
-				return infer.UpdateResponse[SecretState]{Output: state}, nil
+				return infer.UpdateResponse[SecretState]{
+					Output: state,
+				}, nil
 			}
 		}
 	}
@@ -171,7 +198,10 @@ func (Secret) Update(
 }
 
 // Delete removes a secret.
-func (Secret) Delete(ctx context.Context, req infer.DeleteRequest[SecretState]) (infer.DeleteResponse, error) {
+func (Secret) Delete(
+	ctx context.Context,
+	req infer.DeleteRequest[SecretState],
+) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
 	if _, err := runpod.SecretDelete(ctx, client, req.ID); err != nil {
 		return infer.DeleteResponse{}, err
@@ -179,7 +209,9 @@ func (Secret) Delete(ctx context.Context, req infer.DeleteRequest[SecretState]) 
 	return infer.DeleteResponse{}, nil
 }
 
-func secretResponseToState(input SecretArgs, secret *runpod.SecretResponse) SecretState {
+func secretResponseToState(
+	input SecretArgs, secret *runpod.SecretResponse,
+) SecretState {
 	state := SecretState{
 		SecretArgs: input,
 		SecretID:   secret.Id,

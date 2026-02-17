@@ -1,12 +1,26 @@
+// Copyright 2025, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/pulumi/pulumi-go-provider/infer"
+	"errors"
 
 	"github.com/runpod/pulumi-runpod/pkg/runpod"
+
+	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
 // NetworkVolume is the controller for the runpod:index:NetworkVolume resource.
@@ -22,10 +36,15 @@ type NetworkVolumeArgs struct {
 
 // Annotate provides descriptions for NetworkVolumeArgs fields.
 func (a *NetworkVolumeArgs) Annotate(an infer.Annotator) {
-	an.Describe(&a.Name, "A name for the network volume.")
-	an.Describe(&a.Size, "The size of the network volume in GB.")
-	an.Describe(&a.DataCenterID, "The data center ID where the volume will be created (e.g. \"US-TX-3\").")
-	an.Describe(&a.IsNextGenStorage, "Whether to use next-generation storage.")
+	an.Describe(&a.Name,
+		"A name for the network volume.")
+	an.Describe(&a.Size,
+		"The size of the network volume in GB.")
+	an.Describe(&a.DataCenterID,
+		"The data center ID where the volume will be created "+
+			"(e.g. \"US-TX-3\").")
+	an.Describe(&a.IsNextGenStorage,
+		"Whether to use next-generation storage.")
 }
 
 // NetworkVolumeState is the persisted state of a network volume resource.
@@ -36,7 +55,8 @@ type NetworkVolumeState struct {
 
 // Annotate provides descriptions for NetworkVolumeState fields.
 func (s *NetworkVolumeState) Annotate(a infer.Annotator) {
-	a.Describe(&s.NetworkVolumeID, "The unique identifier of the network volume.")
+	a.Describe(&s.NetworkVolumeID,
+		"The unique identifier of the network volume.")
 }
 
 // Create creates a new network volume.
@@ -67,7 +87,8 @@ func (NetworkVolume) Create(
 	}
 
 	if resp.CreateNetworkVolume == nil {
-		return infer.CreateResponse[NetworkVolumeState]{}, fmt.Errorf("API returned nil network volume")
+		return infer.CreateResponse[NetworkVolumeState]{},
+			errors.New("API returned nil network volume")
 	}
 
 	vol := resp.CreateNetworkVolume
@@ -87,11 +108,14 @@ func (NetworkVolume) Read(
 
 	resp, err := runpod.GetMyNetworkVolumes(ctx, client)
 	if err != nil {
-		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{}, err
+		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{},
+			err
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{ID: ""}, nil
+		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{
+			ID: "",
+		}, nil
 	}
 
 	for _, v := range resp.Myself.NetworkVolumes {
@@ -105,7 +129,9 @@ func (NetworkVolume) Read(
 		}
 	}
 
-	return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{ID: ""}, nil
+	return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{
+		ID: "",
+	}, nil
 }
 
 // Update modifies a network volume (name and size are mutable).
@@ -133,23 +159,34 @@ func (NetworkVolume) Update(
 	}
 
 	if resp.UpdateNetworkVolume == nil {
-		return infer.UpdateResponse[NetworkVolumeState]{}, fmt.Errorf("API returned nil network volume on update")
+		return infer.UpdateResponse[NetworkVolumeState]{},
+			errors.New("API returned nil network volume on update")
 	}
 
-	state := networkVolumeResponseToState(req.Inputs, resp.UpdateNetworkVolume)
+	state := networkVolumeResponseToState(
+		req.Inputs, resp.UpdateNetworkVolume,
+	)
 	return infer.UpdateResponse[NetworkVolumeState]{Output: state}, nil
 }
 
 // Delete removes a network volume.
-func (NetworkVolume) Delete(ctx context.Context, req infer.DeleteRequest[NetworkVolumeState]) (infer.DeleteResponse, error) {
+func (NetworkVolume) Delete(
+	ctx context.Context,
+	req infer.DeleteRequest[NetworkVolumeState],
+) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if _, err := runpod.DeleteNetworkVolume(ctx, client, runpod.DeleteNetworkVolumeInput{Id: req.ID}); err != nil {
+	_, err := runpod.DeleteNetworkVolume(
+		ctx, client, runpod.DeleteNetworkVolumeInput{Id: req.ID},
+	)
+	if err != nil {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
 }
 
-func networkVolumeResponseToState(input NetworkVolumeArgs, vol *runpod.NetworkVolumeResponse) NetworkVolumeState {
+func networkVolumeResponseToState(
+	input NetworkVolumeArgs, vol *runpod.NetworkVolumeResponse,
+) NetworkVolumeState {
 	return NetworkVolumeState{
 		NetworkVolumeArgs: input,
 		NetworkVolumeID:   runpod.PtrString(vol.Id),
