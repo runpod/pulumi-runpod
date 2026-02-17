@@ -9,7 +9,6 @@
     <PackageProjectUrl>https://www.runpod.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/runpod/pulumi-runpod</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>1.0.0-alpha.0+dev</Version>
 
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>

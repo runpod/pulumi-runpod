@@ -34,99 +34,99 @@ export class Endpoint extends pulumi.CustomResource {
     /**
      * Comma-separated list of allowed CUDA versions.
      */
-    public readonly allowedCudaVersions!: pulumi.Output<string | undefined>;
+    declare public readonly allowedCudaVersions: pulumi.Output<string | undefined>;
     /**
      * Whether to bind the endpoint to specific workers.
      */
-    public readonly bindEndpoint!: pulumi.Output<boolean | undefined>;
+    declare public readonly bindEndpoint: pulumi.Output<boolean | undefined>;
     /**
      * The unique identifier of the endpoint.
      */
-    public /*out*/ readonly endpointId!: pulumi.Output<string>;
+    declare public /*out*/ readonly endpointId: pulumi.Output<string>;
     /**
      * Environment variables as key-value pairs.
      */
-    public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
+    declare public readonly env: pulumi.Output<{[key: string]: string} | undefined>;
     /**
      * Maximum execution time in milliseconds before a request is terminated.
      */
-    public readonly executionTimeoutMs!: pulumi.Output<number | undefined>;
+    declare public readonly executionTimeoutMs: pulumi.Output<number | undefined>;
     /**
      * The flash boot type.
      */
-    public readonly flashBootType!: pulumi.Output<string | undefined>;
+    declare public readonly flashBootType: pulumi.Output<string | undefined>;
     /**
      * The flash environment ID.
      */
-    public readonly flashEnvironmentId!: pulumi.Output<string | undefined>;
+    declare public readonly flashEnvironmentId: pulumi.Output<string | undefined>;
     /**
      * The number of GPUs per worker.
      */
-    public readonly gpuCount!: pulumi.Output<number | undefined>;
+    declare public readonly gpuCount: pulumi.Output<number | undefined>;
     /**
      * The GPU type IDs to use (e.g. "AMPERE_16").
      */
-    public readonly gpuIds!: pulumi.Output<string | undefined>;
+    declare public readonly gpuIds: pulumi.Output<string | undefined>;
     /**
      * The hub release ID for the endpoint.
      */
-    public readonly hubReleaseId!: pulumi.Output<string | undefined>;
+    declare public readonly hubReleaseId: pulumi.Output<string | undefined>;
     /**
      * The number of seconds a worker can remain idle before being scaled down.
      */
-    public readonly idleTimeout!: pulumi.Output<number | undefined>;
+    declare public readonly idleTimeout: pulumi.Output<number | undefined>;
     /**
      * Specific instance IDs to use for workers.
      */
-    public readonly instanceIds!: pulumi.Output<string[] | undefined>;
+    declare public readonly instanceIds: pulumi.Output<string[] | undefined>;
     /**
      * Comma-separated data center locations for worker deployment.
      */
-    public readonly locations!: pulumi.Output<string | undefined>;
+    declare public readonly locations: pulumi.Output<string | undefined>;
     /**
      * The minimum CUDA version required.
      */
-    public readonly minCudaVersion!: pulumi.Output<string | undefined>;
+    declare public readonly minCudaVersion: pulumi.Output<string | undefined>;
     /**
      * The model name for the endpoint.
      */
-    public readonly modelName!: pulumi.Output<string | undefined>;
+    declare public readonly modelName: pulumi.Output<string | undefined>;
     /**
      * Model references for the endpoint.
      */
-    public readonly modelReferences!: pulumi.Output<string[] | undefined>;
+    declare public readonly modelReferences: pulumi.Output<string[] | undefined>;
     /**
      * A name for the endpoint.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
      * The network volume ID to attach to endpoint workers.
      */
-    public readonly networkVolumeId!: pulumi.Output<string | undefined>;
+    declare public readonly networkVolumeId: pulumi.Output<string | undefined>;
     /**
      * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
      */
-    public readonly scalerType!: pulumi.Output<string | undefined>;
+    declare public readonly scalerType: pulumi.Output<string | undefined>;
     /**
      * The autoscaler target value.
      */
-    public readonly scalerValue!: pulumi.Output<number | undefined>;
+    declare public readonly scalerValue: pulumi.Output<number | undefined>;
     /**
      * The template ID to use for the endpoint workers.
      */
-    public readonly templateId!: pulumi.Output<string | undefined>;
+    declare public readonly templateId: pulumi.Output<string | undefined>;
     /**
      * The endpoint type.
      */
-    public readonly type!: pulumi.Output<string | undefined>;
+    declare public readonly type: pulumi.Output<string | undefined>;
     /**
      * The maximum number of workers to scale up to.
      */
-    public readonly workersMax!: pulumi.Output<number | undefined>;
+    declare public readonly workersMax: pulumi.Output<number | undefined>;
     /**
      * The minimum number of workers to keep running.
      */
-    public readonly workersMin!: pulumi.Output<number | undefined>;
+    declare public readonly workersMin: pulumi.Output<number | undefined>;
 
     /**
      * Create a Endpoint resource with the given unique name, arguments, and options.
@@ -139,32 +139,32 @@ export class Endpoint extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.name === undefined) && !opts.urn) {
+            if (args?.name === undefined && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
-            resourceInputs["allowedCudaVersions"] = args ? args.allowedCudaVersions : undefined;
-            resourceInputs["bindEndpoint"] = args ? args.bindEndpoint : undefined;
-            resourceInputs["env"] = args ? args.env : undefined;
-            resourceInputs["executionTimeoutMs"] = args ? args.executionTimeoutMs : undefined;
-            resourceInputs["flashBootType"] = args ? args.flashBootType : undefined;
-            resourceInputs["flashEnvironmentId"] = args ? args.flashEnvironmentId : undefined;
-            resourceInputs["gpuCount"] = args ? args.gpuCount : undefined;
-            resourceInputs["gpuIds"] = args ? args.gpuIds : undefined;
-            resourceInputs["hubReleaseId"] = args ? args.hubReleaseId : undefined;
-            resourceInputs["idleTimeout"] = args ? args.idleTimeout : undefined;
-            resourceInputs["instanceIds"] = args ? args.instanceIds : undefined;
-            resourceInputs["locations"] = args ? args.locations : undefined;
-            resourceInputs["minCudaVersion"] = args ? args.minCudaVersion : undefined;
-            resourceInputs["modelName"] = args ? args.modelName : undefined;
-            resourceInputs["modelReferences"] = args ? args.modelReferences : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["networkVolumeId"] = args ? args.networkVolumeId : undefined;
-            resourceInputs["scalerType"] = args ? args.scalerType : undefined;
-            resourceInputs["scalerValue"] = args ? args.scalerValue : undefined;
-            resourceInputs["templateId"] = args ? args.templateId : undefined;
-            resourceInputs["type"] = args ? args.type : undefined;
-            resourceInputs["workersMax"] = args ? args.workersMax : undefined;
-            resourceInputs["workersMin"] = args ? args.workersMin : undefined;
+            resourceInputs["allowedCudaVersions"] = args?.allowedCudaVersions;
+            resourceInputs["bindEndpoint"] = args?.bindEndpoint;
+            resourceInputs["env"] = args?.env;
+            resourceInputs["executionTimeoutMs"] = args?.executionTimeoutMs;
+            resourceInputs["flashBootType"] = args?.flashBootType;
+            resourceInputs["flashEnvironmentId"] = args?.flashEnvironmentId;
+            resourceInputs["gpuCount"] = args?.gpuCount;
+            resourceInputs["gpuIds"] = args?.gpuIds;
+            resourceInputs["hubReleaseId"] = args?.hubReleaseId;
+            resourceInputs["idleTimeout"] = args?.idleTimeout;
+            resourceInputs["instanceIds"] = args?.instanceIds;
+            resourceInputs["locations"] = args?.locations;
+            resourceInputs["minCudaVersion"] = args?.minCudaVersion;
+            resourceInputs["modelName"] = args?.modelName;
+            resourceInputs["modelReferences"] = args?.modelReferences;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["networkVolumeId"] = args?.networkVolumeId;
+            resourceInputs["scalerType"] = args?.scalerType;
+            resourceInputs["scalerValue"] = args?.scalerValue;
+            resourceInputs["templateId"] = args?.templateId;
+            resourceInputs["type"] = args?.type;
+            resourceInputs["workersMax"] = args?.workersMax;
+            resourceInputs["workersMin"] = args?.workersMin;
             resourceInputs["endpointId"] = undefined /*out*/;
         } else {
             resourceInputs["allowedCudaVersions"] = undefined /*out*/;

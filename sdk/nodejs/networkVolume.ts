@@ -34,23 +34,23 @@ export class NetworkVolume extends pulumi.CustomResource {
     /**
      * The data center ID where the volume will be created (e.g. "US-TX-3").
      */
-    public readonly dataCenterId!: pulumi.Output<string>;
+    declare public readonly dataCenterId: pulumi.Output<string>;
     /**
      * Whether to use next-generation storage.
      */
-    public readonly isNextGenStorage!: pulumi.Output<boolean | undefined>;
+    declare public readonly isNextGenStorage: pulumi.Output<boolean | undefined>;
     /**
      * A name for the network volume.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
      * The unique identifier of the network volume.
      */
-    public /*out*/ readonly networkVolumeId!: pulumi.Output<string>;
+    declare public /*out*/ readonly networkVolumeId: pulumi.Output<string>;
     /**
      * The size of the network volume in GB.
      */
-    public readonly size!: pulumi.Output<number>;
+    declare public readonly size: pulumi.Output<number>;
 
     /**
      * Create a NetworkVolume resource with the given unique name, arguments, and options.
@@ -63,19 +63,19 @@ export class NetworkVolume extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.dataCenterId === undefined) && !opts.urn) {
+            if (args?.dataCenterId === undefined && !opts.urn) {
                 throw new Error("Missing required property 'dataCenterId'");
             }
-            if ((!args || args.name === undefined) && !opts.urn) {
+            if (args?.name === undefined && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
-            if ((!args || args.size === undefined) && !opts.urn) {
+            if (args?.size === undefined && !opts.urn) {
                 throw new Error("Missing required property 'size'");
             }
-            resourceInputs["dataCenterId"] = args ? args.dataCenterId : undefined;
-            resourceInputs["isNextGenStorage"] = args ? args.isNextGenStorage : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["size"] = args ? args.size : undefined;
+            resourceInputs["dataCenterId"] = args?.dataCenterId;
+            resourceInputs["isNextGenStorage"] = args?.isNextGenStorage;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["size"] = args?.size;
             resourceInputs["networkVolumeId"] = undefined /*out*/;
         } else {
             resourceInputs["dataCenterId"] = undefined /*out*/;
