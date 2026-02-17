@@ -21,3 +21,10 @@ sdk/nodejs/*.tgz
 provider/coverage.txt
 pulumi-resource-runpod
 examples/sst/.sst/
+
+# Claude Code / local artifacts
+.plan/
+.specify/
+.claude/
+specs/
+Library/
