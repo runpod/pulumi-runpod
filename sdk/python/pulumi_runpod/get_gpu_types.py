@@ -33,6 +33,9 @@ class GetGpuTypesResult:
     @property
     @pulumi.getter(name="gpuTypes")
     def gpu_types(self) -> Sequence['outputs.GpuTypeOutput']:
+        """
+        The list of available GPU types.
+        """
         return pulumi.get(self, "gpu_types")
 
 

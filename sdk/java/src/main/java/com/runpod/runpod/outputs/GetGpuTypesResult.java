@@ -11,9 +11,17 @@ import java.util.Objects;
 
 @CustomType
 public final class GetGpuTypesResult {
+    /**
+     * @return The list of available GPU types.
+     * 
+     */
     private List<GpuTypeOutput> gpuTypes;
 
     private GetGpuTypesResult() {}
+    /**
+     * @return The list of available GPU types.
+     * 
+     */
     public List<GpuTypeOutput> gpuTypes() {
         return this.gpuTypes;
     }

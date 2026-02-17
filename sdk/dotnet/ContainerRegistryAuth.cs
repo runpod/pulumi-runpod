@@ -12,15 +12,27 @@ namespace Pulumi.Runpod
     [RunpodResourceType("runpod:index:ContainerRegistryAuth")]
     public partial class ContainerRegistryAuth : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// A name for the registry auth credentials.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// The password or access token for the container registry.
+        /// </summary>
         [Output("password")]
         public Output<string> Password { get; private set; } = null!;
 
+        /// <summary>
+        /// The unique identifier of the registry auth.
+        /// </summary>
         [Output("registryAuthId")]
         public Output<string> RegistryAuthId { get; private set; } = null!;
 
+        /// <summary>
+        /// The username for the container registry.
+        /// </summary>
         [Output("username")]
         public Output<string> Username { get; private set; } = null!;
 
@@ -52,6 +64,10 @@ namespace Pulumi.Runpod
                 {
                     "password",
                 },
+                ReplaceOnChanges =
+                {
+                    "name",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -74,11 +90,18 @@ namespace Pulumi.Runpod
 
     public sealed class ContainerRegistryAuthArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// A name for the registry auth credentials.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         [Input("password", required: true)]
         private Input<string>? _password;
+
+        /// <summary>
+        /// The password or access token for the container registry.
+        /// </summary>
         public Input<string>? Password
         {
             get => _password;
@@ -89,6 +112,9 @@ namespace Pulumi.Runpod
             }
         }
 
+        /// <summary>
+        /// The username for the container registry.
+        /// </summary>
         [Input("username", required: true)]
         public Input<string> Username { get; set; } = null!;
 

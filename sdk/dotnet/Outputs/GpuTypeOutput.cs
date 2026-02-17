@@ -13,13 +13,37 @@ namespace Pulumi.Runpod.Outputs
     [OutputType]
     public sealed class GpuTypeOutput
     {
+        /// <summary>
+        /// Whether the GPU is available in community cloud.
+        /// </summary>
         public readonly bool CommunityCloud;
+        /// <summary>
+        /// The price per hour in community cloud (USD).
+        /// </summary>
         public readonly double CommunityPrice;
+        /// <summary>
+        /// The display name of the GPU type.
+        /// </summary>
         public readonly string DisplayName;
+        /// <summary>
+        /// The unique identifier of the GPU type.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The maximum number of this GPU type that can be allocated.
+        /// </summary>
         public readonly int MaxGpuCount;
+        /// <summary>
+        /// The amount of VRAM in GB.
+        /// </summary>
         public readonly int MemoryInGb;
+        /// <summary>
+        /// Whether the GPU is available in secure cloud.
+        /// </summary>
         public readonly bool SecureCloud;
+        /// <summary>
+        /// The price per hour in secure cloud (USD).
+        /// </summary>
         public readonly double SecurePrice;
 
         [OutputConstructor]

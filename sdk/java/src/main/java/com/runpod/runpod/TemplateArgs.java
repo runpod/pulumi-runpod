@@ -19,121 +19,257 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final TemplateArgs Empty = new TemplateArgs();
 
+    /**
+     * Whether to use advanced start mode.
+     * 
+     */
     @Import(name="advancedStart")
     private @Nullable Output<Boolean> advancedStart;
 
+    /**
+     * @return Whether to use advanced start mode.
+     * 
+     */
     public Optional<Output<Boolean>> advancedStart() {
         return Optional.ofNullable(this.advancedStart);
     }
 
+    /**
+     * The category of the template.
+     * 
+     */
     @Import(name="category")
     private @Nullable Output<String> category;
 
+    /**
+     * @return The category of the template.
+     * 
+     */
     public Optional<Output<String>> category() {
         return Optional.ofNullable(this.category);
     }
 
+    /**
+     * The size of the container disk in GB.
+     * 
+     */
     @Import(name="containerDiskInGb", required=true)
     private Output<Integer> containerDiskInGb;
 
+    /**
+     * @return The size of the container disk in GB.
+     * 
+     */
     public Output<Integer> containerDiskInGb() {
         return this.containerDiskInGb;
     }
 
+    /**
+     * The ID of the container registry auth credentials to use.
+     * 
+     */
     @Import(name="containerRegistryAuthId")
     private @Nullable Output<String> containerRegistryAuthId;
 
+    /**
+     * @return The ID of the container registry auth credentials to use.
+     * 
+     */
     public Optional<Output<String>> containerRegistryAuthId() {
         return Optional.ofNullable(this.containerRegistryAuthId);
     }
 
+    /**
+     * Docker arguments to pass to the container.
+     * 
+     */
     @Import(name="dockerArgs")
     private @Nullable Output<String> dockerArgs;
 
+    /**
+     * @return Docker arguments to pass to the container.
+     * 
+     */
     public Optional<Output<String>> dockerArgs() {
         return Optional.ofNullable(this.dockerArgs);
     }
 
+    /**
+     * Environment variables as key-value pairs.
+     * 
+     */
     @Import(name="env")
     private @Nullable Output<Map<String,String>> env;
 
+    /**
+     * @return Environment variables as key-value pairs.
+     * 
+     */
     public Optional<Output<Map<String,String>>> env() {
         return Optional.ofNullable(this.env);
     }
 
+    /**
+     * The Docker image to use for the template.
+     * 
+     */
     @Import(name="imageName", required=true)
     private Output<String> imageName;
 
+    /**
+     * @return The Docker image to use for the template.
+     * 
+     */
     public Output<String> imageName() {
         return this.imageName;
     }
 
+    /**
+     * Whether this template is publicly visible.
+     * 
+     */
     @Import(name="isPublic")
     private @Nullable Output<Boolean> isPublic;
 
+    /**
+     * @return Whether this template is publicly visible.
+     * 
+     */
     public Optional<Output<Boolean>> isPublic() {
         return Optional.ofNullable(this.isPublic);
     }
 
+    /**
+     * Whether this template is for serverless endpoints.
+     * 
+     */
     @Import(name="isServerless")
     private @Nullable Output<Boolean> isServerless;
 
+    /**
+     * @return Whether this template is for serverless endpoints.
+     * 
+     */
     public Optional<Output<Boolean>> isServerless() {
         return Optional.ofNullable(this.isServerless);
     }
 
+    /**
+     * A name for the template.
+     * 
+     */
     @Import(name="name", required=true)
     private Output<String> name;
 
+    /**
+     * @return A name for the template.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
 
+    /**
+     * Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+     * 
+     */
     @Import(name="ports")
     private @Nullable Output<String> ports;
 
+    /**
+     * @return Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+     * 
+     */
     public Optional<Output<String>> ports() {
         return Optional.ofNullable(this.ports);
     }
 
+    /**
+     * A readme/description for the template in Markdown.
+     * 
+     */
     @Import(name="readme")
     private @Nullable Output<String> readme;
 
+    /**
+     * @return A readme/description for the template in Markdown.
+     * 
+     */
     public Optional<Output<String>> readme() {
         return Optional.ofNullable(this.readme);
     }
 
+    /**
+     * Whether to start Jupyter notebook server.
+     * 
+     */
     @Import(name="startJupyter")
     private @Nullable Output<Boolean> startJupyter;
 
+    /**
+     * @return Whether to start Jupyter notebook server.
+     * 
+     */
     public Optional<Output<Boolean>> startJupyter() {
         return Optional.ofNullable(this.startJupyter);
     }
 
+    /**
+     * A bash script to run on container start.
+     * 
+     */
     @Import(name="startScript")
     private @Nullable Output<String> startScript;
 
+    /**
+     * @return A bash script to run on container start.
+     * 
+     */
     public Optional<Output<String>> startScript() {
         return Optional.ofNullable(this.startScript);
     }
 
+    /**
+     * Whether to start an SSH server.
+     * 
+     */
     @Import(name="startSsh")
     private @Nullable Output<Boolean> startSsh;
 
+    /**
+     * @return Whether to start an SSH server.
+     * 
+     */
     public Optional<Output<Boolean>> startSsh() {
         return Optional.ofNullable(this.startSsh);
     }
 
+    /**
+     * The size of the persistent volume in GB. Use 0 for no volume.
+     * 
+     */
     @Import(name="volumeInGb", required=true)
     private Output<Integer> volumeInGb;
 
+    /**
+     * @return The size of the persistent volume in GB. Use 0 for no volume.
+     * 
+     */
     public Output<Integer> volumeInGb() {
         return this.volumeInGb;
     }
 
+    /**
+     * The path to mount the persistent volume.
+     * 
+     */
     @Import(name="volumeMountPath")
     private @Nullable Output<String> volumeMountPath;
 
+    /**
+     * @return The path to mount the persistent volume.
+     * 
+     */
     public Optional<Output<String>> volumeMountPath() {
         return Optional.ofNullable(this.volumeMountPath);
     }
@@ -178,155 +314,359 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
             $ = new TemplateArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param advancedStart Whether to use advanced start mode.
+         * 
+         * @return builder
+         * 
+         */
         public Builder advancedStart(@Nullable Output<Boolean> advancedStart) {
             $.advancedStart = advancedStart;
             return this;
         }
 
+        /**
+         * @param advancedStart Whether to use advanced start mode.
+         * 
+         * @return builder
+         * 
+         */
         public Builder advancedStart(Boolean advancedStart) {
             return advancedStart(Output.of(advancedStart));
         }
 
+        /**
+         * @param category The category of the template.
+         * 
+         * @return builder
+         * 
+         */
         public Builder category(@Nullable Output<String> category) {
             $.category = category;
             return this;
         }
 
+        /**
+         * @param category The category of the template.
+         * 
+         * @return builder
+         * 
+         */
         public Builder category(String category) {
             return category(Output.of(category));
         }
 
+        /**
+         * @param containerDiskInGb The size of the container disk in GB.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerDiskInGb(Output<Integer> containerDiskInGb) {
             $.containerDiskInGb = containerDiskInGb;
             return this;
         }
 
+        /**
+         * @param containerDiskInGb The size of the container disk in GB.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerDiskInGb(Integer containerDiskInGb) {
             return containerDiskInGb(Output.of(containerDiskInGb));
         }
 
+        /**
+         * @param containerRegistryAuthId The ID of the container registry auth credentials to use.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerRegistryAuthId(@Nullable Output<String> containerRegistryAuthId) {
             $.containerRegistryAuthId = containerRegistryAuthId;
             return this;
         }
 
+        /**
+         * @param containerRegistryAuthId The ID of the container registry auth credentials to use.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerRegistryAuthId(String containerRegistryAuthId) {
             return containerRegistryAuthId(Output.of(containerRegistryAuthId));
         }
 
+        /**
+         * @param dockerArgs Docker arguments to pass to the container.
+         * 
+         * @return builder
+         * 
+         */
         public Builder dockerArgs(@Nullable Output<String> dockerArgs) {
             $.dockerArgs = dockerArgs;
             return this;
         }
 
+        /**
+         * @param dockerArgs Docker arguments to pass to the container.
+         * 
+         * @return builder
+         * 
+         */
         public Builder dockerArgs(String dockerArgs) {
             return dockerArgs(Output.of(dockerArgs));
         }
 
+        /**
+         * @param env Environment variables as key-value pairs.
+         * 
+         * @return builder
+         * 
+         */
         public Builder env(@Nullable Output<Map<String,String>> env) {
             $.env = env;
             return this;
         }
 
+        /**
+         * @param env Environment variables as key-value pairs.
+         * 
+         * @return builder
+         * 
+         */
         public Builder env(Map<String,String> env) {
             return env(Output.of(env));
         }
 
+        /**
+         * @param imageName The Docker image to use for the template.
+         * 
+         * @return builder
+         * 
+         */
         public Builder imageName(Output<String> imageName) {
             $.imageName = imageName;
             return this;
         }
 
+        /**
+         * @param imageName The Docker image to use for the template.
+         * 
+         * @return builder
+         * 
+         */
         public Builder imageName(String imageName) {
             return imageName(Output.of(imageName));
         }
 
+        /**
+         * @param isPublic Whether this template is publicly visible.
+         * 
+         * @return builder
+         * 
+         */
         public Builder isPublic(@Nullable Output<Boolean> isPublic) {
             $.isPublic = isPublic;
             return this;
         }
 
+        /**
+         * @param isPublic Whether this template is publicly visible.
+         * 
+         * @return builder
+         * 
+         */
         public Builder isPublic(Boolean isPublic) {
             return isPublic(Output.of(isPublic));
         }
 
+        /**
+         * @param isServerless Whether this template is for serverless endpoints.
+         * 
+         * @return builder
+         * 
+         */
         public Builder isServerless(@Nullable Output<Boolean> isServerless) {
             $.isServerless = isServerless;
             return this;
         }
 
+        /**
+         * @param isServerless Whether this template is for serverless endpoints.
+         * 
+         * @return builder
+         * 
+         */
         public Builder isServerless(Boolean isServerless) {
             return isServerless(Output.of(isServerless));
         }
 
+        /**
+         * @param name A name for the template.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(Output<String> name) {
             $.name = name;
             return this;
         }
 
+        /**
+         * @param name A name for the template.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(String name) {
             return name(Output.of(name));
         }
 
+        /**
+         * @param ports Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+         * 
+         * @return builder
+         * 
+         */
         public Builder ports(@Nullable Output<String> ports) {
             $.ports = ports;
             return this;
         }
 
+        /**
+         * @param ports Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+         * 
+         * @return builder
+         * 
+         */
         public Builder ports(String ports) {
             return ports(Output.of(ports));
         }
 
+        /**
+         * @param readme A readme/description for the template in Markdown.
+         * 
+         * @return builder
+         * 
+         */
         public Builder readme(@Nullable Output<String> readme) {
             $.readme = readme;
             return this;
         }
 
+        /**
+         * @param readme A readme/description for the template in Markdown.
+         * 
+         * @return builder
+         * 
+         */
         public Builder readme(String readme) {
             return readme(Output.of(readme));
         }
 
+        /**
+         * @param startJupyter Whether to start Jupyter notebook server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startJupyter(@Nullable Output<Boolean> startJupyter) {
             $.startJupyter = startJupyter;
             return this;
         }
 
+        /**
+         * @param startJupyter Whether to start Jupyter notebook server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startJupyter(Boolean startJupyter) {
             return startJupyter(Output.of(startJupyter));
         }
 
+        /**
+         * @param startScript A bash script to run on container start.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startScript(@Nullable Output<String> startScript) {
             $.startScript = startScript;
             return this;
         }
 
+        /**
+         * @param startScript A bash script to run on container start.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startScript(String startScript) {
             return startScript(Output.of(startScript));
         }
 
+        /**
+         * @param startSsh Whether to start an SSH server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startSsh(@Nullable Output<Boolean> startSsh) {
             $.startSsh = startSsh;
             return this;
         }
 
+        /**
+         * @param startSsh Whether to start an SSH server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startSsh(Boolean startSsh) {
             return startSsh(Output.of(startSsh));
         }
 
+        /**
+         * @param volumeInGb The size of the persistent volume in GB. Use 0 for no volume.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeInGb(Output<Integer> volumeInGb) {
             $.volumeInGb = volumeInGb;
             return this;
         }
 
+        /**
+         * @param volumeInGb The size of the persistent volume in GB. Use 0 for no volume.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeInGb(Integer volumeInGb) {
             return volumeInGb(Output.of(volumeInGb));
         }
 
+        /**
+         * @param volumeMountPath The path to mount the persistent volume.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeMountPath(@Nullable Output<String> volumeMountPath) {
             $.volumeMountPath = volumeMountPath;
             return this;
         }
 
+        /**
+         * @param volumeMountPath The path to mount the persistent volume.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeMountPath(String volumeMountPath) {
             return volumeMountPath(Output.of(volumeMountPath));
         }

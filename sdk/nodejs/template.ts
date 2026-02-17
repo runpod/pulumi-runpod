@@ -31,23 +31,77 @@ export class Template extends pulumi.CustomResource {
         return obj['__pulumiType'] === Template.__pulumiType;
     }
 
+    /**
+     * Whether to use advanced start mode.
+     */
     public readonly advancedStart!: pulumi.Output<boolean | undefined>;
+    /**
+     * The category of the template.
+     */
     public readonly category!: pulumi.Output<string | undefined>;
+    /**
+     * The size of the container disk in GB.
+     */
     public readonly containerDiskInGb!: pulumi.Output<number>;
+    /**
+     * The ID of the container registry auth credentials to use.
+     */
     public readonly containerRegistryAuthId!: pulumi.Output<string | undefined>;
+    /**
+     * Docker arguments to pass to the container.
+     */
     public readonly dockerArgs!: pulumi.Output<string | undefined>;
+    /**
+     * Environment variables as key-value pairs.
+     */
     public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * The Docker image to use for the template.
+     */
     public readonly imageName!: pulumi.Output<string>;
+    /**
+     * Whether this template is publicly visible.
+     */
     public readonly isPublic!: pulumi.Output<boolean | undefined>;
+    /**
+     * Whether this template is for serverless endpoints.
+     */
     public readonly isServerless!: pulumi.Output<boolean | undefined>;
+    /**
+     * A name for the template.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * Ports to expose (e.g. "8080/http,22/tcp").
+     */
     public readonly ports!: pulumi.Output<string | undefined>;
+    /**
+     * A readme/description for the template in Markdown.
+     */
     public readonly readme!: pulumi.Output<string | undefined>;
+    /**
+     * Whether to start Jupyter notebook server.
+     */
     public readonly startJupyter!: pulumi.Output<boolean | undefined>;
+    /**
+     * A bash script to run on container start.
+     */
     public readonly startScript!: pulumi.Output<string | undefined>;
+    /**
+     * Whether to start an SSH server.
+     */
     public readonly startSsh!: pulumi.Output<boolean | undefined>;
+    /**
+     * The unique identifier of the template.
+     */
     public /*out*/ readonly templateId!: pulumi.Output<string>;
+    /**
+     * The size of the persistent volume in GB. Use 0 for no volume.
+     */
     public readonly volumeInGb!: pulumi.Output<number>;
+    /**
+     * The path to mount the persistent volume.
+     */
     public readonly volumeMountPath!: pulumi.Output<string | undefined>;
 
     /**
@@ -120,21 +174,72 @@ export class Template extends pulumi.CustomResource {
  * The set of arguments for constructing a Template resource.
  */
 export interface TemplateArgs {
+    /**
+     * Whether to use advanced start mode.
+     */
     advancedStart?: pulumi.Input<boolean>;
+    /**
+     * The category of the template.
+     */
     category?: pulumi.Input<string>;
+    /**
+     * The size of the container disk in GB.
+     */
     containerDiskInGb: pulumi.Input<number>;
+    /**
+     * The ID of the container registry auth credentials to use.
+     */
     containerRegistryAuthId?: pulumi.Input<string>;
+    /**
+     * Docker arguments to pass to the container.
+     */
     dockerArgs?: pulumi.Input<string>;
+    /**
+     * Environment variables as key-value pairs.
+     */
     env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * The Docker image to use for the template.
+     */
     imageName: pulumi.Input<string>;
+    /**
+     * Whether this template is publicly visible.
+     */
     isPublic?: pulumi.Input<boolean>;
+    /**
+     * Whether this template is for serverless endpoints.
+     */
     isServerless?: pulumi.Input<boolean>;
+    /**
+     * A name for the template.
+     */
     name: pulumi.Input<string>;
+    /**
+     * Ports to expose (e.g. "8080/http,22/tcp").
+     */
     ports?: pulumi.Input<string>;
+    /**
+     * A readme/description for the template in Markdown.
+     */
     readme?: pulumi.Input<string>;
+    /**
+     * Whether to start Jupyter notebook server.
+     */
     startJupyter?: pulumi.Input<boolean>;
+    /**
+     * A bash script to run on container start.
+     */
     startScript?: pulumi.Input<string>;
+    /**
+     * Whether to start an SSH server.
+     */
     startSsh?: pulumi.Input<boolean>;
+    /**
+     * The size of the persistent volume in GB. Use 0 for no volume.
+     */
     volumeInGb: pulumi.Input<number>;
+    /**
+     * The path to mount the persistent volume.
+     */
     volumeMountPath?: pulumi.Input<string>;
 }

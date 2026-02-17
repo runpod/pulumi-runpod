@@ -1,8 +1,6 @@
 {
     "name": "@runpod/pulumi",
     "version": "1.0.0-alpha.0+dev",
-    "main": "bin/index.js",
-    "types": "bin/index.d.ts",
     "homepage": "https://www.runpod.io",
     "repository": "https://github.com/runpod/pulumi-runpod",
     "scripts": {

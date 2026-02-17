@@ -15,24 +15,42 @@ import (
 type Template struct {
 	pulumi.CustomResourceState
 
-	AdvancedStart           pulumi.BoolPtrOutput   `pulumi:"advancedStart"`
-	Category                pulumi.StringPtrOutput `pulumi:"category"`
-	ContainerDiskInGb       pulumi.IntOutput       `pulumi:"containerDiskInGb"`
+	// Whether to use advanced start mode.
+	AdvancedStart pulumi.BoolPtrOutput `pulumi:"advancedStart"`
+	// The category of the template.
+	Category pulumi.StringPtrOutput `pulumi:"category"`
+	// The size of the container disk in GB.
+	ContainerDiskInGb pulumi.IntOutput `pulumi:"containerDiskInGb"`
+	// The ID of the container registry auth credentials to use.
 	ContainerRegistryAuthId pulumi.StringPtrOutput `pulumi:"containerRegistryAuthId"`
-	DockerArgs              pulumi.StringPtrOutput `pulumi:"dockerArgs"`
-	Env                     pulumi.StringMapOutput `pulumi:"env"`
-	ImageName               pulumi.StringOutput    `pulumi:"imageName"`
-	IsPublic                pulumi.BoolPtrOutput   `pulumi:"isPublic"`
-	IsServerless            pulumi.BoolPtrOutput   `pulumi:"isServerless"`
-	Name                    pulumi.StringOutput    `pulumi:"name"`
-	Ports                   pulumi.StringPtrOutput `pulumi:"ports"`
-	Readme                  pulumi.StringPtrOutput `pulumi:"readme"`
-	StartJupyter            pulumi.BoolPtrOutput   `pulumi:"startJupyter"`
-	StartScript             pulumi.StringPtrOutput `pulumi:"startScript"`
-	StartSsh                pulumi.BoolPtrOutput   `pulumi:"startSsh"`
-	TemplateId              pulumi.StringOutput    `pulumi:"templateId"`
-	VolumeInGb              pulumi.IntOutput       `pulumi:"volumeInGb"`
-	VolumeMountPath         pulumi.StringPtrOutput `pulumi:"volumeMountPath"`
+	// Docker arguments to pass to the container.
+	DockerArgs pulumi.StringPtrOutput `pulumi:"dockerArgs"`
+	// Environment variables as key-value pairs.
+	Env pulumi.StringMapOutput `pulumi:"env"`
+	// The Docker image to use for the template.
+	ImageName pulumi.StringOutput `pulumi:"imageName"`
+	// Whether this template is publicly visible.
+	IsPublic pulumi.BoolPtrOutput `pulumi:"isPublic"`
+	// Whether this template is for serverless endpoints.
+	IsServerless pulumi.BoolPtrOutput `pulumi:"isServerless"`
+	// A name for the template.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// Ports to expose (e.g. "8080/http,22/tcp").
+	Ports pulumi.StringPtrOutput `pulumi:"ports"`
+	// A readme/description for the template in Markdown.
+	Readme pulumi.StringPtrOutput `pulumi:"readme"`
+	// Whether to start Jupyter notebook server.
+	StartJupyter pulumi.BoolPtrOutput `pulumi:"startJupyter"`
+	// A bash script to run on container start.
+	StartScript pulumi.StringPtrOutput `pulumi:"startScript"`
+	// Whether to start an SSH server.
+	StartSsh pulumi.BoolPtrOutput `pulumi:"startSsh"`
+	// The unique identifier of the template.
+	TemplateId pulumi.StringOutput `pulumi:"templateId"`
+	// The size of the persistent volume in GB. Use 0 for no volume.
+	VolumeInGb pulumi.IntOutput `pulumi:"volumeInGb"`
+	// The path to mount the persistent volume.
+	VolumeMountPath pulumi.StringPtrOutput `pulumi:"volumeMountPath"`
 }
 
 // NewTemplate registers a new resource with the given unique name, arguments, and options.
@@ -87,44 +105,78 @@ func (TemplateState) ElementType() reflect.Type {
 }
 
 type templateArgs struct {
-	AdvancedStart           *bool             `pulumi:"advancedStart"`
-	Category                *string           `pulumi:"category"`
-	ContainerDiskInGb       int               `pulumi:"containerDiskInGb"`
-	ContainerRegistryAuthId *string           `pulumi:"containerRegistryAuthId"`
-	DockerArgs              *string           `pulumi:"dockerArgs"`
-	Env                     map[string]string `pulumi:"env"`
-	ImageName               string            `pulumi:"imageName"`
-	IsPublic                *bool             `pulumi:"isPublic"`
-	IsServerless            *bool             `pulumi:"isServerless"`
-	Name                    string            `pulumi:"name"`
-	Ports                   *string           `pulumi:"ports"`
-	Readme                  *string           `pulumi:"readme"`
-	StartJupyter            *bool             `pulumi:"startJupyter"`
-	StartScript             *string           `pulumi:"startScript"`
-	StartSsh                *bool             `pulumi:"startSsh"`
-	VolumeInGb              int               `pulumi:"volumeInGb"`
-	VolumeMountPath         *string           `pulumi:"volumeMountPath"`
+	// Whether to use advanced start mode.
+	AdvancedStart *bool `pulumi:"advancedStart"`
+	// The category of the template.
+	Category *string `pulumi:"category"`
+	// The size of the container disk in GB.
+	ContainerDiskInGb int `pulumi:"containerDiskInGb"`
+	// The ID of the container registry auth credentials to use.
+	ContainerRegistryAuthId *string `pulumi:"containerRegistryAuthId"`
+	// Docker arguments to pass to the container.
+	DockerArgs *string `pulumi:"dockerArgs"`
+	// Environment variables as key-value pairs.
+	Env map[string]string `pulumi:"env"`
+	// The Docker image to use for the template.
+	ImageName string `pulumi:"imageName"`
+	// Whether this template is publicly visible.
+	IsPublic *bool `pulumi:"isPublic"`
+	// Whether this template is for serverless endpoints.
+	IsServerless *bool `pulumi:"isServerless"`
+	// A name for the template.
+	Name string `pulumi:"name"`
+	// Ports to expose (e.g. "8080/http,22/tcp").
+	Ports *string `pulumi:"ports"`
+	// A readme/description for the template in Markdown.
+	Readme *string `pulumi:"readme"`
+	// Whether to start Jupyter notebook server.
+	StartJupyter *bool `pulumi:"startJupyter"`
+	// A bash script to run on container start.
+	StartScript *string `pulumi:"startScript"`
+	// Whether to start an SSH server.
+	StartSsh *bool `pulumi:"startSsh"`
+	// The size of the persistent volume in GB. Use 0 for no volume.
+	VolumeInGb int `pulumi:"volumeInGb"`
+	// The path to mount the persistent volume.
+	VolumeMountPath *string `pulumi:"volumeMountPath"`
 }
 
 // The set of arguments for constructing a Template resource.
 type TemplateArgs struct {
-	AdvancedStart           pulumi.BoolPtrInput
-	Category                pulumi.StringPtrInput
-	ContainerDiskInGb       pulumi.IntInput
+	// Whether to use advanced start mode.
+	AdvancedStart pulumi.BoolPtrInput
+	// The category of the template.
+	Category pulumi.StringPtrInput
+	// The size of the container disk in GB.
+	ContainerDiskInGb pulumi.IntInput
+	// The ID of the container registry auth credentials to use.
 	ContainerRegistryAuthId pulumi.StringPtrInput
-	DockerArgs              pulumi.StringPtrInput
-	Env                     pulumi.StringMapInput
-	ImageName               pulumi.StringInput
-	IsPublic                pulumi.BoolPtrInput
-	IsServerless            pulumi.BoolPtrInput
-	Name                    pulumi.StringInput
-	Ports                   pulumi.StringPtrInput
-	Readme                  pulumi.StringPtrInput
-	StartJupyter            pulumi.BoolPtrInput
-	StartScript             pulumi.StringPtrInput
-	StartSsh                pulumi.BoolPtrInput
-	VolumeInGb              pulumi.IntInput
-	VolumeMountPath         pulumi.StringPtrInput
+	// Docker arguments to pass to the container.
+	DockerArgs pulumi.StringPtrInput
+	// Environment variables as key-value pairs.
+	Env pulumi.StringMapInput
+	// The Docker image to use for the template.
+	ImageName pulumi.StringInput
+	// Whether this template is publicly visible.
+	IsPublic pulumi.BoolPtrInput
+	// Whether this template is for serverless endpoints.
+	IsServerless pulumi.BoolPtrInput
+	// A name for the template.
+	Name pulumi.StringInput
+	// Ports to expose (e.g. "8080/http,22/tcp").
+	Ports pulumi.StringPtrInput
+	// A readme/description for the template in Markdown.
+	Readme pulumi.StringPtrInput
+	// Whether to start Jupyter notebook server.
+	StartJupyter pulumi.BoolPtrInput
+	// A bash script to run on container start.
+	StartScript pulumi.StringPtrInput
+	// Whether to start an SSH server.
+	StartSsh pulumi.BoolPtrInput
+	// The size of the persistent volume in GB. Use 0 for no volume.
+	VolumeInGb pulumi.IntInput
+	// The path to mount the persistent volume.
+	VolumeMountPath pulumi.StringPtrInput
 }
 
 func (TemplateArgs) ElementType() reflect.Type {
@@ -214,74 +266,92 @@ func (o TemplateOutput) ToTemplateOutputWithContext(ctx context.Context) Templat
 	return o
 }
 
+// Whether to use advanced start mode.
 func (o TemplateOutput) AdvancedStart() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.AdvancedStart }).(pulumi.BoolPtrOutput)
 }
 
+// The category of the template.
 func (o TemplateOutput) Category() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Category }).(pulumi.StringPtrOutput)
 }
 
+// The size of the container disk in GB.
 func (o TemplateOutput) ContainerDiskInGb() pulumi.IntOutput {
 	return o.ApplyT(func(v *Template) pulumi.IntOutput { return v.ContainerDiskInGb }).(pulumi.IntOutput)
 }
 
+// The ID of the container registry auth credentials to use.
 func (o TemplateOutput) ContainerRegistryAuthId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.ContainerRegistryAuthId }).(pulumi.StringPtrOutput)
 }
 
+// Docker arguments to pass to the container.
 func (o TemplateOutput) DockerArgs() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.DockerArgs }).(pulumi.StringPtrOutput)
 }
 
+// Environment variables as key-value pairs.
 func (o TemplateOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }
 
+// The Docker image to use for the template.
 func (o TemplateOutput) ImageName() pulumi.StringOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringOutput { return v.ImageName }).(pulumi.StringOutput)
 }
 
+// Whether this template is publicly visible.
 func (o TemplateOutput) IsPublic() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.IsPublic }).(pulumi.BoolPtrOutput)
 }
 
+// Whether this template is for serverless endpoints.
 func (o TemplateOutput) IsServerless() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.IsServerless }).(pulumi.BoolPtrOutput)
 }
 
+// A name for the template.
 func (o TemplateOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// Ports to expose (e.g. "8080/http,22/tcp").
 func (o TemplateOutput) Ports() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Ports }).(pulumi.StringPtrOutput)
 }
 
+// A readme/description for the template in Markdown.
 func (o TemplateOutput) Readme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Readme }).(pulumi.StringPtrOutput)
 }
 
+// Whether to start Jupyter notebook server.
 func (o TemplateOutput) StartJupyter() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.StartJupyter }).(pulumi.BoolPtrOutput)
 }
 
+// A bash script to run on container start.
 func (o TemplateOutput) StartScript() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.StartScript }).(pulumi.StringPtrOutput)
 }
 
+// Whether to start an SSH server.
 func (o TemplateOutput) StartSsh() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.StartSsh }).(pulumi.BoolPtrOutput)
 }
 
+// The unique identifier of the template.
 func (o TemplateOutput) TemplateId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringOutput { return v.TemplateId }).(pulumi.StringOutput)
 }
 
+// The size of the persistent volume in GB. Use 0 for no volume.
 func (o TemplateOutput) VolumeInGb() pulumi.IntOutput {
 	return o.ApplyT(func(v *Template) pulumi.IntOutput { return v.VolumeInGb }).(pulumi.IntOutput)
 }
 
+// The path to mount the persistent volume.
 func (o TemplateOutput) VolumeMountPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.VolumeMountPath }).(pulumi.StringPtrOutput)
 }

@@ -1,20 +1,10 @@
 {
   "name": "runpod",
   "displayName": "RunPod",
-  "version": "1.0.0-alpha.0",
   "description": "Manage RunPod GPU cloud resources.",
   "homepage": "https://www.runpod.io",
   "repository": "https://github.com/runpod/pulumi-runpod",
   "pluginDownloadURL": "github://api.github.com/runpod/pulumi-runpod",
-  "publisher": "RunPod",
-  "logoUrl": "https://cdn.prod.website-files.com/67d20fb9f56ff2ec6a7a657d/685b36c74aa59531d0f1a347_runpod-logo-black.svg",
-  "keywords": [
-    "category/cloud",
-    "kind/native",
-    "pulumi",
-    "runpod",
-    "gpu"
-  ],
   "namespace": "runpod",
   "meta": {
     "moduleFormat": "(.*)"

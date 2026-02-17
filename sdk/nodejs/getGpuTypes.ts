@@ -17,6 +17,9 @@ export interface GetGpuTypesArgs {
 }
 
 export interface GetGpuTypesResult {
+    /**
+     * The list of available GPU types.
+     */
     readonly gpuTypes: outputs.GpuTypeOutput[];
 }
 export function getGpuTypesOutput(opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetGpuTypesResult> {

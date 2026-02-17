@@ -7,18 +7,24 @@ import * as utilities from "../utilities";
 declare var exports: any;
 const __config = new pulumi.Config("runpod");
 
+/**
+ * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+ */
 export declare const apiKey: string | undefined;
 Object.defineProperty(exports, "apiKey", {
     get() {
-        return __config.get("apiKey");
+        return __config.get("apiKey") ?? utilities.getEnv("RUNPOD_API_KEY");
     },
     enumerable: true,
 });
 
+/**
+ * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+ */
 export declare const apiUrl: string | undefined;
 Object.defineProperty(exports, "apiUrl", {
     get() {
-        return __config.get("apiUrl");
+        return __config.get("apiUrl") ?? utilities.getEnv("RUNPOD_API_URL");
     },
     enumerable: true,
 });

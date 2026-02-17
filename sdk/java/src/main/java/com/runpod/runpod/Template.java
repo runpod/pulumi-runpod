@@ -18,111 +18,255 @@ import javax.annotation.Nullable;
 
 @ResourceType(type="runpod:index:Template")
 public class Template extends com.pulumi.resources.CustomResource {
+    /**
+     * Whether to use advanced start mode.
+     * 
+     */
     @Export(name="advancedStart", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> advancedStart;
 
+    /**
+     * @return Whether to use advanced start mode.
+     * 
+     */
     public Output<Optional<Boolean>> advancedStart() {
         return Codegen.optional(this.advancedStart);
     }
+    /**
+     * The category of the template.
+     * 
+     */
     @Export(name="category", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> category;
 
+    /**
+     * @return The category of the template.
+     * 
+     */
     public Output<Optional<String>> category() {
         return Codegen.optional(this.category);
     }
+    /**
+     * The size of the container disk in GB.
+     * 
+     */
     @Export(name="containerDiskInGb", refs={Integer.class}, tree="[0]")
     private Output<Integer> containerDiskInGb;
 
+    /**
+     * @return The size of the container disk in GB.
+     * 
+     */
     public Output<Integer> containerDiskInGb() {
         return this.containerDiskInGb;
     }
+    /**
+     * The ID of the container registry auth credentials to use.
+     * 
+     */
     @Export(name="containerRegistryAuthId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> containerRegistryAuthId;
 
+    /**
+     * @return The ID of the container registry auth credentials to use.
+     * 
+     */
     public Output<Optional<String>> containerRegistryAuthId() {
         return Codegen.optional(this.containerRegistryAuthId);
     }
+    /**
+     * Docker arguments to pass to the container.
+     * 
+     */
     @Export(name="dockerArgs", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dockerArgs;
 
+    /**
+     * @return Docker arguments to pass to the container.
+     * 
+     */
     public Output<Optional<String>> dockerArgs() {
         return Codegen.optional(this.dockerArgs);
     }
+    /**
+     * Environment variables as key-value pairs.
+     * 
+     */
     @Export(name="env", refs={Map.class,String.class}, tree="[0,1,1]")
     private Output</* @Nullable */ Map<String,String>> env;
 
+    /**
+     * @return Environment variables as key-value pairs.
+     * 
+     */
     public Output<Optional<Map<String,String>>> env() {
         return Codegen.optional(this.env);
     }
+    /**
+     * The Docker image to use for the template.
+     * 
+     */
     @Export(name="imageName", refs={String.class}, tree="[0]")
     private Output<String> imageName;
 
+    /**
+     * @return The Docker image to use for the template.
+     * 
+     */
     public Output<String> imageName() {
         return this.imageName;
     }
+    /**
+     * Whether this template is publicly visible.
+     * 
+     */
     @Export(name="isPublic", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> isPublic;
 
+    /**
+     * @return Whether this template is publicly visible.
+     * 
+     */
     public Output<Optional<Boolean>> isPublic() {
         return Codegen.optional(this.isPublic);
     }
+    /**
+     * Whether this template is for serverless endpoints.
+     * 
+     */
     @Export(name="isServerless", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> isServerless;
 
+    /**
+     * @return Whether this template is for serverless endpoints.
+     * 
+     */
     public Output<Optional<Boolean>> isServerless() {
         return Codegen.optional(this.isServerless);
     }
+    /**
+     * A name for the template.
+     * 
+     */
     @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
+    /**
+     * @return A name for the template.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
+    /**
+     * Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+     * 
+     */
     @Export(name="ports", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ports;
 
+    /**
+     * @return Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+     * 
+     */
     public Output<Optional<String>> ports() {
         return Codegen.optional(this.ports);
     }
+    /**
+     * A readme/description for the template in Markdown.
+     * 
+     */
     @Export(name="readme", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> readme;
 
+    /**
+     * @return A readme/description for the template in Markdown.
+     * 
+     */
     public Output<Optional<String>> readme() {
         return Codegen.optional(this.readme);
     }
+    /**
+     * Whether to start Jupyter notebook server.
+     * 
+     */
     @Export(name="startJupyter", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> startJupyter;
 
+    /**
+     * @return Whether to start Jupyter notebook server.
+     * 
+     */
     public Output<Optional<Boolean>> startJupyter() {
         return Codegen.optional(this.startJupyter);
     }
+    /**
+     * A bash script to run on container start.
+     * 
+     */
     @Export(name="startScript", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> startScript;
 
+    /**
+     * @return A bash script to run on container start.
+     * 
+     */
     public Output<Optional<String>> startScript() {
         return Codegen.optional(this.startScript);
     }
+    /**
+     * Whether to start an SSH server.
+     * 
+     */
     @Export(name="startSsh", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> startSsh;
 
+    /**
+     * @return Whether to start an SSH server.
+     * 
+     */
     public Output<Optional<Boolean>> startSsh() {
         return Codegen.optional(this.startSsh);
     }
+    /**
+     * The unique identifier of the template.
+     * 
+     */
     @Export(name="templateId", refs={String.class}, tree="[0]")
     private Output<String> templateId;
 
+    /**
+     * @return The unique identifier of the template.
+     * 
+     */
     public Output<String> templateId() {
         return this.templateId;
     }
+    /**
+     * The size of the persistent volume in GB. Use 0 for no volume.
+     * 
+     */
     @Export(name="volumeInGb", refs={Integer.class}, tree="[0]")
     private Output<Integer> volumeInGb;
 
+    /**
+     * @return The size of the persistent volume in GB. Use 0 for no volume.
+     * 
+     */
     public Output<Integer> volumeInGb() {
         return this.volumeInGb;
     }
+    /**
+     * The path to mount the persistent volume.
+     * 
+     */
     @Export(name="volumeMountPath", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> volumeMountPath;
 
+    /**
+     * @return The path to mount the persistent volume.
+     * 
+     */
     public Output<Optional<String>> volumeMountPath() {
         return Codegen.optional(this.volumeMountPath);
     }

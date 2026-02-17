@@ -12,13 +12,29 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class SavingsPlan {
+    /**
+     * @return The length of the savings plan.
+     * 
+     */
     private @Nullable String planLength;
+    /**
+     * @return The upfront cost for the savings plan.
+     * 
+     */
     private @Nullable Double upfrontCost;
 
     private SavingsPlan() {}
+    /**
+     * @return The length of the savings plan.
+     * 
+     */
     public Optional<String> planLength() {
         return Optional.ofNullable(this.planLength);
     }
+    /**
+     * @return The upfront cost for the savings plan.
+     * 
+     */
     public Optional<Double> upfrontCost() {
         return Optional.ofNullable(this.upfrontCost);
     }

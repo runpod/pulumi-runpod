@@ -31,9 +31,21 @@ export class ContainerRegistryAuth extends pulumi.CustomResource {
         return obj['__pulumiType'] === ContainerRegistryAuth.__pulumiType;
     }
 
+    /**
+     * A name for the registry auth credentials.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * The password or access token for the container registry.
+     */
     public readonly password!: pulumi.Output<string>;
+    /**
+     * The unique identifier of the registry auth.
+     */
     public /*out*/ readonly registryAuthId!: pulumi.Output<string>;
+    /**
+     * The username for the container registry.
+     */
     public readonly username!: pulumi.Output<string>;
 
     /**
@@ -69,6 +81,8 @@ export class ContainerRegistryAuth extends pulumi.CustomResource {
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["password"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
+        const replaceOnChanges = { replaceOnChanges: ["name"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(ContainerRegistryAuth.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -77,7 +91,16 @@ export class ContainerRegistryAuth extends pulumi.CustomResource {
  * The set of arguments for constructing a ContainerRegistryAuth resource.
  */
 export interface ContainerRegistryAuthArgs {
+    /**
+     * A name for the registry auth credentials.
+     */
     name: pulumi.Input<string>;
+    /**
+     * The password or access token for the container registry.
+     */
     password: pulumi.Input<string>;
+    /**
+     * The username for the container registry.
+     */
     username: pulumi.Input<string>;
 }

@@ -12,162 +12,321 @@ namespace Pulumi.Runpod
     [RunpodResourceType("runpod:index:Pod")]
     public partial class Pod : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The AI API ID for the pod.
+        /// </summary>
         [Output("aiApiId")]
         public Output<string?> AiApiId { get; private set; } = null!;
 
+        /// <summary>
+        /// A list of allowed CUDA versions.
+        /// </summary>
         [Output("allowedCudaVersions")]
         public Output<ImmutableArray<string>> AllowedCudaVersions { get; private set; } = null!;
 
+        /// <summary>
+        /// The cloud type: SECURE, COMMUNITY, or ALL.
+        /// </summary>
         [Output("cloudType")]
         public Output<string?> CloudType { get; private set; } = null!;
 
+        /// <summary>
+        /// The compute type: CPU or GPU.
+        /// </summary>
         [Output("computeType")]
         public Output<string?> ComputeType { get; private set; } = null!;
 
+        /// <summary>
+        /// The size of the container disk in GB.
+        /// </summary>
         [Output("containerDiskInGb")]
         public Output<int?> ContainerDiskInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The container registry auth ID for pulling private images.
+        /// </summary>
         [Output("containerRegistryAuthId")]
         public Output<string?> ContainerRegistryAuthId { get; private set; } = null!;
 
+        /// <summary>
+        /// The cost per hour for the pod in USD.
+        /// </summary>
         [Output("costPerHr")]
         public Output<double> CostPerHr { get; private set; } = null!;
 
+        /// <summary>
+        /// The country code for data residency.
+        /// </summary>
         [Output("countryCode")]
         public Output<string?> CountryCode { get; private set; } = null!;
 
+        /// <summary>
+        /// The CUDA version to use.
+        /// </summary>
         [Output("cudaVersion")]
         public Output<string?> CudaVersion { get; private set; } = null!;
 
+        /// <summary>
+        /// The data center ID to deploy the pod in.
+        /// </summary>
         [Output("dataCenterId")]
         public Output<string?> DataCenterId { get; private set; } = null!;
 
+        /// <summary>
+        /// The maximum bid price per GPU per hour for spot instances.
+        /// </summary>
         [Output("deployCost")]
         public Output<double?> DeployCost { get; private set; } = null!;
 
+        /// <summary>
+        /// The desired status of the pod.
+        /// </summary>
         [Output("desiredStatus")]
         public Output<string> DesiredStatus { get; private set; } = null!;
 
+        /// <summary>
+        /// Docker arguments to pass to the container.
+        /// </summary>
         [Output("dockerArgs")]
         public Output<string?> DockerArgs { get; private set; } = null!;
 
+        /// <summary>
+        /// Environment variables as key-value pairs.
+        /// </summary>
         [Output("env")]
         public Output<ImmutableDictionary<string, string>?> Env { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to enable global networking.
+        /// </summary>
         [Output("globalNetwork")]
         public Output<bool?> GlobalNetwork { get; private set; } = null!;
 
+        /// <summary>
+        /// The number of GPUs to allocate.
+        /// </summary>
         [Output("gpuCount")]
         public Output<int?> GpuCount { get; private set; } = null!;
 
+        /// <summary>
+        /// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+        /// </summary>
         [Output("gpuTypeId")]
         public Output<string> GpuTypeId { get; private set; } = null!;
 
+        /// <summary>
+        /// A list of acceptable GPU type IDs (fallback options).
+        /// </summary>
         [Output("gpuTypeIdList")]
         public Output<ImmutableArray<string>> GpuTypeIdList { get; private set; } = null!;
 
+        /// <summary>
+        /// The IDE AI API ID for the pod.
+        /// </summary>
         [Output("ideAiApiId")]
         public Output<string?> IdeAiApiId { get; private set; } = null!;
 
+        /// <summary>
+        /// The Docker image to run on the pod.
+        /// </summary>
         [Output("imageName")]
         public Output<string?> ImageName { get; private set; } = null!;
 
+        /// <summary>
+        /// Specific instance IDs to deploy on.
+        /// </summary>
         [Output("instanceIds")]
         public Output<ImmutableArray<string>> InstanceIds { get; private set; } = null!;
 
+        /// <summary>
+        /// The ID of the machine the pod is running on.
+        /// </summary>
         [Output("machineId")]
         public Output<string> MachineId { get; private set; } = null!;
 
+        /// <summary>
+        /// The amount of memory allocated in GB.
+        /// </summary>
         [Output("memoryInGb")]
         public Output<double> MemoryInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The minimum CUDA version required.
+        /// </summary>
         [Output("minCudaVersion")]
         public Output<string?> MinCudaVersion { get; private set; } = null!;
 
+        /// <summary>
+        /// Minimum disk space in GB required on the host.
+        /// </summary>
         [Output("minDisk")]
         public Output<int?> MinDisk { get; private set; } = null!;
 
+        /// <summary>
+        /// Minimum download bandwidth in Mbps.
+        /// </summary>
         [Output("minDownload")]
         public Output<int?> MinDownload { get; private set; } = null!;
 
+        /// <summary>
+        /// Minimum memory in GB required.
+        /// </summary>
         [Output("minMemoryInGb")]
         public Output<int?> MinMemoryInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// Minimum upload bandwidth in Mbps.
+        /// </summary>
         [Output("minUpload")]
         public Output<int?> MinUpload { get; private set; } = null!;
 
+        /// <summary>
+        /// Minimum number of vCPUs required.
+        /// </summary>
         [Output("minVcpuCount")]
         public Output<int?> MinVcpuCount { get; private set; } = null!;
 
+        /// <summary>
+        /// Model references for the pod.
+        /// </summary>
         [Output("modelReferences")]
         public Output<ImmutableArray<string>> ModelReferences { get; private set; } = null!;
 
+        /// <summary>
+        /// A name for the pod.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// The network volume ID to attach to the pod.
+        /// </summary>
         [Output("networkVolumeId")]
         public Output<string?> NetworkVolumeId { get; private set; } = null!;
 
+        /// <summary>
+        /// The container disk size in GB (from API response).
+        /// </summary>
         [Output("outputContainerDiskInGb")]
         public Output<int?> OutputContainerDiskInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The container registry auth ID (from API response).
+        /// </summary>
         [Output("outputContainerRegistryAuthId")]
         public Output<string?> OutputContainerRegistryAuthId { get; private set; } = null!;
 
+        /// <summary>
+        /// The number of GPUs allocated (from API response).
+        /// </summary>
         [Output("outputGpuCount")]
         public Output<int> OutputGpuCount { get; private set; } = null!;
 
+        /// <summary>
+        /// The network volume ID attached (from API response).
+        /// </summary>
         [Output("outputNetworkVolumeId")]
         public Output<string?> OutputNetworkVolumeId { get; private set; } = null!;
 
+        /// <summary>
+        /// The pod type (from API response).
+        /// </summary>
         [Output("outputPodType")]
         public Output<string?> OutputPodType { get; private set; } = null!;
 
+        /// <summary>
+        /// The exposed ports (from API response).
+        /// </summary>
         [Output("outputPorts")]
         public Output<string?> OutputPorts { get; private set; } = null!;
 
+        /// <summary>
+        /// The template ID used (from API response).
+        /// </summary>
         [Output("outputTemplateId")]
         public Output<string?> OutputTemplateId { get; private set; } = null!;
 
+        /// <summary>
+        /// The volume size in GB (from API response).
+        /// </summary>
         [Output("outputVolumeInGb")]
         public Output<double?> OutputVolumeInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The unique identifier of the pod.
+        /// </summary>
         [Output("podId")]
         public Output<string> PodId { get; private set; } = null!;
 
+        /// <summary>
+        /// Ports to expose (e.g. "8080/http,22/tcp").
+        /// </summary>
         [Output("ports")]
         public Output<string?> Ports { get; private set; } = null!;
 
+        /// <summary>
+        /// Savings plan configuration for reduced pricing.
+        /// </summary>
         [Output("savingsPlan")]
         public Output<Outputs.SavingsPlan?> SavingsPlan { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to start a Jupyter notebook server.
+        /// </summary>
         [Output("startJupyter")]
         public Output<bool?> StartJupyter { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to start an SSH server.
+        /// </summary>
         [Output("startSsh")]
         public Output<bool?> StartSsh { get; private set; } = null!;
 
+        /// <summary>
+        /// Duration after which the pod is automatically stopped.
+        /// </summary>
         [Output("stopAfter")]
         public Output<string?> StopAfter { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to assign a public IP address.
+        /// </summary>
         [Output("supportPublicIp")]
         public Output<bool?> SupportPublicIp { get; private set; } = null!;
 
+        /// <summary>
+        /// The template ID to use for the pod.
+        /// </summary>
         [Output("templateId")]
         public Output<string?> TemplateId { get; private set; } = null!;
 
+        /// <summary>
+        /// Duration after which the pod is automatically terminated.
+        /// </summary>
         [Output("terminateAfter")]
         public Output<string?> TerminateAfter { get; private set; } = null!;
 
+        /// <summary>
+        /// The number of vCPUs allocated.
+        /// </summary>
         [Output("vcpuCount")]
         public Output<double> VcpuCount { get; private set; } = null!;
 
+        /// <summary>
+        /// The size of the persistent volume in GB.
+        /// </summary>
         [Output("volumeInGb")]
         public Output<int?> VolumeInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The volume key for persistent storage.
+        /// </summary>
         [Output("volumeKey")]
         public Output<string?> VolumeKey { get; private set; } = null!;
 
+        /// <summary>
+        /// The path to mount the persistent volume.
+        /// </summary>
         [Output("volumeMountPath")]
         public Output<string?> VolumeMountPath { get; private set; } = null!;
 
@@ -195,6 +354,40 @@ namespace Pulumi.Runpod
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/runpod/pulumi-runpod",
+                ReplaceOnChanges =
+                {
+                    "aiApiId",
+                    "allowedCudaVersions[*]",
+                    "cloudType",
+                    "computeType",
+                    "countryCode",
+                    "cudaVersion",
+                    "dataCenterId",
+                    "deployCost",
+                    "globalNetwork",
+                    "gpuCount",
+                    "gpuTypeId",
+                    "gpuTypeIdList[*]",
+                    "ideAiApiId",
+                    "instanceIds[*]",
+                    "minCudaVersion",
+                    "minDisk",
+                    "minDownload",
+                    "minMemoryInGb",
+                    "minUpload",
+                    "minVcpuCount",
+                    "modelReferences[*]",
+                    "name",
+                    "networkVolumeId",
+                    "savingsPlan",
+                    "startJupyter",
+                    "startSsh",
+                    "stopAfter",
+                    "supportPublicIp",
+                    "templateId",
+                    "terminateAfter",
+                    "volumeKey",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -217,145 +410,267 @@ namespace Pulumi.Runpod
 
     public sealed class PodArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The AI API ID for the pod.
+        /// </summary>
         [Input("aiApiId")]
         public Input<string>? AiApiId { get; set; }
 
         [Input("allowedCudaVersions")]
         private InputList<string>? _allowedCudaVersions;
+
+        /// <summary>
+        /// A list of allowed CUDA versions.
+        /// </summary>
         public InputList<string> AllowedCudaVersions
         {
             get => _allowedCudaVersions ?? (_allowedCudaVersions = new InputList<string>());
             set => _allowedCudaVersions = value;
         }
 
+        /// <summary>
+        /// The cloud type: SECURE, COMMUNITY, or ALL.
+        /// </summary>
         [Input("cloudType")]
         public Input<string>? CloudType { get; set; }
 
+        /// <summary>
+        /// The compute type: CPU or GPU.
+        /// </summary>
         [Input("computeType")]
         public Input<string>? ComputeType { get; set; }
 
+        /// <summary>
+        /// The size of the container disk in GB.
+        /// </summary>
         [Input("containerDiskInGb")]
         public Input<int>? ContainerDiskInGb { get; set; }
 
+        /// <summary>
+        /// The container registry auth ID for pulling private images.
+        /// </summary>
         [Input("containerRegistryAuthId")]
         public Input<string>? ContainerRegistryAuthId { get; set; }
 
+        /// <summary>
+        /// The country code for data residency.
+        /// </summary>
         [Input("countryCode")]
         public Input<string>? CountryCode { get; set; }
 
+        /// <summary>
+        /// The CUDA version to use.
+        /// </summary>
         [Input("cudaVersion")]
         public Input<string>? CudaVersion { get; set; }
 
+        /// <summary>
+        /// The data center ID to deploy the pod in.
+        /// </summary>
         [Input("dataCenterId")]
         public Input<string>? DataCenterId { get; set; }
 
+        /// <summary>
+        /// The maximum bid price per GPU per hour for spot instances.
+        /// </summary>
         [Input("deployCost")]
         public Input<double>? DeployCost { get; set; }
 
+        /// <summary>
+        /// Docker arguments to pass to the container.
+        /// </summary>
         [Input("dockerArgs")]
         public Input<string>? DockerArgs { get; set; }
 
         [Input("env")]
         private InputMap<string>? _env;
+
+        /// <summary>
+        /// Environment variables as key-value pairs.
+        /// </summary>
         public InputMap<string> Env
         {
             get => _env ?? (_env = new InputMap<string>());
             set => _env = value;
         }
 
+        /// <summary>
+        /// Whether to enable global networking.
+        /// </summary>
         [Input("globalNetwork")]
         public Input<bool>? GlobalNetwork { get; set; }
 
+        /// <summary>
+        /// The number of GPUs to allocate.
+        /// </summary>
         [Input("gpuCount")]
         public Input<int>? GpuCount { get; set; }
 
+        /// <summary>
+        /// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+        /// </summary>
         [Input("gpuTypeId", required: true)]
         public Input<string> GpuTypeId { get; set; } = null!;
 
         [Input("gpuTypeIdList")]
         private InputList<string>? _gpuTypeIdList;
+
+        /// <summary>
+        /// A list of acceptable GPU type IDs (fallback options).
+        /// </summary>
         public InputList<string> GpuTypeIdList
         {
             get => _gpuTypeIdList ?? (_gpuTypeIdList = new InputList<string>());
             set => _gpuTypeIdList = value;
         }
 
+        /// <summary>
+        /// The IDE AI API ID for the pod.
+        /// </summary>
         [Input("ideAiApiId")]
         public Input<string>? IdeAiApiId { get; set; }
 
+        /// <summary>
+        /// The Docker image to run on the pod.
+        /// </summary>
         [Input("imageName")]
         public Input<string>? ImageName { get; set; }
 
         [Input("instanceIds")]
         private InputList<string>? _instanceIds;
+
+        /// <summary>
+        /// Specific instance IDs to deploy on.
+        /// </summary>
         public InputList<string> InstanceIds
         {
             get => _instanceIds ?? (_instanceIds = new InputList<string>());
             set => _instanceIds = value;
         }
 
+        /// <summary>
+        /// The minimum CUDA version required.
+        /// </summary>
         [Input("minCudaVersion")]
         public Input<string>? MinCudaVersion { get; set; }
 
+        /// <summary>
+        /// Minimum disk space in GB required on the host.
+        /// </summary>
         [Input("minDisk")]
         public Input<int>? MinDisk { get; set; }
 
+        /// <summary>
+        /// Minimum download bandwidth in Mbps.
+        /// </summary>
         [Input("minDownload")]
         public Input<int>? MinDownload { get; set; }
 
+        /// <summary>
+        /// Minimum memory in GB required.
+        /// </summary>
         [Input("minMemoryInGb")]
         public Input<int>? MinMemoryInGb { get; set; }
 
+        /// <summary>
+        /// Minimum upload bandwidth in Mbps.
+        /// </summary>
         [Input("minUpload")]
         public Input<int>? MinUpload { get; set; }
 
+        /// <summary>
+        /// Minimum number of vCPUs required.
+        /// </summary>
         [Input("minVcpuCount")]
         public Input<int>? MinVcpuCount { get; set; }
 
         [Input("modelReferences")]
         private InputList<string>? _modelReferences;
+
+        /// <summary>
+        /// Model references for the pod.
+        /// </summary>
         public InputList<string> ModelReferences
         {
             get => _modelReferences ?? (_modelReferences = new InputList<string>());
             set => _modelReferences = value;
         }
 
+        /// <summary>
+        /// A name for the pod.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The network volume ID to attach to the pod.
+        /// </summary>
         [Input("networkVolumeId")]
         public Input<string>? NetworkVolumeId { get; set; }
 
+        /// <summary>
+        /// Ports to expose (e.g. "8080/http,22/tcp").
+        /// </summary>
         [Input("ports")]
         public Input<string>? Ports { get; set; }
 
+        /// <summary>
+        /// Savings plan configuration for reduced pricing.
+        /// </summary>
         [Input("savingsPlan")]
         public Input<Inputs.SavingsPlanArgs>? SavingsPlan { get; set; }
 
+        /// <summary>
+        /// Whether to start a Jupyter notebook server.
+        /// </summary>
         [Input("startJupyter")]
         public Input<bool>? StartJupyter { get; set; }
 
+        /// <summary>
+        /// Whether to start an SSH server.
+        /// </summary>
         [Input("startSsh")]
         public Input<bool>? StartSsh { get; set; }
 
+        /// <summary>
+        /// Duration after which the pod is automatically stopped.
+        /// </summary>
         [Input("stopAfter")]
         public Input<string>? StopAfter { get; set; }
 
+        /// <summary>
+        /// Whether to assign a public IP address.
+        /// </summary>
         [Input("supportPublicIp")]
         public Input<bool>? SupportPublicIp { get; set; }
 
+        /// <summary>
+        /// The template ID to use for the pod.
+        /// </summary>
         [Input("templateId")]
         public Input<string>? TemplateId { get; set; }
 
+        /// <summary>
+        /// Duration after which the pod is automatically terminated.
+        /// </summary>
         [Input("terminateAfter")]
         public Input<string>? TerminateAfter { get; set; }
 
+        /// <summary>
+        /// The size of the persistent volume in GB.
+        /// </summary>
         [Input("volumeInGb")]
         public Input<int>? VolumeInGb { get; set; }
 
+        /// <summary>
+        /// The volume key for persistent storage.
+        /// </summary>
         [Input("volumeKey")]
         public Input<string>? VolumeKey { get; set; }
 
+        /// <summary>
+        /// The path to mount the persistent volume.
+        /// </summary>
         [Input("volumeMountPath")]
         public Input<string>? VolumeMountPath { get; set; }
 

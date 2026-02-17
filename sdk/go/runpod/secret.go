@@ -15,10 +15,14 @@ import (
 type Secret struct {
 	pulumi.CustomResourceState
 
+	// A human-readable description of the secret.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	Name        pulumi.StringOutput    `pulumi:"name"`
-	SecretId    pulumi.StringOutput    `pulumi:"secretId"`
-	Value       pulumi.StringOutput    `pulumi:"value"`
+	// A name for the secret.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// The unique identifier of the secret.
+	SecretId pulumi.StringOutput `pulumi:"secretId"`
+	// The secret value.
+	Value pulumi.StringOutput `pulumi:"value"`
 }
 
 // NewSecret registers a new resource with the given unique name, arguments, and options.
@@ -41,6 +45,10 @@ func NewSecret(ctx *pulumi.Context,
 		"value",
 	})
 	opts = append(opts, secrets)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"name",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Secret
 	err := ctx.RegisterResource("runpod:index:Secret", name, args, &resource, opts...)
@@ -74,16 +82,22 @@ func (SecretState) ElementType() reflect.Type {
 }
 
 type secretArgs struct {
+	// A human-readable description of the secret.
 	Description *string `pulumi:"description"`
-	Name        string  `pulumi:"name"`
-	Value       string  `pulumi:"value"`
+	// A name for the secret.
+	Name string `pulumi:"name"`
+	// The secret value.
+	Value string `pulumi:"value"`
 }
 
 // The set of arguments for constructing a Secret resource.
 type SecretArgs struct {
+	// A human-readable description of the secret.
 	Description pulumi.StringPtrInput
-	Name        pulumi.StringInput
-	Value       pulumi.StringInput
+	// A name for the secret.
+	Name pulumi.StringInput
+	// The secret value.
+	Value pulumi.StringInput
 }
 
 func (SecretArgs) ElementType() reflect.Type {
@@ -173,18 +187,22 @@ func (o SecretOutput) ToSecretOutputWithContext(ctx context.Context) SecretOutpu
 	return o
 }
 
+// A human-readable description of the secret.
 func (o SecretOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
+// A name for the secret.
 func (o SecretOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// The unique identifier of the secret.
 func (o SecretOutput) SecretId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringOutput { return v.SecretId }).(pulumi.StringOutput)
 }
 
+// The secret value.
 func (o SecretOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringOutput { return v.Value }).(pulumi.StringOutput)
 }

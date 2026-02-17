@@ -33,58 +33,217 @@ export class Pod extends pulumi.CustomResource {
         return obj['__pulumiType'] === Pod.__pulumiType;
     }
 
+    /**
+     * The AI API ID for the pod.
+     */
     public readonly aiApiId!: pulumi.Output<string | undefined>;
+    /**
+     * A list of allowed CUDA versions.
+     */
     public readonly allowedCudaVersions!: pulumi.Output<string[] | undefined>;
+    /**
+     * The cloud type: SECURE, COMMUNITY, or ALL.
+     */
     public readonly cloudType!: pulumi.Output<string | undefined>;
+    /**
+     * The compute type: CPU or GPU.
+     */
     public readonly computeType!: pulumi.Output<string | undefined>;
+    /**
+     * The size of the container disk in GB.
+     */
     public readonly containerDiskInGb!: pulumi.Output<number | undefined>;
+    /**
+     * The container registry auth ID for pulling private images.
+     */
     public readonly containerRegistryAuthId!: pulumi.Output<string | undefined>;
+    /**
+     * The cost per hour for the pod in USD.
+     */
     public /*out*/ readonly costPerHr!: pulumi.Output<number>;
+    /**
+     * The country code for data residency.
+     */
     public readonly countryCode!: pulumi.Output<string | undefined>;
+    /**
+     * The CUDA version to use.
+     */
     public readonly cudaVersion!: pulumi.Output<string | undefined>;
+    /**
+     * The data center ID to deploy the pod in.
+     */
     public readonly dataCenterId!: pulumi.Output<string | undefined>;
+    /**
+     * The maximum bid price per GPU per hour for spot instances.
+     */
     public readonly deployCost!: pulumi.Output<number | undefined>;
+    /**
+     * The desired status of the pod.
+     */
     public /*out*/ readonly desiredStatus!: pulumi.Output<string>;
+    /**
+     * Docker arguments to pass to the container.
+     */
     public readonly dockerArgs!: pulumi.Output<string | undefined>;
+    /**
+     * Environment variables as key-value pairs.
+     */
     public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * Whether to enable global networking.
+     */
     public readonly globalNetwork!: pulumi.Output<boolean | undefined>;
+    /**
+     * The number of GPUs to allocate.
+     */
     public readonly gpuCount!: pulumi.Output<number | undefined>;
+    /**
+     * The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+     */
     public readonly gpuTypeId!: pulumi.Output<string>;
+    /**
+     * A list of acceptable GPU type IDs (fallback options).
+     */
     public readonly gpuTypeIdList!: pulumi.Output<string[] | undefined>;
+    /**
+     * The IDE AI API ID for the pod.
+     */
     public readonly ideAiApiId!: pulumi.Output<string | undefined>;
+    /**
+     * The Docker image to run on the pod.
+     */
     public readonly imageName!: pulumi.Output<string | undefined>;
+    /**
+     * Specific instance IDs to deploy on.
+     */
     public readonly instanceIds!: pulumi.Output<string[] | undefined>;
+    /**
+     * The ID of the machine the pod is running on.
+     */
     public /*out*/ readonly machineId!: pulumi.Output<string>;
+    /**
+     * The amount of memory allocated in GB.
+     */
     public /*out*/ readonly memoryInGb!: pulumi.Output<number>;
+    /**
+     * The minimum CUDA version required.
+     */
     public readonly minCudaVersion!: pulumi.Output<string | undefined>;
+    /**
+     * Minimum disk space in GB required on the host.
+     */
     public readonly minDisk!: pulumi.Output<number | undefined>;
+    /**
+     * Minimum download bandwidth in Mbps.
+     */
     public readonly minDownload!: pulumi.Output<number | undefined>;
+    /**
+     * Minimum memory in GB required.
+     */
     public readonly minMemoryInGb!: pulumi.Output<number | undefined>;
+    /**
+     * Minimum upload bandwidth in Mbps.
+     */
     public readonly minUpload!: pulumi.Output<number | undefined>;
+    /**
+     * Minimum number of vCPUs required.
+     */
     public readonly minVcpuCount!: pulumi.Output<number | undefined>;
+    /**
+     * Model references for the pod.
+     */
     public readonly modelReferences!: pulumi.Output<string[] | undefined>;
+    /**
+     * A name for the pod.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * The network volume ID to attach to the pod.
+     */
     public readonly networkVolumeId!: pulumi.Output<string | undefined>;
+    /**
+     * The container disk size in GB (from API response).
+     */
     public /*out*/ readonly outputContainerDiskInGb!: pulumi.Output<number | undefined>;
+    /**
+     * The container registry auth ID (from API response).
+     */
     public /*out*/ readonly outputContainerRegistryAuthId!: pulumi.Output<string | undefined>;
+    /**
+     * The number of GPUs allocated (from API response).
+     */
     public /*out*/ readonly outputGpuCount!: pulumi.Output<number>;
+    /**
+     * The network volume ID attached (from API response).
+     */
     public /*out*/ readonly outputNetworkVolumeId!: pulumi.Output<string | undefined>;
+    /**
+     * The pod type (from API response).
+     */
     public /*out*/ readonly outputPodType!: pulumi.Output<string | undefined>;
+    /**
+     * The exposed ports (from API response).
+     */
     public /*out*/ readonly outputPorts!: pulumi.Output<string | undefined>;
+    /**
+     * The template ID used (from API response).
+     */
     public /*out*/ readonly outputTemplateId!: pulumi.Output<string | undefined>;
+    /**
+     * The volume size in GB (from API response).
+     */
     public /*out*/ readonly outputVolumeInGb!: pulumi.Output<number | undefined>;
+    /**
+     * The unique identifier of the pod.
+     */
     public /*out*/ readonly podId!: pulumi.Output<string>;
+    /**
+     * Ports to expose (e.g. "8080/http,22/tcp").
+     */
     public readonly ports!: pulumi.Output<string | undefined>;
+    /**
+     * Savings plan configuration for reduced pricing.
+     */
     public readonly savingsPlan!: pulumi.Output<outputs.SavingsPlan | undefined>;
+    /**
+     * Whether to start a Jupyter notebook server.
+     */
     public readonly startJupyter!: pulumi.Output<boolean | undefined>;
+    /**
+     * Whether to start an SSH server.
+     */
     public readonly startSsh!: pulumi.Output<boolean | undefined>;
+    /**
+     * Duration after which the pod is automatically stopped.
+     */
     public readonly stopAfter!: pulumi.Output<string | undefined>;
+    /**
+     * Whether to assign a public IP address.
+     */
     public readonly supportPublicIp!: pulumi.Output<boolean | undefined>;
+    /**
+     * The template ID to use for the pod.
+     */
     public readonly templateId!: pulumi.Output<string | undefined>;
+    /**
+     * Duration after which the pod is automatically terminated.
+     */
     public readonly terminateAfter!: pulumi.Output<string | undefined>;
+    /**
+     * The number of vCPUs allocated.
+     */
     public /*out*/ readonly vcpuCount!: pulumi.Output<number>;
+    /**
+     * The size of the persistent volume in GB.
+     */
     public readonly volumeInGb!: pulumi.Output<number | undefined>;
+    /**
+     * The volume key for persistent storage.
+     */
     public readonly volumeKey!: pulumi.Output<string | undefined>;
+    /**
+     * The path to mount the persistent volume.
+     */
     public readonly volumeMountPath!: pulumi.Output<string | undefined>;
 
     /**
@@ -213,6 +372,8 @@ export class Pod extends pulumi.CustomResource {
             resourceInputs["volumeMountPath"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["aiApiId", "allowedCudaVersions[*]", "cloudType", "computeType", "countryCode", "cudaVersion", "dataCenterId", "deployCost", "globalNetwork", "gpuCount", "gpuTypeId", "gpuTypeIdList[*]", "ideAiApiId", "instanceIds[*]", "minCudaVersion", "minDisk", "minDownload", "minMemoryInGb", "minUpload", "minVcpuCount", "modelReferences[*]", "name", "networkVolumeId", "savingsPlan", "startJupyter", "startSsh", "stopAfter", "supportPublicIp", "templateId", "terminateAfter", "volumeKey"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Pod.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -221,43 +382,160 @@ export class Pod extends pulumi.CustomResource {
  * The set of arguments for constructing a Pod resource.
  */
 export interface PodArgs {
+    /**
+     * The AI API ID for the pod.
+     */
     aiApiId?: pulumi.Input<string>;
+    /**
+     * A list of allowed CUDA versions.
+     */
     allowedCudaVersions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The cloud type: SECURE, COMMUNITY, or ALL.
+     */
     cloudType?: pulumi.Input<string>;
+    /**
+     * The compute type: CPU or GPU.
+     */
     computeType?: pulumi.Input<string>;
+    /**
+     * The size of the container disk in GB.
+     */
     containerDiskInGb?: pulumi.Input<number>;
+    /**
+     * The container registry auth ID for pulling private images.
+     */
     containerRegistryAuthId?: pulumi.Input<string>;
+    /**
+     * The country code for data residency.
+     */
     countryCode?: pulumi.Input<string>;
+    /**
+     * The CUDA version to use.
+     */
     cudaVersion?: pulumi.Input<string>;
+    /**
+     * The data center ID to deploy the pod in.
+     */
     dataCenterId?: pulumi.Input<string>;
+    /**
+     * The maximum bid price per GPU per hour for spot instances.
+     */
     deployCost?: pulumi.Input<number>;
+    /**
+     * Docker arguments to pass to the container.
+     */
     dockerArgs?: pulumi.Input<string>;
+    /**
+     * Environment variables as key-value pairs.
+     */
     env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Whether to enable global networking.
+     */
     globalNetwork?: pulumi.Input<boolean>;
+    /**
+     * The number of GPUs to allocate.
+     */
     gpuCount?: pulumi.Input<number>;
+    /**
+     * The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+     */
     gpuTypeId: pulumi.Input<string>;
+    /**
+     * A list of acceptable GPU type IDs (fallback options).
+     */
     gpuTypeIdList?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The IDE AI API ID for the pod.
+     */
     ideAiApiId?: pulumi.Input<string>;
+    /**
+     * The Docker image to run on the pod.
+     */
     imageName?: pulumi.Input<string>;
+    /**
+     * Specific instance IDs to deploy on.
+     */
     instanceIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The minimum CUDA version required.
+     */
     minCudaVersion?: pulumi.Input<string>;
+    /**
+     * Minimum disk space in GB required on the host.
+     */
     minDisk?: pulumi.Input<number>;
+    /**
+     * Minimum download bandwidth in Mbps.
+     */
     minDownload?: pulumi.Input<number>;
+    /**
+     * Minimum memory in GB required.
+     */
     minMemoryInGb?: pulumi.Input<number>;
+    /**
+     * Minimum upload bandwidth in Mbps.
+     */
     minUpload?: pulumi.Input<number>;
+    /**
+     * Minimum number of vCPUs required.
+     */
     minVcpuCount?: pulumi.Input<number>;
+    /**
+     * Model references for the pod.
+     */
     modelReferences?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * A name for the pod.
+     */
     name: pulumi.Input<string>;
+    /**
+     * The network volume ID to attach to the pod.
+     */
     networkVolumeId?: pulumi.Input<string>;
+    /**
+     * Ports to expose (e.g. "8080/http,22/tcp").
+     */
     ports?: pulumi.Input<string>;
+    /**
+     * Savings plan configuration for reduced pricing.
+     */
     savingsPlan?: pulumi.Input<inputs.SavingsPlanArgs>;
+    /**
+     * Whether to start a Jupyter notebook server.
+     */
     startJupyter?: pulumi.Input<boolean>;
+    /**
+     * Whether to start an SSH server.
+     */
     startSsh?: pulumi.Input<boolean>;
+    /**
+     * Duration after which the pod is automatically stopped.
+     */
     stopAfter?: pulumi.Input<string>;
+    /**
+     * Whether to assign a public IP address.
+     */
     supportPublicIp?: pulumi.Input<boolean>;
+    /**
+     * The template ID to use for the pod.
+     */
     templateId?: pulumi.Input<string>;
+    /**
+     * Duration after which the pod is automatically terminated.
+     */
     terminateAfter?: pulumi.Input<string>;
+    /**
+     * The size of the persistent volume in GB.
+     */
     volumeInGb?: pulumi.Input<number>;
+    /**
+     * The volume key for persistent storage.
+     */
     volumeKey?: pulumi.Input<string>;
+    /**
+     * The path to mount the persistent volume.
+     */
     volumeMountPath?: pulumi.Input<string>;
 }

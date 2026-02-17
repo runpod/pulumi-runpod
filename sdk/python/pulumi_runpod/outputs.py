@@ -31,6 +31,16 @@ class GpuTypeOutput(dict):
                  memory_in_gb: builtins.int,
                  secure_cloud: builtins.bool,
                  secure_price: builtins.float):
+        """
+        :param builtins.bool community_cloud: Whether the GPU is available in community cloud.
+        :param builtins.float community_price: The price per hour in community cloud (USD).
+        :param builtins.str display_name: The display name of the GPU type.
+        :param builtins.str id: The unique identifier of the GPU type.
+        :param builtins.int max_gpu_count: The maximum number of this GPU type that can be allocated.
+        :param builtins.int memory_in_gb: The amount of VRAM in GB.
+        :param builtins.bool secure_cloud: Whether the GPU is available in secure cloud.
+        :param builtins.float secure_price: The price per hour in secure cloud (USD).
+        """
         pulumi.set(__self__, "community_cloud", community_cloud)
         pulumi.set(__self__, "community_price", community_price)
         pulumi.set(__self__, "display_name", display_name)
@@ -43,41 +53,65 @@ class GpuTypeOutput(dict):
     @property
     @pulumi.getter(name="communityCloud")
     def community_cloud(self) -> builtins.bool:
+        """
+        Whether the GPU is available in community cloud.
+        """
         return pulumi.get(self, "community_cloud")
 
     @property
     @pulumi.getter(name="communityPrice")
     def community_price(self) -> builtins.float:
+        """
+        The price per hour in community cloud (USD).
+        """
         return pulumi.get(self, "community_price")
 
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> builtins.str:
+        """
+        The display name of the GPU type.
+        """
         return pulumi.get(self, "display_name")
 
     @property
     @pulumi.getter
     def id(self) -> builtins.str:
+        """
+        The unique identifier of the GPU type.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="maxGpuCount")
     def max_gpu_count(self) -> builtins.int:
+        """
+        The maximum number of this GPU type that can be allocated.
+        """
         return pulumi.get(self, "max_gpu_count")
 
     @property
     @pulumi.getter(name="memoryInGb")
     def memory_in_gb(self) -> builtins.int:
+        """
+        The amount of VRAM in GB.
+        """
         return pulumi.get(self, "memory_in_gb")
 
     @property
     @pulumi.getter(name="secureCloud")
     def secure_cloud(self) -> builtins.bool:
+        """
+        Whether the GPU is available in secure cloud.
+        """
         return pulumi.get(self, "secure_cloud")
 
     @property
     @pulumi.getter(name="securePrice")
     def secure_price(self) -> builtins.float:
+        """
+        The price per hour in secure cloud (USD).
+        """
         return pulumi.get(self, "secure_price")
 
 
@@ -105,6 +139,10 @@ class SavingsPlan(dict):
     def __init__(__self__, *,
                  plan_length: Optional[builtins.str] = None,
                  upfront_cost: Optional[builtins.float] = None):
+        """
+        :param builtins.str plan_length: The length of the savings plan.
+        :param builtins.float upfront_cost: The upfront cost for the savings plan.
+        """
         if plan_length is not None:
             pulumi.set(__self__, "plan_length", plan_length)
         if upfront_cost is not None:
@@ -113,11 +151,17 @@ class SavingsPlan(dict):
     @property
     @pulumi.getter(name="planLength")
     def plan_length(self) -> Optional[builtins.str]:
+        """
+        The length of the savings plan.
+        """
         return pulumi.get(self, "plan_length")
 
     @property
     @pulumi.getter(name="upfrontCost")
     def upfront_cost(self) -> Optional[builtins.float]:
+        """
+        The upfront cost for the savings plan.
+        """
         return pulumi.get(self, "upfront_cost")
 
 

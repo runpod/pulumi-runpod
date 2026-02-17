@@ -25,6 +25,9 @@ class SecretArgs:
                  description: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Secret resource.
+        :param pulumi.Input[builtins.str] name: A name for the secret.
+        :param pulumi.Input[builtins.str] value: The secret value.
+        :param pulumi.Input[builtins.str] description: A human-readable description of the secret.
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "value", value)
@@ -34,6 +37,9 @@ class SecretArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[builtins.str]:
+        """
+        A name for the secret.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -43,6 +49,9 @@ class SecretArgs:
     @property
     @pulumi.getter
     def value(self) -> pulumi.Input[builtins.str]:
+        """
+        The secret value.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -52,6 +61,9 @@ class SecretArgs:
     @property
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        A human-readable description of the secret.
+        """
         return pulumi.get(self, "description")
 
     @description.setter
@@ -73,6 +85,9 @@ class Secret(pulumi.CustomResource):
         Create a Secret resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[builtins.str] description: A human-readable description of the secret.
+        :param pulumi.Input[builtins.str] name: A name for the secret.
+        :param pulumi.Input[builtins.str] value: The secret value.
         """
         ...
     @overload
@@ -119,6 +134,8 @@ class Secret(pulumi.CustomResource):
             __props__.__dict__["secret_id"] = None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["name"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Secret, __self__).__init__(
             'runpod:index:Secret',
             resource_name,
@@ -150,20 +167,32 @@ class Secret(pulumi.CustomResource):
     @property
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        A human-readable description of the secret.
+        """
         return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[builtins.str]:
+        """
+        A name for the secret.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="secretId")
     def secret_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The unique identifier of the secret.
+        """
         return pulumi.get(self, "secret_id")
 
     @property
     @pulumi.getter
     def value(self) -> pulumi.Output[builtins.str]:
+        """
+        The secret value.
+        """
         return pulumi.get(self, "value")
 

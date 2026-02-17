@@ -39,6 +39,23 @@ class TemplateArgs:
                  volume_mount_path: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Template resource.
+        :param pulumi.Input[builtins.int] container_disk_in_gb: The size of the container disk in GB.
+        :param pulumi.Input[builtins.str] image_name: The Docker image to use for the template.
+        :param pulumi.Input[builtins.str] name: A name for the template.
+        :param pulumi.Input[builtins.int] volume_in_gb: The size of the persistent volume in GB. Use 0 for no volume.
+        :param pulumi.Input[builtins.bool] advanced_start: Whether to use advanced start mode.
+        :param pulumi.Input[builtins.str] category: The category of the template.
+        :param pulumi.Input[builtins.str] container_registry_auth_id: The ID of the container registry auth credentials to use.
+        :param pulumi.Input[builtins.str] docker_args: Docker arguments to pass to the container.
+        :param pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]] env: Environment variables as key-value pairs.
+        :param pulumi.Input[builtins.bool] is_public: Whether this template is publicly visible.
+        :param pulumi.Input[builtins.bool] is_serverless: Whether this template is for serverless endpoints.
+        :param pulumi.Input[builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
+        :param pulumi.Input[builtins.str] readme: A readme/description for the template in Markdown.
+        :param pulumi.Input[builtins.bool] start_jupyter: Whether to start Jupyter notebook server.
+        :param pulumi.Input[builtins.str] start_script: A bash script to run on container start.
+        :param pulumi.Input[builtins.bool] start_ssh: Whether to start an SSH server.
+        :param pulumi.Input[builtins.str] volume_mount_path: The path to mount the persistent volume.
         """
         pulumi.set(__self__, "container_disk_in_gb", container_disk_in_gb)
         pulumi.set(__self__, "image_name", image_name)
@@ -74,6 +91,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="containerDiskInGb")
     def container_disk_in_gb(self) -> pulumi.Input[builtins.int]:
+        """
+        The size of the container disk in GB.
+        """
         return pulumi.get(self, "container_disk_in_gb")
 
     @container_disk_in_gb.setter
@@ -83,6 +103,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="imageName")
     def image_name(self) -> pulumi.Input[builtins.str]:
+        """
+        The Docker image to use for the template.
+        """
         return pulumi.get(self, "image_name")
 
     @image_name.setter
@@ -92,6 +115,9 @@ class TemplateArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[builtins.str]:
+        """
+        A name for the template.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -101,6 +127,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="volumeInGb")
     def volume_in_gb(self) -> pulumi.Input[builtins.int]:
+        """
+        The size of the persistent volume in GB. Use 0 for no volume.
+        """
         return pulumi.get(self, "volume_in_gb")
 
     @volume_in_gb.setter
@@ -110,6 +139,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="advancedStart")
     def advanced_start(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to use advanced start mode.
+        """
         return pulumi.get(self, "advanced_start")
 
     @advanced_start.setter
@@ -119,6 +151,9 @@ class TemplateArgs:
     @property
     @pulumi.getter
     def category(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The category of the template.
+        """
         return pulumi.get(self, "category")
 
     @category.setter
@@ -128,6 +163,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="containerRegistryAuthId")
     def container_registry_auth_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The ID of the container registry auth credentials to use.
+        """
         return pulumi.get(self, "container_registry_auth_id")
 
     @container_registry_auth_id.setter
@@ -137,6 +175,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="dockerArgs")
     def docker_args(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Docker arguments to pass to the container.
+        """
         return pulumi.get(self, "docker_args")
 
     @docker_args.setter
@@ -146,6 +187,9 @@ class TemplateArgs:
     @property
     @pulumi.getter
     def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]]:
+        """
+        Environment variables as key-value pairs.
+        """
         return pulumi.get(self, "env")
 
     @env.setter
@@ -155,6 +199,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="isPublic")
     def is_public(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether this template is publicly visible.
+        """
         return pulumi.get(self, "is_public")
 
     @is_public.setter
@@ -164,6 +211,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="isServerless")
     def is_serverless(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether this template is for serverless endpoints.
+        """
         return pulumi.get(self, "is_serverless")
 
     @is_serverless.setter
@@ -173,6 +223,9 @@ class TemplateArgs:
     @property
     @pulumi.getter
     def ports(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Ports to expose (e.g. "8080/http,22/tcp").
+        """
         return pulumi.get(self, "ports")
 
     @ports.setter
@@ -182,6 +235,9 @@ class TemplateArgs:
     @property
     @pulumi.getter
     def readme(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        A readme/description for the template in Markdown.
+        """
         return pulumi.get(self, "readme")
 
     @readme.setter
@@ -191,6 +247,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="startJupyter")
     def start_jupyter(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to start Jupyter notebook server.
+        """
         return pulumi.get(self, "start_jupyter")
 
     @start_jupyter.setter
@@ -200,6 +259,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="startScript")
     def start_script(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        A bash script to run on container start.
+        """
         return pulumi.get(self, "start_script")
 
     @start_script.setter
@@ -209,6 +271,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="startSsh")
     def start_ssh(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to start an SSH server.
+        """
         return pulumi.get(self, "start_ssh")
 
     @start_ssh.setter
@@ -218,6 +283,9 @@ class TemplateArgs:
     @property
     @pulumi.getter(name="volumeMountPath")
     def volume_mount_path(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The path to mount the persistent volume.
+        """
         return pulumi.get(self, "volume_mount_path")
 
     @volume_mount_path.setter
@@ -253,6 +321,23 @@ class Template(pulumi.CustomResource):
         Create a Template resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[builtins.bool] advanced_start: Whether to use advanced start mode.
+        :param pulumi.Input[builtins.str] category: The category of the template.
+        :param pulumi.Input[builtins.int] container_disk_in_gb: The size of the container disk in GB.
+        :param pulumi.Input[builtins.str] container_registry_auth_id: The ID of the container registry auth credentials to use.
+        :param pulumi.Input[builtins.str] docker_args: Docker arguments to pass to the container.
+        :param pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]] env: Environment variables as key-value pairs.
+        :param pulumi.Input[builtins.str] image_name: The Docker image to use for the template.
+        :param pulumi.Input[builtins.bool] is_public: Whether this template is publicly visible.
+        :param pulumi.Input[builtins.bool] is_serverless: Whether this template is for serverless endpoints.
+        :param pulumi.Input[builtins.str] name: A name for the template.
+        :param pulumi.Input[builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
+        :param pulumi.Input[builtins.str] readme: A readme/description for the template in Markdown.
+        :param pulumi.Input[builtins.bool] start_jupyter: Whether to start Jupyter notebook server.
+        :param pulumi.Input[builtins.str] start_script: A bash script to run on container start.
+        :param pulumi.Input[builtins.bool] start_ssh: Whether to start an SSH server.
+        :param pulumi.Input[builtins.int] volume_in_gb: The size of the persistent volume in GB. Use 0 for no volume.
+        :param pulumi.Input[builtins.str] volume_mount_path: The path to mount the persistent volume.
         """
         ...
     @overload
@@ -374,90 +459,144 @@ class Template(pulumi.CustomResource):
     @property
     @pulumi.getter(name="advancedStart")
     def advanced_start(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to use advanced start mode.
+        """
         return pulumi.get(self, "advanced_start")
 
     @property
     @pulumi.getter
     def category(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The category of the template.
+        """
         return pulumi.get(self, "category")
 
     @property
     @pulumi.getter(name="containerDiskInGb")
     def container_disk_in_gb(self) -> pulumi.Output[builtins.int]:
+        """
+        The size of the container disk in GB.
+        """
         return pulumi.get(self, "container_disk_in_gb")
 
     @property
     @pulumi.getter(name="containerRegistryAuthId")
     def container_registry_auth_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The ID of the container registry auth credentials to use.
+        """
         return pulumi.get(self, "container_registry_auth_id")
 
     @property
     @pulumi.getter(name="dockerArgs")
     def docker_args(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        Docker arguments to pass to the container.
+        """
         return pulumi.get(self, "docker_args")
 
     @property
     @pulumi.getter
     def env(self) -> pulumi.Output[Optional[Mapping[str, builtins.str]]]:
+        """
+        Environment variables as key-value pairs.
+        """
         return pulumi.get(self, "env")
 
     @property
     @pulumi.getter(name="imageName")
     def image_name(self) -> pulumi.Output[builtins.str]:
+        """
+        The Docker image to use for the template.
+        """
         return pulumi.get(self, "image_name")
 
     @property
     @pulumi.getter(name="isPublic")
     def is_public(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether this template is publicly visible.
+        """
         return pulumi.get(self, "is_public")
 
     @property
     @pulumi.getter(name="isServerless")
     def is_serverless(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether this template is for serverless endpoints.
+        """
         return pulumi.get(self, "is_serverless")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[builtins.str]:
+        """
+        A name for the template.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def ports(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        Ports to expose (e.g. "8080/http,22/tcp").
+        """
         return pulumi.get(self, "ports")
 
     @property
     @pulumi.getter
     def readme(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        A readme/description for the template in Markdown.
+        """
         return pulumi.get(self, "readme")
 
     @property
     @pulumi.getter(name="startJupyter")
     def start_jupyter(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to start Jupyter notebook server.
+        """
         return pulumi.get(self, "start_jupyter")
 
     @property
     @pulumi.getter(name="startScript")
     def start_script(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        A bash script to run on container start.
+        """
         return pulumi.get(self, "start_script")
 
     @property
     @pulumi.getter(name="startSsh")
     def start_ssh(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to start an SSH server.
+        """
         return pulumi.get(self, "start_ssh")
 
     @property
     @pulumi.getter(name="templateId")
     def template_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The unique identifier of the template.
+        """
         return pulumi.get(self, "template_id")
 
     @property
     @pulumi.getter(name="volumeInGb")
     def volume_in_gb(self) -> pulumi.Output[builtins.int]:
+        """
+        The size of the persistent volume in GB. Use 0 for no volume.
+        """
         return pulumi.get(self, "volume_in_gb")
 
     @property
     @pulumi.getter(name="volumeMountPath")
     def volume_mount_path(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The path to mount the persistent volume.
+        """
         return pulumi.get(self, "volume_mount_path")
 

@@ -12,75 +12,147 @@ namespace Pulumi.Runpod
     [RunpodResourceType("runpod:index:Endpoint")]
     public partial class Endpoint : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Comma-separated list of allowed CUDA versions.
+        /// </summary>
         [Output("allowedCudaVersions")]
         public Output<string?> AllowedCudaVersions { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to bind the endpoint to specific workers.
+        /// </summary>
         [Output("bindEndpoint")]
         public Output<bool?> BindEndpoint { get; private set; } = null!;
 
+        /// <summary>
+        /// The unique identifier of the endpoint.
+        /// </summary>
         [Output("endpointId")]
         public Output<string> EndpointId { get; private set; } = null!;
 
+        /// <summary>
+        /// Environment variables as key-value pairs.
+        /// </summary>
         [Output("env")]
         public Output<ImmutableDictionary<string, string>?> Env { get; private set; } = null!;
 
+        /// <summary>
+        /// Maximum execution time in milliseconds before a request is terminated.
+        /// </summary>
         [Output("executionTimeoutMs")]
         public Output<int?> ExecutionTimeoutMs { get; private set; } = null!;
 
+        /// <summary>
+        /// The flash boot type.
+        /// </summary>
         [Output("flashBootType")]
         public Output<string?> FlashBootType { get; private set; } = null!;
 
+        /// <summary>
+        /// The flash environment ID.
+        /// </summary>
         [Output("flashEnvironmentId")]
         public Output<string?> FlashEnvironmentId { get; private set; } = null!;
 
+        /// <summary>
+        /// The number of GPUs per worker.
+        /// </summary>
         [Output("gpuCount")]
         public Output<int?> GpuCount { get; private set; } = null!;
 
+        /// <summary>
+        /// The GPU type IDs to use (e.g. "AMPERE_16").
+        /// </summary>
         [Output("gpuIds")]
         public Output<string?> GpuIds { get; private set; } = null!;
 
+        /// <summary>
+        /// The hub release ID for the endpoint.
+        /// </summary>
         [Output("hubReleaseId")]
         public Output<string?> HubReleaseId { get; private set; } = null!;
 
+        /// <summary>
+        /// The number of seconds a worker can remain idle before being scaled down.
+        /// </summary>
         [Output("idleTimeout")]
         public Output<int?> IdleTimeout { get; private set; } = null!;
 
+        /// <summary>
+        /// Specific instance IDs to use for workers.
+        /// </summary>
         [Output("instanceIds")]
         public Output<ImmutableArray<string>> InstanceIds { get; private set; } = null!;
 
+        /// <summary>
+        /// Comma-separated data center locations for worker deployment.
+        /// </summary>
         [Output("locations")]
         public Output<string?> Locations { get; private set; } = null!;
 
+        /// <summary>
+        /// The minimum CUDA version required.
+        /// </summary>
         [Output("minCudaVersion")]
         public Output<string?> MinCudaVersion { get; private set; } = null!;
 
+        /// <summary>
+        /// The model name for the endpoint.
+        /// </summary>
         [Output("modelName")]
         public Output<string?> ModelName { get; private set; } = null!;
 
+        /// <summary>
+        /// Model references for the endpoint.
+        /// </summary>
         [Output("modelReferences")]
         public Output<ImmutableArray<string>> ModelReferences { get; private set; } = null!;
 
+        /// <summary>
+        /// A name for the endpoint.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// The network volume ID to attach to endpoint workers.
+        /// </summary>
         [Output("networkVolumeId")]
         public Output<string?> NetworkVolumeId { get; private set; } = null!;
 
+        /// <summary>
+        /// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+        /// </summary>
         [Output("scalerType")]
         public Output<string?> ScalerType { get; private set; } = null!;
 
+        /// <summary>
+        /// The autoscaler target value.
+        /// </summary>
         [Output("scalerValue")]
         public Output<int?> ScalerValue { get; private set; } = null!;
 
+        /// <summary>
+        /// The template ID to use for the endpoint workers.
+        /// </summary>
         [Output("templateId")]
         public Output<string?> TemplateId { get; private set; } = null!;
 
+        /// <summary>
+        /// The endpoint type.
+        /// </summary>
         [Output("type")]
         public Output<string?> Type { get; private set; } = null!;
 
+        /// <summary>
+        /// The maximum number of workers to scale up to.
+        /// </summary>
         [Output("workersMax")]
         public Output<int?> WorkersMax { get; private set; } = null!;
 
+        /// <summary>
+        /// The minimum number of workers to keep running.
+        /// </summary>
         [Output("workersMin")]
         public Output<int?> WorkersMin { get; private set; } = null!;
 
@@ -130,87 +202,159 @@ namespace Pulumi.Runpod
 
     public sealed class EndpointArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Comma-separated list of allowed CUDA versions.
+        /// </summary>
         [Input("allowedCudaVersions")]
         public Input<string>? AllowedCudaVersions { get; set; }
 
+        /// <summary>
+        /// Whether to bind the endpoint to specific workers.
+        /// </summary>
         [Input("bindEndpoint")]
         public Input<bool>? BindEndpoint { get; set; }
 
         [Input("env")]
         private InputMap<string>? _env;
+
+        /// <summary>
+        /// Environment variables as key-value pairs.
+        /// </summary>
         public InputMap<string> Env
         {
             get => _env ?? (_env = new InputMap<string>());
             set => _env = value;
         }
 
+        /// <summary>
+        /// Maximum execution time in milliseconds before a request is terminated.
+        /// </summary>
         [Input("executionTimeoutMs")]
         public Input<int>? ExecutionTimeoutMs { get; set; }
 
+        /// <summary>
+        /// The flash boot type.
+        /// </summary>
         [Input("flashBootType")]
         public Input<string>? FlashBootType { get; set; }
 
+        /// <summary>
+        /// The flash environment ID.
+        /// </summary>
         [Input("flashEnvironmentId")]
         public Input<string>? FlashEnvironmentId { get; set; }
 
+        /// <summary>
+        /// The number of GPUs per worker.
+        /// </summary>
         [Input("gpuCount")]
         public Input<int>? GpuCount { get; set; }
 
+        /// <summary>
+        /// The GPU type IDs to use (e.g. "AMPERE_16").
+        /// </summary>
         [Input("gpuIds")]
         public Input<string>? GpuIds { get; set; }
 
+        /// <summary>
+        /// The hub release ID for the endpoint.
+        /// </summary>
         [Input("hubReleaseId")]
         public Input<string>? HubReleaseId { get; set; }
 
+        /// <summary>
+        /// The number of seconds a worker can remain idle before being scaled down.
+        /// </summary>
         [Input("idleTimeout")]
         public Input<int>? IdleTimeout { get; set; }
 
         [Input("instanceIds")]
         private InputList<string>? _instanceIds;
+
+        /// <summary>
+        /// Specific instance IDs to use for workers.
+        /// </summary>
         public InputList<string> InstanceIds
         {
             get => _instanceIds ?? (_instanceIds = new InputList<string>());
             set => _instanceIds = value;
         }
 
+        /// <summary>
+        /// Comma-separated data center locations for worker deployment.
+        /// </summary>
         [Input("locations")]
         public Input<string>? Locations { get; set; }
 
+        /// <summary>
+        /// The minimum CUDA version required.
+        /// </summary>
         [Input("minCudaVersion")]
         public Input<string>? MinCudaVersion { get; set; }
 
+        /// <summary>
+        /// The model name for the endpoint.
+        /// </summary>
         [Input("modelName")]
         public Input<string>? ModelName { get; set; }
 
         [Input("modelReferences")]
         private InputList<string>? _modelReferences;
+
+        /// <summary>
+        /// Model references for the endpoint.
+        /// </summary>
         public InputList<string> ModelReferences
         {
             get => _modelReferences ?? (_modelReferences = new InputList<string>());
             set => _modelReferences = value;
         }
 
+        /// <summary>
+        /// A name for the endpoint.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The network volume ID to attach to endpoint workers.
+        /// </summary>
         [Input("networkVolumeId")]
         public Input<string>? NetworkVolumeId { get; set; }
 
+        /// <summary>
+        /// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+        /// </summary>
         [Input("scalerType")]
         public Input<string>? ScalerType { get; set; }
 
+        /// <summary>
+        /// The autoscaler target value.
+        /// </summary>
         [Input("scalerValue")]
         public Input<int>? ScalerValue { get; set; }
 
+        /// <summary>
+        /// The template ID to use for the endpoint workers.
+        /// </summary>
         [Input("templateId")]
         public Input<string>? TemplateId { get; set; }
 
+        /// <summary>
+        /// The endpoint type.
+        /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
 
+        /// <summary>
+        /// The maximum number of workers to scale up to.
+        /// </summary>
         [Input("workersMax")]
         public Input<int>? WorkersMax { get; set; }
 
+        /// <summary>
+        /// The minimum number of workers to keep running.
+        /// </summary>
         [Input("workersMin")]
         public Input<int>? WorkersMin { get; set; }
 

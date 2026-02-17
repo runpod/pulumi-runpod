@@ -26,6 +26,10 @@ class NetworkVolumeArgs:
                  is_next_gen_storage: Optional[pulumi.Input[builtins.bool]] = None):
         """
         The set of arguments for constructing a NetworkVolume resource.
+        :param pulumi.Input[builtins.str] data_center_id: The data center ID where the volume will be created (e.g. "US-TX-3").
+        :param pulumi.Input[builtins.str] name: A name for the network volume.
+        :param pulumi.Input[builtins.int] size: The size of the network volume in GB.
+        :param pulumi.Input[builtins.bool] is_next_gen_storage: Whether to use next-generation storage.
         """
         pulumi.set(__self__, "data_center_id", data_center_id)
         pulumi.set(__self__, "name", name)
@@ -36,6 +40,9 @@ class NetworkVolumeArgs:
     @property
     @pulumi.getter(name="dataCenterId")
     def data_center_id(self) -> pulumi.Input[builtins.str]:
+        """
+        The data center ID where the volume will be created (e.g. "US-TX-3").
+        """
         return pulumi.get(self, "data_center_id")
 
     @data_center_id.setter
@@ -45,6 +52,9 @@ class NetworkVolumeArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[builtins.str]:
+        """
+        A name for the network volume.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -54,6 +64,9 @@ class NetworkVolumeArgs:
     @property
     @pulumi.getter
     def size(self) -> pulumi.Input[builtins.int]:
+        """
+        The size of the network volume in GB.
+        """
         return pulumi.get(self, "size")
 
     @size.setter
@@ -63,6 +76,9 @@ class NetworkVolumeArgs:
     @property
     @pulumi.getter(name="isNextGenStorage")
     def is_next_gen_storage(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to use next-generation storage.
+        """
         return pulumi.get(self, "is_next_gen_storage")
 
     @is_next_gen_storage.setter
@@ -85,6 +101,10 @@ class NetworkVolume(pulumi.CustomResource):
         Create a NetworkVolume resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[builtins.str] data_center_id: The data center ID where the volume will be created (e.g. "US-TX-3").
+        :param pulumi.Input[builtins.bool] is_next_gen_storage: Whether to use next-generation storage.
+        :param pulumi.Input[builtins.str] name: A name for the network volume.
+        :param pulumi.Input[builtins.int] size: The size of the network volume in GB.
         """
         ...
     @overload
@@ -133,6 +153,8 @@ class NetworkVolume(pulumi.CustomResource):
                 raise TypeError("Missing required property 'size'")
             __props__.__dict__["size"] = size
             __props__.__dict__["network_volume_id"] = None
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["dataCenterId", "isNextGenStorage"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(NetworkVolume, __self__).__init__(
             'runpod:index:NetworkVolume',
             resource_name,
@@ -165,25 +187,40 @@ class NetworkVolume(pulumi.CustomResource):
     @property
     @pulumi.getter(name="dataCenterId")
     def data_center_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The data center ID where the volume will be created (e.g. "US-TX-3").
+        """
         return pulumi.get(self, "data_center_id")
 
     @property
     @pulumi.getter(name="isNextGenStorage")
     def is_next_gen_storage(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to use next-generation storage.
+        """
         return pulumi.get(self, "is_next_gen_storage")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[builtins.str]:
+        """
+        A name for the network volume.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="networkVolumeId")
     def network_volume_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The unique identifier of the network volume.
+        """
         return pulumi.get(self, "network_volume_id")
 
     @property
     @pulumi.getter
     def size(self) -> pulumi.Output[builtins.int]:
+        """
+        The size of the network volume in GB.
+        """
         return pulumi.get(self, "size")
 

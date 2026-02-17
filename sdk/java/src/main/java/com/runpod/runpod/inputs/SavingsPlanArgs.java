@@ -16,16 +16,32 @@ public final class SavingsPlanArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final SavingsPlanArgs Empty = new SavingsPlanArgs();
 
+    /**
+     * The length of the savings plan.
+     * 
+     */
     @Import(name="planLength")
     private @Nullable Output<String> planLength;
 
+    /**
+     * @return The length of the savings plan.
+     * 
+     */
     public Optional<Output<String>> planLength() {
         return Optional.ofNullable(this.planLength);
     }
 
+    /**
+     * The upfront cost for the savings plan.
+     * 
+     */
     @Import(name="upfrontCost")
     private @Nullable Output<Double> upfrontCost;
 
+    /**
+     * @return The upfront cost for the savings plan.
+     * 
+     */
     public Optional<Output<Double>> upfrontCost() {
         return Optional.ofNullable(this.upfrontCost);
     }
@@ -55,20 +71,44 @@ public final class SavingsPlanArgs extends com.pulumi.resources.ResourceArgs {
             $ = new SavingsPlanArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param planLength The length of the savings plan.
+         * 
+         * @return builder
+         * 
+         */
         public Builder planLength(@Nullable Output<String> planLength) {
             $.planLength = planLength;
             return this;
         }
 
+        /**
+         * @param planLength The length of the savings plan.
+         * 
+         * @return builder
+         * 
+         */
         public Builder planLength(String planLength) {
             return planLength(Output.of(planLength));
         }
 
+        /**
+         * @param upfrontCost The upfront cost for the savings plan.
+         * 
+         * @return builder
+         * 
+         */
         public Builder upfrontCost(@Nullable Output<Double> upfrontCost) {
             $.upfrontCost = upfrontCost;
             return this;
         }
 
+        /**
+         * @param upfrontCost The upfront cost for the savings plan.
+         * 
+         * @return builder
+         * 
+         */
         public Builder upfrontCost(Double upfrontCost) {
             return upfrontCost(Output.of(upfrontCost));
         }

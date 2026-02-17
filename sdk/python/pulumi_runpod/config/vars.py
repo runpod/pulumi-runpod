@@ -23,9 +23,15 @@ __config__ = pulumi.Config('runpod')
 class _ExportableConfig(types.ModuleType):
     @property
     def api_key(self) -> Optional[str]:
-        return __config__.get('apiKey')
+        """
+        The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        """
+        return __config__.get('apiKey') or _utilities.get_env('RUNPOD_API_KEY')
 
     @property
     def api_url(self) -> Optional[str]:
-        return __config__.get('apiUrl')
+        """
+        The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        """
+        return __config__.get('apiUrl') or _utilities.get_env('RUNPOD_API_URL')
 

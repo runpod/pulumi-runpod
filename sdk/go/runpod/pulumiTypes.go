@@ -14,14 +14,22 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type GpuTypeOutput struct {
-	CommunityCloud bool    `pulumi:"communityCloud"`
+	// Whether the GPU is available in community cloud.
+	CommunityCloud bool `pulumi:"communityCloud"`
+	// The price per hour in community cloud (USD).
 	CommunityPrice float64 `pulumi:"communityPrice"`
-	DisplayName    string  `pulumi:"displayName"`
-	Id             string  `pulumi:"id"`
-	MaxGpuCount    int     `pulumi:"maxGpuCount"`
-	MemoryInGb     int     `pulumi:"memoryInGb"`
-	SecureCloud    bool    `pulumi:"secureCloud"`
-	SecurePrice    float64 `pulumi:"securePrice"`
+	// The display name of the GPU type.
+	DisplayName string `pulumi:"displayName"`
+	// The unique identifier of the GPU type.
+	Id string `pulumi:"id"`
+	// The maximum number of this GPU type that can be allocated.
+	MaxGpuCount int `pulumi:"maxGpuCount"`
+	// The amount of VRAM in GB.
+	MemoryInGb int `pulumi:"memoryInGb"`
+	// Whether the GPU is available in secure cloud.
+	SecureCloud bool `pulumi:"secureCloud"`
+	// The price per hour in secure cloud (USD).
+	SecurePrice float64 `pulumi:"securePrice"`
 }
 
 type GpuTypeOutputOutput struct{ *pulumi.OutputState }
@@ -38,34 +46,42 @@ func (o GpuTypeOutputOutput) ToGpuTypeOutputOutputWithContext(ctx context.Contex
 	return o
 }
 
+// Whether the GPU is available in community cloud.
 func (o GpuTypeOutputOutput) CommunityCloud() pulumi.BoolOutput {
 	return o.ApplyT(func(v GpuTypeOutput) bool { return v.CommunityCloud }).(pulumi.BoolOutput)
 }
 
+// The price per hour in community cloud (USD).
 func (o GpuTypeOutputOutput) CommunityPrice() pulumi.Float64Output {
 	return o.ApplyT(func(v GpuTypeOutput) float64 { return v.CommunityPrice }).(pulumi.Float64Output)
 }
 
+// The display name of the GPU type.
 func (o GpuTypeOutputOutput) DisplayName() pulumi.StringOutput {
 	return o.ApplyT(func(v GpuTypeOutput) string { return v.DisplayName }).(pulumi.StringOutput)
 }
 
+// The unique identifier of the GPU type.
 func (o GpuTypeOutputOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GpuTypeOutput) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The maximum number of this GPU type that can be allocated.
 func (o GpuTypeOutputOutput) MaxGpuCount() pulumi.IntOutput {
 	return o.ApplyT(func(v GpuTypeOutput) int { return v.MaxGpuCount }).(pulumi.IntOutput)
 }
 
+// The amount of VRAM in GB.
 func (o GpuTypeOutputOutput) MemoryInGb() pulumi.IntOutput {
 	return o.ApplyT(func(v GpuTypeOutput) int { return v.MemoryInGb }).(pulumi.IntOutput)
 }
 
+// Whether the GPU is available in secure cloud.
 func (o GpuTypeOutputOutput) SecureCloud() pulumi.BoolOutput {
 	return o.ApplyT(func(v GpuTypeOutput) bool { return v.SecureCloud }).(pulumi.BoolOutput)
 }
 
+// The price per hour in secure cloud (USD).
 func (o GpuTypeOutputOutput) SecurePrice() pulumi.Float64Output {
 	return o.ApplyT(func(v GpuTypeOutput) float64 { return v.SecurePrice }).(pulumi.Float64Output)
 }
@@ -91,7 +107,9 @@ func (o GpuTypeOutputArrayOutput) Index(i pulumi.IntInput) GpuTypeOutputOutput {
 }
 
 type SavingsPlan struct {
-	PlanLength  *string  `pulumi:"planLength"`
+	// The length of the savings plan.
+	PlanLength *string `pulumi:"planLength"`
+	// The upfront cost for the savings plan.
 	UpfrontCost *float64 `pulumi:"upfrontCost"`
 }
 
@@ -107,7 +125,9 @@ type SavingsPlanInput interface {
 }
 
 type SavingsPlanArgs struct {
-	PlanLength  pulumi.StringPtrInput  `pulumi:"planLength"`
+	// The length of the savings plan.
+	PlanLength pulumi.StringPtrInput `pulumi:"planLength"`
+	// The upfront cost for the savings plan.
 	UpfrontCost pulumi.Float64PtrInput `pulumi:"upfrontCost"`
 }
 
@@ -188,10 +208,12 @@ func (o SavingsPlanOutput) ToSavingsPlanPtrOutputWithContext(ctx context.Context
 	}).(SavingsPlanPtrOutput)
 }
 
+// The length of the savings plan.
 func (o SavingsPlanOutput) PlanLength() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SavingsPlan) *string { return v.PlanLength }).(pulumi.StringPtrOutput)
 }
 
+// The upfront cost for the savings plan.
 func (o SavingsPlanOutput) UpfrontCost() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v SavingsPlan) *float64 { return v.UpfrontCost }).(pulumi.Float64PtrOutput)
 }
@@ -220,6 +242,7 @@ func (o SavingsPlanPtrOutput) Elem() SavingsPlanOutput {
 	}).(SavingsPlanOutput)
 }
 
+// The length of the savings plan.
 func (o SavingsPlanPtrOutput) PlanLength() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SavingsPlan) *string {
 		if v == nil {
@@ -229,6 +252,7 @@ func (o SavingsPlanPtrOutput) PlanLength() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// The upfront cost for the savings plan.
 func (o SavingsPlanPtrOutput) UpfrontCost() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *SavingsPlan) *float64 {
 		if v == nil {

@@ -12,15 +12,27 @@ namespace Pulumi.Runpod
     [RunpodResourceType("runpod:index:Secret")]
     public partial class Secret : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// A human-readable description of the secret.
+        /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
+        /// <summary>
+        /// A name for the secret.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// The unique identifier of the secret.
+        /// </summary>
         [Output("secretId")]
         public Output<string> SecretId { get; private set; } = null!;
 
+        /// <summary>
+        /// The secret value.
+        /// </summary>
         [Output("value")]
         public Output<string> Value { get; private set; } = null!;
 
@@ -52,6 +64,10 @@ namespace Pulumi.Runpod
                 {
                     "value",
                 },
+                ReplaceOnChanges =
+                {
+                    "name",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -74,14 +90,24 @@ namespace Pulumi.Runpod
 
     public sealed class SecretArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// A human-readable description of the secret.
+        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
+        /// <summary>
+        /// A name for the secret.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         [Input("value", required: true)]
         private Input<string>? _value;
+
+        /// <summary>
+        /// The secret value.
+        /// </summary>
         public Input<string>? Value
         {
             get => _value;

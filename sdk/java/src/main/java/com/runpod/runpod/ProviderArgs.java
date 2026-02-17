@@ -5,6 +5,7 @@ package com.runpod.runpod;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.core.internal.Codegen;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,16 +16,32 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final ProviderArgs Empty = new ProviderArgs();
 
+    /**
+     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * 
+     */
     @Import(name="apiKey")
     private @Nullable Output<String> apiKey;
 
+    /**
+     * @return The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * 
+     */
     public Optional<Output<String>> apiKey() {
         return Optional.ofNullable(this.apiKey);
     }
 
+    /**
+     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * 
+     */
     @Import(name="apiUrl")
     private @Nullable Output<String> apiUrl;
 
+    /**
+     * @return The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * 
+     */
     public Optional<Output<String>> apiUrl() {
         return Optional.ofNullable(this.apiUrl);
     }
@@ -54,25 +71,51 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
             $ = new ProviderArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param apiKey The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+         * 
+         * @return builder
+         * 
+         */
         public Builder apiKey(@Nullable Output<String> apiKey) {
             $.apiKey = apiKey;
             return this;
         }
 
+        /**
+         * @param apiKey The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+         * 
+         * @return builder
+         * 
+         */
         public Builder apiKey(String apiKey) {
             return apiKey(Output.of(apiKey));
         }
 
+        /**
+         * @param apiUrl The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+         * 
+         * @return builder
+         * 
+         */
         public Builder apiUrl(@Nullable Output<String> apiUrl) {
             $.apiUrl = apiUrl;
             return this;
         }
 
+        /**
+         * @param apiUrl The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+         * 
+         * @return builder
+         * 
+         */
         public Builder apiUrl(String apiUrl) {
             return apiUrl(Output.of(apiUrl));
         }
 
         public ProviderArgs build() {
+            $.apiKey = Codegen.stringProp("apiKey").secret().arg($.apiKey).env("RUNPOD_API_KEY").getNullable();
+            $.apiUrl = Codegen.stringProp("apiUrl").output().arg($.apiUrl).env("RUNPOD_API_URL").getNullable();
             return $;
         }
     }

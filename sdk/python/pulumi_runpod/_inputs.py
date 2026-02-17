@@ -25,7 +25,13 @@ MYPY = False
 if not MYPY:
     class SavingsPlanArgsDict(TypedDict):
         plan_length: NotRequired[pulumi.Input[builtins.str]]
+        """
+        The length of the savings plan.
+        """
         upfront_cost: NotRequired[pulumi.Input[builtins.float]]
+        """
+        The upfront cost for the savings plan.
+        """
 elif False:
     SavingsPlanArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -34,6 +40,10 @@ class SavingsPlanArgs:
     def __init__(__self__, *,
                  plan_length: Optional[pulumi.Input[builtins.str]] = None,
                  upfront_cost: Optional[pulumi.Input[builtins.float]] = None):
+        """
+        :param pulumi.Input[builtins.str] plan_length: The length of the savings plan.
+        :param pulumi.Input[builtins.float] upfront_cost: The upfront cost for the savings plan.
+        """
         if plan_length is not None:
             pulumi.set(__self__, "plan_length", plan_length)
         if upfront_cost is not None:
@@ -42,6 +52,9 @@ class SavingsPlanArgs:
     @property
     @pulumi.getter(name="planLength")
     def plan_length(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The length of the savings plan.
+        """
         return pulumi.get(self, "plan_length")
 
     @plan_length.setter
@@ -51,6 +64,9 @@ class SavingsPlanArgs:
     @property
     @pulumi.getter(name="upfrontCost")
     def upfront_cost(self) -> Optional[pulumi.Input[builtins.float]]:
+        """
+        The upfront cost for the savings plan.
+        """
         return pulumi.get(self, "upfront_cost")
 
     @upfront_cost.setter

@@ -14,23 +14,47 @@ public final class ContainerRegistryAuthArgs extends com.pulumi.resources.Resour
 
     public static final ContainerRegistryAuthArgs Empty = new ContainerRegistryAuthArgs();
 
+    /**
+     * A name for the registry auth credentials.
+     * 
+     */
     @Import(name="name", required=true)
     private Output<String> name;
 
+    /**
+     * @return A name for the registry auth credentials.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
 
+    /**
+     * The password or access token for the container registry.
+     * 
+     */
     @Import(name="password", required=true)
     private Output<String> password;
 
+    /**
+     * @return The password or access token for the container registry.
+     * 
+     */
     public Output<String> password() {
         return this.password;
     }
 
+    /**
+     * The username for the container registry.
+     * 
+     */
     @Import(name="username", required=true)
     private Output<String> username;
 
+    /**
+     * @return The username for the container registry.
+     * 
+     */
     public Output<String> username() {
         return this.username;
     }
@@ -61,29 +85,65 @@ public final class ContainerRegistryAuthArgs extends com.pulumi.resources.Resour
             $ = new ContainerRegistryAuthArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param name A name for the registry auth credentials.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(Output<String> name) {
             $.name = name;
             return this;
         }
 
+        /**
+         * @param name A name for the registry auth credentials.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(String name) {
             return name(Output.of(name));
         }
 
+        /**
+         * @param password The password or access token for the container registry.
+         * 
+         * @return builder
+         * 
+         */
         public Builder password(Output<String> password) {
             $.password = password;
             return this;
         }
 
+        /**
+         * @param password The password or access token for the container registry.
+         * 
+         * @return builder
+         * 
+         */
         public Builder password(String password) {
             return password(Output.of(password));
         }
 
+        /**
+         * @param username The username for the container registry.
+         * 
+         * @return builder
+         * 
+         */
         public Builder username(Output<String> username) {
             $.username = username;
             return this;
         }
 
+        /**
+         * @param username The username for the container registry.
+         * 
+         * @return builder
+         * 
+         */
         public Builder username(String username) {
             return username(Output.of(username));
         }

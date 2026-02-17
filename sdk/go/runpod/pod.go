@@ -15,59 +15,112 @@ import (
 type Pod struct {
 	pulumi.CustomResourceState
 
-	AiApiId                       pulumi.StringPtrOutput   `pulumi:"aiApiId"`
-	AllowedCudaVersions           pulumi.StringArrayOutput `pulumi:"allowedCudaVersions"`
-	CloudType                     pulumi.StringPtrOutput   `pulumi:"cloudType"`
-	ComputeType                   pulumi.StringPtrOutput   `pulumi:"computeType"`
-	ContainerDiskInGb             pulumi.IntPtrOutput      `pulumi:"containerDiskInGb"`
-	ContainerRegistryAuthId       pulumi.StringPtrOutput   `pulumi:"containerRegistryAuthId"`
-	CostPerHr                     pulumi.Float64Output     `pulumi:"costPerHr"`
-	CountryCode                   pulumi.StringPtrOutput   `pulumi:"countryCode"`
-	CudaVersion                   pulumi.StringPtrOutput   `pulumi:"cudaVersion"`
-	DataCenterId                  pulumi.StringPtrOutput   `pulumi:"dataCenterId"`
-	DeployCost                    pulumi.Float64PtrOutput  `pulumi:"deployCost"`
-	DesiredStatus                 pulumi.StringOutput      `pulumi:"desiredStatus"`
-	DockerArgs                    pulumi.StringPtrOutput   `pulumi:"dockerArgs"`
-	Env                           pulumi.StringMapOutput   `pulumi:"env"`
-	GlobalNetwork                 pulumi.BoolPtrOutput     `pulumi:"globalNetwork"`
-	GpuCount                      pulumi.IntPtrOutput      `pulumi:"gpuCount"`
-	GpuTypeId                     pulumi.StringOutput      `pulumi:"gpuTypeId"`
-	GpuTypeIdList                 pulumi.StringArrayOutput `pulumi:"gpuTypeIdList"`
-	IdeAiApiId                    pulumi.StringPtrOutput   `pulumi:"ideAiApiId"`
-	ImageName                     pulumi.StringPtrOutput   `pulumi:"imageName"`
-	InstanceIds                   pulumi.StringArrayOutput `pulumi:"instanceIds"`
-	MachineId                     pulumi.StringOutput      `pulumi:"machineId"`
-	MemoryInGb                    pulumi.Float64Output     `pulumi:"memoryInGb"`
-	MinCudaVersion                pulumi.StringPtrOutput   `pulumi:"minCudaVersion"`
-	MinDisk                       pulumi.IntPtrOutput      `pulumi:"minDisk"`
-	MinDownload                   pulumi.IntPtrOutput      `pulumi:"minDownload"`
-	MinMemoryInGb                 pulumi.IntPtrOutput      `pulumi:"minMemoryInGb"`
-	MinUpload                     pulumi.IntPtrOutput      `pulumi:"minUpload"`
-	MinVcpuCount                  pulumi.IntPtrOutput      `pulumi:"minVcpuCount"`
-	ModelReferences               pulumi.StringArrayOutput `pulumi:"modelReferences"`
-	Name                          pulumi.StringOutput      `pulumi:"name"`
-	NetworkVolumeId               pulumi.StringPtrOutput   `pulumi:"networkVolumeId"`
-	OutputContainerDiskInGb       pulumi.IntPtrOutput      `pulumi:"outputContainerDiskInGb"`
-	OutputContainerRegistryAuthId pulumi.StringPtrOutput   `pulumi:"outputContainerRegistryAuthId"`
-	OutputGpuCount                pulumi.IntOutput         `pulumi:"outputGpuCount"`
-	OutputNetworkVolumeId         pulumi.StringPtrOutput   `pulumi:"outputNetworkVolumeId"`
-	OutputPodType                 pulumi.StringPtrOutput   `pulumi:"outputPodType"`
-	OutputPorts                   pulumi.StringPtrOutput   `pulumi:"outputPorts"`
-	OutputTemplateId              pulumi.StringPtrOutput   `pulumi:"outputTemplateId"`
-	OutputVolumeInGb              pulumi.Float64PtrOutput  `pulumi:"outputVolumeInGb"`
-	PodId                         pulumi.StringOutput      `pulumi:"podId"`
-	Ports                         pulumi.StringPtrOutput   `pulumi:"ports"`
-	SavingsPlan                   SavingsPlanPtrOutput     `pulumi:"savingsPlan"`
-	StartJupyter                  pulumi.BoolPtrOutput     `pulumi:"startJupyter"`
-	StartSsh                      pulumi.BoolPtrOutput     `pulumi:"startSsh"`
-	StopAfter                     pulumi.StringPtrOutput   `pulumi:"stopAfter"`
-	SupportPublicIp               pulumi.BoolPtrOutput     `pulumi:"supportPublicIp"`
-	TemplateId                    pulumi.StringPtrOutput   `pulumi:"templateId"`
-	TerminateAfter                pulumi.StringPtrOutput   `pulumi:"terminateAfter"`
-	VcpuCount                     pulumi.Float64Output     `pulumi:"vcpuCount"`
-	VolumeInGb                    pulumi.IntPtrOutput      `pulumi:"volumeInGb"`
-	VolumeKey                     pulumi.StringPtrOutput   `pulumi:"volumeKey"`
-	VolumeMountPath               pulumi.StringPtrOutput   `pulumi:"volumeMountPath"`
+	// The AI API ID for the pod.
+	AiApiId pulumi.StringPtrOutput `pulumi:"aiApiId"`
+	// A list of allowed CUDA versions.
+	AllowedCudaVersions pulumi.StringArrayOutput `pulumi:"allowedCudaVersions"`
+	// The cloud type: SECURE, COMMUNITY, or ALL.
+	CloudType pulumi.StringPtrOutput `pulumi:"cloudType"`
+	// The compute type: CPU or GPU.
+	ComputeType pulumi.StringPtrOutput `pulumi:"computeType"`
+	// The size of the container disk in GB.
+	ContainerDiskInGb pulumi.IntPtrOutput `pulumi:"containerDiskInGb"`
+	// The container registry auth ID for pulling private images.
+	ContainerRegistryAuthId pulumi.StringPtrOutput `pulumi:"containerRegistryAuthId"`
+	// The cost per hour for the pod in USD.
+	CostPerHr pulumi.Float64Output `pulumi:"costPerHr"`
+	// The country code for data residency.
+	CountryCode pulumi.StringPtrOutput `pulumi:"countryCode"`
+	// The CUDA version to use.
+	CudaVersion pulumi.StringPtrOutput `pulumi:"cudaVersion"`
+	// The data center ID to deploy the pod in.
+	DataCenterId pulumi.StringPtrOutput `pulumi:"dataCenterId"`
+	// The maximum bid price per GPU per hour for spot instances.
+	DeployCost pulumi.Float64PtrOutput `pulumi:"deployCost"`
+	// The desired status of the pod.
+	DesiredStatus pulumi.StringOutput `pulumi:"desiredStatus"`
+	// Docker arguments to pass to the container.
+	DockerArgs pulumi.StringPtrOutput `pulumi:"dockerArgs"`
+	// Environment variables as key-value pairs.
+	Env pulumi.StringMapOutput `pulumi:"env"`
+	// Whether to enable global networking.
+	GlobalNetwork pulumi.BoolPtrOutput `pulumi:"globalNetwork"`
+	// The number of GPUs to allocate.
+	GpuCount pulumi.IntPtrOutput `pulumi:"gpuCount"`
+	// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+	GpuTypeId pulumi.StringOutput `pulumi:"gpuTypeId"`
+	// A list of acceptable GPU type IDs (fallback options).
+	GpuTypeIdList pulumi.StringArrayOutput `pulumi:"gpuTypeIdList"`
+	// The IDE AI API ID for the pod.
+	IdeAiApiId pulumi.StringPtrOutput `pulumi:"ideAiApiId"`
+	// The Docker image to run on the pod.
+	ImageName pulumi.StringPtrOutput `pulumi:"imageName"`
+	// Specific instance IDs to deploy on.
+	InstanceIds pulumi.StringArrayOutput `pulumi:"instanceIds"`
+	// The ID of the machine the pod is running on.
+	MachineId pulumi.StringOutput `pulumi:"machineId"`
+	// The amount of memory allocated in GB.
+	MemoryInGb pulumi.Float64Output `pulumi:"memoryInGb"`
+	// The minimum CUDA version required.
+	MinCudaVersion pulumi.StringPtrOutput `pulumi:"minCudaVersion"`
+	// Minimum disk space in GB required on the host.
+	MinDisk pulumi.IntPtrOutput `pulumi:"minDisk"`
+	// Minimum download bandwidth in Mbps.
+	MinDownload pulumi.IntPtrOutput `pulumi:"minDownload"`
+	// Minimum memory in GB required.
+	MinMemoryInGb pulumi.IntPtrOutput `pulumi:"minMemoryInGb"`
+	// Minimum upload bandwidth in Mbps.
+	MinUpload pulumi.IntPtrOutput `pulumi:"minUpload"`
+	// Minimum number of vCPUs required.
+	MinVcpuCount pulumi.IntPtrOutput `pulumi:"minVcpuCount"`
+	// Model references for the pod.
+	ModelReferences pulumi.StringArrayOutput `pulumi:"modelReferences"`
+	// A name for the pod.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// The network volume ID to attach to the pod.
+	NetworkVolumeId pulumi.StringPtrOutput `pulumi:"networkVolumeId"`
+	// The container disk size in GB (from API response).
+	OutputContainerDiskInGb pulumi.IntPtrOutput `pulumi:"outputContainerDiskInGb"`
+	// The container registry auth ID (from API response).
+	OutputContainerRegistryAuthId pulumi.StringPtrOutput `pulumi:"outputContainerRegistryAuthId"`
+	// The number of GPUs allocated (from API response).
+	OutputGpuCount pulumi.IntOutput `pulumi:"outputGpuCount"`
+	// The network volume ID attached (from API response).
+	OutputNetworkVolumeId pulumi.StringPtrOutput `pulumi:"outputNetworkVolumeId"`
+	// The pod type (from API response).
+	OutputPodType pulumi.StringPtrOutput `pulumi:"outputPodType"`
+	// The exposed ports (from API response).
+	OutputPorts pulumi.StringPtrOutput `pulumi:"outputPorts"`
+	// The template ID used (from API response).
+	OutputTemplateId pulumi.StringPtrOutput `pulumi:"outputTemplateId"`
+	// The volume size in GB (from API response).
+	OutputVolumeInGb pulumi.Float64PtrOutput `pulumi:"outputVolumeInGb"`
+	// The unique identifier of the pod.
+	PodId pulumi.StringOutput `pulumi:"podId"`
+	// Ports to expose (e.g. "8080/http,22/tcp").
+	Ports pulumi.StringPtrOutput `pulumi:"ports"`
+	// Savings plan configuration for reduced pricing.
+	SavingsPlan SavingsPlanPtrOutput `pulumi:"savingsPlan"`
+	// Whether to start a Jupyter notebook server.
+	StartJupyter pulumi.BoolPtrOutput `pulumi:"startJupyter"`
+	// Whether to start an SSH server.
+	StartSsh pulumi.BoolPtrOutput `pulumi:"startSsh"`
+	// Duration after which the pod is automatically stopped.
+	StopAfter pulumi.StringPtrOutput `pulumi:"stopAfter"`
+	// Whether to assign a public IP address.
+	SupportPublicIp pulumi.BoolPtrOutput `pulumi:"supportPublicIp"`
+	// The template ID to use for the pod.
+	TemplateId pulumi.StringPtrOutput `pulumi:"templateId"`
+	// Duration after which the pod is automatically terminated.
+	TerminateAfter pulumi.StringPtrOutput `pulumi:"terminateAfter"`
+	// The number of vCPUs allocated.
+	VcpuCount pulumi.Float64Output `pulumi:"vcpuCount"`
+	// The size of the persistent volume in GB.
+	VolumeInGb pulumi.IntPtrOutput `pulumi:"volumeInGb"`
+	// The volume key for persistent storage.
+	VolumeKey pulumi.StringPtrOutput `pulumi:"volumeKey"`
+	// The path to mount the persistent volume.
+	VolumeMountPath pulumi.StringPtrOutput `pulumi:"volumeMountPath"`
 }
 
 // NewPod registers a new resource with the given unique name, arguments, and options.
@@ -83,6 +136,40 @@ func NewPod(ctx *pulumi.Context,
 	if args.Name == nil {
 		return nil, errors.New("invalid value for required argument 'Name'")
 	}
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"aiApiId",
+		"allowedCudaVersions[*]",
+		"cloudType",
+		"computeType",
+		"countryCode",
+		"cudaVersion",
+		"dataCenterId",
+		"deployCost",
+		"globalNetwork",
+		"gpuCount",
+		"gpuTypeId",
+		"gpuTypeIdList[*]",
+		"ideAiApiId",
+		"instanceIds[*]",
+		"minCudaVersion",
+		"minDisk",
+		"minDownload",
+		"minMemoryInGb",
+		"minUpload",
+		"minVcpuCount",
+		"modelReferences[*]",
+		"name",
+		"networkVolumeId",
+		"savingsPlan",
+		"startJupyter",
+		"startSsh",
+		"stopAfter",
+		"supportPublicIp",
+		"templateId",
+		"terminateAfter",
+		"volumeKey",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Pod
 	err := ctx.RegisterResource("runpod:index:Pod", name, args, &resource, opts...)
@@ -116,88 +203,166 @@ func (PodState) ElementType() reflect.Type {
 }
 
 type podArgs struct {
-	AiApiId                 *string           `pulumi:"aiApiId"`
-	AllowedCudaVersions     []string          `pulumi:"allowedCudaVersions"`
-	CloudType               *string           `pulumi:"cloudType"`
-	ComputeType             *string           `pulumi:"computeType"`
-	ContainerDiskInGb       *int              `pulumi:"containerDiskInGb"`
-	ContainerRegistryAuthId *string           `pulumi:"containerRegistryAuthId"`
-	CountryCode             *string           `pulumi:"countryCode"`
-	CudaVersion             *string           `pulumi:"cudaVersion"`
-	DataCenterId            *string           `pulumi:"dataCenterId"`
-	DeployCost              *float64          `pulumi:"deployCost"`
-	DockerArgs              *string           `pulumi:"dockerArgs"`
-	Env                     map[string]string `pulumi:"env"`
-	GlobalNetwork           *bool             `pulumi:"globalNetwork"`
-	GpuCount                *int              `pulumi:"gpuCount"`
-	GpuTypeId               string            `pulumi:"gpuTypeId"`
-	GpuTypeIdList           []string          `pulumi:"gpuTypeIdList"`
-	IdeAiApiId              *string           `pulumi:"ideAiApiId"`
-	ImageName               *string           `pulumi:"imageName"`
-	InstanceIds             []string          `pulumi:"instanceIds"`
-	MinCudaVersion          *string           `pulumi:"minCudaVersion"`
-	MinDisk                 *int              `pulumi:"minDisk"`
-	MinDownload             *int              `pulumi:"minDownload"`
-	MinMemoryInGb           *int              `pulumi:"minMemoryInGb"`
-	MinUpload               *int              `pulumi:"minUpload"`
-	MinVcpuCount            *int              `pulumi:"minVcpuCount"`
-	ModelReferences         []string          `pulumi:"modelReferences"`
-	Name                    string            `pulumi:"name"`
-	NetworkVolumeId         *string           `pulumi:"networkVolumeId"`
-	Ports                   *string           `pulumi:"ports"`
-	SavingsPlan             *SavingsPlan      `pulumi:"savingsPlan"`
-	StartJupyter            *bool             `pulumi:"startJupyter"`
-	StartSsh                *bool             `pulumi:"startSsh"`
-	StopAfter               *string           `pulumi:"stopAfter"`
-	SupportPublicIp         *bool             `pulumi:"supportPublicIp"`
-	TemplateId              *string           `pulumi:"templateId"`
-	TerminateAfter          *string           `pulumi:"terminateAfter"`
-	VolumeInGb              *int              `pulumi:"volumeInGb"`
-	VolumeKey               *string           `pulumi:"volumeKey"`
-	VolumeMountPath         *string           `pulumi:"volumeMountPath"`
+	// The AI API ID for the pod.
+	AiApiId *string `pulumi:"aiApiId"`
+	// A list of allowed CUDA versions.
+	AllowedCudaVersions []string `pulumi:"allowedCudaVersions"`
+	// The cloud type: SECURE, COMMUNITY, or ALL.
+	CloudType *string `pulumi:"cloudType"`
+	// The compute type: CPU or GPU.
+	ComputeType *string `pulumi:"computeType"`
+	// The size of the container disk in GB.
+	ContainerDiskInGb *int `pulumi:"containerDiskInGb"`
+	// The container registry auth ID for pulling private images.
+	ContainerRegistryAuthId *string `pulumi:"containerRegistryAuthId"`
+	// The country code for data residency.
+	CountryCode *string `pulumi:"countryCode"`
+	// The CUDA version to use.
+	CudaVersion *string `pulumi:"cudaVersion"`
+	// The data center ID to deploy the pod in.
+	DataCenterId *string `pulumi:"dataCenterId"`
+	// The maximum bid price per GPU per hour for spot instances.
+	DeployCost *float64 `pulumi:"deployCost"`
+	// Docker arguments to pass to the container.
+	DockerArgs *string `pulumi:"dockerArgs"`
+	// Environment variables as key-value pairs.
+	Env map[string]string `pulumi:"env"`
+	// Whether to enable global networking.
+	GlobalNetwork *bool `pulumi:"globalNetwork"`
+	// The number of GPUs to allocate.
+	GpuCount *int `pulumi:"gpuCount"`
+	// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+	GpuTypeId string `pulumi:"gpuTypeId"`
+	// A list of acceptable GPU type IDs (fallback options).
+	GpuTypeIdList []string `pulumi:"gpuTypeIdList"`
+	// The IDE AI API ID for the pod.
+	IdeAiApiId *string `pulumi:"ideAiApiId"`
+	// The Docker image to run on the pod.
+	ImageName *string `pulumi:"imageName"`
+	// Specific instance IDs to deploy on.
+	InstanceIds []string `pulumi:"instanceIds"`
+	// The minimum CUDA version required.
+	MinCudaVersion *string `pulumi:"minCudaVersion"`
+	// Minimum disk space in GB required on the host.
+	MinDisk *int `pulumi:"minDisk"`
+	// Minimum download bandwidth in Mbps.
+	MinDownload *int `pulumi:"minDownload"`
+	// Minimum memory in GB required.
+	MinMemoryInGb *int `pulumi:"minMemoryInGb"`
+	// Minimum upload bandwidth in Mbps.
+	MinUpload *int `pulumi:"minUpload"`
+	// Minimum number of vCPUs required.
+	MinVcpuCount *int `pulumi:"minVcpuCount"`
+	// Model references for the pod.
+	ModelReferences []string `pulumi:"modelReferences"`
+	// A name for the pod.
+	Name string `pulumi:"name"`
+	// The network volume ID to attach to the pod.
+	NetworkVolumeId *string `pulumi:"networkVolumeId"`
+	// Ports to expose (e.g. "8080/http,22/tcp").
+	Ports *string `pulumi:"ports"`
+	// Savings plan configuration for reduced pricing.
+	SavingsPlan *SavingsPlan `pulumi:"savingsPlan"`
+	// Whether to start a Jupyter notebook server.
+	StartJupyter *bool `pulumi:"startJupyter"`
+	// Whether to start an SSH server.
+	StartSsh *bool `pulumi:"startSsh"`
+	// Duration after which the pod is automatically stopped.
+	StopAfter *string `pulumi:"stopAfter"`
+	// Whether to assign a public IP address.
+	SupportPublicIp *bool `pulumi:"supportPublicIp"`
+	// The template ID to use for the pod.
+	TemplateId *string `pulumi:"templateId"`
+	// Duration after which the pod is automatically terminated.
+	TerminateAfter *string `pulumi:"terminateAfter"`
+	// The size of the persistent volume in GB.
+	VolumeInGb *int `pulumi:"volumeInGb"`
+	// The volume key for persistent storage.
+	VolumeKey *string `pulumi:"volumeKey"`
+	// The path to mount the persistent volume.
+	VolumeMountPath *string `pulumi:"volumeMountPath"`
 }
 
 // The set of arguments for constructing a Pod resource.
 type PodArgs struct {
-	AiApiId                 pulumi.StringPtrInput
-	AllowedCudaVersions     pulumi.StringArrayInput
-	CloudType               pulumi.StringPtrInput
-	ComputeType             pulumi.StringPtrInput
-	ContainerDiskInGb       pulumi.IntPtrInput
+	// The AI API ID for the pod.
+	AiApiId pulumi.StringPtrInput
+	// A list of allowed CUDA versions.
+	AllowedCudaVersions pulumi.StringArrayInput
+	// The cloud type: SECURE, COMMUNITY, or ALL.
+	CloudType pulumi.StringPtrInput
+	// The compute type: CPU or GPU.
+	ComputeType pulumi.StringPtrInput
+	// The size of the container disk in GB.
+	ContainerDiskInGb pulumi.IntPtrInput
+	// The container registry auth ID for pulling private images.
 	ContainerRegistryAuthId pulumi.StringPtrInput
-	CountryCode             pulumi.StringPtrInput
-	CudaVersion             pulumi.StringPtrInput
-	DataCenterId            pulumi.StringPtrInput
-	DeployCost              pulumi.Float64PtrInput
-	DockerArgs              pulumi.StringPtrInput
-	Env                     pulumi.StringMapInput
-	GlobalNetwork           pulumi.BoolPtrInput
-	GpuCount                pulumi.IntPtrInput
-	GpuTypeId               pulumi.StringInput
-	GpuTypeIdList           pulumi.StringArrayInput
-	IdeAiApiId              pulumi.StringPtrInput
-	ImageName               pulumi.StringPtrInput
-	InstanceIds             pulumi.StringArrayInput
-	MinCudaVersion          pulumi.StringPtrInput
-	MinDisk                 pulumi.IntPtrInput
-	MinDownload             pulumi.IntPtrInput
-	MinMemoryInGb           pulumi.IntPtrInput
-	MinUpload               pulumi.IntPtrInput
-	MinVcpuCount            pulumi.IntPtrInput
-	ModelReferences         pulumi.StringArrayInput
-	Name                    pulumi.StringInput
-	NetworkVolumeId         pulumi.StringPtrInput
-	Ports                   pulumi.StringPtrInput
-	SavingsPlan             SavingsPlanPtrInput
-	StartJupyter            pulumi.BoolPtrInput
-	StartSsh                pulumi.BoolPtrInput
-	StopAfter               pulumi.StringPtrInput
-	SupportPublicIp         pulumi.BoolPtrInput
-	TemplateId              pulumi.StringPtrInput
-	TerminateAfter          pulumi.StringPtrInput
-	VolumeInGb              pulumi.IntPtrInput
-	VolumeKey               pulumi.StringPtrInput
-	VolumeMountPath         pulumi.StringPtrInput
+	// The country code for data residency.
+	CountryCode pulumi.StringPtrInput
+	// The CUDA version to use.
+	CudaVersion pulumi.StringPtrInput
+	// The data center ID to deploy the pod in.
+	DataCenterId pulumi.StringPtrInput
+	// The maximum bid price per GPU per hour for spot instances.
+	DeployCost pulumi.Float64PtrInput
+	// Docker arguments to pass to the container.
+	DockerArgs pulumi.StringPtrInput
+	// Environment variables as key-value pairs.
+	Env pulumi.StringMapInput
+	// Whether to enable global networking.
+	GlobalNetwork pulumi.BoolPtrInput
+	// The number of GPUs to allocate.
+	GpuCount pulumi.IntPtrInput
+	// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+	GpuTypeId pulumi.StringInput
+	// A list of acceptable GPU type IDs (fallback options).
+	GpuTypeIdList pulumi.StringArrayInput
+	// The IDE AI API ID for the pod.
+	IdeAiApiId pulumi.StringPtrInput
+	// The Docker image to run on the pod.
+	ImageName pulumi.StringPtrInput
+	// Specific instance IDs to deploy on.
+	InstanceIds pulumi.StringArrayInput
+	// The minimum CUDA version required.
+	MinCudaVersion pulumi.StringPtrInput
+	// Minimum disk space in GB required on the host.
+	MinDisk pulumi.IntPtrInput
+	// Minimum download bandwidth in Mbps.
+	MinDownload pulumi.IntPtrInput
+	// Minimum memory in GB required.
+	MinMemoryInGb pulumi.IntPtrInput
+	// Minimum upload bandwidth in Mbps.
+	MinUpload pulumi.IntPtrInput
+	// Minimum number of vCPUs required.
+	MinVcpuCount pulumi.IntPtrInput
+	// Model references for the pod.
+	ModelReferences pulumi.StringArrayInput
+	// A name for the pod.
+	Name pulumi.StringInput
+	// The network volume ID to attach to the pod.
+	NetworkVolumeId pulumi.StringPtrInput
+	// Ports to expose (e.g. "8080/http,22/tcp").
+	Ports pulumi.StringPtrInput
+	// Savings plan configuration for reduced pricing.
+	SavingsPlan SavingsPlanPtrInput
+	// Whether to start a Jupyter notebook server.
+	StartJupyter pulumi.BoolPtrInput
+	// Whether to start an SSH server.
+	StartSsh pulumi.BoolPtrInput
+	// Duration after which the pod is automatically stopped.
+	StopAfter pulumi.StringPtrInput
+	// Whether to assign a public IP address.
+	SupportPublicIp pulumi.BoolPtrInput
+	// The template ID to use for the pod.
+	TemplateId pulumi.StringPtrInput
+	// Duration after which the pod is automatically terminated.
+	TerminateAfter pulumi.StringPtrInput
+	// The size of the persistent volume in GB.
+	VolumeInGb pulumi.IntPtrInput
+	// The volume key for persistent storage.
+	VolumeKey pulumi.StringPtrInput
+	// The path to mount the persistent volume.
+	VolumeMountPath pulumi.StringPtrInput
 }
 
 func (PodArgs) ElementType() reflect.Type {
@@ -287,214 +452,267 @@ func (o PodOutput) ToPodOutputWithContext(ctx context.Context) PodOutput {
 	return o
 }
 
+// The AI API ID for the pod.
 func (o PodOutput) AiApiId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.AiApiId }).(pulumi.StringPtrOutput)
 }
 
+// A list of allowed CUDA versions.
 func (o PodOutput) AllowedCudaVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.AllowedCudaVersions }).(pulumi.StringArrayOutput)
 }
 
+// The cloud type: SECURE, COMMUNITY, or ALL.
 func (o PodOutput) CloudType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.CloudType }).(pulumi.StringPtrOutput)
 }
 
+// The compute type: CPU or GPU.
 func (o PodOutput) ComputeType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ComputeType }).(pulumi.StringPtrOutput)
 }
 
+// The size of the container disk in GB.
 func (o PodOutput) ContainerDiskInGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.ContainerDiskInGb }).(pulumi.IntPtrOutput)
 }
 
+// The container registry auth ID for pulling private images.
 func (o PodOutput) ContainerRegistryAuthId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ContainerRegistryAuthId }).(pulumi.StringPtrOutput)
 }
 
+// The cost per hour for the pod in USD.
 func (o PodOutput) CostPerHr() pulumi.Float64Output {
 	return o.ApplyT(func(v *Pod) pulumi.Float64Output { return v.CostPerHr }).(pulumi.Float64Output)
 }
 
+// The country code for data residency.
 func (o PodOutput) CountryCode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.CountryCode }).(pulumi.StringPtrOutput)
 }
 
+// The CUDA version to use.
 func (o PodOutput) CudaVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.CudaVersion }).(pulumi.StringPtrOutput)
 }
 
+// The data center ID to deploy the pod in.
 func (o PodOutput) DataCenterId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.DataCenterId }).(pulumi.StringPtrOutput)
 }
 
+// The maximum bid price per GPU per hour for spot instances.
 func (o PodOutput) DeployCost() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.Float64PtrOutput { return v.DeployCost }).(pulumi.Float64PtrOutput)
 }
 
+// The desired status of the pod.
 func (o PodOutput) DesiredStatus() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.DesiredStatus }).(pulumi.StringOutput)
 }
 
+// Docker arguments to pass to the container.
 func (o PodOutput) DockerArgs() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.DockerArgs }).(pulumi.StringPtrOutput)
 }
 
+// Environment variables as key-value pairs.
 func (o PodOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }
 
+// Whether to enable global networking.
 func (o PodOutput) GlobalNetwork() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.GlobalNetwork }).(pulumi.BoolPtrOutput)
 }
 
+// The number of GPUs to allocate.
 func (o PodOutput) GpuCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.GpuCount }).(pulumi.IntPtrOutput)
 }
 
+// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
 func (o PodOutput) GpuTypeId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.GpuTypeId }).(pulumi.StringOutput)
 }
 
+// A list of acceptable GPU type IDs (fallback options).
 func (o PodOutput) GpuTypeIdList() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.GpuTypeIdList }).(pulumi.StringArrayOutput)
 }
 
+// The IDE AI API ID for the pod.
 func (o PodOutput) IdeAiApiId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.IdeAiApiId }).(pulumi.StringPtrOutput)
 }
 
+// The Docker image to run on the pod.
 func (o PodOutput) ImageName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ImageName }).(pulumi.StringPtrOutput)
 }
 
+// Specific instance IDs to deploy on.
 func (o PodOutput) InstanceIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.InstanceIds }).(pulumi.StringArrayOutput)
 }
 
+// The ID of the machine the pod is running on.
 func (o PodOutput) MachineId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.MachineId }).(pulumi.StringOutput)
 }
 
+// The amount of memory allocated in GB.
 func (o PodOutput) MemoryInGb() pulumi.Float64Output {
 	return o.ApplyT(func(v *Pod) pulumi.Float64Output { return v.MemoryInGb }).(pulumi.Float64Output)
 }
 
+// The minimum CUDA version required.
 func (o PodOutput) MinCudaVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.MinCudaVersion }).(pulumi.StringPtrOutput)
 }
 
+// Minimum disk space in GB required on the host.
 func (o PodOutput) MinDisk() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinDisk }).(pulumi.IntPtrOutput)
 }
 
+// Minimum download bandwidth in Mbps.
 func (o PodOutput) MinDownload() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinDownload }).(pulumi.IntPtrOutput)
 }
 
+// Minimum memory in GB required.
 func (o PodOutput) MinMemoryInGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinMemoryInGb }).(pulumi.IntPtrOutput)
 }
 
+// Minimum upload bandwidth in Mbps.
 func (o PodOutput) MinUpload() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinUpload }).(pulumi.IntPtrOutput)
 }
 
+// Minimum number of vCPUs required.
 func (o PodOutput) MinVcpuCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinVcpuCount }).(pulumi.IntPtrOutput)
 }
 
+// Model references for the pod.
 func (o PodOutput) ModelReferences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.ModelReferences }).(pulumi.StringArrayOutput)
 }
 
+// A name for the pod.
 func (o PodOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// The network volume ID to attach to the pod.
 func (o PodOutput) NetworkVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.NetworkVolumeId }).(pulumi.StringPtrOutput)
 }
 
+// The container disk size in GB (from API response).
 func (o PodOutput) OutputContainerDiskInGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.OutputContainerDiskInGb }).(pulumi.IntPtrOutput)
 }
 
+// The container registry auth ID (from API response).
 func (o PodOutput) OutputContainerRegistryAuthId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputContainerRegistryAuthId }).(pulumi.StringPtrOutput)
 }
 
+// The number of GPUs allocated (from API response).
 func (o PodOutput) OutputGpuCount() pulumi.IntOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntOutput { return v.OutputGpuCount }).(pulumi.IntOutput)
 }
 
+// The network volume ID attached (from API response).
 func (o PodOutput) OutputNetworkVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputNetworkVolumeId }).(pulumi.StringPtrOutput)
 }
 
+// The pod type (from API response).
 func (o PodOutput) OutputPodType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputPodType }).(pulumi.StringPtrOutput)
 }
 
+// The exposed ports (from API response).
 func (o PodOutput) OutputPorts() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputPorts }).(pulumi.StringPtrOutput)
 }
 
+// The template ID used (from API response).
 func (o PodOutput) OutputTemplateId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputTemplateId }).(pulumi.StringPtrOutput)
 }
 
+// The volume size in GB (from API response).
 func (o PodOutput) OutputVolumeInGb() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.Float64PtrOutput { return v.OutputVolumeInGb }).(pulumi.Float64PtrOutput)
 }
 
+// The unique identifier of the pod.
 func (o PodOutput) PodId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.PodId }).(pulumi.StringOutput)
 }
 
+// Ports to expose (e.g. "8080/http,22/tcp").
 func (o PodOutput) Ports() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.Ports }).(pulumi.StringPtrOutput)
 }
 
+// Savings plan configuration for reduced pricing.
 func (o PodOutput) SavingsPlan() SavingsPlanPtrOutput {
 	return o.ApplyT(func(v *Pod) SavingsPlanPtrOutput { return v.SavingsPlan }).(SavingsPlanPtrOutput)
 }
 
+// Whether to start a Jupyter notebook server.
 func (o PodOutput) StartJupyter() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.StartJupyter }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to start an SSH server.
 func (o PodOutput) StartSsh() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.StartSsh }).(pulumi.BoolPtrOutput)
 }
 
+// Duration after which the pod is automatically stopped.
 func (o PodOutput) StopAfter() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.StopAfter }).(pulumi.StringPtrOutput)
 }
 
+// Whether to assign a public IP address.
 func (o PodOutput) SupportPublicIp() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.SupportPublicIp }).(pulumi.BoolPtrOutput)
 }
 
+// The template ID to use for the pod.
 func (o PodOutput) TemplateId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.TemplateId }).(pulumi.StringPtrOutput)
 }
 
+// Duration after which the pod is automatically terminated.
 func (o PodOutput) TerminateAfter() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.TerminateAfter }).(pulumi.StringPtrOutput)
 }
 
+// The number of vCPUs allocated.
 func (o PodOutput) VcpuCount() pulumi.Float64Output {
 	return o.ApplyT(func(v *Pod) pulumi.Float64Output { return v.VcpuCount }).(pulumi.Float64Output)
 }
 
+// The size of the persistent volume in GB.
 func (o PodOutput) VolumeInGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.VolumeInGb }).(pulumi.IntPtrOutput)
 }
 
+// The volume key for persistent storage.
 func (o PodOutput) VolumeKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.VolumeKey }).(pulumi.StringPtrOutput)
 }
 
+// The path to mount the persistent volume.
 func (o PodOutput) VolumeMountPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.VolumeMountPath }).(pulumi.StringPtrOutput)
 }

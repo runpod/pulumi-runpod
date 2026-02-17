@@ -25,6 +25,7 @@ type GetGpuTypesArgs struct {
 }
 
 type GetGpuTypesResult struct {
+	// The list of available GPU types.
 	GpuTypes []GpuTypeOutput `pulumi:"gpuTypes"`
 }
 
@@ -58,6 +59,7 @@ func (o GetGpuTypesResultOutput) ToGetGpuTypesResultOutputWithContext(ctx contex
 	return o
 }
 
+// The list of available GPU types.
 func (o GetGpuTypesResultOutput) GpuTypes() GpuTypeOutputArrayOutput {
 	return o.ApplyT(func(v GetGpuTypesResult) []GpuTypeOutput { return v.GpuTypes }).(GpuTypeOutputArrayOutput)
 }

@@ -34,6 +34,9 @@ namespace Pulumi.Runpod
     [OutputType]
     public sealed class GetGpuTypesResult
     {
+        /// <summary>
+        /// The list of available GPU types.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GpuTypeOutput> GpuTypes;
 
         [OutputConstructor]

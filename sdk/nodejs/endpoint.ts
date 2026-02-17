@@ -31,29 +31,101 @@ export class Endpoint extends pulumi.CustomResource {
         return obj['__pulumiType'] === Endpoint.__pulumiType;
     }
 
+    /**
+     * Comma-separated list of allowed CUDA versions.
+     */
     public readonly allowedCudaVersions!: pulumi.Output<string | undefined>;
+    /**
+     * Whether to bind the endpoint to specific workers.
+     */
     public readonly bindEndpoint!: pulumi.Output<boolean | undefined>;
+    /**
+     * The unique identifier of the endpoint.
+     */
     public /*out*/ readonly endpointId!: pulumi.Output<string>;
+    /**
+     * Environment variables as key-value pairs.
+     */
     public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * Maximum execution time in milliseconds before a request is terminated.
+     */
     public readonly executionTimeoutMs!: pulumi.Output<number | undefined>;
+    /**
+     * The flash boot type.
+     */
     public readonly flashBootType!: pulumi.Output<string | undefined>;
+    /**
+     * The flash environment ID.
+     */
     public readonly flashEnvironmentId!: pulumi.Output<string | undefined>;
+    /**
+     * The number of GPUs per worker.
+     */
     public readonly gpuCount!: pulumi.Output<number | undefined>;
+    /**
+     * The GPU type IDs to use (e.g. "AMPERE_16").
+     */
     public readonly gpuIds!: pulumi.Output<string | undefined>;
+    /**
+     * The hub release ID for the endpoint.
+     */
     public readonly hubReleaseId!: pulumi.Output<string | undefined>;
+    /**
+     * The number of seconds a worker can remain idle before being scaled down.
+     */
     public readonly idleTimeout!: pulumi.Output<number | undefined>;
+    /**
+     * Specific instance IDs to use for workers.
+     */
     public readonly instanceIds!: pulumi.Output<string[] | undefined>;
+    /**
+     * Comma-separated data center locations for worker deployment.
+     */
     public readonly locations!: pulumi.Output<string | undefined>;
+    /**
+     * The minimum CUDA version required.
+     */
     public readonly minCudaVersion!: pulumi.Output<string | undefined>;
+    /**
+     * The model name for the endpoint.
+     */
     public readonly modelName!: pulumi.Output<string | undefined>;
+    /**
+     * Model references for the endpoint.
+     */
     public readonly modelReferences!: pulumi.Output<string[] | undefined>;
+    /**
+     * A name for the endpoint.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * The network volume ID to attach to endpoint workers.
+     */
     public readonly networkVolumeId!: pulumi.Output<string | undefined>;
+    /**
+     * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+     */
     public readonly scalerType!: pulumi.Output<string | undefined>;
+    /**
+     * The autoscaler target value.
+     */
     public readonly scalerValue!: pulumi.Output<number | undefined>;
+    /**
+     * The template ID to use for the endpoint workers.
+     */
     public readonly templateId!: pulumi.Output<string | undefined>;
+    /**
+     * The endpoint type.
+     */
     public readonly type!: pulumi.Output<string | undefined>;
+    /**
+     * The maximum number of workers to scale up to.
+     */
     public readonly workersMax!: pulumi.Output<number | undefined>;
+    /**
+     * The minimum number of workers to keep running.
+     */
     public readonly workersMin!: pulumi.Output<number | undefined>;
 
     /**
@@ -129,27 +201,96 @@ export class Endpoint extends pulumi.CustomResource {
  * The set of arguments for constructing a Endpoint resource.
  */
 export interface EndpointArgs {
+    /**
+     * Comma-separated list of allowed CUDA versions.
+     */
     allowedCudaVersions?: pulumi.Input<string>;
+    /**
+     * Whether to bind the endpoint to specific workers.
+     */
     bindEndpoint?: pulumi.Input<boolean>;
+    /**
+     * Environment variables as key-value pairs.
+     */
     env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Maximum execution time in milliseconds before a request is terminated.
+     */
     executionTimeoutMs?: pulumi.Input<number>;
+    /**
+     * The flash boot type.
+     */
     flashBootType?: pulumi.Input<string>;
+    /**
+     * The flash environment ID.
+     */
     flashEnvironmentId?: pulumi.Input<string>;
+    /**
+     * The number of GPUs per worker.
+     */
     gpuCount?: pulumi.Input<number>;
+    /**
+     * The GPU type IDs to use (e.g. "AMPERE_16").
+     */
     gpuIds?: pulumi.Input<string>;
+    /**
+     * The hub release ID for the endpoint.
+     */
     hubReleaseId?: pulumi.Input<string>;
+    /**
+     * The number of seconds a worker can remain idle before being scaled down.
+     */
     idleTimeout?: pulumi.Input<number>;
+    /**
+     * Specific instance IDs to use for workers.
+     */
     instanceIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Comma-separated data center locations for worker deployment.
+     */
     locations?: pulumi.Input<string>;
+    /**
+     * The minimum CUDA version required.
+     */
     minCudaVersion?: pulumi.Input<string>;
+    /**
+     * The model name for the endpoint.
+     */
     modelName?: pulumi.Input<string>;
+    /**
+     * Model references for the endpoint.
+     */
     modelReferences?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * A name for the endpoint.
+     */
     name: pulumi.Input<string>;
+    /**
+     * The network volume ID to attach to endpoint workers.
+     */
     networkVolumeId?: pulumi.Input<string>;
+    /**
+     * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+     */
     scalerType?: pulumi.Input<string>;
+    /**
+     * The autoscaler target value.
+     */
     scalerValue?: pulumi.Input<number>;
+    /**
+     * The template ID to use for the endpoint workers.
+     */
     templateId?: pulumi.Input<string>;
+    /**
+     * The endpoint type.
+     */
     type?: pulumi.Input<string>;
+    /**
+     * The maximum number of workers to scale up to.
+     */
     workersMax?: pulumi.Input<number>;
+    /**
+     * The minimum number of workers to keep running.
+     */
     workersMin?: pulumi.Input<number>;
 }

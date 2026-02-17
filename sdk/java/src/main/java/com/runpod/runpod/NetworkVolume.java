@@ -17,33 +17,73 @@ import javax.annotation.Nullable;
 
 @ResourceType(type="runpod:index:NetworkVolume")
 public class NetworkVolume extends com.pulumi.resources.CustomResource {
+    /**
+     * The data center ID where the volume will be created (e.g. &#34;US-TX-3&#34;).
+     * 
+     */
     @Export(name="dataCenterId", refs={String.class}, tree="[0]")
     private Output<String> dataCenterId;
 
+    /**
+     * @return The data center ID where the volume will be created (e.g. &#34;US-TX-3&#34;).
+     * 
+     */
     public Output<String> dataCenterId() {
         return this.dataCenterId;
     }
+    /**
+     * Whether to use next-generation storage.
+     * 
+     */
     @Export(name="isNextGenStorage", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> isNextGenStorage;
 
+    /**
+     * @return Whether to use next-generation storage.
+     * 
+     */
     public Output<Optional<Boolean>> isNextGenStorage() {
         return Codegen.optional(this.isNextGenStorage);
     }
+    /**
+     * A name for the network volume.
+     * 
+     */
     @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
+    /**
+     * @return A name for the network volume.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
+    /**
+     * The unique identifier of the network volume.
+     * 
+     */
     @Export(name="networkVolumeId", refs={String.class}, tree="[0]")
     private Output<String> networkVolumeId;
 
+    /**
+     * @return The unique identifier of the network volume.
+     * 
+     */
     public Output<String> networkVolumeId() {
         return this.networkVolumeId;
     }
+    /**
+     * The size of the network volume in GB.
+     * 
+     */
     @Export(name="size", refs={Integer.class}, tree="[0]")
     private Output<Integer> size;
 
+    /**
+     * @return The size of the network volume in GB.
+     * 
+     */
     public Output<Integer> size() {
         return this.size;
     }

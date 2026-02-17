@@ -19,7 +19,13 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
+    /**
+     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     */
     public readonly apiKey!: pulumi.Output<string | undefined>;
+    /**
+     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     */
     public readonly apiUrl!: pulumi.Output<string | undefined>;
 
     /**
@@ -33,8 +39,8 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["apiKey"] = args?.apiKey ? pulumi.secret(args.apiKey) : undefined;
-            resourceInputs["apiUrl"] = args ? args.apiUrl : undefined;
+            resourceInputs["apiKey"] = (args?.apiKey ? pulumi.secret(args.apiKey) : undefined) ?? utilities.getEnv("RUNPOD_API_KEY");
+            resourceInputs["apiUrl"] = (args ? args.apiUrl : undefined) ?? utilities.getEnv("RUNPOD_API_URL");
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["apiKey"] };
@@ -47,6 +53,12 @@ export class Provider extends pulumi.ProviderResource {
  * The set of arguments for constructing a Provider resource.
  */
 export interface ProviderArgs {
+    /**
+     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     */
     apiKey?: pulumi.Input<string>;
+    /**
+     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     */
     apiUrl?: pulumi.Input<string>;
 }

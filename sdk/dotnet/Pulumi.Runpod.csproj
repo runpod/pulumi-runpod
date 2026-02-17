@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>RunPod</Authors>
-    <Company>RunPod</Company>
+    <Authors>Pulumi Corp.</Authors>
+    <Company>Pulumi Corp.</Company>
     <Description>Manage RunPod GPU cloud resources.</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://www.runpod.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/runpod/pulumi-runpod</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>

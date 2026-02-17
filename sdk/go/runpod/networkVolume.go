@@ -15,11 +15,16 @@ import (
 type NetworkVolume struct {
 	pulumi.CustomResourceState
 
-	DataCenterId     pulumi.StringOutput  `pulumi:"dataCenterId"`
+	// The data center ID where the volume will be created (e.g. "US-TX-3").
+	DataCenterId pulumi.StringOutput `pulumi:"dataCenterId"`
+	// Whether to use next-generation storage.
 	IsNextGenStorage pulumi.BoolPtrOutput `pulumi:"isNextGenStorage"`
-	Name             pulumi.StringOutput  `pulumi:"name"`
-	NetworkVolumeId  pulumi.StringOutput  `pulumi:"networkVolumeId"`
-	Size             pulumi.IntOutput     `pulumi:"size"`
+	// A name for the network volume.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// The unique identifier of the network volume.
+	NetworkVolumeId pulumi.StringOutput `pulumi:"networkVolumeId"`
+	// The size of the network volume in GB.
+	Size pulumi.IntOutput `pulumi:"size"`
 }
 
 // NewNetworkVolume registers a new resource with the given unique name, arguments, and options.
@@ -38,6 +43,11 @@ func NewNetworkVolume(ctx *pulumi.Context,
 	if args.Size == nil {
 		return nil, errors.New("invalid value for required argument 'Size'")
 	}
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"dataCenterId",
+		"isNextGenStorage",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource NetworkVolume
 	err := ctx.RegisterResource("runpod:index:NetworkVolume", name, args, &resource, opts...)
@@ -71,18 +81,26 @@ func (NetworkVolumeState) ElementType() reflect.Type {
 }
 
 type networkVolumeArgs struct {
-	DataCenterId     string `pulumi:"dataCenterId"`
-	IsNextGenStorage *bool  `pulumi:"isNextGenStorage"`
-	Name             string `pulumi:"name"`
-	Size             int    `pulumi:"size"`
+	// The data center ID where the volume will be created (e.g. "US-TX-3").
+	DataCenterId string `pulumi:"dataCenterId"`
+	// Whether to use next-generation storage.
+	IsNextGenStorage *bool `pulumi:"isNextGenStorage"`
+	// A name for the network volume.
+	Name string `pulumi:"name"`
+	// The size of the network volume in GB.
+	Size int `pulumi:"size"`
 }
 
 // The set of arguments for constructing a NetworkVolume resource.
 type NetworkVolumeArgs struct {
-	DataCenterId     pulumi.StringInput
+	// The data center ID where the volume will be created (e.g. "US-TX-3").
+	DataCenterId pulumi.StringInput
+	// Whether to use next-generation storage.
 	IsNextGenStorage pulumi.BoolPtrInput
-	Name             pulumi.StringInput
-	Size             pulumi.IntInput
+	// A name for the network volume.
+	Name pulumi.StringInput
+	// The size of the network volume in GB.
+	Size pulumi.IntInput
 }
 
 func (NetworkVolumeArgs) ElementType() reflect.Type {
@@ -172,22 +190,27 @@ func (o NetworkVolumeOutput) ToNetworkVolumeOutputWithContext(ctx context.Contex
 	return o
 }
 
+// The data center ID where the volume will be created (e.g. "US-TX-3").
 func (o NetworkVolumeOutput) DataCenterId() pulumi.StringOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.StringOutput { return v.DataCenterId }).(pulumi.StringOutput)
 }
 
+// Whether to use next-generation storage.
 func (o NetworkVolumeOutput) IsNextGenStorage() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.BoolPtrOutput { return v.IsNextGenStorage }).(pulumi.BoolPtrOutput)
 }
 
+// A name for the network volume.
 func (o NetworkVolumeOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// The unique identifier of the network volume.
 func (o NetworkVolumeOutput) NetworkVolumeId() pulumi.StringOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.StringOutput { return v.NetworkVolumeId }).(pulumi.StringOutput)
 }
 
+// The size of the network volume in GB.
 func (o NetworkVolumeOutput) Size() pulumi.IntOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.IntOutput { return v.Size }).(pulumi.IntOutput)
 }

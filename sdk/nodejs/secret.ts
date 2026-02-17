@@ -31,9 +31,21 @@ export class Secret extends pulumi.CustomResource {
         return obj['__pulumiType'] === Secret.__pulumiType;
     }
 
+    /**
+     * A human-readable description of the secret.
+     */
     public readonly description!: pulumi.Output<string | undefined>;
+    /**
+     * A name for the secret.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * The unique identifier of the secret.
+     */
     public /*out*/ readonly secretId!: pulumi.Output<string>;
+    /**
+     * The secret value.
+     */
     public readonly value!: pulumi.Output<string>;
 
     /**
@@ -66,6 +78,8 @@ export class Secret extends pulumi.CustomResource {
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["value"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
+        const replaceOnChanges = { replaceOnChanges: ["name"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Secret.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -74,7 +88,16 @@ export class Secret extends pulumi.CustomResource {
  * The set of arguments for constructing a Secret resource.
  */
 export interface SecretArgs {
+    /**
+     * A human-readable description of the secret.
+     */
     description?: pulumi.Input<string>;
+    /**
+     * A name for the secret.
+     */
     name: pulumi.Input<string>;
+    /**
+     * The secret value.
+     */
     value: pulumi.Input<string>;
 }

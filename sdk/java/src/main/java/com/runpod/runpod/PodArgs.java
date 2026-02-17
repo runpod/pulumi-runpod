@@ -22,275 +22,587 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final PodArgs Empty = new PodArgs();
 
+    /**
+     * The AI API ID for the pod.
+     * 
+     */
     @Import(name="aiApiId")
     private @Nullable Output<String> aiApiId;
 
+    /**
+     * @return The AI API ID for the pod.
+     * 
+     */
     public Optional<Output<String>> aiApiId() {
         return Optional.ofNullable(this.aiApiId);
     }
 
+    /**
+     * A list of allowed CUDA versions.
+     * 
+     */
     @Import(name="allowedCudaVersions")
     private @Nullable Output<List<String>> allowedCudaVersions;
 
+    /**
+     * @return A list of allowed CUDA versions.
+     * 
+     */
     public Optional<Output<List<String>>> allowedCudaVersions() {
         return Optional.ofNullable(this.allowedCudaVersions);
     }
 
+    /**
+     * The cloud type: SECURE, COMMUNITY, or ALL.
+     * 
+     */
     @Import(name="cloudType")
     private @Nullable Output<String> cloudType;
 
+    /**
+     * @return The cloud type: SECURE, COMMUNITY, or ALL.
+     * 
+     */
     public Optional<Output<String>> cloudType() {
         return Optional.ofNullable(this.cloudType);
     }
 
+    /**
+     * The compute type: CPU or GPU.
+     * 
+     */
     @Import(name="computeType")
     private @Nullable Output<String> computeType;
 
+    /**
+     * @return The compute type: CPU or GPU.
+     * 
+     */
     public Optional<Output<String>> computeType() {
         return Optional.ofNullable(this.computeType);
     }
 
+    /**
+     * The size of the container disk in GB.
+     * 
+     */
     @Import(name="containerDiskInGb")
     private @Nullable Output<Integer> containerDiskInGb;
 
+    /**
+     * @return The size of the container disk in GB.
+     * 
+     */
     public Optional<Output<Integer>> containerDiskInGb() {
         return Optional.ofNullable(this.containerDiskInGb);
     }
 
+    /**
+     * The container registry auth ID for pulling private images.
+     * 
+     */
     @Import(name="containerRegistryAuthId")
     private @Nullable Output<String> containerRegistryAuthId;
 
+    /**
+     * @return The container registry auth ID for pulling private images.
+     * 
+     */
     public Optional<Output<String>> containerRegistryAuthId() {
         return Optional.ofNullable(this.containerRegistryAuthId);
     }
 
+    /**
+     * The country code for data residency.
+     * 
+     */
     @Import(name="countryCode")
     private @Nullable Output<String> countryCode;
 
+    /**
+     * @return The country code for data residency.
+     * 
+     */
     public Optional<Output<String>> countryCode() {
         return Optional.ofNullable(this.countryCode);
     }
 
+    /**
+     * The CUDA version to use.
+     * 
+     */
     @Import(name="cudaVersion")
     private @Nullable Output<String> cudaVersion;
 
+    /**
+     * @return The CUDA version to use.
+     * 
+     */
     public Optional<Output<String>> cudaVersion() {
         return Optional.ofNullable(this.cudaVersion);
     }
 
+    /**
+     * The data center ID to deploy the pod in.
+     * 
+     */
     @Import(name="dataCenterId")
     private @Nullable Output<String> dataCenterId;
 
+    /**
+     * @return The data center ID to deploy the pod in.
+     * 
+     */
     public Optional<Output<String>> dataCenterId() {
         return Optional.ofNullable(this.dataCenterId);
     }
 
+    /**
+     * The maximum bid price per GPU per hour for spot instances.
+     * 
+     */
     @Import(name="deployCost")
     private @Nullable Output<Double> deployCost;
 
+    /**
+     * @return The maximum bid price per GPU per hour for spot instances.
+     * 
+     */
     public Optional<Output<Double>> deployCost() {
         return Optional.ofNullable(this.deployCost);
     }
 
+    /**
+     * Docker arguments to pass to the container.
+     * 
+     */
     @Import(name="dockerArgs")
     private @Nullable Output<String> dockerArgs;
 
+    /**
+     * @return Docker arguments to pass to the container.
+     * 
+     */
     public Optional<Output<String>> dockerArgs() {
         return Optional.ofNullable(this.dockerArgs);
     }
 
+    /**
+     * Environment variables as key-value pairs.
+     * 
+     */
     @Import(name="env")
     private @Nullable Output<Map<String,String>> env;
 
+    /**
+     * @return Environment variables as key-value pairs.
+     * 
+     */
     public Optional<Output<Map<String,String>>> env() {
         return Optional.ofNullable(this.env);
     }
 
+    /**
+     * Whether to enable global networking.
+     * 
+     */
     @Import(name="globalNetwork")
     private @Nullable Output<Boolean> globalNetwork;
 
+    /**
+     * @return Whether to enable global networking.
+     * 
+     */
     public Optional<Output<Boolean>> globalNetwork() {
         return Optional.ofNullable(this.globalNetwork);
     }
 
+    /**
+     * The number of GPUs to allocate.
+     * 
+     */
     @Import(name="gpuCount")
     private @Nullable Output<Integer> gpuCount;
 
+    /**
+     * @return The number of GPUs to allocate.
+     * 
+     */
     public Optional<Output<Integer>> gpuCount() {
         return Optional.ofNullable(this.gpuCount);
     }
 
+    /**
+     * The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
+     * 
+     */
     @Import(name="gpuTypeId", required=true)
     private Output<String> gpuTypeId;
 
+    /**
+     * @return The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
+     * 
+     */
     public Output<String> gpuTypeId() {
         return this.gpuTypeId;
     }
 
+    /**
+     * A list of acceptable GPU type IDs (fallback options).
+     * 
+     */
     @Import(name="gpuTypeIdList")
     private @Nullable Output<List<String>> gpuTypeIdList;
 
+    /**
+     * @return A list of acceptable GPU type IDs (fallback options).
+     * 
+     */
     public Optional<Output<List<String>>> gpuTypeIdList() {
         return Optional.ofNullable(this.gpuTypeIdList);
     }
 
+    /**
+     * The IDE AI API ID for the pod.
+     * 
+     */
     @Import(name="ideAiApiId")
     private @Nullable Output<String> ideAiApiId;
 
+    /**
+     * @return The IDE AI API ID for the pod.
+     * 
+     */
     public Optional<Output<String>> ideAiApiId() {
         return Optional.ofNullable(this.ideAiApiId);
     }
 
+    /**
+     * The Docker image to run on the pod.
+     * 
+     */
     @Import(name="imageName")
     private @Nullable Output<String> imageName;
 
+    /**
+     * @return The Docker image to run on the pod.
+     * 
+     */
     public Optional<Output<String>> imageName() {
         return Optional.ofNullable(this.imageName);
     }
 
+    /**
+     * Specific instance IDs to deploy on.
+     * 
+     */
     @Import(name="instanceIds")
     private @Nullable Output<List<String>> instanceIds;
 
+    /**
+     * @return Specific instance IDs to deploy on.
+     * 
+     */
     public Optional<Output<List<String>>> instanceIds() {
         return Optional.ofNullable(this.instanceIds);
     }
 
+    /**
+     * The minimum CUDA version required.
+     * 
+     */
     @Import(name="minCudaVersion")
     private @Nullable Output<String> minCudaVersion;
 
+    /**
+     * @return The minimum CUDA version required.
+     * 
+     */
     public Optional<Output<String>> minCudaVersion() {
         return Optional.ofNullable(this.minCudaVersion);
     }
 
+    /**
+     * Minimum disk space in GB required on the host.
+     * 
+     */
     @Import(name="minDisk")
     private @Nullable Output<Integer> minDisk;
 
+    /**
+     * @return Minimum disk space in GB required on the host.
+     * 
+     */
     public Optional<Output<Integer>> minDisk() {
         return Optional.ofNullable(this.minDisk);
     }
 
+    /**
+     * Minimum download bandwidth in Mbps.
+     * 
+     */
     @Import(name="minDownload")
     private @Nullable Output<Integer> minDownload;
 
+    /**
+     * @return Minimum download bandwidth in Mbps.
+     * 
+     */
     public Optional<Output<Integer>> minDownload() {
         return Optional.ofNullable(this.minDownload);
     }
 
+    /**
+     * Minimum memory in GB required.
+     * 
+     */
     @Import(name="minMemoryInGb")
     private @Nullable Output<Integer> minMemoryInGb;
 
+    /**
+     * @return Minimum memory in GB required.
+     * 
+     */
     public Optional<Output<Integer>> minMemoryInGb() {
         return Optional.ofNullable(this.minMemoryInGb);
     }
 
+    /**
+     * Minimum upload bandwidth in Mbps.
+     * 
+     */
     @Import(name="minUpload")
     private @Nullable Output<Integer> minUpload;
 
+    /**
+     * @return Minimum upload bandwidth in Mbps.
+     * 
+     */
     public Optional<Output<Integer>> minUpload() {
         return Optional.ofNullable(this.minUpload);
     }
 
+    /**
+     * Minimum number of vCPUs required.
+     * 
+     */
     @Import(name="minVcpuCount")
     private @Nullable Output<Integer> minVcpuCount;
 
+    /**
+     * @return Minimum number of vCPUs required.
+     * 
+     */
     public Optional<Output<Integer>> minVcpuCount() {
         return Optional.ofNullable(this.minVcpuCount);
     }
 
+    /**
+     * Model references for the pod.
+     * 
+     */
     @Import(name="modelReferences")
     private @Nullable Output<List<String>> modelReferences;
 
+    /**
+     * @return Model references for the pod.
+     * 
+     */
     public Optional<Output<List<String>>> modelReferences() {
         return Optional.ofNullable(this.modelReferences);
     }
 
+    /**
+     * A name for the pod.
+     * 
+     */
     @Import(name="name", required=true)
     private Output<String> name;
 
+    /**
+     * @return A name for the pod.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
 
+    /**
+     * The network volume ID to attach to the pod.
+     * 
+     */
     @Import(name="networkVolumeId")
     private @Nullable Output<String> networkVolumeId;
 
+    /**
+     * @return The network volume ID to attach to the pod.
+     * 
+     */
     public Optional<Output<String>> networkVolumeId() {
         return Optional.ofNullable(this.networkVolumeId);
     }
 
+    /**
+     * Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+     * 
+     */
     @Import(name="ports")
     private @Nullable Output<String> ports;
 
+    /**
+     * @return Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+     * 
+     */
     public Optional<Output<String>> ports() {
         return Optional.ofNullable(this.ports);
     }
 
+    /**
+     * Savings plan configuration for reduced pricing.
+     * 
+     */
     @Import(name="savingsPlan")
     private @Nullable Output<SavingsPlanArgs> savingsPlan;
 
+    /**
+     * @return Savings plan configuration for reduced pricing.
+     * 
+     */
     public Optional<Output<SavingsPlanArgs>> savingsPlan() {
         return Optional.ofNullable(this.savingsPlan);
     }
 
+    /**
+     * Whether to start a Jupyter notebook server.
+     * 
+     */
     @Import(name="startJupyter")
     private @Nullable Output<Boolean> startJupyter;
 
+    /**
+     * @return Whether to start a Jupyter notebook server.
+     * 
+     */
     public Optional<Output<Boolean>> startJupyter() {
         return Optional.ofNullable(this.startJupyter);
     }
 
+    /**
+     * Whether to start an SSH server.
+     * 
+     */
     @Import(name="startSsh")
     private @Nullable Output<Boolean> startSsh;
 
+    /**
+     * @return Whether to start an SSH server.
+     * 
+     */
     public Optional<Output<Boolean>> startSsh() {
         return Optional.ofNullable(this.startSsh);
     }
 
+    /**
+     * Duration after which the pod is automatically stopped.
+     * 
+     */
     @Import(name="stopAfter")
     private @Nullable Output<String> stopAfter;
 
+    /**
+     * @return Duration after which the pod is automatically stopped.
+     * 
+     */
     public Optional<Output<String>> stopAfter() {
         return Optional.ofNullable(this.stopAfter);
     }
 
+    /**
+     * Whether to assign a public IP address.
+     * 
+     */
     @Import(name="supportPublicIp")
     private @Nullable Output<Boolean> supportPublicIp;
 
+    /**
+     * @return Whether to assign a public IP address.
+     * 
+     */
     public Optional<Output<Boolean>> supportPublicIp() {
         return Optional.ofNullable(this.supportPublicIp);
     }
 
+    /**
+     * The template ID to use for the pod.
+     * 
+     */
     @Import(name="templateId")
     private @Nullable Output<String> templateId;
 
+    /**
+     * @return The template ID to use for the pod.
+     * 
+     */
     public Optional<Output<String>> templateId() {
         return Optional.ofNullable(this.templateId);
     }
 
+    /**
+     * Duration after which the pod is automatically terminated.
+     * 
+     */
     @Import(name="terminateAfter")
     private @Nullable Output<String> terminateAfter;
 
+    /**
+     * @return Duration after which the pod is automatically terminated.
+     * 
+     */
     public Optional<Output<String>> terminateAfter() {
         return Optional.ofNullable(this.terminateAfter);
     }
 
+    /**
+     * The size of the persistent volume in GB.
+     * 
+     */
     @Import(name="volumeInGb")
     private @Nullable Output<Integer> volumeInGb;
 
+    /**
+     * @return The size of the persistent volume in GB.
+     * 
+     */
     public Optional<Output<Integer>> volumeInGb() {
         return Optional.ofNullable(this.volumeInGb);
     }
 
+    /**
+     * The volume key for persistent storage.
+     * 
+     */
     @Import(name="volumeKey")
     private @Nullable Output<String> volumeKey;
 
+    /**
+     * @return The volume key for persistent storage.
+     * 
+     */
     public Optional<Output<String>> volumeKey() {
         return Optional.ofNullable(this.volumeKey);
     }
 
+    /**
+     * The path to mount the persistent volume.
+     * 
+     */
     @Import(name="volumeMountPath")
     private @Nullable Output<String> volumeMountPath;
 
+    /**
+     * @return The path to mount the persistent volume.
+     * 
+     */
     public Optional<Output<String>> volumeMountPath() {
         return Optional.ofNullable(this.volumeMountPath);
     }
@@ -357,369 +669,861 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
             $ = new PodArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param aiApiId The AI API ID for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder aiApiId(@Nullable Output<String> aiApiId) {
             $.aiApiId = aiApiId;
             return this;
         }
 
+        /**
+         * @param aiApiId The AI API ID for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder aiApiId(String aiApiId) {
             return aiApiId(Output.of(aiApiId));
         }
 
+        /**
+         * @param allowedCudaVersions A list of allowed CUDA versions.
+         * 
+         * @return builder
+         * 
+         */
         public Builder allowedCudaVersions(@Nullable Output<List<String>> allowedCudaVersions) {
             $.allowedCudaVersions = allowedCudaVersions;
             return this;
         }
 
+        /**
+         * @param allowedCudaVersions A list of allowed CUDA versions.
+         * 
+         * @return builder
+         * 
+         */
         public Builder allowedCudaVersions(List<String> allowedCudaVersions) {
             return allowedCudaVersions(Output.of(allowedCudaVersions));
         }
 
+        /**
+         * @param allowedCudaVersions A list of allowed CUDA versions.
+         * 
+         * @return builder
+         * 
+         */
         public Builder allowedCudaVersions(String... allowedCudaVersions) {
             return allowedCudaVersions(List.of(allowedCudaVersions));
         }
 
+        /**
+         * @param cloudType The cloud type: SECURE, COMMUNITY, or ALL.
+         * 
+         * @return builder
+         * 
+         */
         public Builder cloudType(@Nullable Output<String> cloudType) {
             $.cloudType = cloudType;
             return this;
         }
 
+        /**
+         * @param cloudType The cloud type: SECURE, COMMUNITY, or ALL.
+         * 
+         * @return builder
+         * 
+         */
         public Builder cloudType(String cloudType) {
             return cloudType(Output.of(cloudType));
         }
 
+        /**
+         * @param computeType The compute type: CPU or GPU.
+         * 
+         * @return builder
+         * 
+         */
         public Builder computeType(@Nullable Output<String> computeType) {
             $.computeType = computeType;
             return this;
         }
 
+        /**
+         * @param computeType The compute type: CPU or GPU.
+         * 
+         * @return builder
+         * 
+         */
         public Builder computeType(String computeType) {
             return computeType(Output.of(computeType));
         }
 
+        /**
+         * @param containerDiskInGb The size of the container disk in GB.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerDiskInGb(@Nullable Output<Integer> containerDiskInGb) {
             $.containerDiskInGb = containerDiskInGb;
             return this;
         }
 
+        /**
+         * @param containerDiskInGb The size of the container disk in GB.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerDiskInGb(Integer containerDiskInGb) {
             return containerDiskInGb(Output.of(containerDiskInGb));
         }
 
+        /**
+         * @param containerRegistryAuthId The container registry auth ID for pulling private images.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerRegistryAuthId(@Nullable Output<String> containerRegistryAuthId) {
             $.containerRegistryAuthId = containerRegistryAuthId;
             return this;
         }
 
+        /**
+         * @param containerRegistryAuthId The container registry auth ID for pulling private images.
+         * 
+         * @return builder
+         * 
+         */
         public Builder containerRegistryAuthId(String containerRegistryAuthId) {
             return containerRegistryAuthId(Output.of(containerRegistryAuthId));
         }
 
+        /**
+         * @param countryCode The country code for data residency.
+         * 
+         * @return builder
+         * 
+         */
         public Builder countryCode(@Nullable Output<String> countryCode) {
             $.countryCode = countryCode;
             return this;
         }
 
+        /**
+         * @param countryCode The country code for data residency.
+         * 
+         * @return builder
+         * 
+         */
         public Builder countryCode(String countryCode) {
             return countryCode(Output.of(countryCode));
         }
 
+        /**
+         * @param cudaVersion The CUDA version to use.
+         * 
+         * @return builder
+         * 
+         */
         public Builder cudaVersion(@Nullable Output<String> cudaVersion) {
             $.cudaVersion = cudaVersion;
             return this;
         }
 
+        /**
+         * @param cudaVersion The CUDA version to use.
+         * 
+         * @return builder
+         * 
+         */
         public Builder cudaVersion(String cudaVersion) {
             return cudaVersion(Output.of(cudaVersion));
         }
 
+        /**
+         * @param dataCenterId The data center ID to deploy the pod in.
+         * 
+         * @return builder
+         * 
+         */
         public Builder dataCenterId(@Nullable Output<String> dataCenterId) {
             $.dataCenterId = dataCenterId;
             return this;
         }
 
+        /**
+         * @param dataCenterId The data center ID to deploy the pod in.
+         * 
+         * @return builder
+         * 
+         */
         public Builder dataCenterId(String dataCenterId) {
             return dataCenterId(Output.of(dataCenterId));
         }
 
+        /**
+         * @param deployCost The maximum bid price per GPU per hour for spot instances.
+         * 
+         * @return builder
+         * 
+         */
         public Builder deployCost(@Nullable Output<Double> deployCost) {
             $.deployCost = deployCost;
             return this;
         }
 
+        /**
+         * @param deployCost The maximum bid price per GPU per hour for spot instances.
+         * 
+         * @return builder
+         * 
+         */
         public Builder deployCost(Double deployCost) {
             return deployCost(Output.of(deployCost));
         }
 
+        /**
+         * @param dockerArgs Docker arguments to pass to the container.
+         * 
+         * @return builder
+         * 
+         */
         public Builder dockerArgs(@Nullable Output<String> dockerArgs) {
             $.dockerArgs = dockerArgs;
             return this;
         }
 
+        /**
+         * @param dockerArgs Docker arguments to pass to the container.
+         * 
+         * @return builder
+         * 
+         */
         public Builder dockerArgs(String dockerArgs) {
             return dockerArgs(Output.of(dockerArgs));
         }
 
+        /**
+         * @param env Environment variables as key-value pairs.
+         * 
+         * @return builder
+         * 
+         */
         public Builder env(@Nullable Output<Map<String,String>> env) {
             $.env = env;
             return this;
         }
 
+        /**
+         * @param env Environment variables as key-value pairs.
+         * 
+         * @return builder
+         * 
+         */
         public Builder env(Map<String,String> env) {
             return env(Output.of(env));
         }
 
+        /**
+         * @param globalNetwork Whether to enable global networking.
+         * 
+         * @return builder
+         * 
+         */
         public Builder globalNetwork(@Nullable Output<Boolean> globalNetwork) {
             $.globalNetwork = globalNetwork;
             return this;
         }
 
+        /**
+         * @param globalNetwork Whether to enable global networking.
+         * 
+         * @return builder
+         * 
+         */
         public Builder globalNetwork(Boolean globalNetwork) {
             return globalNetwork(Output.of(globalNetwork));
         }
 
+        /**
+         * @param gpuCount The number of GPUs to allocate.
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuCount(@Nullable Output<Integer> gpuCount) {
             $.gpuCount = gpuCount;
             return this;
         }
 
+        /**
+         * @param gpuCount The number of GPUs to allocate.
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuCount(Integer gpuCount) {
             return gpuCount(Output.of(gpuCount));
         }
 
+        /**
+         * @param gpuTypeId The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuTypeId(Output<String> gpuTypeId) {
             $.gpuTypeId = gpuTypeId;
             return this;
         }
 
+        /**
+         * @param gpuTypeId The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuTypeId(String gpuTypeId) {
             return gpuTypeId(Output.of(gpuTypeId));
         }
 
+        /**
+         * @param gpuTypeIdList A list of acceptable GPU type IDs (fallback options).
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuTypeIdList(@Nullable Output<List<String>> gpuTypeIdList) {
             $.gpuTypeIdList = gpuTypeIdList;
             return this;
         }
 
+        /**
+         * @param gpuTypeIdList A list of acceptable GPU type IDs (fallback options).
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuTypeIdList(List<String> gpuTypeIdList) {
             return gpuTypeIdList(Output.of(gpuTypeIdList));
         }
 
+        /**
+         * @param gpuTypeIdList A list of acceptable GPU type IDs (fallback options).
+         * 
+         * @return builder
+         * 
+         */
         public Builder gpuTypeIdList(String... gpuTypeIdList) {
             return gpuTypeIdList(List.of(gpuTypeIdList));
         }
 
+        /**
+         * @param ideAiApiId The IDE AI API ID for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder ideAiApiId(@Nullable Output<String> ideAiApiId) {
             $.ideAiApiId = ideAiApiId;
             return this;
         }
 
+        /**
+         * @param ideAiApiId The IDE AI API ID for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder ideAiApiId(String ideAiApiId) {
             return ideAiApiId(Output.of(ideAiApiId));
         }
 
+        /**
+         * @param imageName The Docker image to run on the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder imageName(@Nullable Output<String> imageName) {
             $.imageName = imageName;
             return this;
         }
 
+        /**
+         * @param imageName The Docker image to run on the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder imageName(String imageName) {
             return imageName(Output.of(imageName));
         }
 
+        /**
+         * @param instanceIds Specific instance IDs to deploy on.
+         * 
+         * @return builder
+         * 
+         */
         public Builder instanceIds(@Nullable Output<List<String>> instanceIds) {
             $.instanceIds = instanceIds;
             return this;
         }
 
+        /**
+         * @param instanceIds Specific instance IDs to deploy on.
+         * 
+         * @return builder
+         * 
+         */
         public Builder instanceIds(List<String> instanceIds) {
             return instanceIds(Output.of(instanceIds));
         }
 
+        /**
+         * @param instanceIds Specific instance IDs to deploy on.
+         * 
+         * @return builder
+         * 
+         */
         public Builder instanceIds(String... instanceIds) {
             return instanceIds(List.of(instanceIds));
         }
 
+        /**
+         * @param minCudaVersion The minimum CUDA version required.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minCudaVersion(@Nullable Output<String> minCudaVersion) {
             $.minCudaVersion = minCudaVersion;
             return this;
         }
 
+        /**
+         * @param minCudaVersion The minimum CUDA version required.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minCudaVersion(String minCudaVersion) {
             return minCudaVersion(Output.of(minCudaVersion));
         }
 
+        /**
+         * @param minDisk Minimum disk space in GB required on the host.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minDisk(@Nullable Output<Integer> minDisk) {
             $.minDisk = minDisk;
             return this;
         }
 
+        /**
+         * @param minDisk Minimum disk space in GB required on the host.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minDisk(Integer minDisk) {
             return minDisk(Output.of(minDisk));
         }
 
+        /**
+         * @param minDownload Minimum download bandwidth in Mbps.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minDownload(@Nullable Output<Integer> minDownload) {
             $.minDownload = minDownload;
             return this;
         }
 
+        /**
+         * @param minDownload Minimum download bandwidth in Mbps.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minDownload(Integer minDownload) {
             return minDownload(Output.of(minDownload));
         }
 
+        /**
+         * @param minMemoryInGb Minimum memory in GB required.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minMemoryInGb(@Nullable Output<Integer> minMemoryInGb) {
             $.minMemoryInGb = minMemoryInGb;
             return this;
         }
 
+        /**
+         * @param minMemoryInGb Minimum memory in GB required.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minMemoryInGb(Integer minMemoryInGb) {
             return minMemoryInGb(Output.of(minMemoryInGb));
         }
 
+        /**
+         * @param minUpload Minimum upload bandwidth in Mbps.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minUpload(@Nullable Output<Integer> minUpload) {
             $.minUpload = minUpload;
             return this;
         }
 
+        /**
+         * @param minUpload Minimum upload bandwidth in Mbps.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minUpload(Integer minUpload) {
             return minUpload(Output.of(minUpload));
         }
 
+        /**
+         * @param minVcpuCount Minimum number of vCPUs required.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minVcpuCount(@Nullable Output<Integer> minVcpuCount) {
             $.minVcpuCount = minVcpuCount;
             return this;
         }
 
+        /**
+         * @param minVcpuCount Minimum number of vCPUs required.
+         * 
+         * @return builder
+         * 
+         */
         public Builder minVcpuCount(Integer minVcpuCount) {
             return minVcpuCount(Output.of(minVcpuCount));
         }
 
+        /**
+         * @param modelReferences Model references for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder modelReferences(@Nullable Output<List<String>> modelReferences) {
             $.modelReferences = modelReferences;
             return this;
         }
 
+        /**
+         * @param modelReferences Model references for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder modelReferences(List<String> modelReferences) {
             return modelReferences(Output.of(modelReferences));
         }
 
+        /**
+         * @param modelReferences Model references for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder modelReferences(String... modelReferences) {
             return modelReferences(List.of(modelReferences));
         }
 
+        /**
+         * @param name A name for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(Output<String> name) {
             $.name = name;
             return this;
         }
 
+        /**
+         * @param name A name for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(String name) {
             return name(Output.of(name));
         }
 
+        /**
+         * @param networkVolumeId The network volume ID to attach to the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder networkVolumeId(@Nullable Output<String> networkVolumeId) {
             $.networkVolumeId = networkVolumeId;
             return this;
         }
 
+        /**
+         * @param networkVolumeId The network volume ID to attach to the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder networkVolumeId(String networkVolumeId) {
             return networkVolumeId(Output.of(networkVolumeId));
         }
 
+        /**
+         * @param ports Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+         * 
+         * @return builder
+         * 
+         */
         public Builder ports(@Nullable Output<String> ports) {
             $.ports = ports;
             return this;
         }
 
+        /**
+         * @param ports Ports to expose (e.g. &#34;8080/http,22/tcp&#34;).
+         * 
+         * @return builder
+         * 
+         */
         public Builder ports(String ports) {
             return ports(Output.of(ports));
         }
 
+        /**
+         * @param savingsPlan Savings plan configuration for reduced pricing.
+         * 
+         * @return builder
+         * 
+         */
         public Builder savingsPlan(@Nullable Output<SavingsPlanArgs> savingsPlan) {
             $.savingsPlan = savingsPlan;
             return this;
         }
 
+        /**
+         * @param savingsPlan Savings plan configuration for reduced pricing.
+         * 
+         * @return builder
+         * 
+         */
         public Builder savingsPlan(SavingsPlanArgs savingsPlan) {
             return savingsPlan(Output.of(savingsPlan));
         }
 
+        /**
+         * @param startJupyter Whether to start a Jupyter notebook server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startJupyter(@Nullable Output<Boolean> startJupyter) {
             $.startJupyter = startJupyter;
             return this;
         }
 
+        /**
+         * @param startJupyter Whether to start a Jupyter notebook server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startJupyter(Boolean startJupyter) {
             return startJupyter(Output.of(startJupyter));
         }
 
+        /**
+         * @param startSsh Whether to start an SSH server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startSsh(@Nullable Output<Boolean> startSsh) {
             $.startSsh = startSsh;
             return this;
         }
 
+        /**
+         * @param startSsh Whether to start an SSH server.
+         * 
+         * @return builder
+         * 
+         */
         public Builder startSsh(Boolean startSsh) {
             return startSsh(Output.of(startSsh));
         }
 
+        /**
+         * @param stopAfter Duration after which the pod is automatically stopped.
+         * 
+         * @return builder
+         * 
+         */
         public Builder stopAfter(@Nullable Output<String> stopAfter) {
             $.stopAfter = stopAfter;
             return this;
         }
 
+        /**
+         * @param stopAfter Duration after which the pod is automatically stopped.
+         * 
+         * @return builder
+         * 
+         */
         public Builder stopAfter(String stopAfter) {
             return stopAfter(Output.of(stopAfter));
         }
 
+        /**
+         * @param supportPublicIp Whether to assign a public IP address.
+         * 
+         * @return builder
+         * 
+         */
         public Builder supportPublicIp(@Nullable Output<Boolean> supportPublicIp) {
             $.supportPublicIp = supportPublicIp;
             return this;
         }
 
+        /**
+         * @param supportPublicIp Whether to assign a public IP address.
+         * 
+         * @return builder
+         * 
+         */
         public Builder supportPublicIp(Boolean supportPublicIp) {
             return supportPublicIp(Output.of(supportPublicIp));
         }
 
+        /**
+         * @param templateId The template ID to use for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder templateId(@Nullable Output<String> templateId) {
             $.templateId = templateId;
             return this;
         }
 
+        /**
+         * @param templateId The template ID to use for the pod.
+         * 
+         * @return builder
+         * 
+         */
         public Builder templateId(String templateId) {
             return templateId(Output.of(templateId));
         }
 
+        /**
+         * @param terminateAfter Duration after which the pod is automatically terminated.
+         * 
+         * @return builder
+         * 
+         */
         public Builder terminateAfter(@Nullable Output<String> terminateAfter) {
             $.terminateAfter = terminateAfter;
             return this;
         }
 
+        /**
+         * @param terminateAfter Duration after which the pod is automatically terminated.
+         * 
+         * @return builder
+         * 
+         */
         public Builder terminateAfter(String terminateAfter) {
             return terminateAfter(Output.of(terminateAfter));
         }
 
+        /**
+         * @param volumeInGb The size of the persistent volume in GB.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeInGb(@Nullable Output<Integer> volumeInGb) {
             $.volumeInGb = volumeInGb;
             return this;
         }
 
+        /**
+         * @param volumeInGb The size of the persistent volume in GB.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeInGb(Integer volumeInGb) {
             return volumeInGb(Output.of(volumeInGb));
         }
 
+        /**
+         * @param volumeKey The volume key for persistent storage.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeKey(@Nullable Output<String> volumeKey) {
             $.volumeKey = volumeKey;
             return this;
         }
 
+        /**
+         * @param volumeKey The volume key for persistent storage.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeKey(String volumeKey) {
             return volumeKey(Output.of(volumeKey));
         }
 
+        /**
+         * @param volumeMountPath The path to mount the persistent volume.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeMountPath(@Nullable Output<String> volumeMountPath) {
             $.volumeMountPath = volumeMountPath;
             return this;
         }
 
+        /**
+         * @param volumeMountPath The path to mount the persistent volume.
+         * 
+         * @return builder
+         * 
+         */
         public Builder volumeMountPath(String volumeMountPath) {
             return volumeMountPath(Output.of(volumeMountPath));
         }

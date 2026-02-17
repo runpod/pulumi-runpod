@@ -13,7 +13,13 @@ namespace Pulumi.Runpod.Outputs
     [OutputType]
     public sealed class SavingsPlan
     {
+        /// <summary>
+        /// The length of the savings plan.
+        /// </summary>
         public readonly string? PlanLength;
+        /// <summary>
+        /// The upfront cost for the savings plan.
+        /// </summary>
         public readonly double? UpfrontCost;
 
         [OutputConstructor]

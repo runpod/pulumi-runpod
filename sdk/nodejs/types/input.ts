@@ -6,6 +6,12 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface SavingsPlanArgs {
+    /**
+     * The length of the savings plan.
+     */
     planLength?: pulumi.Input<string>;
+    /**
+     * The upfront cost for the savings plan.
+     */
     upfrontCost?: pulumi.Input<number>;
 }

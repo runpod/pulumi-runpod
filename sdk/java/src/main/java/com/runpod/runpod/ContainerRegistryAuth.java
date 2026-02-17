@@ -15,27 +15,59 @@ import javax.annotation.Nullable;
 
 @ResourceType(type="runpod:index:ContainerRegistryAuth")
 public class ContainerRegistryAuth extends com.pulumi.resources.CustomResource {
+    /**
+     * A name for the registry auth credentials.
+     * 
+     */
     @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
+    /**
+     * @return A name for the registry auth credentials.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
+    /**
+     * The password or access token for the container registry.
+     * 
+     */
     @Export(name="password", refs={String.class}, tree="[0]")
     private Output<String> password;
 
+    /**
+     * @return The password or access token for the container registry.
+     * 
+     */
     public Output<String> password() {
         return this.password;
     }
+    /**
+     * The unique identifier of the registry auth.
+     * 
+     */
     @Export(name="registryAuthId", refs={String.class}, tree="[0]")
     private Output<String> registryAuthId;
 
+    /**
+     * @return The unique identifier of the registry auth.
+     * 
+     */
     public Output<String> registryAuthId() {
         return this.registryAuthId;
     }
+    /**
+     * The username for the container registry.
+     * 
+     */
     @Export(name="username", refs={String.class}, tree="[0]")
     private Output<String> username;
 
+    /**
+     * @return The username for the container registry.
+     * 
+     */
     public Output<String> username() {
         return this.username;
     }

@@ -12,57 +12,111 @@ namespace Pulumi.Runpod
     [RunpodResourceType("runpod:index:Template")]
     public partial class Template : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Whether to use advanced start mode.
+        /// </summary>
         [Output("advancedStart")]
         public Output<bool?> AdvancedStart { get; private set; } = null!;
 
+        /// <summary>
+        /// The category of the template.
+        /// </summary>
         [Output("category")]
         public Output<string?> Category { get; private set; } = null!;
 
+        /// <summary>
+        /// The size of the container disk in GB.
+        /// </summary>
         [Output("containerDiskInGb")]
         public Output<int> ContainerDiskInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The ID of the container registry auth credentials to use.
+        /// </summary>
         [Output("containerRegistryAuthId")]
         public Output<string?> ContainerRegistryAuthId { get; private set; } = null!;
 
+        /// <summary>
+        /// Docker arguments to pass to the container.
+        /// </summary>
         [Output("dockerArgs")]
         public Output<string?> DockerArgs { get; private set; } = null!;
 
+        /// <summary>
+        /// Environment variables as key-value pairs.
+        /// </summary>
         [Output("env")]
         public Output<ImmutableDictionary<string, string>?> Env { get; private set; } = null!;
 
+        /// <summary>
+        /// The Docker image to use for the template.
+        /// </summary>
         [Output("imageName")]
         public Output<string> ImageName { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether this template is publicly visible.
+        /// </summary>
         [Output("isPublic")]
         public Output<bool?> IsPublic { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether this template is for serverless endpoints.
+        /// </summary>
         [Output("isServerless")]
         public Output<bool?> IsServerless { get; private set; } = null!;
 
+        /// <summary>
+        /// A name for the template.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Ports to expose (e.g. "8080/http,22/tcp").
+        /// </summary>
         [Output("ports")]
         public Output<string?> Ports { get; private set; } = null!;
 
+        /// <summary>
+        /// A readme/description for the template in Markdown.
+        /// </summary>
         [Output("readme")]
         public Output<string?> Readme { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to start Jupyter notebook server.
+        /// </summary>
         [Output("startJupyter")]
         public Output<bool?> StartJupyter { get; private set; } = null!;
 
+        /// <summary>
+        /// A bash script to run on container start.
+        /// </summary>
         [Output("startScript")]
         public Output<string?> StartScript { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to start an SSH server.
+        /// </summary>
         [Output("startSsh")]
         public Output<bool?> StartSsh { get; private set; } = null!;
 
+        /// <summary>
+        /// The unique identifier of the template.
+        /// </summary>
         [Output("templateId")]
         public Output<string> TemplateId { get; private set; } = null!;
 
+        /// <summary>
+        /// The size of the persistent volume in GB. Use 0 for no volume.
+        /// </summary>
         [Output("volumeInGb")]
         public Output<int> VolumeInGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The path to mount the persistent volume.
+        /// </summary>
         [Output("volumeMountPath")]
         public Output<string?> VolumeMountPath { get; private set; } = null!;
 
@@ -112,59 +166,111 @@ namespace Pulumi.Runpod
 
     public sealed class TemplateArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether to use advanced start mode.
+        /// </summary>
         [Input("advancedStart")]
         public Input<bool>? AdvancedStart { get; set; }
 
+        /// <summary>
+        /// The category of the template.
+        /// </summary>
         [Input("category")]
         public Input<string>? Category { get; set; }
 
+        /// <summary>
+        /// The size of the container disk in GB.
+        /// </summary>
         [Input("containerDiskInGb", required: true)]
         public Input<int> ContainerDiskInGb { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the container registry auth credentials to use.
+        /// </summary>
         [Input("containerRegistryAuthId")]
         public Input<string>? ContainerRegistryAuthId { get; set; }
 
+        /// <summary>
+        /// Docker arguments to pass to the container.
+        /// </summary>
         [Input("dockerArgs")]
         public Input<string>? DockerArgs { get; set; }
 
         [Input("env")]
         private InputMap<string>? _env;
+
+        /// <summary>
+        /// Environment variables as key-value pairs.
+        /// </summary>
         public InputMap<string> Env
         {
             get => _env ?? (_env = new InputMap<string>());
             set => _env = value;
         }
 
+        /// <summary>
+        /// The Docker image to use for the template.
+        /// </summary>
         [Input("imageName", required: true)]
         public Input<string> ImageName { get; set; } = null!;
 
+        /// <summary>
+        /// Whether this template is publicly visible.
+        /// </summary>
         [Input("isPublic")]
         public Input<bool>? IsPublic { get; set; }
 
+        /// <summary>
+        /// Whether this template is for serverless endpoints.
+        /// </summary>
         [Input("isServerless")]
         public Input<bool>? IsServerless { get; set; }
 
+        /// <summary>
+        /// A name for the template.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// Ports to expose (e.g. "8080/http,22/tcp").
+        /// </summary>
         [Input("ports")]
         public Input<string>? Ports { get; set; }
 
+        /// <summary>
+        /// A readme/description for the template in Markdown.
+        /// </summary>
         [Input("readme")]
         public Input<string>? Readme { get; set; }
 
+        /// <summary>
+        /// Whether to start Jupyter notebook server.
+        /// </summary>
         [Input("startJupyter")]
         public Input<bool>? StartJupyter { get; set; }
 
+        /// <summary>
+        /// A bash script to run on container start.
+        /// </summary>
         [Input("startScript")]
         public Input<string>? StartScript { get; set; }
 
+        /// <summary>
+        /// Whether to start an SSH server.
+        /// </summary>
         [Input("startSsh")]
         public Input<bool>? StartSsh { get; set; }
 
+        /// <summary>
+        /// The size of the persistent volume in GB. Use 0 for no volume.
+        /// </summary>
         [Input("volumeInGb", required: true)]
         public Input<int> VolumeInGb { get; set; } = null!;
 
+        /// <summary>
+        /// The path to mount the persistent volume.
+        /// </summary>
         [Input("volumeMountPath")]
         public Input<string>? VolumeMountPath { get; set; }
 

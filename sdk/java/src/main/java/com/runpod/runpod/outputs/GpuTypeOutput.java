@@ -13,37 +13,101 @@ import java.util.Objects;
 
 @CustomType
 public final class GpuTypeOutput {
+    /**
+     * @return Whether the GPU is available in community cloud.
+     * 
+     */
     private Boolean communityCloud;
+    /**
+     * @return The price per hour in community cloud (USD).
+     * 
+     */
     private Double communityPrice;
+    /**
+     * @return The display name of the GPU type.
+     * 
+     */
     private String displayName;
+    /**
+     * @return The unique identifier of the GPU type.
+     * 
+     */
     private String id;
+    /**
+     * @return The maximum number of this GPU type that can be allocated.
+     * 
+     */
     private Integer maxGpuCount;
+    /**
+     * @return The amount of VRAM in GB.
+     * 
+     */
     private Integer memoryInGb;
+    /**
+     * @return Whether the GPU is available in secure cloud.
+     * 
+     */
     private Boolean secureCloud;
+    /**
+     * @return The price per hour in secure cloud (USD).
+     * 
+     */
     private Double securePrice;
 
     private GpuTypeOutput() {}
+    /**
+     * @return Whether the GPU is available in community cloud.
+     * 
+     */
     public Boolean communityCloud() {
         return this.communityCloud;
     }
+    /**
+     * @return The price per hour in community cloud (USD).
+     * 
+     */
     public Double communityPrice() {
         return this.communityPrice;
     }
+    /**
+     * @return The display name of the GPU type.
+     * 
+     */
     public String displayName() {
         return this.displayName;
     }
+    /**
+     * @return The unique identifier of the GPU type.
+     * 
+     */
     public String id() {
         return this.id;
     }
+    /**
+     * @return The maximum number of this GPU type that can be allocated.
+     * 
+     */
     public Integer maxGpuCount() {
         return this.maxGpuCount;
     }
+    /**
+     * @return The amount of VRAM in GB.
+     * 
+     */
     public Integer memoryInGb() {
         return this.memoryInGb;
     }
+    /**
+     * @return Whether the GPU is available in secure cloud.
+     * 
+     */
     public Boolean secureCloud() {
         return this.secureCloud;
     }
+    /**
+     * @return The price per hour in secure cloud (USD).
+     * 
+     */
     public Double securePrice() {
         return this.securePrice;
     }

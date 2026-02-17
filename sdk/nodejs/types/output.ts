@@ -6,18 +6,48 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface GpuTypeOutput {
+    /**
+     * Whether the GPU is available in community cloud.
+     */
     communityCloud: boolean;
+    /**
+     * The price per hour in community cloud (USD).
+     */
     communityPrice: number;
+    /**
+     * The display name of the GPU type.
+     */
     displayName: string;
+    /**
+     * The unique identifier of the GPU type.
+     */
     id: string;
+    /**
+     * The maximum number of this GPU type that can be allocated.
+     */
     maxGpuCount: number;
+    /**
+     * The amount of VRAM in GB.
+     */
     memoryInGb: number;
+    /**
+     * Whether the GPU is available in secure cloud.
+     */
     secureCloud: boolean;
+    /**
+     * The price per hour in secure cloud (USD).
+     */
     securePrice: number;
 }
 
 export interface SavingsPlan {
+    /**
+     * The length of the savings plan.
+     */
     planLength?: string;
+    /**
+     * The upfront cost for the savings plan.
+     */
     upfrontCost?: number;
 }
 

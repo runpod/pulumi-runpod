@@ -25,6 +25,9 @@ class ContainerRegistryAuthArgs:
                  username: pulumi.Input[builtins.str]):
         """
         The set of arguments for constructing a ContainerRegistryAuth resource.
+        :param pulumi.Input[builtins.str] name: A name for the registry auth credentials.
+        :param pulumi.Input[builtins.str] password: The password or access token for the container registry.
+        :param pulumi.Input[builtins.str] username: The username for the container registry.
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "password", password)
@@ -33,6 +36,9 @@ class ContainerRegistryAuthArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[builtins.str]:
+        """
+        A name for the registry auth credentials.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -42,6 +48,9 @@ class ContainerRegistryAuthArgs:
     @property
     @pulumi.getter
     def password(self) -> pulumi.Input[builtins.str]:
+        """
+        The password or access token for the container registry.
+        """
         return pulumi.get(self, "password")
 
     @password.setter
@@ -51,6 +60,9 @@ class ContainerRegistryAuthArgs:
     @property
     @pulumi.getter
     def username(self) -> pulumi.Input[builtins.str]:
+        """
+        The username for the container registry.
+        """
         return pulumi.get(self, "username")
 
     @username.setter
@@ -72,6 +84,9 @@ class ContainerRegistryAuth(pulumi.CustomResource):
         Create a ContainerRegistryAuth resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[builtins.str] name: A name for the registry auth credentials.
+        :param pulumi.Input[builtins.str] password: The password or access token for the container registry.
+        :param pulumi.Input[builtins.str] username: The username for the container registry.
         """
         ...
     @overload
@@ -120,6 +135,8 @@ class ContainerRegistryAuth(pulumi.CustomResource):
             __props__.__dict__["registry_auth_id"] = None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["password"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["name"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(ContainerRegistryAuth, __self__).__init__(
             'runpod:index:ContainerRegistryAuth',
             resource_name,
@@ -151,20 +168,32 @@ class ContainerRegistryAuth(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[builtins.str]:
+        """
+        A name for the registry auth credentials.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def password(self) -> pulumi.Output[builtins.str]:
+        """
+        The password or access token for the container registry.
+        """
         return pulumi.get(self, "password")
 
     @property
     @pulumi.getter(name="registryAuthId")
     def registry_auth_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The unique identifier of the registry auth.
+        """
         return pulumi.get(self, "registry_auth_id")
 
     @property
     @pulumi.getter
     def username(self) -> pulumi.Output[builtins.str]:
+        """
+        The username for the container registry.
+        """
         return pulumi.get(self, "username")
 

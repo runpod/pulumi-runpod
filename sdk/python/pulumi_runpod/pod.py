@@ -63,6 +63,45 @@ class PodArgs:
                  volume_mount_path: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Pod resource.
+        :param pulumi.Input[builtins.str] gpu_type_id: The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+        :param pulumi.Input[builtins.str] name: A name for the pod.
+        :param pulumi.Input[builtins.str] ai_api_id: The AI API ID for the pod.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] allowed_cuda_versions: A list of allowed CUDA versions.
+        :param pulumi.Input[builtins.str] cloud_type: The cloud type: SECURE, COMMUNITY, or ALL.
+        :param pulumi.Input[builtins.str] compute_type: The compute type: CPU or GPU.
+        :param pulumi.Input[builtins.int] container_disk_in_gb: The size of the container disk in GB.
+        :param pulumi.Input[builtins.str] container_registry_auth_id: The container registry auth ID for pulling private images.
+        :param pulumi.Input[builtins.str] country_code: The country code for data residency.
+        :param pulumi.Input[builtins.str] cuda_version: The CUDA version to use.
+        :param pulumi.Input[builtins.str] data_center_id: The data center ID to deploy the pod in.
+        :param pulumi.Input[builtins.float] deploy_cost: The maximum bid price per GPU per hour for spot instances.
+        :param pulumi.Input[builtins.str] docker_args: Docker arguments to pass to the container.
+        :param pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]] env: Environment variables as key-value pairs.
+        :param pulumi.Input[builtins.bool] global_network: Whether to enable global networking.
+        :param pulumi.Input[builtins.int] gpu_count: The number of GPUs to allocate.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] gpu_type_id_list: A list of acceptable GPU type IDs (fallback options).
+        :param pulumi.Input[builtins.str] ide_ai_api_id: The IDE AI API ID for the pod.
+        :param pulumi.Input[builtins.str] image_name: The Docker image to run on the pod.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] instance_ids: Specific instance IDs to deploy on.
+        :param pulumi.Input[builtins.str] min_cuda_version: The minimum CUDA version required.
+        :param pulumi.Input[builtins.int] min_disk: Minimum disk space in GB required on the host.
+        :param pulumi.Input[builtins.int] min_download: Minimum download bandwidth in Mbps.
+        :param pulumi.Input[builtins.int] min_memory_in_gb: Minimum memory in GB required.
+        :param pulumi.Input[builtins.int] min_upload: Minimum upload bandwidth in Mbps.
+        :param pulumi.Input[builtins.int] min_vcpu_count: Minimum number of vCPUs required.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] model_references: Model references for the pod.
+        :param pulumi.Input[builtins.str] network_volume_id: The network volume ID to attach to the pod.
+        :param pulumi.Input[builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
+        :param pulumi.Input['SavingsPlanArgs'] savings_plan: Savings plan configuration for reduced pricing.
+        :param pulumi.Input[builtins.bool] start_jupyter: Whether to start a Jupyter notebook server.
+        :param pulumi.Input[builtins.bool] start_ssh: Whether to start an SSH server.
+        :param pulumi.Input[builtins.str] stop_after: Duration after which the pod is automatically stopped.
+        :param pulumi.Input[builtins.bool] support_public_ip: Whether to assign a public IP address.
+        :param pulumi.Input[builtins.str] template_id: The template ID to use for the pod.
+        :param pulumi.Input[builtins.str] terminate_after: Duration after which the pod is automatically terminated.
+        :param pulumi.Input[builtins.int] volume_in_gb: The size of the persistent volume in GB.
+        :param pulumi.Input[builtins.str] volume_key: The volume key for persistent storage.
+        :param pulumi.Input[builtins.str] volume_mount_path: The path to mount the persistent volume.
         """
         pulumi.set(__self__, "gpu_type_id", gpu_type_id)
         pulumi.set(__self__, "name", name)
@@ -144,6 +183,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="gpuTypeId")
     def gpu_type_id(self) -> pulumi.Input[builtins.str]:
+        """
+        The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+        """
         return pulumi.get(self, "gpu_type_id")
 
     @gpu_type_id.setter
@@ -153,6 +195,9 @@ class PodArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[builtins.str]:
+        """
+        A name for the pod.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -162,6 +207,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="aiApiId")
     def ai_api_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The AI API ID for the pod.
+        """
         return pulumi.get(self, "ai_api_id")
 
     @ai_api_id.setter
@@ -171,6 +219,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="allowedCudaVersions")
     def allowed_cuda_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
+        """
+        A list of allowed CUDA versions.
+        """
         return pulumi.get(self, "allowed_cuda_versions")
 
     @allowed_cuda_versions.setter
@@ -180,6 +231,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="cloudType")
     def cloud_type(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The cloud type: SECURE, COMMUNITY, or ALL.
+        """
         return pulumi.get(self, "cloud_type")
 
     @cloud_type.setter
@@ -189,6 +243,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="computeType")
     def compute_type(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The compute type: CPU or GPU.
+        """
         return pulumi.get(self, "compute_type")
 
     @compute_type.setter
@@ -198,6 +255,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="containerDiskInGb")
     def container_disk_in_gb(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        The size of the container disk in GB.
+        """
         return pulumi.get(self, "container_disk_in_gb")
 
     @container_disk_in_gb.setter
@@ -207,6 +267,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="containerRegistryAuthId")
     def container_registry_auth_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The container registry auth ID for pulling private images.
+        """
         return pulumi.get(self, "container_registry_auth_id")
 
     @container_registry_auth_id.setter
@@ -216,6 +279,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="countryCode")
     def country_code(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The country code for data residency.
+        """
         return pulumi.get(self, "country_code")
 
     @country_code.setter
@@ -225,6 +291,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="cudaVersion")
     def cuda_version(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The CUDA version to use.
+        """
         return pulumi.get(self, "cuda_version")
 
     @cuda_version.setter
@@ -234,6 +303,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="dataCenterId")
     def data_center_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The data center ID to deploy the pod in.
+        """
         return pulumi.get(self, "data_center_id")
 
     @data_center_id.setter
@@ -243,6 +315,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="deployCost")
     def deploy_cost(self) -> Optional[pulumi.Input[builtins.float]]:
+        """
+        The maximum bid price per GPU per hour for spot instances.
+        """
         return pulumi.get(self, "deploy_cost")
 
     @deploy_cost.setter
@@ -252,6 +327,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="dockerArgs")
     def docker_args(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Docker arguments to pass to the container.
+        """
         return pulumi.get(self, "docker_args")
 
     @docker_args.setter
@@ -261,6 +339,9 @@ class PodArgs:
     @property
     @pulumi.getter
     def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]]:
+        """
+        Environment variables as key-value pairs.
+        """
         return pulumi.get(self, "env")
 
     @env.setter
@@ -270,6 +351,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="globalNetwork")
     def global_network(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to enable global networking.
+        """
         return pulumi.get(self, "global_network")
 
     @global_network.setter
@@ -279,6 +363,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="gpuCount")
     def gpu_count(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        The number of GPUs to allocate.
+        """
         return pulumi.get(self, "gpu_count")
 
     @gpu_count.setter
@@ -288,6 +375,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="gpuTypeIdList")
     def gpu_type_id_list(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
+        """
+        A list of acceptable GPU type IDs (fallback options).
+        """
         return pulumi.get(self, "gpu_type_id_list")
 
     @gpu_type_id_list.setter
@@ -297,6 +387,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="ideAiApiId")
     def ide_ai_api_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The IDE AI API ID for the pod.
+        """
         return pulumi.get(self, "ide_ai_api_id")
 
     @ide_ai_api_id.setter
@@ -306,6 +399,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="imageName")
     def image_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The Docker image to run on the pod.
+        """
         return pulumi.get(self, "image_name")
 
     @image_name.setter
@@ -315,6 +411,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="instanceIds")
     def instance_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
+        """
+        Specific instance IDs to deploy on.
+        """
         return pulumi.get(self, "instance_ids")
 
     @instance_ids.setter
@@ -324,6 +423,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="minCudaVersion")
     def min_cuda_version(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The minimum CUDA version required.
+        """
         return pulumi.get(self, "min_cuda_version")
 
     @min_cuda_version.setter
@@ -333,6 +435,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="minDisk")
     def min_disk(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Minimum disk space in GB required on the host.
+        """
         return pulumi.get(self, "min_disk")
 
     @min_disk.setter
@@ -342,6 +447,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="minDownload")
     def min_download(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Minimum download bandwidth in Mbps.
+        """
         return pulumi.get(self, "min_download")
 
     @min_download.setter
@@ -351,6 +459,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="minMemoryInGb")
     def min_memory_in_gb(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Minimum memory in GB required.
+        """
         return pulumi.get(self, "min_memory_in_gb")
 
     @min_memory_in_gb.setter
@@ -360,6 +471,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="minUpload")
     def min_upload(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Minimum upload bandwidth in Mbps.
+        """
         return pulumi.get(self, "min_upload")
 
     @min_upload.setter
@@ -369,6 +483,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="minVcpuCount")
     def min_vcpu_count(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Minimum number of vCPUs required.
+        """
         return pulumi.get(self, "min_vcpu_count")
 
     @min_vcpu_count.setter
@@ -378,6 +495,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="modelReferences")
     def model_references(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
+        """
+        Model references for the pod.
+        """
         return pulumi.get(self, "model_references")
 
     @model_references.setter
@@ -387,6 +507,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="networkVolumeId")
     def network_volume_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The network volume ID to attach to the pod.
+        """
         return pulumi.get(self, "network_volume_id")
 
     @network_volume_id.setter
@@ -396,6 +519,9 @@ class PodArgs:
     @property
     @pulumi.getter
     def ports(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Ports to expose (e.g. "8080/http,22/tcp").
+        """
         return pulumi.get(self, "ports")
 
     @ports.setter
@@ -405,6 +531,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="savingsPlan")
     def savings_plan(self) -> Optional[pulumi.Input['SavingsPlanArgs']]:
+        """
+        Savings plan configuration for reduced pricing.
+        """
         return pulumi.get(self, "savings_plan")
 
     @savings_plan.setter
@@ -414,6 +543,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="startJupyter")
     def start_jupyter(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to start a Jupyter notebook server.
+        """
         return pulumi.get(self, "start_jupyter")
 
     @start_jupyter.setter
@@ -423,6 +555,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="startSsh")
     def start_ssh(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to start an SSH server.
+        """
         return pulumi.get(self, "start_ssh")
 
     @start_ssh.setter
@@ -432,6 +567,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="stopAfter")
     def stop_after(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Duration after which the pod is automatically stopped.
+        """
         return pulumi.get(self, "stop_after")
 
     @stop_after.setter
@@ -441,6 +579,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="supportPublicIp")
     def support_public_ip(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Whether to assign a public IP address.
+        """
         return pulumi.get(self, "support_public_ip")
 
     @support_public_ip.setter
@@ -450,6 +591,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="templateId")
     def template_id(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The template ID to use for the pod.
+        """
         return pulumi.get(self, "template_id")
 
     @template_id.setter
@@ -459,6 +603,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="terminateAfter")
     def terminate_after(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Duration after which the pod is automatically terminated.
+        """
         return pulumi.get(self, "terminate_after")
 
     @terminate_after.setter
@@ -468,6 +615,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="volumeInGb")
     def volume_in_gb(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        The size of the persistent volume in GB.
+        """
         return pulumi.get(self, "volume_in_gb")
 
     @volume_in_gb.setter
@@ -477,6 +627,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="volumeKey")
     def volume_key(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The volume key for persistent storage.
+        """
         return pulumi.get(self, "volume_key")
 
     @volume_key.setter
@@ -486,6 +639,9 @@ class PodArgs:
     @property
     @pulumi.getter(name="volumeMountPath")
     def volume_mount_path(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The path to mount the persistent volume.
+        """
         return pulumi.get(self, "volume_mount_path")
 
     @volume_mount_path.setter
@@ -543,6 +699,45 @@ class Pod(pulumi.CustomResource):
         Create a Pod resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[builtins.str] ai_api_id: The AI API ID for the pod.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] allowed_cuda_versions: A list of allowed CUDA versions.
+        :param pulumi.Input[builtins.str] cloud_type: The cloud type: SECURE, COMMUNITY, or ALL.
+        :param pulumi.Input[builtins.str] compute_type: The compute type: CPU or GPU.
+        :param pulumi.Input[builtins.int] container_disk_in_gb: The size of the container disk in GB.
+        :param pulumi.Input[builtins.str] container_registry_auth_id: The container registry auth ID for pulling private images.
+        :param pulumi.Input[builtins.str] country_code: The country code for data residency.
+        :param pulumi.Input[builtins.str] cuda_version: The CUDA version to use.
+        :param pulumi.Input[builtins.str] data_center_id: The data center ID to deploy the pod in.
+        :param pulumi.Input[builtins.float] deploy_cost: The maximum bid price per GPU per hour for spot instances.
+        :param pulumi.Input[builtins.str] docker_args: Docker arguments to pass to the container.
+        :param pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]] env: Environment variables as key-value pairs.
+        :param pulumi.Input[builtins.bool] global_network: Whether to enable global networking.
+        :param pulumi.Input[builtins.int] gpu_count: The number of GPUs to allocate.
+        :param pulumi.Input[builtins.str] gpu_type_id: The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] gpu_type_id_list: A list of acceptable GPU type IDs (fallback options).
+        :param pulumi.Input[builtins.str] ide_ai_api_id: The IDE AI API ID for the pod.
+        :param pulumi.Input[builtins.str] image_name: The Docker image to run on the pod.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] instance_ids: Specific instance IDs to deploy on.
+        :param pulumi.Input[builtins.str] min_cuda_version: The minimum CUDA version required.
+        :param pulumi.Input[builtins.int] min_disk: Minimum disk space in GB required on the host.
+        :param pulumi.Input[builtins.int] min_download: Minimum download bandwidth in Mbps.
+        :param pulumi.Input[builtins.int] min_memory_in_gb: Minimum memory in GB required.
+        :param pulumi.Input[builtins.int] min_upload: Minimum upload bandwidth in Mbps.
+        :param pulumi.Input[builtins.int] min_vcpu_count: Minimum number of vCPUs required.
+        :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] model_references: Model references for the pod.
+        :param pulumi.Input[builtins.str] name: A name for the pod.
+        :param pulumi.Input[builtins.str] network_volume_id: The network volume ID to attach to the pod.
+        :param pulumi.Input[builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
+        :param pulumi.Input[Union['SavingsPlanArgs', 'SavingsPlanArgsDict']] savings_plan: Savings plan configuration for reduced pricing.
+        :param pulumi.Input[builtins.bool] start_jupyter: Whether to start a Jupyter notebook server.
+        :param pulumi.Input[builtins.bool] start_ssh: Whether to start an SSH server.
+        :param pulumi.Input[builtins.str] stop_after: Duration after which the pod is automatically stopped.
+        :param pulumi.Input[builtins.bool] support_public_ip: Whether to assign a public IP address.
+        :param pulumi.Input[builtins.str] template_id: The template ID to use for the pod.
+        :param pulumi.Input[builtins.str] terminate_after: Duration after which the pod is automatically terminated.
+        :param pulumi.Input[builtins.int] volume_in_gb: The size of the persistent volume in GB.
+        :param pulumi.Input[builtins.str] volume_key: The volume key for persistent storage.
+        :param pulumi.Input[builtins.str] volume_mount_path: The path to mount the persistent volume.
         """
         ...
     @overload
@@ -672,6 +867,8 @@ class Pod(pulumi.CustomResource):
             __props__.__dict__["output_volume_in_gb"] = None
             __props__.__dict__["pod_id"] = None
             __props__.__dict__["vcpu_count"] = None
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["aiApiId", "allowedCudaVersions[*]", "cloudType", "computeType", "countryCode", "cudaVersion", "dataCenterId", "deployCost", "globalNetwork", "gpuCount", "gpuTypeId", "gpuTypeIdList[*]", "ideAiApiId", "instanceIds[*]", "minCudaVersion", "minDisk", "minDownload", "minMemoryInGb", "minUpload", "minVcpuCount", "modelReferences[*]", "name", "networkVolumeId", "savingsPlan", "startJupyter", "startSsh", "stopAfter", "supportPublicIp", "templateId", "terminateAfter", "volumeKey"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Pod, __self__).__init__(
             'runpod:index:Pod',
             resource_name,
@@ -752,265 +949,424 @@ class Pod(pulumi.CustomResource):
     @property
     @pulumi.getter(name="aiApiId")
     def ai_api_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The AI API ID for the pod.
+        """
         return pulumi.get(self, "ai_api_id")
 
     @property
     @pulumi.getter(name="allowedCudaVersions")
     def allowed_cuda_versions(self) -> pulumi.Output[Optional[Sequence[builtins.str]]]:
+        """
+        A list of allowed CUDA versions.
+        """
         return pulumi.get(self, "allowed_cuda_versions")
 
     @property
     @pulumi.getter(name="cloudType")
     def cloud_type(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The cloud type: SECURE, COMMUNITY, or ALL.
+        """
         return pulumi.get(self, "cloud_type")
 
     @property
     @pulumi.getter(name="computeType")
     def compute_type(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The compute type: CPU or GPU.
+        """
         return pulumi.get(self, "compute_type")
 
     @property
     @pulumi.getter(name="containerDiskInGb")
     def container_disk_in_gb(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        The size of the container disk in GB.
+        """
         return pulumi.get(self, "container_disk_in_gb")
 
     @property
     @pulumi.getter(name="containerRegistryAuthId")
     def container_registry_auth_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The container registry auth ID for pulling private images.
+        """
         return pulumi.get(self, "container_registry_auth_id")
 
     @property
     @pulumi.getter(name="costPerHr")
     def cost_per_hr(self) -> pulumi.Output[builtins.float]:
+        """
+        The cost per hour for the pod in USD.
+        """
         return pulumi.get(self, "cost_per_hr")
 
     @property
     @pulumi.getter(name="countryCode")
     def country_code(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The country code for data residency.
+        """
         return pulumi.get(self, "country_code")
 
     @property
     @pulumi.getter(name="cudaVersion")
     def cuda_version(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The CUDA version to use.
+        """
         return pulumi.get(self, "cuda_version")
 
     @property
     @pulumi.getter(name="dataCenterId")
     def data_center_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The data center ID to deploy the pod in.
+        """
         return pulumi.get(self, "data_center_id")
 
     @property
     @pulumi.getter(name="deployCost")
     def deploy_cost(self) -> pulumi.Output[Optional[builtins.float]]:
+        """
+        The maximum bid price per GPU per hour for spot instances.
+        """
         return pulumi.get(self, "deploy_cost")
 
     @property
     @pulumi.getter(name="desiredStatus")
     def desired_status(self) -> pulumi.Output[builtins.str]:
+        """
+        The desired status of the pod.
+        """
         return pulumi.get(self, "desired_status")
 
     @property
     @pulumi.getter(name="dockerArgs")
     def docker_args(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        Docker arguments to pass to the container.
+        """
         return pulumi.get(self, "docker_args")
 
     @property
     @pulumi.getter
     def env(self) -> pulumi.Output[Optional[Mapping[str, builtins.str]]]:
+        """
+        Environment variables as key-value pairs.
+        """
         return pulumi.get(self, "env")
 
     @property
     @pulumi.getter(name="globalNetwork")
     def global_network(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to enable global networking.
+        """
         return pulumi.get(self, "global_network")
 
     @property
     @pulumi.getter(name="gpuCount")
     def gpu_count(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        The number of GPUs to allocate.
+        """
         return pulumi.get(self, "gpu_count")
 
     @property
     @pulumi.getter(name="gpuTypeId")
     def gpu_type_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
+        """
         return pulumi.get(self, "gpu_type_id")
 
     @property
     @pulumi.getter(name="gpuTypeIdList")
     def gpu_type_id_list(self) -> pulumi.Output[Optional[Sequence[builtins.str]]]:
+        """
+        A list of acceptable GPU type IDs (fallback options).
+        """
         return pulumi.get(self, "gpu_type_id_list")
 
     @property
     @pulumi.getter(name="ideAiApiId")
     def ide_ai_api_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The IDE AI API ID for the pod.
+        """
         return pulumi.get(self, "ide_ai_api_id")
 
     @property
     @pulumi.getter(name="imageName")
     def image_name(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The Docker image to run on the pod.
+        """
         return pulumi.get(self, "image_name")
 
     @property
     @pulumi.getter(name="instanceIds")
     def instance_ids(self) -> pulumi.Output[Optional[Sequence[builtins.str]]]:
+        """
+        Specific instance IDs to deploy on.
+        """
         return pulumi.get(self, "instance_ids")
 
     @property
     @pulumi.getter(name="machineId")
     def machine_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The ID of the machine the pod is running on.
+        """
         return pulumi.get(self, "machine_id")
 
     @property
     @pulumi.getter(name="memoryInGb")
     def memory_in_gb(self) -> pulumi.Output[builtins.float]:
+        """
+        The amount of memory allocated in GB.
+        """
         return pulumi.get(self, "memory_in_gb")
 
     @property
     @pulumi.getter(name="minCudaVersion")
     def min_cuda_version(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The minimum CUDA version required.
+        """
         return pulumi.get(self, "min_cuda_version")
 
     @property
     @pulumi.getter(name="minDisk")
     def min_disk(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        Minimum disk space in GB required on the host.
+        """
         return pulumi.get(self, "min_disk")
 
     @property
     @pulumi.getter(name="minDownload")
     def min_download(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        Minimum download bandwidth in Mbps.
+        """
         return pulumi.get(self, "min_download")
 
     @property
     @pulumi.getter(name="minMemoryInGb")
     def min_memory_in_gb(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        Minimum memory in GB required.
+        """
         return pulumi.get(self, "min_memory_in_gb")
 
     @property
     @pulumi.getter(name="minUpload")
     def min_upload(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        Minimum upload bandwidth in Mbps.
+        """
         return pulumi.get(self, "min_upload")
 
     @property
     @pulumi.getter(name="minVcpuCount")
     def min_vcpu_count(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        Minimum number of vCPUs required.
+        """
         return pulumi.get(self, "min_vcpu_count")
 
     @property
     @pulumi.getter(name="modelReferences")
     def model_references(self) -> pulumi.Output[Optional[Sequence[builtins.str]]]:
+        """
+        Model references for the pod.
+        """
         return pulumi.get(self, "model_references")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[builtins.str]:
+        """
+        A name for the pod.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="networkVolumeId")
     def network_volume_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The network volume ID to attach to the pod.
+        """
         return pulumi.get(self, "network_volume_id")
 
     @property
     @pulumi.getter(name="outputContainerDiskInGb")
     def output_container_disk_in_gb(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        The container disk size in GB (from API response).
+        """
         return pulumi.get(self, "output_container_disk_in_gb")
 
     @property
     @pulumi.getter(name="outputContainerRegistryAuthId")
     def output_container_registry_auth_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The container registry auth ID (from API response).
+        """
         return pulumi.get(self, "output_container_registry_auth_id")
 
     @property
     @pulumi.getter(name="outputGpuCount")
     def output_gpu_count(self) -> pulumi.Output[builtins.int]:
+        """
+        The number of GPUs allocated (from API response).
+        """
         return pulumi.get(self, "output_gpu_count")
 
     @property
     @pulumi.getter(name="outputNetworkVolumeId")
     def output_network_volume_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The network volume ID attached (from API response).
+        """
         return pulumi.get(self, "output_network_volume_id")
 
     @property
     @pulumi.getter(name="outputPodType")
     def output_pod_type(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The pod type (from API response).
+        """
         return pulumi.get(self, "output_pod_type")
 
     @property
     @pulumi.getter(name="outputPorts")
     def output_ports(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The exposed ports (from API response).
+        """
         return pulumi.get(self, "output_ports")
 
     @property
     @pulumi.getter(name="outputTemplateId")
     def output_template_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The template ID used (from API response).
+        """
         return pulumi.get(self, "output_template_id")
 
     @property
     @pulumi.getter(name="outputVolumeInGb")
     def output_volume_in_gb(self) -> pulumi.Output[Optional[builtins.float]]:
+        """
+        The volume size in GB (from API response).
+        """
         return pulumi.get(self, "output_volume_in_gb")
 
     @property
     @pulumi.getter(name="podId")
     def pod_id(self) -> pulumi.Output[builtins.str]:
+        """
+        The unique identifier of the pod.
+        """
         return pulumi.get(self, "pod_id")
 
     @property
     @pulumi.getter
     def ports(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        Ports to expose (e.g. "8080/http,22/tcp").
+        """
         return pulumi.get(self, "ports")
 
     @property
     @pulumi.getter(name="savingsPlan")
     def savings_plan(self) -> pulumi.Output[Optional['outputs.SavingsPlan']]:
+        """
+        Savings plan configuration for reduced pricing.
+        """
         return pulumi.get(self, "savings_plan")
 
     @property
     @pulumi.getter(name="startJupyter")
     def start_jupyter(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to start a Jupyter notebook server.
+        """
         return pulumi.get(self, "start_jupyter")
 
     @property
     @pulumi.getter(name="startSsh")
     def start_ssh(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to start an SSH server.
+        """
         return pulumi.get(self, "start_ssh")
 
     @property
     @pulumi.getter(name="stopAfter")
     def stop_after(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        Duration after which the pod is automatically stopped.
+        """
         return pulumi.get(self, "stop_after")
 
     @property
     @pulumi.getter(name="supportPublicIp")
     def support_public_ip(self) -> pulumi.Output[Optional[builtins.bool]]:
+        """
+        Whether to assign a public IP address.
+        """
         return pulumi.get(self, "support_public_ip")
 
     @property
     @pulumi.getter(name="templateId")
     def template_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The template ID to use for the pod.
+        """
         return pulumi.get(self, "template_id")
 
     @property
     @pulumi.getter(name="terminateAfter")
     def terminate_after(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        Duration after which the pod is automatically terminated.
+        """
         return pulumi.get(self, "terminate_after")
 
     @property
     @pulumi.getter(name="vcpuCount")
     def vcpu_count(self) -> pulumi.Output[builtins.float]:
+        """
+        The number of vCPUs allocated.
+        """
         return pulumi.get(self, "vcpu_count")
 
     @property
     @pulumi.getter(name="volumeInGb")
     def volume_in_gb(self) -> pulumi.Output[Optional[builtins.int]]:
+        """
+        The size of the persistent volume in GB.
+        """
         return pulumi.get(self, "volume_in_gb")
 
     @property
     @pulumi.getter(name="volumeKey")
     def volume_key(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The volume key for persistent storage.
+        """
         return pulumi.get(self, "volume_key")
 
     @property
     @pulumi.getter(name="volumeMountPath")
     def volume_mount_path(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The path to mount the persistent volume.
+        """
         return pulumi.get(self, "volume_mount_path")
 

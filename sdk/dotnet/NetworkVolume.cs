@@ -12,18 +12,33 @@ namespace Pulumi.Runpod
     [RunpodResourceType("runpod:index:NetworkVolume")]
     public partial class NetworkVolume : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The data center ID where the volume will be created (e.g. "US-TX-3").
+        /// </summary>
         [Output("dataCenterId")]
         public Output<string> DataCenterId { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether to use next-generation storage.
+        /// </summary>
         [Output("isNextGenStorage")]
         public Output<bool?> IsNextGenStorage { get; private set; } = null!;
 
+        /// <summary>
+        /// A name for the network volume.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// The unique identifier of the network volume.
+        /// </summary>
         [Output("networkVolumeId")]
         public Output<string> NetworkVolumeId { get; private set; } = null!;
 
+        /// <summary>
+        /// The size of the network volume in GB.
+        /// </summary>
         [Output("size")]
         public Output<int> Size { get; private set; } = null!;
 
@@ -51,6 +66,11 @@ namespace Pulumi.Runpod
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/runpod/pulumi-runpod",
+                ReplaceOnChanges =
+                {
+                    "dataCenterId",
+                    "isNextGenStorage",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -73,15 +93,27 @@ namespace Pulumi.Runpod
 
     public sealed class NetworkVolumeArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The data center ID where the volume will be created (e.g. "US-TX-3").
+        /// </summary>
         [Input("dataCenterId", required: true)]
         public Input<string> DataCenterId { get; set; } = null!;
 
+        /// <summary>
+        /// Whether to use next-generation storage.
+        /// </summary>
         [Input("isNextGenStorage")]
         public Input<bool>? IsNextGenStorage { get; set; }
 
+        /// <summary>
+        /// A name for the network volume.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The size of the network volume in GB.
+        /// </summary>
         [Input("size", required: true)]
         public Input<int> Size { get; set; } = null!;
 

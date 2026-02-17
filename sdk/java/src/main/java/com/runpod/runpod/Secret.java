@@ -16,27 +16,59 @@ import javax.annotation.Nullable;
 
 @ResourceType(type="runpod:index:Secret")
 public class Secret extends com.pulumi.resources.CustomResource {
+    /**
+     * A human-readable description of the secret.
+     * 
+     */
     @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
+    /**
+     * @return A human-readable description of the secret.
+     * 
+     */
     public Output<Optional<String>> description() {
         return Codegen.optional(this.description);
     }
+    /**
+     * A name for the secret.
+     * 
+     */
     @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
+    /**
+     * @return A name for the secret.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
+    /**
+     * The unique identifier of the secret.
+     * 
+     */
     @Export(name="secretId", refs={String.class}, tree="[0]")
     private Output<String> secretId;
 
+    /**
+     * @return The unique identifier of the secret.
+     * 
+     */
     public Output<String> secretId() {
         return this.secretId;
     }
+    /**
+     * The secret value.
+     * 
+     */
     @Export(name="value", refs={String.class}, tree="[0]")
     private Output<String> value;
 
+    /**
+     * @return The secret value.
+     * 
+     */
     public Output<String> value() {
         return this.value;
     }

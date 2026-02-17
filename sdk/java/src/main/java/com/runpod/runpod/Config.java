@@ -10,10 +10,18 @@ import java.util.Optional;
 public final class Config {
 
     private static final com.pulumi.Config config = com.pulumi.Config.of("runpod");
+/**
+ * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+ * 
+ */
     public Optional<String> apiKey() {
-        return Codegen.stringProp("apiKey").config(config).get();
+        return Codegen.stringProp("apiKey").config(config).env("RUNPOD_API_KEY").get();
     }
+/**
+ * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+ * 
+ */
     public Optional<String> apiUrl() {
-        return Codegen.stringProp("apiUrl").config(config).get();
+        return Codegen.stringProp("apiUrl").config(config).env("RUNPOD_API_URL").get();
     }
 }

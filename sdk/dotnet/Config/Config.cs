@@ -32,14 +32,20 @@ namespace Pulumi.Runpod
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("runpod");
 
-        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey"));
+        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey") ?? Utilities.GetEnv("RUNPOD_API_KEY"));
+        /// <summary>
+        /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        /// </summary>
         public static string? ApiKey
         {
             get => _apiKey.Get();
             set => _apiKey.Set(value);
         }
 
-        private static readonly __Value<string?> _apiUrl = new __Value<string?>(() => __config.Get("apiUrl"));
+        private static readonly __Value<string?> _apiUrl = new __Value<string?>(() => __config.Get("apiUrl") ?? Utilities.GetEnv("RUNPOD_API_URL"));
+        /// <summary>
+        /// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        /// </summary>
         public static string? ApiUrl
         {
             get => _apiUrl.Get();

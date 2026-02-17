@@ -15,30 +15,54 @@ import (
 type Endpoint struct {
 	pulumi.CustomResourceState
 
-	AllowedCudaVersions pulumi.StringPtrOutput   `pulumi:"allowedCudaVersions"`
-	BindEndpoint        pulumi.BoolPtrOutput     `pulumi:"bindEndpoint"`
-	EndpointId          pulumi.StringOutput      `pulumi:"endpointId"`
-	Env                 pulumi.StringMapOutput   `pulumi:"env"`
-	ExecutionTimeoutMs  pulumi.IntPtrOutput      `pulumi:"executionTimeoutMs"`
-	FlashBootType       pulumi.StringPtrOutput   `pulumi:"flashBootType"`
-	FlashEnvironmentId  pulumi.StringPtrOutput   `pulumi:"flashEnvironmentId"`
-	GpuCount            pulumi.IntPtrOutput      `pulumi:"gpuCount"`
-	GpuIds              pulumi.StringPtrOutput   `pulumi:"gpuIds"`
-	HubReleaseId        pulumi.StringPtrOutput   `pulumi:"hubReleaseId"`
-	IdleTimeout         pulumi.IntPtrOutput      `pulumi:"idleTimeout"`
-	InstanceIds         pulumi.StringArrayOutput `pulumi:"instanceIds"`
-	Locations           pulumi.StringPtrOutput   `pulumi:"locations"`
-	MinCudaVersion      pulumi.StringPtrOutput   `pulumi:"minCudaVersion"`
-	ModelName           pulumi.StringPtrOutput   `pulumi:"modelName"`
-	ModelReferences     pulumi.StringArrayOutput `pulumi:"modelReferences"`
-	Name                pulumi.StringOutput      `pulumi:"name"`
-	NetworkVolumeId     pulumi.StringPtrOutput   `pulumi:"networkVolumeId"`
-	ScalerType          pulumi.StringPtrOutput   `pulumi:"scalerType"`
-	ScalerValue         pulumi.IntPtrOutput      `pulumi:"scalerValue"`
-	TemplateId          pulumi.StringPtrOutput   `pulumi:"templateId"`
-	Type                pulumi.StringPtrOutput   `pulumi:"type"`
-	WorkersMax          pulumi.IntPtrOutput      `pulumi:"workersMax"`
-	WorkersMin          pulumi.IntPtrOutput      `pulumi:"workersMin"`
+	// Comma-separated list of allowed CUDA versions.
+	AllowedCudaVersions pulumi.StringPtrOutput `pulumi:"allowedCudaVersions"`
+	// Whether to bind the endpoint to specific workers.
+	BindEndpoint pulumi.BoolPtrOutput `pulumi:"bindEndpoint"`
+	// The unique identifier of the endpoint.
+	EndpointId pulumi.StringOutput `pulumi:"endpointId"`
+	// Environment variables as key-value pairs.
+	Env pulumi.StringMapOutput `pulumi:"env"`
+	// Maximum execution time in milliseconds before a request is terminated.
+	ExecutionTimeoutMs pulumi.IntPtrOutput `pulumi:"executionTimeoutMs"`
+	// The flash boot type.
+	FlashBootType pulumi.StringPtrOutput `pulumi:"flashBootType"`
+	// The flash environment ID.
+	FlashEnvironmentId pulumi.StringPtrOutput `pulumi:"flashEnvironmentId"`
+	// The number of GPUs per worker.
+	GpuCount pulumi.IntPtrOutput `pulumi:"gpuCount"`
+	// The GPU type IDs to use (e.g. "AMPERE_16").
+	GpuIds pulumi.StringPtrOutput `pulumi:"gpuIds"`
+	// The hub release ID for the endpoint.
+	HubReleaseId pulumi.StringPtrOutput `pulumi:"hubReleaseId"`
+	// The number of seconds a worker can remain idle before being scaled down.
+	IdleTimeout pulumi.IntPtrOutput `pulumi:"idleTimeout"`
+	// Specific instance IDs to use for workers.
+	InstanceIds pulumi.StringArrayOutput `pulumi:"instanceIds"`
+	// Comma-separated data center locations for worker deployment.
+	Locations pulumi.StringPtrOutput `pulumi:"locations"`
+	// The minimum CUDA version required.
+	MinCudaVersion pulumi.StringPtrOutput `pulumi:"minCudaVersion"`
+	// The model name for the endpoint.
+	ModelName pulumi.StringPtrOutput `pulumi:"modelName"`
+	// Model references for the endpoint.
+	ModelReferences pulumi.StringArrayOutput `pulumi:"modelReferences"`
+	// A name for the endpoint.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// The network volume ID to attach to endpoint workers.
+	NetworkVolumeId pulumi.StringPtrOutput `pulumi:"networkVolumeId"`
+	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+	ScalerType pulumi.StringPtrOutput `pulumi:"scalerType"`
+	// The autoscaler target value.
+	ScalerValue pulumi.IntPtrOutput `pulumi:"scalerValue"`
+	// The template ID to use for the endpoint workers.
+	TemplateId pulumi.StringPtrOutput `pulumi:"templateId"`
+	// The endpoint type.
+	Type pulumi.StringPtrOutput `pulumi:"type"`
+	// The maximum number of workers to scale up to.
+	WorkersMax pulumi.IntPtrOutput `pulumi:"workersMax"`
+	// The minimum number of workers to keep running.
+	WorkersMin pulumi.IntPtrOutput `pulumi:"workersMin"`
 }
 
 // NewEndpoint registers a new resource with the given unique name, arguments, and options.
@@ -84,56 +108,102 @@ func (EndpointState) ElementType() reflect.Type {
 }
 
 type endpointArgs struct {
-	AllowedCudaVersions *string           `pulumi:"allowedCudaVersions"`
-	BindEndpoint        *bool             `pulumi:"bindEndpoint"`
-	Env                 map[string]string `pulumi:"env"`
-	ExecutionTimeoutMs  *int              `pulumi:"executionTimeoutMs"`
-	FlashBootType       *string           `pulumi:"flashBootType"`
-	FlashEnvironmentId  *string           `pulumi:"flashEnvironmentId"`
-	GpuCount            *int              `pulumi:"gpuCount"`
-	GpuIds              *string           `pulumi:"gpuIds"`
-	HubReleaseId        *string           `pulumi:"hubReleaseId"`
-	IdleTimeout         *int              `pulumi:"idleTimeout"`
-	InstanceIds         []string          `pulumi:"instanceIds"`
-	Locations           *string           `pulumi:"locations"`
-	MinCudaVersion      *string           `pulumi:"minCudaVersion"`
-	ModelName           *string           `pulumi:"modelName"`
-	ModelReferences     []string          `pulumi:"modelReferences"`
-	Name                string            `pulumi:"name"`
-	NetworkVolumeId     *string           `pulumi:"networkVolumeId"`
-	ScalerType          *string           `pulumi:"scalerType"`
-	ScalerValue         *int              `pulumi:"scalerValue"`
-	TemplateId          *string           `pulumi:"templateId"`
-	Type                *string           `pulumi:"type"`
-	WorkersMax          *int              `pulumi:"workersMax"`
-	WorkersMin          *int              `pulumi:"workersMin"`
+	// Comma-separated list of allowed CUDA versions.
+	AllowedCudaVersions *string `pulumi:"allowedCudaVersions"`
+	// Whether to bind the endpoint to specific workers.
+	BindEndpoint *bool `pulumi:"bindEndpoint"`
+	// Environment variables as key-value pairs.
+	Env map[string]string `pulumi:"env"`
+	// Maximum execution time in milliseconds before a request is terminated.
+	ExecutionTimeoutMs *int `pulumi:"executionTimeoutMs"`
+	// The flash boot type.
+	FlashBootType *string `pulumi:"flashBootType"`
+	// The flash environment ID.
+	FlashEnvironmentId *string `pulumi:"flashEnvironmentId"`
+	// The number of GPUs per worker.
+	GpuCount *int `pulumi:"gpuCount"`
+	// The GPU type IDs to use (e.g. "AMPERE_16").
+	GpuIds *string `pulumi:"gpuIds"`
+	// The hub release ID for the endpoint.
+	HubReleaseId *string `pulumi:"hubReleaseId"`
+	// The number of seconds a worker can remain idle before being scaled down.
+	IdleTimeout *int `pulumi:"idleTimeout"`
+	// Specific instance IDs to use for workers.
+	InstanceIds []string `pulumi:"instanceIds"`
+	// Comma-separated data center locations for worker deployment.
+	Locations *string `pulumi:"locations"`
+	// The minimum CUDA version required.
+	MinCudaVersion *string `pulumi:"minCudaVersion"`
+	// The model name for the endpoint.
+	ModelName *string `pulumi:"modelName"`
+	// Model references for the endpoint.
+	ModelReferences []string `pulumi:"modelReferences"`
+	// A name for the endpoint.
+	Name string `pulumi:"name"`
+	// The network volume ID to attach to endpoint workers.
+	NetworkVolumeId *string `pulumi:"networkVolumeId"`
+	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+	ScalerType *string `pulumi:"scalerType"`
+	// The autoscaler target value.
+	ScalerValue *int `pulumi:"scalerValue"`
+	// The template ID to use for the endpoint workers.
+	TemplateId *string `pulumi:"templateId"`
+	// The endpoint type.
+	Type *string `pulumi:"type"`
+	// The maximum number of workers to scale up to.
+	WorkersMax *int `pulumi:"workersMax"`
+	// The minimum number of workers to keep running.
+	WorkersMin *int `pulumi:"workersMin"`
 }
 
 // The set of arguments for constructing a Endpoint resource.
 type EndpointArgs struct {
+	// Comma-separated list of allowed CUDA versions.
 	AllowedCudaVersions pulumi.StringPtrInput
-	BindEndpoint        pulumi.BoolPtrInput
-	Env                 pulumi.StringMapInput
-	ExecutionTimeoutMs  pulumi.IntPtrInput
-	FlashBootType       pulumi.StringPtrInput
-	FlashEnvironmentId  pulumi.StringPtrInput
-	GpuCount            pulumi.IntPtrInput
-	GpuIds              pulumi.StringPtrInput
-	HubReleaseId        pulumi.StringPtrInput
-	IdleTimeout         pulumi.IntPtrInput
-	InstanceIds         pulumi.StringArrayInput
-	Locations           pulumi.StringPtrInput
-	MinCudaVersion      pulumi.StringPtrInput
-	ModelName           pulumi.StringPtrInput
-	ModelReferences     pulumi.StringArrayInput
-	Name                pulumi.StringInput
-	NetworkVolumeId     pulumi.StringPtrInput
-	ScalerType          pulumi.StringPtrInput
-	ScalerValue         pulumi.IntPtrInput
-	TemplateId          pulumi.StringPtrInput
-	Type                pulumi.StringPtrInput
-	WorkersMax          pulumi.IntPtrInput
-	WorkersMin          pulumi.IntPtrInput
+	// Whether to bind the endpoint to specific workers.
+	BindEndpoint pulumi.BoolPtrInput
+	// Environment variables as key-value pairs.
+	Env pulumi.StringMapInput
+	// Maximum execution time in milliseconds before a request is terminated.
+	ExecutionTimeoutMs pulumi.IntPtrInput
+	// The flash boot type.
+	FlashBootType pulumi.StringPtrInput
+	// The flash environment ID.
+	FlashEnvironmentId pulumi.StringPtrInput
+	// The number of GPUs per worker.
+	GpuCount pulumi.IntPtrInput
+	// The GPU type IDs to use (e.g. "AMPERE_16").
+	GpuIds pulumi.StringPtrInput
+	// The hub release ID for the endpoint.
+	HubReleaseId pulumi.StringPtrInput
+	// The number of seconds a worker can remain idle before being scaled down.
+	IdleTimeout pulumi.IntPtrInput
+	// Specific instance IDs to use for workers.
+	InstanceIds pulumi.StringArrayInput
+	// Comma-separated data center locations for worker deployment.
+	Locations pulumi.StringPtrInput
+	// The minimum CUDA version required.
+	MinCudaVersion pulumi.StringPtrInput
+	// The model name for the endpoint.
+	ModelName pulumi.StringPtrInput
+	// Model references for the endpoint.
+	ModelReferences pulumi.StringArrayInput
+	// A name for the endpoint.
+	Name pulumi.StringInput
+	// The network volume ID to attach to endpoint workers.
+	NetworkVolumeId pulumi.StringPtrInput
+	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
+	ScalerType pulumi.StringPtrInput
+	// The autoscaler target value.
+	ScalerValue pulumi.IntPtrInput
+	// The template ID to use for the endpoint workers.
+	TemplateId pulumi.StringPtrInput
+	// The endpoint type.
+	Type pulumi.StringPtrInput
+	// The maximum number of workers to scale up to.
+	WorkersMax pulumi.IntPtrInput
+	// The minimum number of workers to keep running.
+	WorkersMin pulumi.IntPtrInput
 }
 
 func (EndpointArgs) ElementType() reflect.Type {
@@ -223,98 +293,122 @@ func (o EndpointOutput) ToEndpointOutputWithContext(ctx context.Context) Endpoin
 	return o
 }
 
+// Comma-separated list of allowed CUDA versions.
 func (o EndpointOutput) AllowedCudaVersions() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.AllowedCudaVersions }).(pulumi.StringPtrOutput)
 }
 
+// Whether to bind the endpoint to specific workers.
 func (o EndpointOutput) BindEndpoint() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.BoolPtrOutput { return v.BindEndpoint }).(pulumi.BoolPtrOutput)
 }
 
+// The unique identifier of the endpoint.
 func (o EndpointOutput) EndpointId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringOutput { return v.EndpointId }).(pulumi.StringOutput)
 }
 
+// Environment variables as key-value pairs.
 func (o EndpointOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }
 
+// Maximum execution time in milliseconds before a request is terminated.
 func (o EndpointOutput) ExecutionTimeoutMs() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.ExecutionTimeoutMs }).(pulumi.IntPtrOutput)
 }
 
+// The flash boot type.
 func (o EndpointOutput) FlashBootType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.FlashBootType }).(pulumi.StringPtrOutput)
 }
 
+// The flash environment ID.
 func (o EndpointOutput) FlashEnvironmentId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.FlashEnvironmentId }).(pulumi.StringPtrOutput)
 }
 
+// The number of GPUs per worker.
 func (o EndpointOutput) GpuCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.GpuCount }).(pulumi.IntPtrOutput)
 }
 
+// The GPU type IDs to use (e.g. "AMPERE_16").
 func (o EndpointOutput) GpuIds() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.GpuIds }).(pulumi.StringPtrOutput)
 }
 
+// The hub release ID for the endpoint.
 func (o EndpointOutput) HubReleaseId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.HubReleaseId }).(pulumi.StringPtrOutput)
 }
 
+// The number of seconds a worker can remain idle before being scaled down.
 func (o EndpointOutput) IdleTimeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.IdleTimeout }).(pulumi.IntPtrOutput)
 }
 
+// Specific instance IDs to use for workers.
 func (o EndpointOutput) InstanceIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringArrayOutput { return v.InstanceIds }).(pulumi.StringArrayOutput)
 }
 
+// Comma-separated data center locations for worker deployment.
 func (o EndpointOutput) Locations() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.Locations }).(pulumi.StringPtrOutput)
 }
 
+// The minimum CUDA version required.
 func (o EndpointOutput) MinCudaVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.MinCudaVersion }).(pulumi.StringPtrOutput)
 }
 
+// The model name for the endpoint.
 func (o EndpointOutput) ModelName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.ModelName }).(pulumi.StringPtrOutput)
 }
 
+// Model references for the endpoint.
 func (o EndpointOutput) ModelReferences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringArrayOutput { return v.ModelReferences }).(pulumi.StringArrayOutput)
 }
 
+// A name for the endpoint.
 func (o EndpointOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// The network volume ID to attach to endpoint workers.
 func (o EndpointOutput) NetworkVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.NetworkVolumeId }).(pulumi.StringPtrOutput)
 }
 
+// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
 func (o EndpointOutput) ScalerType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.ScalerType }).(pulumi.StringPtrOutput)
 }
 
+// The autoscaler target value.
 func (o EndpointOutput) ScalerValue() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.ScalerValue }).(pulumi.IntPtrOutput)
 }
 
+// The template ID to use for the endpoint workers.
 func (o EndpointOutput) TemplateId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.TemplateId }).(pulumi.StringPtrOutput)
 }
 
+// The endpoint type.
 func (o EndpointOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
 }
 
+// The maximum number of workers to scale up to.
 func (o EndpointOutput) WorkersMax() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.WorkersMax }).(pulumi.IntPtrOutput)
 }
 
+// The minimum number of workers to keep running.
 func (o EndpointOutput) WorkersMin() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.WorkersMin }).(pulumi.IntPtrOutput)
 }

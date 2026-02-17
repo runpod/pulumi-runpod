@@ -12,9 +12,15 @@ namespace Pulumi.Runpod.Inputs
 
     public sealed class SavingsPlanArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The length of the savings plan.
+        /// </summary>
         [Input("planLength")]
         public Input<string>? PlanLength { get; set; }
 
+        /// <summary>
+        /// The upfront cost for the savings plan.
+        /// </summary>
         [Input("upfrontCost")]
         public Input<double>? UpfrontCost { get; set; }
 

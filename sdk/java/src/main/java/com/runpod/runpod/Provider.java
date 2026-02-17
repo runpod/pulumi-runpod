@@ -16,15 +16,31 @@ import javax.annotation.Nullable;
 
 @ResourceType(type="pulumi:providers:runpod")
 public class Provider extends com.pulumi.resources.ProviderResource {
+    /**
+     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * 
+     */
     @Export(name="apiKey", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiKey;
 
+    /**
+     * @return The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * 
+     */
     public Output<Optional<String>> apiKey() {
         return Codegen.optional(this.apiKey);
     }
+    /**
+     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * 
+     */
     @Export(name="apiUrl", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiUrl;
 
+    /**
+     * @return The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * 
+     */
     public Output<Optional<String>> apiUrl() {
         return Codegen.optional(this.apiUrl);
     }

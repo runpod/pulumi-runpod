@@ -31,10 +31,25 @@ export class NetworkVolume extends pulumi.CustomResource {
         return obj['__pulumiType'] === NetworkVolume.__pulumiType;
     }
 
+    /**
+     * The data center ID where the volume will be created (e.g. "US-TX-3").
+     */
     public readonly dataCenterId!: pulumi.Output<string>;
+    /**
+     * Whether to use next-generation storage.
+     */
     public readonly isNextGenStorage!: pulumi.Output<boolean | undefined>;
+    /**
+     * A name for the network volume.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * The unique identifier of the network volume.
+     */
     public /*out*/ readonly networkVolumeId!: pulumi.Output<string>;
+    /**
+     * The size of the network volume in GB.
+     */
     public readonly size!: pulumi.Output<number>;
 
     /**
@@ -70,6 +85,8 @@ export class NetworkVolume extends pulumi.CustomResource {
             resourceInputs["size"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["dataCenterId", "isNextGenStorage"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(NetworkVolume.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -78,8 +95,20 @@ export class NetworkVolume extends pulumi.CustomResource {
  * The set of arguments for constructing a NetworkVolume resource.
  */
 export interface NetworkVolumeArgs {
+    /**
+     * The data center ID where the volume will be created (e.g. "US-TX-3").
+     */
     dataCenterId: pulumi.Input<string>;
+    /**
+     * Whether to use next-generation storage.
+     */
     isNextGenStorage?: pulumi.Input<boolean>;
+    /**
+     * A name for the network volume.
+     */
     name: pulumi.Input<string>;
+    /**
+     * The size of the network volume in GB.
+     */
     size: pulumi.Input<number>;
 }

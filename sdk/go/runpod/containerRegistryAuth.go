@@ -15,10 +15,14 @@ import (
 type ContainerRegistryAuth struct {
 	pulumi.CustomResourceState
 
-	Name           pulumi.StringOutput `pulumi:"name"`
-	Password       pulumi.StringOutput `pulumi:"password"`
+	// A name for the registry auth credentials.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// The password or access token for the container registry.
+	Password pulumi.StringOutput `pulumi:"password"`
+	// The unique identifier of the registry auth.
 	RegistryAuthId pulumi.StringOutput `pulumi:"registryAuthId"`
-	Username       pulumi.StringOutput `pulumi:"username"`
+	// The username for the container registry.
+	Username pulumi.StringOutput `pulumi:"username"`
 }
 
 // NewContainerRegistryAuth registers a new resource with the given unique name, arguments, and options.
@@ -44,6 +48,10 @@ func NewContainerRegistryAuth(ctx *pulumi.Context,
 		"password",
 	})
 	opts = append(opts, secrets)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"name",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ContainerRegistryAuth
 	err := ctx.RegisterResource("runpod:index:ContainerRegistryAuth", name, args, &resource, opts...)
@@ -77,15 +85,21 @@ func (ContainerRegistryAuthState) ElementType() reflect.Type {
 }
 
 type containerRegistryAuthArgs struct {
-	Name     string `pulumi:"name"`
+	// A name for the registry auth credentials.
+	Name string `pulumi:"name"`
+	// The password or access token for the container registry.
 	Password string `pulumi:"password"`
+	// The username for the container registry.
 	Username string `pulumi:"username"`
 }
 
 // The set of arguments for constructing a ContainerRegistryAuth resource.
 type ContainerRegistryAuthArgs struct {
-	Name     pulumi.StringInput
+	// A name for the registry auth credentials.
+	Name pulumi.StringInput
+	// The password or access token for the container registry.
 	Password pulumi.StringInput
+	// The username for the container registry.
 	Username pulumi.StringInput
 }
 
@@ -176,18 +190,22 @@ func (o ContainerRegistryAuthOutput) ToContainerRegistryAuthOutputWithContext(ct
 	return o
 }
 
+// A name for the registry auth credentials.
 func (o ContainerRegistryAuthOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *ContainerRegistryAuth) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// The password or access token for the container registry.
 func (o ContainerRegistryAuthOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v *ContainerRegistryAuth) pulumi.StringOutput { return v.Password }).(pulumi.StringOutput)
 }
 
+// The unique identifier of the registry auth.
 func (o ContainerRegistryAuthOutput) RegistryAuthId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ContainerRegistryAuth) pulumi.StringOutput { return v.RegistryAuthId }).(pulumi.StringOutput)
 }
 
+// The username for the container registry.
 func (o ContainerRegistryAuthOutput) Username() pulumi.StringOutput {
 	return o.ApplyT(func(v *ContainerRegistryAuth) pulumi.StringOutput { return v.Username }).(pulumi.StringOutput)
 }

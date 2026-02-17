@@ -16,23 +16,47 @@ public final class SecretArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final SecretArgs Empty = new SecretArgs();
 
+    /**
+     * A human-readable description of the secret.
+     * 
+     */
     @Import(name="description")
     private @Nullable Output<String> description;
 
+    /**
+     * @return A human-readable description of the secret.
+     * 
+     */
     public Optional<Output<String>> description() {
         return Optional.ofNullable(this.description);
     }
 
+    /**
+     * A name for the secret.
+     * 
+     */
     @Import(name="name", required=true)
     private Output<String> name;
 
+    /**
+     * @return A name for the secret.
+     * 
+     */
     public Output<String> name() {
         return this.name;
     }
 
+    /**
+     * The secret value.
+     * 
+     */
     @Import(name="value", required=true)
     private Output<String> value;
 
+    /**
+     * @return The secret value.
+     * 
+     */
     public Output<String> value() {
         return this.value;
     }
@@ -63,29 +87,65 @@ public final class SecretArgs extends com.pulumi.resources.ResourceArgs {
             $ = new SecretArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param description A human-readable description of the secret.
+         * 
+         * @return builder
+         * 
+         */
         public Builder description(@Nullable Output<String> description) {
             $.description = description;
             return this;
         }
 
+        /**
+         * @param description A human-readable description of the secret.
+         * 
+         * @return builder
+         * 
+         */
         public Builder description(String description) {
             return description(Output.of(description));
         }
 
+        /**
+         * @param name A name for the secret.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(Output<String> name) {
             $.name = name;
             return this;
         }
 
+        /**
+         * @param name A name for the secret.
+         * 
+         * @return builder
+         * 
+         */
         public Builder name(String name) {
             return name(Output.of(name));
         }
 
+        /**
+         * @param value The secret value.
+         * 
+         * @return builder
+         * 
+         */
         public Builder value(Output<String> value) {
             $.value = value;
             return this;
         }
 
+        /**
+         * @param value The secret value.
+         * 
+         * @return builder
+         * 
+         */
         public Builder value(String value) {
             return value(Output.of(value));
         }
