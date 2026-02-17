@@ -15,10 +15,11 @@ import (
 type NetworkVolume struct {
 	pulumi.CustomResourceState
 
-	DataCenterId    pulumi.StringOutput `pulumi:"dataCenterId"`
-	Name            pulumi.StringOutput `pulumi:"name"`
-	NetworkVolumeId pulumi.StringOutput `pulumi:"networkVolumeId"`
-	Size            pulumi.IntOutput    `pulumi:"size"`
+	DataCenterId     pulumi.StringOutput  `pulumi:"dataCenterId"`
+	IsNextGenStorage pulumi.BoolPtrOutput `pulumi:"isNextGenStorage"`
+	Name             pulumi.StringOutput  `pulumi:"name"`
+	NetworkVolumeId  pulumi.StringOutput  `pulumi:"networkVolumeId"`
+	Size             pulumi.IntOutput     `pulumi:"size"`
 }
 
 // NewNetworkVolume registers a new resource with the given unique name, arguments, and options.
@@ -70,16 +71,18 @@ func (NetworkVolumeState) ElementType() reflect.Type {
 }
 
 type networkVolumeArgs struct {
-	DataCenterId string `pulumi:"dataCenterId"`
-	Name         string `pulumi:"name"`
-	Size         int    `pulumi:"size"`
+	DataCenterId     string `pulumi:"dataCenterId"`
+	IsNextGenStorage *bool  `pulumi:"isNextGenStorage"`
+	Name             string `pulumi:"name"`
+	Size             int    `pulumi:"size"`
 }
 
 // The set of arguments for constructing a NetworkVolume resource.
 type NetworkVolumeArgs struct {
-	DataCenterId pulumi.StringInput
-	Name         pulumi.StringInput
-	Size         pulumi.IntInput
+	DataCenterId     pulumi.StringInput
+	IsNextGenStorage pulumi.BoolPtrInput
+	Name             pulumi.StringInput
+	Size             pulumi.IntInput
 }
 
 func (NetworkVolumeArgs) ElementType() reflect.Type {
@@ -171,6 +174,10 @@ func (o NetworkVolumeOutput) ToNetworkVolumeOutputWithContext(ctx context.Contex
 
 func (o NetworkVolumeOutput) DataCenterId() pulumi.StringOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.StringOutput { return v.DataCenterId }).(pulumi.StringOutput)
+}
+
+func (o NetworkVolumeOutput) IsNextGenStorage() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NetworkVolume) pulumi.BoolPtrOutput { return v.IsNextGenStorage }).(pulumi.BoolPtrOutput)
 }
 
 func (o NetworkVolumeOutput) Name() pulumi.StringOutput {

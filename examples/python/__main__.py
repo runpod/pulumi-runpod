@@ -1,8 +1,12 @@
 import pulumi
-import provider_boilerplate as boilerplate
+import pulumi_runpod as runpod
 
-my_random_resource = boilerplate.Random("myRandomResource", length=24)
-my_random_component = boilerplate.RandomComponent("myRandomComponent", length=24)
-pulumi.export("output", {
-    "value": my_random_resource.result,
-})
+my_template = runpod.Template("myTemplate",
+    name="my-pulumi-template",
+    image_name="runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04",
+    container_disk_in_gb=20,
+    volume_in_gb=20,
+    start_ssh=True,
+)
+
+pulumi.export("templateId", my_template.template_id)

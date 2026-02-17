@@ -31,6 +31,23 @@ type GpuTypeOutput struct {
 	MaxGpuCount    int     `pulumi:"maxGpuCount"`
 }
 
+// Annotate provides descriptions for GetGpuTypesResult fields.
+func (r *GetGpuTypesResult) Annotate(a infer.Annotator) {
+	a.Describe(&r.GpuTypes, "The list of available GPU types.")
+}
+
+// Annotate provides descriptions for GpuTypeOutput fields.
+func (g *GpuTypeOutput) Annotate(a infer.Annotator) {
+	a.Describe(&g.ID, "The unique identifier of the GPU type.")
+	a.Describe(&g.DisplayName, "The display name of the GPU type.")
+	a.Describe(&g.MemoryInGb, "The amount of VRAM in GB.")
+	a.Describe(&g.SecureCloud, "Whether the GPU is available in secure cloud.")
+	a.Describe(&g.CommunityCloud, "Whether the GPU is available in community cloud.")
+	a.Describe(&g.SecurePrice, "The price per hour in secure cloud (USD).")
+	a.Describe(&g.CommunityPrice, "The price per hour in community cloud (USD).")
+	a.Describe(&g.MaxGpuCount, "The maximum number of this GPU type that can be allocated.")
+}
+
 // Invoke executes the GPU types query.
 func (GetGpuTypes) Invoke(
 	ctx context.Context,

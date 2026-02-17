@@ -1,10 +1,10 @@
-PROJECT_NAME := Pulumi Provider Boilerplate
+PROJECT_NAME := Pulumi RunPod Provider
 
 PACK             := runpod
 PACKDIR          := sdk
 PROJECT          := github.com/runpod/pulumi-runpod
-NODE_MODULE_NAME := @pulumi/boilerplate
-NUGET_PKG_NAME   := Pulumi.Boilerplate
+NODE_MODULE_NAME := @runpod/pulumi
+NUGET_PKG_NAME   := Pulumi.Runpod
 
 PROVIDER        := pulumi-resource-${PACK}
 PROVIDER_PATH   := provider
@@ -87,9 +87,9 @@ sdk/dotnet: $(SCHEMA_FILE)
 sdk/go: ${SCHEMA_FILE}
 	rm -rf $@
 	$(PULUMI) package gen-sdk --language go ${SCHEMA_FILE} --version "${VERSION_GENERIC}"
-	cp go.mod ${PACKDIR}/go/pulumi-${PACK}/go.mod
-	cd ${PACKDIR}/go/pulumi-${PACK} && \
-		go mod edit -module=github.com/pulumi/pulumi-${PACK}/${PACKDIR}/go/pulumi-${PACK} && \
+	cp go.mod ${PACKDIR}/go/${PACK}/go.mod
+	cd ${PACKDIR}/go/${PACK} && \
+		go mod edit -module=github.com/runpod/pulumi-runpod/${PACKDIR}/go/${PACK} && \
 		go mod tidy
 
 .PHONY: provider

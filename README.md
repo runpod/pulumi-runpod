@@ -1,153 +1,204 @@
-# Pulumi RunPod Provider (🚧 Under Development)
+# Pulumi RunPod Provider
 
-The Pulumi RunPod provider enables you to manage [RunPod](https://www.runpod.io/) GPU cloud infrastructure and serverless endpoints using infrastructure as code.
+The Pulumi RunPod provider lets you manage [RunPod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
 
-## 🚀 Project Status
+## Resources
 
-**Current Phase**: Foundation & Setup (Phase 1 of 6)
-**Progress**: 1/150 tasks completed (0.7%)
-**Last Updated**: 2025-09-30
+| Resource | Description |
+|----------|-------------|
+| `runpod:Template` | Container templates for pods and serverless endpoints |
+| `runpod:Pod` | GPU pod instances |
+| `runpod:Endpoint` | Serverless GPU endpoints |
+| `runpod:NetworkVolume` | Persistent network-attached storage volumes |
 
-### ✅ Completed
-- GraphQL schema extraction from RunPod API
-- Complete task breakdown (150 tasks) with dependencies
-- Implementation guide with code examples
-- Project structure initialized
+## Functions
 
-### 🏗️ In Progress
-- Phase 1: Foundation & Setup (genqlient configuration, provider framework, utilities)
+| Function | Description |
+|----------|-------------|
+| `runpod:getGpuTypes` | List available GPU types with pricing |
 
-### 📋 Roadmap
-- **Phase 1** (Current): Foundation & Setup → 1-2 days
-- **Phase 2**: Core Resources (Pod, Serverless, Volume) → 5-7 days
-- **Phase 3**: Supporting Resources (Template, Network, SSH Key, Secret, Registry, Cluster) → 4-5 days
-- **Phase 4**: Schema & Multi-Language SDK Generation → 1 day
-- **Phase 5**: Integration Tests & Examples → 2 days
-- **Phase 6**: Polish & Documentation → 2-3 days
+## Installation
 
-**Estimated Time to Completion**: 15-20 days of focused development
+The provider plugin is installed automatically when you use it in a Pulumi program.
 
-## 📚 Documentation
+### Node.js (TypeScript/JavaScript)
 
-- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Setup and first steps
-- **[Implementation Status](docs/IMPLEMENTATION_STATUS.md)** - Detailed progress and code examples
-- **[Implementation Summary](docs/IMPLEMENTATION_SUMMARY.md)** - Executive overview
-- **[Task Breakdown](specs/001-pulumi-provider-we/tasks.md)** - Complete 150-task plan
+```bash
+npm install @pulumi/runpod
+```
 
-## Overview
+### Python
 
-RunPod is a cloud platform for deploying and scaling GPU workloads. This provider will allow you to:
+```bash
+pip install pulumi_runpod
+```
 
-- ✅ Manage GPU pods and deployments (Planned)
-- ✅ Configure serverless endpoints (Planned)
-- ✅ Manage network volumes (Planned)
-- ✅ Control templates, SSH keys, secrets (Planned)
-- ✅ Manage registry credentials (Planned)
-- ✅ Deploy and scale clusters (Planned)
+### Go
 
-> **⚠️ Development Status**: This provider is in active development following a Test-Driven Development approach. The foundation (GraphQL schema, task breakdown, implementation guides) is complete. Resource implementation is next.
+```bash
+go get github.com/runpod/pulumi-runpod/sdk/go/runpod
+```
 
+### .NET
+
+```bash
+dotnet add package Pulumi.Runpod
+```
+
+## Configuration
+
+Set your RunPod API key:
+
+```bash
+pulumi config set runpod:apiKey --secret YOUR_API_KEY
+```
+
+Or use the `RUNPOD_API_KEY` environment variable.
+
+Optionally set a custom API URL (defaults to `https://api.runpod.io/graphql`):
+
+```bash
+pulumi config set runpod:apiUrl https://api.runpod.io/graphql
+```
+
+## Examples
+
+### TypeScript
+
+```typescript
+import * as runpod from "@pulumi/runpod";
+
+const template = new runpod.Template("myTemplate", {
+    name: "my-template",
+    imageName: "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04",
+    containerDiskInGb: 20,
+    volumeInGb: 20,
+    startSsh: true,
+});
+
+const endpoint = new runpod.Endpoint("myEndpoint", {
+    name: "my-endpoint",
+    templateId: template.templateId,
+    gpuIds: "AMPERE_16",
+    workersMin: 0,
+    workersMax: 3,
+    idleTimeout: 5,
+});
+
+export const endpointId = endpoint.endpointId;
+```
+
+### Python
+
+```python
+import pulumi
+import pulumi_runpod as runpod
+
+template = runpod.Template("myTemplate",
+    name="my-template",
+    image_name="runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04",
+    container_disk_in_gb=20,
+    volume_in_gb=20,
+    start_ssh=True,
+)
+
+endpoint = runpod.Endpoint("myEndpoint",
+    name="my-endpoint",
+    template_id=template.template_id,
+    gpu_ids="AMPERE_16",
+    workers_min=0,
+    workers_max=3,
+    idle_timeout=5,
+)
+
+pulumi.export("endpointId", endpoint.endpoint_id)
+```
+
+### Go
+
+```go
+package main
+
+import (
+    "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+    runpod "github.com/runpod/pulumi-runpod/sdk/go/runpod"
+)
+
+func main() {
+    pulumi.Run(func(ctx *pulumi.Context) error {
+        template, err := runpod.NewTemplate(ctx, "myTemplate", &runpod.TemplateArgs{
+            Name:              pulumi.String("my-template"),
+            ImageName:         pulumi.String("runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"),
+            ContainerDiskInGb: pulumi.Int(20),
+            VolumeInGb:        pulumi.Int(20),
+            StartSsh:          pulumi.Bool(true),
+        })
+        if err != nil {
+            return err
+        }
+        ctx.Export("templateId", template.TemplateId)
+        return nil
+    })
+}
+```
+
+### YAML
+
+```yaml
+name: runpod-example
+runtime: yaml
+
+config:
+  runpod:apiKey:
+    secret: true
+
+resources:
+  myTemplate:
+    type: runpod:Template
+    properties:
+      name: my-template
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 20
+      volumeInGb: 20
+      startSsh: true
+
+  myEndpoint:
+    type: runpod:Endpoint
+    properties:
+      name: my-endpoint
+      templateId: ${myTemplate.templateId}
+      gpuIds: AMPERE_16
+      workersMin: 0
+      workersMax: 3
+      idleTimeout: 5
+
+outputs:
+  endpointId: ${myEndpoint.endpointId}
+```
+
+## Development
 
 ### Prerequisites
 
-You will need to ensure the following tools are installed and present in your `$PATH`:
+- [Go 1.21+](https://golang.org/dl/)
+- [Pulumi CLI](https://www.pulumi.com/docs/install/)
+- [pulumictl](https://github.com/pulumi/pulumictl#installation)
+- [Node.js 14+](https://nodejs.org/)
+- [Python 3](https://www.python.org/downloads/)
+- [.NET 8+](https://dotnet.microsoft.com/download)
 
-* [`pulumictl`](https://github.com/pulumi/pulumictl#installation)
-* [Go 1.21](https://golang.org/dl/) or 1.latest
-* [NodeJS](https://nodejs.org/en/) 14.x.  We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage NodeJS installations.
-* [Yarn](https://yarnpkg.com/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [Python](https://www.python.org/downloads/) (called as `python3`).  For recent versions of MacOS, the system-installed version is fine.
-* [.NET](https://dotnet.microsoft.com/download)
+### Build
 
-
-### Build & test the boilerplate provider
-
-1. Run `make build install` to build and install the provider.
-1. Run `make gen_examples` to generate the example programs in `examples/` off of the source `examples/yaml` example program.
-1. Run `make up` to run the example program in `examples/yaml`.
-1. Run `make down` to tear down the example program.
-
-### Creating a new provider repository
-
-Pulumi offers this repository as a [GitHub template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) for convenience.  From this repository:
-
-1. Click "Use this template".
-1. Set the following options:
-   * Owner: pulumi 
-   * Repository name: pulumi-runpod (replace "runpod" with the name of your provider)
-   * Description: Pulumi provider for xyz
-   * Repository type: Public
-1. Clone the generated repository.
-
-From the templated repository:
-
-1. Run the following command to update files to use the name of your provider (third-party: use your GitHub organization/username):
-
-    ```bash
-    make prepare NAME=foo ORG=myorg REPOSITORY=github.com/myorg/pulumi-foo
-    ```
-
-   This will do the following:
-   - rename folders in `provider/cmd` to `pulumi-resource-{NAME}`
-   - replace dependencies in `provider/go.mod` to reflect your repository name
-   - find and replace all instances of `runpod` with the `NAME` of your provider.
-   - find and replace all instances of the boilerplate `abc` with the `ORG` of your provider.
-   - replace all instances of the `github.com/runpod/pulumi-runpod` repository with the `REPOSITORY` location
-
-#### Build the provider and install the plugin
-
-   ```bash
-   $ make build install
-   ```
-   
-This will:
-
-1. Create the SDK codegen binary and place it in a `./bin` folder (gitignored)
-2. Create the provider binary and place it in the `./bin` folder (gitignored)
-3. Generate the dotnet, Go, Node, and Python SDKs and place them in the `./sdk` folder
-4. Install the provider on your machine.
-
-#### Test against the example
-   
 ```bash
-$ cd examples/simple
-$ yarn link @pulumi/runpod
-$ yarn install
-$ pulumi stack init test
-$ pulumi up
+make build install
 ```
 
-Now that you have completed all of the above steps, you have a working provider that generates a random string for you.
+### Test
 
-#### A brief repository overview
+```bash
+make test_provider
+```
 
-You now have:
+## License
 
-1. A `provider/` folder containing the building and implementation logic.
-    1. `cmd/pulumi-resource-runpod/main.go` - holds the provider's sample implementation logic.
-2. `Makefile` - targets to help with building and publishing the provider. Run `make ci-mgmt` to regenerate CI workflows.
-3. `sdk` - holds the generated code libraries created by `pulumi gen-sdk`.
-4. `examples` a folder of Pulumi programs to try locally and/or use in CI.
-5. A `Makefile` and this `README`.
-
-#### Additional Details
-
-This repository depends on the pulumi-go-provider library. For more details on building providers, please check
-the [Pulumi Go Provider docs](https://github.com/pulumi/pulumi-go-provider).
-
-### Build Examples
-
-Create an example program using the resources defined in your provider, and place it in the `examples/` folder.
-
-You can now repeat the steps for [build, install, and test](#test-against-the-example).
-
-## Configuring CI and releases
-
-1. Follow the instructions laid out in the [deployment templates](./deployment-templates/README-DEPLOYMENT.md).
-
-## References
-
-Other resources/examples for implementing providers:
-* [Pulumi Command provider](https://github.com/pulumi/pulumi-command/blob/master/provider/pkg/provider/provider.go)
-* [Pulumi Go Provider repository](https://github.com/pulumi/pulumi-go-provider)
+Apache 2.0. See [LICENSE](LICENSE).

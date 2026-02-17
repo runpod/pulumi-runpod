@@ -15,20 +15,30 @@ import (
 type Endpoint struct {
 	pulumi.CustomResourceState
 
-	EndpointId      pulumi.StringOutput      `pulumi:"endpointId"`
-	Env             pulumi.StringMapOutput   `pulumi:"env"`
-	GpuCount        pulumi.IntPtrOutput      `pulumi:"gpuCount"`
-	GpuIds          pulumi.StringPtrOutput   `pulumi:"gpuIds"`
-	IdleTimeout     pulumi.IntPtrOutput      `pulumi:"idleTimeout"`
-	InstanceIds     pulumi.StringArrayOutput `pulumi:"instanceIds"`
-	Locations       pulumi.StringPtrOutput   `pulumi:"locations"`
-	Name            pulumi.StringOutput      `pulumi:"name"`
-	NetworkVolumeId pulumi.StringPtrOutput   `pulumi:"networkVolumeId"`
-	ScalerType      pulumi.StringPtrOutput   `pulumi:"scalerType"`
-	ScalerValue     pulumi.IntPtrOutput      `pulumi:"scalerValue"`
-	TemplateId      pulumi.StringPtrOutput   `pulumi:"templateId"`
-	WorkersMax      pulumi.IntPtrOutput      `pulumi:"workersMax"`
-	WorkersMin      pulumi.IntPtrOutput      `pulumi:"workersMin"`
+	AllowedCudaVersions pulumi.StringPtrOutput   `pulumi:"allowedCudaVersions"`
+	BindEndpoint        pulumi.BoolPtrOutput     `pulumi:"bindEndpoint"`
+	EndpointId          pulumi.StringOutput      `pulumi:"endpointId"`
+	Env                 pulumi.StringMapOutput   `pulumi:"env"`
+	ExecutionTimeoutMs  pulumi.IntPtrOutput      `pulumi:"executionTimeoutMs"`
+	FlashBootType       pulumi.StringPtrOutput   `pulumi:"flashBootType"`
+	FlashEnvironmentId  pulumi.StringPtrOutput   `pulumi:"flashEnvironmentId"`
+	GpuCount            pulumi.IntPtrOutput      `pulumi:"gpuCount"`
+	GpuIds              pulumi.StringPtrOutput   `pulumi:"gpuIds"`
+	HubReleaseId        pulumi.StringPtrOutput   `pulumi:"hubReleaseId"`
+	IdleTimeout         pulumi.IntPtrOutput      `pulumi:"idleTimeout"`
+	InstanceIds         pulumi.StringArrayOutput `pulumi:"instanceIds"`
+	Locations           pulumi.StringPtrOutput   `pulumi:"locations"`
+	MinCudaVersion      pulumi.StringPtrOutput   `pulumi:"minCudaVersion"`
+	ModelName           pulumi.StringPtrOutput   `pulumi:"modelName"`
+	ModelReferences     pulumi.StringArrayOutput `pulumi:"modelReferences"`
+	Name                pulumi.StringOutput      `pulumi:"name"`
+	NetworkVolumeId     pulumi.StringPtrOutput   `pulumi:"networkVolumeId"`
+	ScalerType          pulumi.StringPtrOutput   `pulumi:"scalerType"`
+	ScalerValue         pulumi.IntPtrOutput      `pulumi:"scalerValue"`
+	TemplateId          pulumi.StringPtrOutput   `pulumi:"templateId"`
+	Type                pulumi.StringPtrOutput   `pulumi:"type"`
+	WorkersMax          pulumi.IntPtrOutput      `pulumi:"workersMax"`
+	WorkersMin          pulumi.IntPtrOutput      `pulumi:"workersMin"`
 }
 
 // NewEndpoint registers a new resource with the given unique name, arguments, and options.
@@ -74,36 +84,56 @@ func (EndpointState) ElementType() reflect.Type {
 }
 
 type endpointArgs struct {
-	Env             map[string]string `pulumi:"env"`
-	GpuCount        *int              `pulumi:"gpuCount"`
-	GpuIds          *string           `pulumi:"gpuIds"`
-	IdleTimeout     *int              `pulumi:"idleTimeout"`
-	InstanceIds     []string          `pulumi:"instanceIds"`
-	Locations       *string           `pulumi:"locations"`
-	Name            string            `pulumi:"name"`
-	NetworkVolumeId *string           `pulumi:"networkVolumeId"`
-	ScalerType      *string           `pulumi:"scalerType"`
-	ScalerValue     *int              `pulumi:"scalerValue"`
-	TemplateId      *string           `pulumi:"templateId"`
-	WorkersMax      *int              `pulumi:"workersMax"`
-	WorkersMin      *int              `pulumi:"workersMin"`
+	AllowedCudaVersions *string           `pulumi:"allowedCudaVersions"`
+	BindEndpoint        *bool             `pulumi:"bindEndpoint"`
+	Env                 map[string]string `pulumi:"env"`
+	ExecutionTimeoutMs  *int              `pulumi:"executionTimeoutMs"`
+	FlashBootType       *string           `pulumi:"flashBootType"`
+	FlashEnvironmentId  *string           `pulumi:"flashEnvironmentId"`
+	GpuCount            *int              `pulumi:"gpuCount"`
+	GpuIds              *string           `pulumi:"gpuIds"`
+	HubReleaseId        *string           `pulumi:"hubReleaseId"`
+	IdleTimeout         *int              `pulumi:"idleTimeout"`
+	InstanceIds         []string          `pulumi:"instanceIds"`
+	Locations           *string           `pulumi:"locations"`
+	MinCudaVersion      *string           `pulumi:"minCudaVersion"`
+	ModelName           *string           `pulumi:"modelName"`
+	ModelReferences     []string          `pulumi:"modelReferences"`
+	Name                string            `pulumi:"name"`
+	NetworkVolumeId     *string           `pulumi:"networkVolumeId"`
+	ScalerType          *string           `pulumi:"scalerType"`
+	ScalerValue         *int              `pulumi:"scalerValue"`
+	TemplateId          *string           `pulumi:"templateId"`
+	Type                *string           `pulumi:"type"`
+	WorkersMax          *int              `pulumi:"workersMax"`
+	WorkersMin          *int              `pulumi:"workersMin"`
 }
 
 // The set of arguments for constructing a Endpoint resource.
 type EndpointArgs struct {
-	Env             pulumi.StringMapInput
-	GpuCount        pulumi.IntPtrInput
-	GpuIds          pulumi.StringPtrInput
-	IdleTimeout     pulumi.IntPtrInput
-	InstanceIds     pulumi.StringArrayInput
-	Locations       pulumi.StringPtrInput
-	Name            pulumi.StringInput
-	NetworkVolumeId pulumi.StringPtrInput
-	ScalerType      pulumi.StringPtrInput
-	ScalerValue     pulumi.IntPtrInput
-	TemplateId      pulumi.StringPtrInput
-	WorkersMax      pulumi.IntPtrInput
-	WorkersMin      pulumi.IntPtrInput
+	AllowedCudaVersions pulumi.StringPtrInput
+	BindEndpoint        pulumi.BoolPtrInput
+	Env                 pulumi.StringMapInput
+	ExecutionTimeoutMs  pulumi.IntPtrInput
+	FlashBootType       pulumi.StringPtrInput
+	FlashEnvironmentId  pulumi.StringPtrInput
+	GpuCount            pulumi.IntPtrInput
+	GpuIds              pulumi.StringPtrInput
+	HubReleaseId        pulumi.StringPtrInput
+	IdleTimeout         pulumi.IntPtrInput
+	InstanceIds         pulumi.StringArrayInput
+	Locations           pulumi.StringPtrInput
+	MinCudaVersion      pulumi.StringPtrInput
+	ModelName           pulumi.StringPtrInput
+	ModelReferences     pulumi.StringArrayInput
+	Name                pulumi.StringInput
+	NetworkVolumeId     pulumi.StringPtrInput
+	ScalerType          pulumi.StringPtrInput
+	ScalerValue         pulumi.IntPtrInput
+	TemplateId          pulumi.StringPtrInput
+	Type                pulumi.StringPtrInput
+	WorkersMax          pulumi.IntPtrInput
+	WorkersMin          pulumi.IntPtrInput
 }
 
 func (EndpointArgs) ElementType() reflect.Type {
@@ -193,6 +223,14 @@ func (o EndpointOutput) ToEndpointOutputWithContext(ctx context.Context) Endpoin
 	return o
 }
 
+func (o EndpointOutput) AllowedCudaVersions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.AllowedCudaVersions }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) BindEndpoint() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.BoolPtrOutput { return v.BindEndpoint }).(pulumi.BoolPtrOutput)
+}
+
 func (o EndpointOutput) EndpointId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringOutput { return v.EndpointId }).(pulumi.StringOutput)
 }
@@ -201,12 +239,28 @@ func (o EndpointOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }
 
+func (o EndpointOutput) ExecutionTimeoutMs() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.ExecutionTimeoutMs }).(pulumi.IntPtrOutput)
+}
+
+func (o EndpointOutput) FlashBootType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.FlashBootType }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) FlashEnvironmentId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.FlashEnvironmentId }).(pulumi.StringPtrOutput)
+}
+
 func (o EndpointOutput) GpuCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.GpuCount }).(pulumi.IntPtrOutput)
 }
 
 func (o EndpointOutput) GpuIds() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.GpuIds }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) HubReleaseId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.HubReleaseId }).(pulumi.StringPtrOutput)
 }
 
 func (o EndpointOutput) IdleTimeout() pulumi.IntPtrOutput {
@@ -219,6 +273,18 @@ func (o EndpointOutput) InstanceIds() pulumi.StringArrayOutput {
 
 func (o EndpointOutput) Locations() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.Locations }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) MinCudaVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.MinCudaVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) ModelName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.ModelName }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) ModelReferences() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringArrayOutput { return v.ModelReferences }).(pulumi.StringArrayOutput)
 }
 
 func (o EndpointOutput) Name() pulumi.StringOutput {
@@ -239,6 +305,10 @@ func (o EndpointOutput) ScalerValue() pulumi.IntPtrOutput {
 
 func (o EndpointOutput) TemplateId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.TemplateId }).(pulumi.StringPtrOutput)
+}
+
+func (o EndpointOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
 }
 
 func (o EndpointOutput) WorkersMax() pulumi.IntPtrOutput {

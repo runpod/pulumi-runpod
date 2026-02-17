@@ -12,7 +12,5 @@ bindings:
     type: interface{}
   Port:
     type: interface{}
-  BigInt:
-    type: int64
   Void:
     type: interface{}

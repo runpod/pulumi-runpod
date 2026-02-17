@@ -22,6 +22,10 @@ __config__ = pulumi.Config('runpod')
 
 class _ExportableConfig(types.ModuleType):
     @property
-    def itsasecret(self) -> Optional[bool]:
-        return __config__.get_bool('itsasecret')
+    def api_key(self) -> Optional[str]:
+        return __config__.get('apiKey')
+
+    @property
+    def api_url(self) -> Optional[str]:
+        return __config__.get('apiUrl')
 

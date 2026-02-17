@@ -15,6 +15,8 @@ import (
 type Template struct {
 	pulumi.CustomResourceState
 
+	AdvancedStart           pulumi.BoolPtrOutput   `pulumi:"advancedStart"`
+	Category                pulumi.StringPtrOutput `pulumi:"category"`
 	ContainerDiskInGb       pulumi.IntOutput       `pulumi:"containerDiskInGb"`
 	ContainerRegistryAuthId pulumi.StringPtrOutput `pulumi:"containerRegistryAuthId"`
 	DockerArgs              pulumi.StringPtrOutput `pulumi:"dockerArgs"`
@@ -24,6 +26,7 @@ type Template struct {
 	IsServerless            pulumi.BoolPtrOutput   `pulumi:"isServerless"`
 	Name                    pulumi.StringOutput    `pulumi:"name"`
 	Ports                   pulumi.StringPtrOutput `pulumi:"ports"`
+	Readme                  pulumi.StringPtrOutput `pulumi:"readme"`
 	StartJupyter            pulumi.BoolPtrOutput   `pulumi:"startJupyter"`
 	StartScript             pulumi.StringPtrOutput `pulumi:"startScript"`
 	StartSsh                pulumi.BoolPtrOutput   `pulumi:"startSsh"`
@@ -84,6 +87,8 @@ func (TemplateState) ElementType() reflect.Type {
 }
 
 type templateArgs struct {
+	AdvancedStart           *bool             `pulumi:"advancedStart"`
+	Category                *string           `pulumi:"category"`
 	ContainerDiskInGb       int               `pulumi:"containerDiskInGb"`
 	ContainerRegistryAuthId *string           `pulumi:"containerRegistryAuthId"`
 	DockerArgs              *string           `pulumi:"dockerArgs"`
@@ -93,6 +98,7 @@ type templateArgs struct {
 	IsServerless            *bool             `pulumi:"isServerless"`
 	Name                    string            `pulumi:"name"`
 	Ports                   *string           `pulumi:"ports"`
+	Readme                  *string           `pulumi:"readme"`
 	StartJupyter            *bool             `pulumi:"startJupyter"`
 	StartScript             *string           `pulumi:"startScript"`
 	StartSsh                *bool             `pulumi:"startSsh"`
@@ -102,6 +108,8 @@ type templateArgs struct {
 
 // The set of arguments for constructing a Template resource.
 type TemplateArgs struct {
+	AdvancedStart           pulumi.BoolPtrInput
+	Category                pulumi.StringPtrInput
 	ContainerDiskInGb       pulumi.IntInput
 	ContainerRegistryAuthId pulumi.StringPtrInput
 	DockerArgs              pulumi.StringPtrInput
@@ -111,6 +119,7 @@ type TemplateArgs struct {
 	IsServerless            pulumi.BoolPtrInput
 	Name                    pulumi.StringInput
 	Ports                   pulumi.StringPtrInput
+	Readme                  pulumi.StringPtrInput
 	StartJupyter            pulumi.BoolPtrInput
 	StartScript             pulumi.StringPtrInput
 	StartSsh                pulumi.BoolPtrInput
@@ -205,6 +214,14 @@ func (o TemplateOutput) ToTemplateOutputWithContext(ctx context.Context) Templat
 	return o
 }
 
+func (o TemplateOutput) AdvancedStart() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.AdvancedStart }).(pulumi.BoolPtrOutput)
+}
+
+func (o TemplateOutput) Category() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Category }).(pulumi.StringPtrOutput)
+}
+
 func (o TemplateOutput) ContainerDiskInGb() pulumi.IntOutput {
 	return o.ApplyT(func(v *Template) pulumi.IntOutput { return v.ContainerDiskInGb }).(pulumi.IntOutput)
 }
@@ -239,6 +256,10 @@ func (o TemplateOutput) Name() pulumi.StringOutput {
 
 func (o TemplateOutput) Ports() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Ports }).(pulumi.StringPtrOutput)
+}
+
+func (o TemplateOutput) Readme() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Readme }).(pulumi.StringPtrOutput)
 }
 
 func (o TemplateOutput) StartJupyter() pulumi.BoolPtrOutput {

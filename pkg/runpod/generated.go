@@ -125,6 +125,16 @@ func (v *DeleteNetworkVolumeResponse) GetDeleteNetworkVolume() *interface{} {
 	return v.DeleteNetworkVolume
 }
 
+// DeleteRegistryAuthResponse is returned by DeleteRegistryAuth on success.
+type DeleteRegistryAuthResponse struct {
+	DeleteRegistryAuth *interface{} `json:"deleteRegistryAuth,omitempty"`
+}
+
+// GetDeleteRegistryAuth returns DeleteRegistryAuthResponse.DeleteRegistryAuth, and is useful for accessing the field via an interface.
+func (v *DeleteRegistryAuthResponse) GetDeleteRegistryAuth() *interface{} {
+	return v.DeleteRegistryAuth
+}
+
 // DeleteTemplateResponse is returned by DeleteTemplate on success.
 type DeleteTemplateResponse struct {
 	DeleteTemplate *interface{} `json:"deleteTemplate,omitempty"`
@@ -134,12 +144,13 @@ type DeleteTemplateResponse struct {
 func (v *DeleteTemplateResponse) GetDeleteTemplate() *interface{} { return v.DeleteTemplate }
 
 type EndpointInput struct {
-	InstanceIds         []*string                   `json:"instanceIds,omitempty"`
-	GpuIds              *string                     `json:"gpuIds,omitempty"`
-	Id                  *string                     `json:"id,omitempty"`
-	IdleTimeout         *int                        `json:"idleTimeout,omitempty"`
-	Locations           *string                     `json:"locations,omitempty"`
-	Name                string                      `json:"name"`
+	InstanceIds []*string `json:"instanceIds,omitempty"`
+	GpuIds      *string   `json:"gpuIds,omitempty"`
+	Id          *string   `json:"id,omitempty"`
+	IdleTimeout *int      `json:"idleTimeout,omitempty"`
+	Locations   *string   `json:"locations,omitempty"`
+	Name        string    `json:"name"`
+	// Flash environment linkage; omit to keep current, set null to clear.
 	FlashEnvironmentId  *string                     `json:"flashEnvironmentId,omitempty"`
 	NetworkVolumeId     *string                     `json:"networkVolumeId,omitempty"`
 	NetworkVolumeIds    []*NetworkVolumeIdsInput    `json:"networkVolumeIds,omitempty"`
@@ -151,7 +162,7 @@ type EndpointInput struct {
 	WorkersMin          *int                        `json:"workersMin,omitempty"`
 	WorkersPFBTarget    *int                        `json:"workersPFBTarget,omitempty"`
 	GpuCount            *int                        `json:"gpuCount,omitempty"`
-	Env                 []*EnvironmentVariableInput `json:"env,omitempty"`
+	Env                 []*EnvironmentVariableInput `json:"env"`
 	AllowedCudaVersions *string                     `json:"allowedCudaVersions,omitempty"`
 	MinCudaVersion      *string                     `json:"minCudaVersion,omitempty"`
 	ExecutionTimeoutMs  *int                        `json:"executionTimeoutMs,omitempty"`
@@ -281,20 +292,26 @@ func (v *EndpointRepoInput) GetContainerRegistryAuthId() *string { return v.Cont
 
 // EndpointResponse includes the requested fields of the GraphQL type Endpoint.
 type EndpointResponse struct {
-	Id               *string   `json:"id,omitempty"`
-	Name             *string   `json:"name,omitempty"`
-	TemplateId       *string   `json:"templateId,omitempty"`
-	GpuIds           *string   `json:"gpuIds,omitempty"`
-	WorkersMin       *int      `json:"workersMin,omitempty"`
-	WorkersMax       *int      `json:"workersMax,omitempty"`
-	IdleTimeout      *int      `json:"idleTimeout,omitempty"`
-	Locations        *string   `json:"locations,omitempty"`
-	ScalerType       *string   `json:"scalerType,omitempty"`
-	ScalerValue      *int      `json:"scalerValue,omitempty"`
-	NetworkVolumeId  *string   `json:"networkVolumeId,omitempty"`
-	GpuCount         *int      `json:"gpuCount,omitempty"`
-	InstanceIds      []*string `json:"instanceIds,omitempty"`
-	WorkersPFBTarget *int      `json:"workersPFBTarget,omitempty"`
+	Id                  *string        `json:"id,omitempty"`
+	Name                *string        `json:"name,omitempty"`
+	TemplateId          *string        `json:"templateId,omitempty"`
+	GpuIds              *string        `json:"gpuIds,omitempty"`
+	WorkersMin          *int           `json:"workersMin,omitempty"`
+	WorkersMax          *int           `json:"workersMax,omitempty"`
+	IdleTimeout         *int           `json:"idleTimeout,omitempty"`
+	Locations           *string        `json:"locations,omitempty"`
+	ScalerType          *string        `json:"scalerType,omitempty"`
+	ScalerValue         *int           `json:"scalerValue,omitempty"`
+	NetworkVolumeId     *string        `json:"networkVolumeId,omitempty"`
+	GpuCount            *int           `json:"gpuCount,omitempty"`
+	InstanceIds         []*string      `json:"instanceIds,omitempty"`
+	WorkersPFBTarget    *int           `json:"workersPFBTarget,omitempty"`
+	AllowedCudaVersions *string        `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string        `json:"minCudaVersion,omitempty"`
+	ExecutionTimeoutMs  *int           `json:"executionTimeoutMs,omitempty"`
+	FlashBootType       *FlashBootType `json:"flashBootType,omitempty"`
+	Type                *string        `json:"type,omitempty"`
+	ModelReferences     []*string      `json:"modelReferences,omitempty"`
 }
 
 // GetId returns EndpointResponse.Id, and is useful for accessing the field via an interface.
@@ -339,12 +356,30 @@ func (v *EndpointResponse) GetInstanceIds() []*string { return v.InstanceIds }
 // GetWorkersPFBTarget returns EndpointResponse.WorkersPFBTarget, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetWorkersPFBTarget() *int { return v.WorkersPFBTarget }
 
+// GetAllowedCudaVersions returns EndpointResponse.AllowedCudaVersions, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetAllowedCudaVersions() *string { return v.AllowedCudaVersions }
+
+// GetMinCudaVersion returns EndpointResponse.MinCudaVersion, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetMinCudaVersion() *string { return v.MinCudaVersion }
+
+// GetExecutionTimeoutMs returns EndpointResponse.ExecutionTimeoutMs, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetExecutionTimeoutMs() *int { return v.ExecutionTimeoutMs }
+
+// GetFlashBootType returns EndpointResponse.FlashBootType, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetFlashBootType() *FlashBootType { return v.FlashBootType }
+
+// GetType returns EndpointResponse.Type, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetType() *string { return v.Type }
+
+// GetModelReferences returns EndpointResponse.ModelReferences, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetModelReferences() []*string { return v.ModelReferences }
+
 type EndpointTemplateInput struct {
 	AdvancedStart           *bool                       `json:"advancedStart,omitempty"`
 	ContainerDiskInGb       int                         `json:"containerDiskInGb"`
 	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId,omitempty"`
 	DockerArgs              string                      `json:"dockerArgs"`
-	Env                     []*EnvironmentVariableInput `json:"env,omitempty"`
+	Env                     []*EnvironmentVariableInput `json:"env"`
 	ImageName               *string                     `json:"imageName,omitempty"`
 	Name                    string                      `json:"name"`
 	Readme                  *string                     `json:"readme,omitempty"`
@@ -463,6 +498,40 @@ type GetMyNetworkVolumesResponse struct {
 // GetMyself returns GetMyNetworkVolumesResponse.Myself, and is useful for accessing the field via an interface.
 func (v *GetMyNetworkVolumesResponse) GetMyself() *GetMyNetworkVolumesMyselfUser { return v.Myself }
 
+// GetMyRegistryAuthsMyselfUser includes the requested fields of the GraphQL type User.
+type GetMyRegistryAuthsMyselfUser struct {
+	ContainerRegistryCreds []*RegistryAuthResponse `json:"containerRegistryCreds,omitempty"`
+}
+
+// GetContainerRegistryCreds returns GetMyRegistryAuthsMyselfUser.ContainerRegistryCreds, and is useful for accessing the field via an interface.
+func (v *GetMyRegistryAuthsMyselfUser) GetContainerRegistryCreds() []*RegistryAuthResponse {
+	return v.ContainerRegistryCreds
+}
+
+// GetMyRegistryAuthsResponse is returned by GetMyRegistryAuths on success.
+type GetMyRegistryAuthsResponse struct {
+	Myself *GetMyRegistryAuthsMyselfUser `json:"myself,omitempty"`
+}
+
+// GetMyself returns GetMyRegistryAuthsResponse.Myself, and is useful for accessing the field via an interface.
+func (v *GetMyRegistryAuthsResponse) GetMyself() *GetMyRegistryAuthsMyselfUser { return v.Myself }
+
+// GetMySecretsMyselfUser includes the requested fields of the GraphQL type User.
+type GetMySecretsMyselfUser struct {
+	Secrets []SecretResponse `json:"secrets"`
+}
+
+// GetSecrets returns GetMySecretsMyselfUser.Secrets, and is useful for accessing the field via an interface.
+func (v *GetMySecretsMyselfUser) GetSecrets() []SecretResponse { return v.Secrets }
+
+// GetMySecretsResponse is returned by GetMySecrets on success.
+type GetMySecretsResponse struct {
+	Myself *GetMySecretsMyselfUser `json:"myself,omitempty"`
+}
+
+// GetMyself returns GetMySecretsResponse.Myself, and is useful for accessing the field via an interface.
+func (v *GetMySecretsResponse) GetMyself() *GetMySecretsMyselfUser { return v.Myself }
+
 // GetMyTemplatesMyselfUser includes the requested fields of the GraphQL type User.
 type GetMyTemplatesMyselfUser struct {
 	PodTemplates []*TemplateResponse `json:"podTemplates,omitempty"`
@@ -569,7 +638,7 @@ type PodEditJobInput struct {
 	PodId                   string                      `json:"podId"`
 	DockerArgs              *string                     `json:"dockerArgs,omitempty"`
 	ImageName               string                      `json:"imageName"`
-	Env                     []*EnvironmentVariableInput `json:"env,omitempty"`
+	Env                     []*EnvironmentVariableInput `json:"env"`
 	Port                    *interface{}                `json:"port,omitempty"`
 	Ports                   *string                     `json:"ports,omitempty"`
 	ContainerDiskInGb       int                         `json:"containerDiskInGb"`
@@ -623,39 +692,40 @@ type PodFindAndDeployOnDemandInput struct {
 	CountryCode             *string                     `json:"countryCode,omitempty"`
 	DeployCost              *float64                    `json:"deployCost,omitempty"`
 	DockerArgs              *string                     `json:"dockerArgs,omitempty"`
-	Env                     []*EnvironmentVariableInput `json:"env,omitempty"`
+	Env                     []*EnvironmentVariableInput `json:"env"`
 	GpuCount                *int                        `json:"gpuCount,omitempty"`
 	GpuTypeId               *string                     `json:"gpuTypeId,omitempty"`
-	GpuTypeIdList           []*string                   `json:"gpuTypeIdList,omitempty"`
-	ImageName               *string                     `json:"imageName,omitempty"`
-	MinDisk                 *int                        `json:"minDisk,omitempty"`
-	MinDownload             *int                        `json:"minDownload,omitempty"`
-	MinMemoryInGb           *int                        `json:"minMemoryInGb,omitempty"`
-	MinUpload               *int                        `json:"minUpload,omitempty"`
-	MinVcpuCount            *int                        `json:"minVcpuCount,omitempty"`
-	Name                    *string                     `json:"name,omitempty"`
-	NetworkVolumeId         *string                     `json:"networkVolumeId,omitempty"`
-	Port                    *interface{}                `json:"port,omitempty"`
-	Ports                   *string                     `json:"ports,omitempty"`
-	StartJupyter            *bool                       `json:"startJupyter,omitempty"`
-	StartSsh                *bool                       `json:"startSsh,omitempty"`
-	StopAfter               *string                     `json:"stopAfter,omitempty"`
-	SupportPublicIp         *bool                       `json:"supportPublicIp,omitempty"`
-	TemplateId              *string                     `json:"templateId,omitempty"`
-	TerminateAfter          *string                     `json:"terminateAfter,omitempty"`
-	VolumeInGb              *int                        `json:"volumeInGb,omitempty"`
-	VolumeKey               *string                     `json:"volumeKey,omitempty"`
-	VolumeMountPath         *string                     `json:"volumeMountPath,omitempty"`
-	DataCenterId            *string                     `json:"dataCenterId,omitempty"`
-	SavingsPlan             *SavingsPlanInput           `json:"savingsPlan,omitempty"`
-	CudaVersion             *string                     `json:"cudaVersion,omitempty"`
-	AllowedCudaVersions     []*string                   `json:"allowedCudaVersions,omitempty"`
-	MinCudaVersion          *string                     `json:"minCudaVersion,omitempty"`
-	InstanceIds             []*string                   `json:"instanceIds,omitempty"`
-	ComputeType             *ComputeType                `json:"computeType,omitempty"`
-	GlobalNetwork           *bool                       `json:"globalNetwork,omitempty"`
-	IdeAiApiId              *string                     `json:"ideAiApiId,omitempty"`
-	ModelReferences         []*string                   `json:"modelReferences,omitempty"`
+	// List of a comma separated GPU ids, where each list item is priority group of GPUs
+	GpuTypeIdList       []*string         `json:"gpuTypeIdList,omitempty"`
+	ImageName           *string           `json:"imageName,omitempty"`
+	MinDisk             *int              `json:"minDisk,omitempty"`
+	MinDownload         *int              `json:"minDownload,omitempty"`
+	MinMemoryInGb       *int              `json:"minMemoryInGb,omitempty"`
+	MinUpload           *int              `json:"minUpload,omitempty"`
+	MinVcpuCount        *int              `json:"minVcpuCount,omitempty"`
+	Name                *string           `json:"name,omitempty"`
+	NetworkVolumeId     *string           `json:"networkVolumeId,omitempty"`
+	Port                *interface{}      `json:"port,omitempty"`
+	Ports               *string           `json:"ports,omitempty"`
+	StartJupyter        *bool             `json:"startJupyter,omitempty"`
+	StartSsh            *bool             `json:"startSsh,omitempty"`
+	StopAfter           *string           `json:"stopAfter,omitempty"`
+	SupportPublicIp     *bool             `json:"supportPublicIp,omitempty"`
+	TemplateId          *string           `json:"templateId,omitempty"`
+	TerminateAfter      *string           `json:"terminateAfter,omitempty"`
+	VolumeInGb          *int              `json:"volumeInGb,omitempty"`
+	VolumeKey           *string           `json:"volumeKey,omitempty"`
+	VolumeMountPath     *string           `json:"volumeMountPath,omitempty"`
+	DataCenterId        *string           `json:"dataCenterId,omitempty"`
+	SavingsPlan         *SavingsPlanInput `json:"savingsPlan,omitempty"`
+	CudaVersion         *string           `json:"cudaVersion,omitempty"`
+	AllowedCudaVersions []*string         `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string           `json:"minCudaVersion,omitempty"`
+	InstanceIds         []*string         `json:"instanceIds,omitempty"`
+	ComputeType         *ComputeType      `json:"computeType,omitempty"`
+	GlobalNetwork       *bool             `json:"globalNetwork,omitempty"`
+	IdeAiApiId          *string           `json:"ideAiApiId,omitempty"`
+	ModelReferences     []*string         `json:"modelReferences,omitempty"`
 }
 
 // GetAiApiId returns PodFindAndDeployOnDemandInput.AiApiId, and is useful for accessing the field via an interface.
@@ -797,7 +867,7 @@ type PodResponse struct {
 	VolumeMountPath         *string   `json:"volumeMountPath,omitempty"`
 	DesiredStatus           PodStatus `json:"desiredStatus"`
 	CostPerHr               float64   `json:"costPerHr"`
-	Env                     []*string `json:"env,omitempty"`
+	Env                     []*string `json:"env"`
 	Ports                   *string   `json:"ports,omitempty"`
 	TemplateId              *string   `json:"templateId,omitempty"`
 	NetworkVolumeId         *string   `json:"networkVolumeId,omitempty"`
@@ -918,6 +988,18 @@ func (v *PortConfigInput) GetPort() string { return v.Port }
 // GetName returns PortConfigInput.Name, and is useful for accessing the field via an interface.
 func (v *PortConfigInput) GetName() string { return v.Name }
 
+// RegistryAuthResponse includes the requested fields of the GraphQL type ContainerRegistryAuth.
+type RegistryAuthResponse struct {
+	Id   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+}
+
+// GetId returns RegistryAuthResponse.Id, and is useful for accessing the field via an interface.
+func (v *RegistryAuthResponse) GetId() *string { return v.Id }
+
+// GetName returns RegistryAuthResponse.Name, and is useful for accessing the field via an interface.
+func (v *RegistryAuthResponse) GetName() *string { return v.Name }
+
 // SaveEndpointResponse is returned by SaveEndpoint on success.
 type SaveEndpointResponse struct {
 	SaveEndpoint EndpointResponse `json:"saveEndpoint"`
@@ -926,12 +1008,37 @@ type SaveEndpointResponse struct {
 // GetSaveEndpoint returns SaveEndpointResponse.SaveEndpoint, and is useful for accessing the field via an interface.
 func (v *SaveEndpointResponse) GetSaveEndpoint() EndpointResponse { return v.SaveEndpoint }
 
+type SaveRegistryAuthInput struct {
+	Name     string `json:"name"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+// GetName returns SaveRegistryAuthInput.Name, and is useful for accessing the field via an interface.
+func (v *SaveRegistryAuthInput) GetName() string { return v.Name }
+
+// GetUsername returns SaveRegistryAuthInput.Username, and is useful for accessing the field via an interface.
+func (v *SaveRegistryAuthInput) GetUsername() string { return v.Username }
+
+// GetPassword returns SaveRegistryAuthInput.Password, and is useful for accessing the field via an interface.
+func (v *SaveRegistryAuthInput) GetPassword() string { return v.Password }
+
+// SaveRegistryAuthResponse is returned by SaveRegistryAuth on success.
+type SaveRegistryAuthResponse struct {
+	SaveRegistryAuth *RegistryAuthResponse `json:"saveRegistryAuth,omitempty"`
+}
+
+// GetSaveRegistryAuth returns SaveRegistryAuthResponse.SaveRegistryAuth, and is useful for accessing the field via an interface.
+func (v *SaveRegistryAuthResponse) GetSaveRegistryAuth() *RegistryAuthResponse {
+	return v.SaveRegistryAuth
+}
+
 type SaveTemplateInput struct {
 	AdvancedStart           *bool                       `json:"advancedStart,omitempty"`
 	ContainerDiskInGb       int                         `json:"containerDiskInGb"`
 	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId,omitempty"`
 	DockerArgs              string                      `json:"dockerArgs"`
-	Env                     []*EnvironmentVariableInput `json:"env,omitempty"`
+	Env                     []*EnvironmentVariableInput `json:"env"`
 	Id                      *string                     `json:"id,omitempty"`
 	ImageName               *string                     `json:"imageName,omitempty"`
 	IsPublic                *bool                       `json:"isPublic,omitempty"`
@@ -1028,6 +1135,103 @@ func (v *SavingsPlanInput) GetPlanLength() *string { return v.PlanLength }
 // GetUpfrontCost returns SavingsPlanInput.UpfrontCost, and is useful for accessing the field via an interface.
 func (v *SavingsPlanInput) GetUpfrontCost() *float64 { return v.UpfrontCost }
 
+type SecretCreateInput struct {
+	Name        string  `json:"name"`
+	Value       string  `json:"value"`
+	Description *string `json:"description,omitempty"`
+}
+
+// GetName returns SecretCreateInput.Name, and is useful for accessing the field via an interface.
+func (v *SecretCreateInput) GetName() string { return v.Name }
+
+// GetValue returns SecretCreateInput.Value, and is useful for accessing the field via an interface.
+func (v *SecretCreateInput) GetValue() string { return v.Value }
+
+// GetDescription returns SecretCreateInput.Description, and is useful for accessing the field via an interface.
+func (v *SecretCreateInput) GetDescription() *string { return v.Description }
+
+// SecretCreateResponse is returned by SecretCreate on success.
+type SecretCreateResponse struct {
+	SecretCreate *SecretResponse `json:"secretCreate,omitempty"`
+}
+
+// GetSecretCreate returns SecretCreateResponse.SecretCreate, and is useful for accessing the field via an interface.
+func (v *SecretCreateResponse) GetSecretCreate() *SecretResponse { return v.SecretCreate }
+
+// SecretDeleteResponse is returned by SecretDelete on success.
+type SecretDeleteResponse struct {
+	SecretDelete *interface{} `json:"secretDelete,omitempty"`
+}
+
+// GetSecretDelete returns SecretDeleteResponse.SecretDelete, and is useful for accessing the field via an interface.
+func (v *SecretDeleteResponse) GetSecretDelete() *interface{} { return v.SecretDelete }
+
+type SecretDescriptionUpdateInput struct {
+	Id          string `json:"id"`
+	Description string `json:"description"`
+}
+
+// GetId returns SecretDescriptionUpdateInput.Id, and is useful for accessing the field via an interface.
+func (v *SecretDescriptionUpdateInput) GetId() string { return v.Id }
+
+// GetDescription returns SecretDescriptionUpdateInput.Description, and is useful for accessing the field via an interface.
+func (v *SecretDescriptionUpdateInput) GetDescription() string { return v.Description }
+
+// SecretDescriptionUpdateResponse is returned by SecretDescriptionUpdate on success.
+type SecretDescriptionUpdateResponse struct {
+	SecretDescriptionUpdate *SecretResponse `json:"secretDescriptionUpdate,omitempty"`
+}
+
+// GetSecretDescriptionUpdate returns SecretDescriptionUpdateResponse.SecretDescriptionUpdate, and is useful for accessing the field via an interface.
+func (v *SecretDescriptionUpdateResponse) GetSecretDescriptionUpdate() *SecretResponse {
+	return v.SecretDescriptionUpdate
+}
+
+// SecretResponse includes the requested fields of the GraphQL type Secret.
+type SecretResponse struct {
+	Id          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description *string `json:"description,omitempty"`
+	CreatedAt   string  `json:"createdAt"`
+	UpdatedAt   *string `json:"updatedAt,omitempty"`
+}
+
+// GetId returns SecretResponse.Id, and is useful for accessing the field via an interface.
+func (v *SecretResponse) GetId() string { return v.Id }
+
+// GetName returns SecretResponse.Name, and is useful for accessing the field via an interface.
+func (v *SecretResponse) GetName() string { return v.Name }
+
+// GetDescription returns SecretResponse.Description, and is useful for accessing the field via an interface.
+func (v *SecretResponse) GetDescription() *string { return v.Description }
+
+// GetCreatedAt returns SecretResponse.CreatedAt, and is useful for accessing the field via an interface.
+func (v *SecretResponse) GetCreatedAt() string { return v.CreatedAt }
+
+// GetUpdatedAt returns SecretResponse.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *SecretResponse) GetUpdatedAt() *string { return v.UpdatedAt }
+
+type SecretValueUpdateInput struct {
+	Id    string `json:"id"`
+	Value string `json:"value"`
+}
+
+// GetId returns SecretValueUpdateInput.Id, and is useful for accessing the field via an interface.
+func (v *SecretValueUpdateInput) GetId() string { return v.Id }
+
+// GetValue returns SecretValueUpdateInput.Value, and is useful for accessing the field via an interface.
+func (v *SecretValueUpdateInput) GetValue() string { return v.Value }
+
+// SecretValueUpdateResponse is returned by SecretValueUpdate on success.
+type SecretValueUpdateResponse struct {
+	SecretValueUpdate *SecretResponse `json:"secretValueUpdate,omitempty"`
+}
+
+// GetSecretValueUpdate returns SecretValueUpdateResponse.SecretValueUpdate, and is useful for accessing the field via an interface.
+func (v *SecretValueUpdateResponse) GetSecretValueUpdate() *SecretResponse {
+	return v.SecretValueUpdate
+}
+
 type TemplateCategory string
 
 const (
@@ -1050,7 +1254,7 @@ type TemplateResponse struct {
 	Name                    *string                                   `json:"name,omitempty"`
 	ImageName               *string                                   `json:"imageName,omitempty"`
 	DockerArgs              *string                                   `json:"dockerArgs,omitempty"`
-	Env                     []*TemplateResponseEnvEnvironmentVariable `json:"env,omitempty"`
+	Env                     []*TemplateResponseEnvEnvironmentVariable `json:"env"`
 	Ports                   *string                                   `json:"ports,omitempty"`
 	VolumeMountPath         *string                                   `json:"volumeMountPath,omitempty"`
 	VolumeInGb              *int                                      `json:"volumeInGb,omitempty"`
@@ -1061,6 +1265,9 @@ type TemplateResponse struct {
 	IsServerless            *bool                                     `json:"isServerless,omitempty"`
 	IsPublic                *bool                                     `json:"isPublic,omitempty"`
 	ContainerRegistryAuthId *string                                   `json:"containerRegistryAuthId,omitempty"`
+	Readme                  *string                                   `json:"readme,omitempty"`
+	AdvancedStart           *bool                                     `json:"advancedStart,omitempty"`
+	Category                *string                                   `json:"category,omitempty"`
 }
 
 // GetId returns TemplateResponse.Id, and is useful for accessing the field via an interface.
@@ -1107,6 +1314,15 @@ func (v *TemplateResponse) GetIsPublic() *bool { return v.IsPublic }
 
 // GetContainerRegistryAuthId returns TemplateResponse.ContainerRegistryAuthId, and is useful for accessing the field via an interface.
 func (v *TemplateResponse) GetContainerRegistryAuthId() *string { return v.ContainerRegistryAuthId }
+
+// GetReadme returns TemplateResponse.Readme, and is useful for accessing the field via an interface.
+func (v *TemplateResponse) GetReadme() *string { return v.Readme }
+
+// GetAdvancedStart returns TemplateResponse.AdvancedStart, and is useful for accessing the field via an interface.
+func (v *TemplateResponse) GetAdvancedStart() *bool { return v.AdvancedStart }
+
+// GetCategory returns TemplateResponse.Category, and is useful for accessing the field via an interface.
+func (v *TemplateResponse) GetCategory() *string { return v.Category }
 
 // TemplateResponseEnvEnvironmentVariable includes the requested fields of the GraphQL type EnvironmentVariable.
 type TemplateResponseEnvEnvironmentVariable struct {
@@ -1161,6 +1377,31 @@ type UpdatePodResponse struct {
 // GetPodEditJob returns UpdatePodResponse.PodEditJob, and is useful for accessing the field via an interface.
 func (v *UpdatePodResponse) GetPodEditJob() *PodResponse { return v.PodEditJob }
 
+type UpdateRegistryAuthInput struct {
+	Id       string `json:"id"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+// GetId returns UpdateRegistryAuthInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateRegistryAuthInput) GetId() string { return v.Id }
+
+// GetUsername returns UpdateRegistryAuthInput.Username, and is useful for accessing the field via an interface.
+func (v *UpdateRegistryAuthInput) GetUsername() string { return v.Username }
+
+// GetPassword returns UpdateRegistryAuthInput.Password, and is useful for accessing the field via an interface.
+func (v *UpdateRegistryAuthInput) GetPassword() string { return v.Password }
+
+// UpdateRegistryAuthResponse is returned by UpdateRegistryAuth on success.
+type UpdateRegistryAuthResponse struct {
+	UpdateRegistryAuth *RegistryAuthResponse `json:"updateRegistryAuth,omitempty"`
+}
+
+// GetUpdateRegistryAuth returns UpdateRegistryAuthResponse.UpdateRegistryAuth, and is useful for accessing the field via an interface.
+func (v *UpdateRegistryAuthResponse) GetUpdateRegistryAuth() *RegistryAuthResponse {
+	return v.UpdateRegistryAuth
+}
+
 // __CreateNetworkVolumeInput is used internally by genqlient
 type __CreateNetworkVolumeInput struct {
 	Input CreateNetworkVolumeInput `json:"input"`
@@ -1192,6 +1433,14 @@ type __DeleteNetworkVolumeInput struct {
 
 // GetInput returns __DeleteNetworkVolumeInput.Input, and is useful for accessing the field via an interface.
 func (v *__DeleteNetworkVolumeInput) GetInput() DeleteNetworkVolumeInput { return v.Input }
+
+// __DeleteRegistryAuthInput is used internally by genqlient
+type __DeleteRegistryAuthInput struct {
+	RegistryAuthId *string `json:"registryAuthId,omitempty"`
+}
+
+// GetRegistryAuthId returns __DeleteRegistryAuthInput.RegistryAuthId, and is useful for accessing the field via an interface.
+func (v *__DeleteRegistryAuthInput) GetRegistryAuthId() *string { return v.RegistryAuthId }
 
 // __DeleteTemplateInput is used internally by genqlient
 type __DeleteTemplateInput struct {
@@ -1225,6 +1474,14 @@ type __SaveEndpointInput struct {
 // GetInput returns __SaveEndpointInput.Input, and is useful for accessing the field via an interface.
 func (v *__SaveEndpointInput) GetInput() EndpointInput { return v.Input }
 
+// __SaveRegistryAuthInput is used internally by genqlient
+type __SaveRegistryAuthInput struct {
+	Input *SaveRegistryAuthInput `json:"input,omitempty"`
+}
+
+// GetInput returns __SaveRegistryAuthInput.Input, and is useful for accessing the field via an interface.
+func (v *__SaveRegistryAuthInput) GetInput() *SaveRegistryAuthInput { return v.Input }
+
 // __SaveTemplateInput is used internally by genqlient
 type __SaveTemplateInput struct {
 	Input *SaveTemplateInput `json:"input,omitempty"`
@@ -1232,6 +1489,38 @@ type __SaveTemplateInput struct {
 
 // GetInput returns __SaveTemplateInput.Input, and is useful for accessing the field via an interface.
 func (v *__SaveTemplateInput) GetInput() *SaveTemplateInput { return v.Input }
+
+// __SecretCreateInput is used internally by genqlient
+type __SecretCreateInput struct {
+	Input SecretCreateInput `json:"input"`
+}
+
+// GetInput returns __SecretCreateInput.Input, and is useful for accessing the field via an interface.
+func (v *__SecretCreateInput) GetInput() SecretCreateInput { return v.Input }
+
+// __SecretDeleteInput is used internally by genqlient
+type __SecretDeleteInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __SecretDeleteInput.Id, and is useful for accessing the field via an interface.
+func (v *__SecretDeleteInput) GetId() string { return v.Id }
+
+// __SecretDescriptionUpdateInput is used internally by genqlient
+type __SecretDescriptionUpdateInput struct {
+	Input SecretDescriptionUpdateInput `json:"input"`
+}
+
+// GetInput returns __SecretDescriptionUpdateInput.Input, and is useful for accessing the field via an interface.
+func (v *__SecretDescriptionUpdateInput) GetInput() SecretDescriptionUpdateInput { return v.Input }
+
+// __SecretValueUpdateInput is used internally by genqlient
+type __SecretValueUpdateInput struct {
+	Input SecretValueUpdateInput `json:"input"`
+}
+
+// GetInput returns __SecretValueUpdateInput.Input, and is useful for accessing the field via an interface.
+func (v *__SecretValueUpdateInput) GetInput() SecretValueUpdateInput { return v.Input }
 
 // __TerminatePodInput is used internally by genqlient
 type __TerminatePodInput struct {
@@ -1256,6 +1545,14 @@ type __UpdatePodInput struct {
 
 // GetInput returns __UpdatePodInput.Input, and is useful for accessing the field via an interface.
 func (v *__UpdatePodInput) GetInput() PodEditJobInput { return v.Input }
+
+// __UpdateRegistryAuthInput is used internally by genqlient
+type __UpdateRegistryAuthInput struct {
+	Input *UpdateRegistryAuthInput `json:"input,omitempty"`
+}
+
+// GetInput returns __UpdateRegistryAuthInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateRegistryAuthInput) GetInput() *UpdateRegistryAuthInput { return v.Input }
 
 // The mutation executed by CreateNetworkVolume.
 const CreateNetworkVolume_Operation = `
@@ -1410,6 +1707,38 @@ func DeleteNetworkVolume(
 	return data_, err_
 }
 
+// The mutation executed by DeleteRegistryAuth.
+const DeleteRegistryAuth_Operation = `
+mutation DeleteRegistryAuth ($registryAuthId: String) {
+	deleteRegistryAuth(registryAuthId: $registryAuthId)
+}
+`
+
+func DeleteRegistryAuth(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	registryAuthId *string,
+) (data_ *DeleteRegistryAuthResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "DeleteRegistryAuth",
+		Query:  DeleteRegistryAuth_Operation,
+		Variables: &__DeleteRegistryAuthInput{
+			RegistryAuthId: registryAuthId,
+		},
+	}
+
+	data_ = &DeleteRegistryAuthResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
 // The mutation executed by DeleteTemplate.
 const DeleteTemplate_Operation = `
 mutation DeleteTemplate ($templateName: String) {
@@ -1502,6 +1831,12 @@ query GetMyEndpoints {
 			gpuCount
 			instanceIds
 			workersPFBTarget
+			allowedCudaVersions
+			minCudaVersion
+			executionTimeoutMs
+			flashBootType
+			type
+			modelReferences
 		}
 	}
 }
@@ -1563,6 +1898,75 @@ func GetMyNetworkVolumes(
 	return data_, err_
 }
 
+// The query executed by GetMyRegistryAuths.
+const GetMyRegistryAuths_Operation = `
+query GetMyRegistryAuths {
+	myself {
+		containerRegistryCreds {
+			id
+			name
+		}
+	}
+}
+`
+
+func GetMyRegistryAuths(
+	ctx_ context.Context,
+	client_ graphql.Client,
+) (data_ *GetMyRegistryAuthsResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "GetMyRegistryAuths",
+		Query:  GetMyRegistryAuths_Operation,
+	}
+
+	data_ = &GetMyRegistryAuthsResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The query executed by GetMySecrets.
+const GetMySecrets_Operation = `
+query GetMySecrets {
+	myself {
+		secrets {
+			id
+			name
+			description
+			createdAt
+			updatedAt
+		}
+	}
+}
+`
+
+func GetMySecrets(
+	ctx_ context.Context,
+	client_ graphql.Client,
+) (data_ *GetMySecretsResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "GetMySecrets",
+		Query:  GetMySecrets_Operation,
+	}
+
+	data_ = &GetMySecretsResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
 // The query executed by GetMyTemplates.
 const GetMyTemplates_Operation = `
 query GetMyTemplates {
@@ -1586,6 +1990,9 @@ query GetMyTemplates {
 			isServerless
 			isPublic
 			containerRegistryAuthId
+			readme
+			advancedStart
+			category
 		}
 	}
 }
@@ -1682,6 +2089,12 @@ mutation SaveEndpoint ($input: EndpointInput!) {
 		gpuCount
 		instanceIds
 		workersPFBTarget
+		allowedCudaVersions
+		minCudaVersion
+		executionTimeoutMs
+		flashBootType
+		type
+		modelReferences
 	}
 }
 `
@@ -1700,6 +2113,41 @@ func SaveEndpoint(
 	}
 
 	data_ = &SaveEndpointResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by SaveRegistryAuth.
+const SaveRegistryAuth_Operation = `
+mutation SaveRegistryAuth ($input: SaveRegistryAuthInput) {
+	saveRegistryAuth(input: $input) {
+		id
+		name
+	}
+}
+`
+
+func SaveRegistryAuth(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input *SaveRegistryAuthInput,
+) (data_ *SaveRegistryAuthResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "SaveRegistryAuth",
+		Query:  SaveRegistryAuth_Operation,
+		Variables: &__SaveRegistryAuthInput{
+			Input: input,
+		},
+	}
+
+	data_ = &SaveRegistryAuthResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(
@@ -1733,6 +2181,9 @@ mutation SaveTemplate ($input: SaveTemplateInput) {
 		isServerless
 		isPublic
 		containerRegistryAuthId
+		readme
+		advancedStart
+		category
 	}
 }
 `
@@ -1751,6 +2202,152 @@ func SaveTemplate(
 	}
 
 	data_ = &SaveTemplateResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by SecretCreate.
+const SecretCreate_Operation = `
+mutation SecretCreate ($input: SecretCreateInput!) {
+	secretCreate(input: $input) {
+		id
+		name
+		description
+		createdAt
+		updatedAt
+	}
+}
+`
+
+func SecretCreate(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input SecretCreateInput,
+) (data_ *SecretCreateResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "SecretCreate",
+		Query:  SecretCreate_Operation,
+		Variables: &__SecretCreateInput{
+			Input: input,
+		},
+	}
+
+	data_ = &SecretCreateResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by SecretDelete.
+const SecretDelete_Operation = `
+mutation SecretDelete ($id: ID!) {
+	secretDelete(id: $id)
+}
+`
+
+func SecretDelete(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	id string,
+) (data_ *SecretDeleteResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "SecretDelete",
+		Query:  SecretDelete_Operation,
+		Variables: &__SecretDeleteInput{
+			Id: id,
+		},
+	}
+
+	data_ = &SecretDeleteResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by SecretDescriptionUpdate.
+const SecretDescriptionUpdate_Operation = `
+mutation SecretDescriptionUpdate ($input: SecretDescriptionUpdateInput!) {
+	secretDescriptionUpdate(input: $input) {
+		id
+		name
+		description
+		createdAt
+		updatedAt
+	}
+}
+`
+
+func SecretDescriptionUpdate(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input SecretDescriptionUpdateInput,
+) (data_ *SecretDescriptionUpdateResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "SecretDescriptionUpdate",
+		Query:  SecretDescriptionUpdate_Operation,
+		Variables: &__SecretDescriptionUpdateInput{
+			Input: input,
+		},
+	}
+
+	data_ = &SecretDescriptionUpdateResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by SecretValueUpdate.
+const SecretValueUpdate_Operation = `
+mutation SecretValueUpdate ($input: SecretValueUpdateInput!) {
+	secretValueUpdate(input: $input) {
+		id
+		name
+		description
+		createdAt
+		updatedAt
+	}
+}
+`
+
+func SecretValueUpdate(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input SecretValueUpdateInput,
+) (data_ *SecretValueUpdateResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "SecretValueUpdate",
+		Query:  SecretValueUpdate_Operation,
+		Variables: &__SecretValueUpdateInput{
+			Input: input,
+		},
+	}
+
+	data_ = &SecretValueUpdateResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(
@@ -1872,6 +2469,41 @@ func UpdatePod(
 	}
 
 	data_ = &UpdatePodResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by UpdateRegistryAuth.
+const UpdateRegistryAuth_Operation = `
+mutation UpdateRegistryAuth ($input: UpdateRegistryAuthInput) {
+	updateRegistryAuth(input: $input) {
+		id
+		name
+	}
+}
+`
+
+func UpdateRegistryAuth(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input *UpdateRegistryAuthInput,
+) (data_ *UpdateRegistryAuthResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "UpdateRegistryAuth",
+		Query:  UpdateRegistryAuth_Operation,
+		Variables: &__UpdateRegistryAuthInput{
+			Input: input,
+		},
+	}
+
+	data_ = &UpdateRegistryAuthResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(

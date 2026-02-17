@@ -90,7 +90,159 @@ func (o GpuTypeOutputArrayOutput) Index(i pulumi.IntInput) GpuTypeOutputOutput {
 	}).(GpuTypeOutputOutput)
 }
 
+type SavingsPlan struct {
+	PlanLength  *string  `pulumi:"planLength"`
+	UpfrontCost *float64 `pulumi:"upfrontCost"`
+}
+
+// SavingsPlanInput is an input type that accepts SavingsPlanArgs and SavingsPlanOutput values.
+// You can construct a concrete instance of `SavingsPlanInput` via:
+//
+//	SavingsPlanArgs{...}
+type SavingsPlanInput interface {
+	pulumi.Input
+
+	ToSavingsPlanOutput() SavingsPlanOutput
+	ToSavingsPlanOutputWithContext(context.Context) SavingsPlanOutput
+}
+
+type SavingsPlanArgs struct {
+	PlanLength  pulumi.StringPtrInput  `pulumi:"planLength"`
+	UpfrontCost pulumi.Float64PtrInput `pulumi:"upfrontCost"`
+}
+
+func (SavingsPlanArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SavingsPlan)(nil)).Elem()
+}
+
+func (i SavingsPlanArgs) ToSavingsPlanOutput() SavingsPlanOutput {
+	return i.ToSavingsPlanOutputWithContext(context.Background())
+}
+
+func (i SavingsPlanArgs) ToSavingsPlanOutputWithContext(ctx context.Context) SavingsPlanOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SavingsPlanOutput)
+}
+
+func (i SavingsPlanArgs) ToSavingsPlanPtrOutput() SavingsPlanPtrOutput {
+	return i.ToSavingsPlanPtrOutputWithContext(context.Background())
+}
+
+func (i SavingsPlanArgs) ToSavingsPlanPtrOutputWithContext(ctx context.Context) SavingsPlanPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SavingsPlanOutput).ToSavingsPlanPtrOutputWithContext(ctx)
+}
+
+// SavingsPlanPtrInput is an input type that accepts SavingsPlanArgs, SavingsPlanPtr and SavingsPlanPtrOutput values.
+// You can construct a concrete instance of `SavingsPlanPtrInput` via:
+//
+//	        SavingsPlanArgs{...}
+//
+//	or:
+//
+//	        nil
+type SavingsPlanPtrInput interface {
+	pulumi.Input
+
+	ToSavingsPlanPtrOutput() SavingsPlanPtrOutput
+	ToSavingsPlanPtrOutputWithContext(context.Context) SavingsPlanPtrOutput
+}
+
+type savingsPlanPtrType SavingsPlanArgs
+
+func SavingsPlanPtr(v *SavingsPlanArgs) SavingsPlanPtrInput {
+	return (*savingsPlanPtrType)(v)
+}
+
+func (*savingsPlanPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SavingsPlan)(nil)).Elem()
+}
+
+func (i *savingsPlanPtrType) ToSavingsPlanPtrOutput() SavingsPlanPtrOutput {
+	return i.ToSavingsPlanPtrOutputWithContext(context.Background())
+}
+
+func (i *savingsPlanPtrType) ToSavingsPlanPtrOutputWithContext(ctx context.Context) SavingsPlanPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SavingsPlanPtrOutput)
+}
+
+type SavingsPlanOutput struct{ *pulumi.OutputState }
+
+func (SavingsPlanOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SavingsPlan)(nil)).Elem()
+}
+
+func (o SavingsPlanOutput) ToSavingsPlanOutput() SavingsPlanOutput {
+	return o
+}
+
+func (o SavingsPlanOutput) ToSavingsPlanOutputWithContext(ctx context.Context) SavingsPlanOutput {
+	return o
+}
+
+func (o SavingsPlanOutput) ToSavingsPlanPtrOutput() SavingsPlanPtrOutput {
+	return o.ToSavingsPlanPtrOutputWithContext(context.Background())
+}
+
+func (o SavingsPlanOutput) ToSavingsPlanPtrOutputWithContext(ctx context.Context) SavingsPlanPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SavingsPlan) *SavingsPlan {
+		return &v
+	}).(SavingsPlanPtrOutput)
+}
+
+func (o SavingsPlanOutput) PlanLength() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SavingsPlan) *string { return v.PlanLength }).(pulumi.StringPtrOutput)
+}
+
+func (o SavingsPlanOutput) UpfrontCost() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v SavingsPlan) *float64 { return v.UpfrontCost }).(pulumi.Float64PtrOutput)
+}
+
+type SavingsPlanPtrOutput struct{ *pulumi.OutputState }
+
+func (SavingsPlanPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SavingsPlan)(nil)).Elem()
+}
+
+func (o SavingsPlanPtrOutput) ToSavingsPlanPtrOutput() SavingsPlanPtrOutput {
+	return o
+}
+
+func (o SavingsPlanPtrOutput) ToSavingsPlanPtrOutputWithContext(ctx context.Context) SavingsPlanPtrOutput {
+	return o
+}
+
+func (o SavingsPlanPtrOutput) Elem() SavingsPlanOutput {
+	return o.ApplyT(func(v *SavingsPlan) SavingsPlan {
+		if v != nil {
+			return *v
+		}
+		var ret SavingsPlan
+		return ret
+	}).(SavingsPlanOutput)
+}
+
+func (o SavingsPlanPtrOutput) PlanLength() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SavingsPlan) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PlanLength
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o SavingsPlanPtrOutput) UpfrontCost() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *SavingsPlan) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.UpfrontCost
+	}).(pulumi.Float64PtrOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanInput)(nil)).Elem(), SavingsPlanArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanPtrInput)(nil)).Elem(), SavingsPlanArgs{})
 	pulumi.RegisterOutputType(GpuTypeOutputOutput{})
 	pulumi.RegisterOutputType(GpuTypeOutputArrayOutput{})
+	pulumi.RegisterOutputType(SavingsPlanOutput{})
+	pulumi.RegisterOutputType(SavingsPlanPtrOutput{})
 }

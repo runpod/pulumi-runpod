@@ -27,11 +27,37 @@ func Provider() p.Provider {
 		WithDescription("Manage RunPod GPU cloud resources.").
 		WithHomepage("https://www.runpod.io").
 		WithNamespace("runpod").
+		WithPluginDownloadURL("github://api.github.com/runpod/pulumi-runpod").
+		WithRepository("https://github.com/runpod/pulumi-runpod").
+		WithLanguageMap(map[string]any{
+			"go": map[string]any{
+				"importBasePath":                 "github.com/runpod/pulumi-runpod/sdk/go/runpod",
+				"generateResourceContainerTypes": true,
+				"respectSchemaVersion":           true,
+			},
+			"nodejs": map[string]any{
+				"packageName":         "@runpod/pulumi",
+				"respectSchemaVersion": true,
+			},
+			"python": map[string]any{
+				"packageName": "pulumi_runpod",
+				"pyproject": map[string]any{
+					"enabled": true,
+				},
+				"respectSchemaVersion": true,
+			},
+			"csharp": map[string]any{
+				"rootNamespace":        "Pulumi",
+				"respectSchemaVersion": true,
+			},
+		}).
 		WithResources(
 			infer.Resource(Pod{}),
 			infer.Resource(Template{}),
 			infer.Resource(Endpoint{}),
 			infer.Resource(NetworkVolume{}),
+			infer.Resource(Secret{}),
+			infer.Resource(ContainerRegistryAuth{}),
 		).
 		WithFunctions(
 			infer.Function(GetGpuTypes{}),
@@ -50,6 +76,14 @@ func Provider() p.Provider {
 type Config struct {
 	APIKey string `pulumi:"apiKey,optional" provider:"secret"`
 	APIURL string `pulumi:"apiUrl,optional"`
+}
+
+// Annotate provides descriptions for Config fields.
+func (c *Config) Annotate(a infer.Annotator) {
+	a.Describe(&c.APIKey, "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.")
+	a.SetDefault(&c.APIKey, nil, "RUNPOD_API_KEY")
+	a.Describe(&c.APIURL, "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.")
+	a.SetDefault(&c.APIURL, nil, "RUNPOD_API_URL")
 }
 
 // getClient creates a genqlient GraphQL client from the provider config in context.

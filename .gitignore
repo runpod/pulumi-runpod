@@ -17,3 +17,6 @@ sdk/java/.gradle
 sdk/java/build/
 sdk/java/build.gradle
 sdk/python/venv
+sdk/nodejs/*.tgz
+provider/coverage.txt
+pulumi-resource-runpod

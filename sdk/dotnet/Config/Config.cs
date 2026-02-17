@@ -32,11 +32,18 @@ namespace Pulumi.Runpod
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("runpod");
 
-        private static readonly __Value<bool?> _itsasecret = new __Value<bool?>(() => __config.GetBoolean("itsasecret"));
-        public static bool? Itsasecret
+        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey"));
+        public static string? ApiKey
         {
-            get => _itsasecret.Get();
-            set => _itsasecret.Set(value);
+            get => _apiKey.Get();
+            set => _apiKey.Set(value);
+        }
+
+        private static readonly __Value<string?> _apiUrl = new __Value<string?>(() => __config.Get("apiUrl"));
+        public static string? ApiUrl
+        {
+            get => _apiUrl.Get();
+            set => _apiUrl.Set(value);
         }
 
     }

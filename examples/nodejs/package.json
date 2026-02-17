@@ -1,11 +1,11 @@
 {
-  "name": "runpod",
-  "devDependencies": {
-    "@types/node": "^20"
-  },
-  "dependencies": {
-    "typescript": "^4.0.0",
-    "@pulumi/pulumi": "3.176.0",
-    "@mynamespace/runpod": "1.0.0-alpha.0+dev"
-  }
+    "name": "runpod-example",
+    "devDependencies": {
+        "@types/node": "^20"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/runpod": "file:../../sdk/nodejs/pulumi-runpod-1.0.0-alpha.0+dev.tgz",
+        "typescript": "^4.0.0"
+    }
 }

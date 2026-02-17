@@ -16,6 +16,12 @@ mutation SaveEndpoint($input: EndpointInput!) {
     gpuCount
     instanceIds
     workersPFBTarget
+    allowedCudaVersions
+    minCudaVersion
+    executionTimeoutMs
+    flashBootType
+    type
+    modelReferences
   }
 }
 
@@ -38,6 +44,12 @@ query GetMyEndpoints {
       gpuCount
       instanceIds
       workersPFBTarget
+      allowedCudaVersions
+      minCudaVersion
+      executionTimeoutMs
+      flashBootType
+      type
+      modelReferences
     }
   }
 }

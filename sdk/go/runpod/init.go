@@ -21,12 +21,16 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "runpod:index:ContainerRegistryAuth":
+		r = &ContainerRegistryAuth{}
 	case "runpod:index:Endpoint":
 		r = &Endpoint{}
 	case "runpod:index:NetworkVolume":
 		r = &NetworkVolume{}
 	case "runpod:index:Pod":
 		r = &Pod{}
+	case "runpod:index:Secret":
+		r = &Secret{}
 	case "runpod:index:Template":
 		r = &Template{}
 	default:

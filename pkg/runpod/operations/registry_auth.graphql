@@ -1,0 +1,33 @@
+# @genqlient
+mutation SaveRegistryAuth($input: SaveRegistryAuthInput) {
+  # @genqlient(typename: "RegistryAuthResponse")
+  saveRegistryAuth(input: $input) {
+    id
+    name
+  }
+}
+
+# @genqlient
+mutation UpdateRegistryAuth($input: UpdateRegistryAuthInput) {
+  # @genqlient(typename: "RegistryAuthResponse")
+  updateRegistryAuth(input: $input) {
+    id
+    name
+  }
+}
+
+# @genqlient
+mutation DeleteRegistryAuth($registryAuthId: String) {
+  deleteRegistryAuth(registryAuthId: $registryAuthId)
+}
+
+# @genqlient
+query GetMyRegistryAuths {
+  myself {
+    # @genqlient(typename: "RegistryAuthResponse")
+    containerRegistryCreds {
+      id
+      name
+    }
+  }
+}

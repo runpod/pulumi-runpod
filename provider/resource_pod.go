@@ -12,6 +12,12 @@ import (
 // Pod is the controller for the runpod:index:Pod resource.
 type Pod struct{}
 
+// SavingsPlan represents a savings plan configuration for a pod.
+type SavingsPlan struct {
+	PlanLength  *string  `pulumi:"planLength,optional"`
+	UpfrontCost *float64 `pulumi:"upfrontCost,optional"`
+}
+
 // PodArgs are the inputs for creating a pod.
 type PodArgs struct {
 	Name                    string            `pulumi:"name"`
@@ -35,18 +41,112 @@ type PodArgs struct {
 	MinVcpuCount            *int              `pulumi:"minVcpuCount,optional"`
 	MinMemoryInGb           *int              `pulumi:"minMemoryInGb,optional"`
 	CudaVersion             *string           `pulumi:"cudaVersion,optional"`
+	// New fields
+	ComputeType         *string      `pulumi:"computeType,optional"`
+	GlobalNetwork       *bool        `pulumi:"globalNetwork,optional"`
+	CountryCode         *string      `pulumi:"countryCode,optional"`
+	StopAfter           *string      `pulumi:"stopAfter,optional"`
+	TerminateAfter      *string      `pulumi:"terminateAfter,optional"`
+	GpuTypeIDList       []string     `pulumi:"gpuTypeIdList,optional"`
+	AllowedCudaVersions []string     `pulumi:"allowedCudaVersions,optional"`
+	MinCudaVersion      *string      `pulumi:"minCudaVersion,optional"`
+	DeployCost          *float64     `pulumi:"deployCost,optional"`
+	MinDisk             *int         `pulumi:"minDisk,optional"`
+	MinDownload         *int         `pulumi:"minDownload,optional"`
+	MinUpload           *int         `pulumi:"minUpload,optional"`
+	VolumeKey           *string      `pulumi:"volumeKey,optional"`
+	AiApiID             *string      `pulumi:"aiApiId,optional"`
+	IdeAiApiID          *string      `pulumi:"ideAiApiId,optional"`
+	InstanceIds         []string     `pulumi:"instanceIds,optional"`
+	ModelReferences     []string     `pulumi:"modelReferences,optional"`
+	SavingsPlan         *SavingsPlan `pulumi:"savingsPlan,optional"`
+}
+
+// Annotate provides descriptions for PodArgs fields.
+func (a *PodArgs) Annotate(an infer.Annotator) {
+	an.Describe(&a.Name, "A name for the pod.")
+	an.Describe(&a.GpuTypeID, "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\").")
+	an.Describe(&a.GpuCount, "The number of GPUs to allocate.")
+	an.Describe(&a.CloudType, "The cloud type: SECURE, COMMUNITY, or ALL.")
+	an.Describe(&a.ImageName, "The Docker image to run on the pod.")
+	an.Describe(&a.DockerArgs, "Docker arguments to pass to the container.")
+	an.Describe(&a.Env, "Environment variables as key-value pairs.")
+	an.Describe(&a.Ports, "Ports to expose (e.g. \"8080/http,22/tcp\").")
+	an.Describe(&a.VolumeInGb, "The size of the persistent volume in GB.")
+	an.Describe(&a.VolumeMountPath, "The path to mount the persistent volume.")
+	an.Describe(&a.ContainerDiskInGb, "The size of the container disk in GB.")
+	an.Describe(&a.TemplateID, "The template ID to use for the pod.")
+	an.Describe(&a.NetworkVolumeID, "The network volume ID to attach to the pod.")
+	an.Describe(&a.ContainerRegistryAuthID, "The container registry auth ID for pulling private images.")
+	an.Describe(&a.DataCenterID, "The data center ID to deploy the pod in.")
+	an.Describe(&a.StartJupyter, "Whether to start a Jupyter notebook server.")
+	an.Describe(&a.StartSsh, "Whether to start an SSH server.")
+	an.Describe(&a.SupportPublicIP, "Whether to assign a public IP address.")
+	an.Describe(&a.MinVcpuCount, "Minimum number of vCPUs required.")
+	an.Describe(&a.MinMemoryInGb, "Minimum memory in GB required.")
+	an.Describe(&a.CudaVersion, "The CUDA version to use.")
+	an.Describe(&a.ComputeType, "The compute type: CPU or GPU.")
+	an.Describe(&a.GlobalNetwork, "Whether to enable global networking.")
+	an.Describe(&a.CountryCode, "The country code for data residency.")
+	an.Describe(&a.StopAfter, "Duration after which the pod is automatically stopped.")
+	an.Describe(&a.TerminateAfter, "Duration after which the pod is automatically terminated.")
+	an.Describe(&a.GpuTypeIDList, "A list of acceptable GPU type IDs (fallback options).")
+	an.Describe(&a.AllowedCudaVersions, "A list of allowed CUDA versions.")
+	an.Describe(&a.MinCudaVersion, "The minimum CUDA version required.")
+	an.Describe(&a.DeployCost, "The maximum bid price per GPU per hour for spot instances.")
+	an.Describe(&a.MinDisk, "Minimum disk space in GB required on the host.")
+	an.Describe(&a.MinDownload, "Minimum download bandwidth in Mbps.")
+	an.Describe(&a.MinUpload, "Minimum upload bandwidth in Mbps.")
+	an.Describe(&a.VolumeKey, "The volume key for persistent storage.")
+	an.Describe(&a.AiApiID, "The AI API ID for the pod.")
+	an.Describe(&a.IdeAiApiID, "The IDE AI API ID for the pod.")
+	an.Describe(&a.InstanceIds, "Specific instance IDs to deploy on.")
+	an.Describe(&a.ModelReferences, "Model references for the pod.")
+	an.Describe(&a.SavingsPlan, "Savings plan configuration for reduced pricing.")
+}
+
+// Annotate provides descriptions for SavingsPlan fields.
+func (s *SavingsPlan) Annotate(a infer.Annotator) {
+	a.Describe(&s.PlanLength, "The length of the savings plan.")
+	a.Describe(&s.UpfrontCost, "The upfront cost for the savings plan.")
 }
 
 // PodState is the persisted state of a pod resource.
 type PodState struct {
 	PodArgs
 	// Outputs
-	PodID         string  `pulumi:"podId"`
-	MachineID     string  `pulumi:"machineId"`
-	CostPerHr     float64 `pulumi:"costPerHr"`
-	DesiredStatus string  `pulumi:"desiredStatus"`
-	VcpuCount     float64 `pulumi:"vcpuCount"`
-	MemoryInGb    float64 `pulumi:"memoryInGb"`
+	PodID                   string  `pulumi:"podId"`
+	MachineID               string  `pulumi:"machineId"`
+	CostPerHr               float64 `pulumi:"costPerHr"`
+	DesiredStatus           string  `pulumi:"desiredStatus"`
+	VcpuCount               float64 `pulumi:"vcpuCount"`
+	MemoryInGb              float64 `pulumi:"memoryInGb"`
+	OutputGpuCount          int     `pulumi:"outputGpuCount"`
+	OutputContainerDiskInGb *int    `pulumi:"outputContainerDiskInGb,optional"`
+	OutputVolumeInGb        *float64 `pulumi:"outputVolumeInGb,optional"`
+	OutputPorts             *string `pulumi:"outputPorts,optional"`
+	OutputTemplateID        *string `pulumi:"outputTemplateId,optional"`
+	OutputNetworkVolumeID   *string `pulumi:"outputNetworkVolumeId,optional"`
+	OutputContainerRegistryAuthID *string `pulumi:"outputContainerRegistryAuthId,optional"`
+	OutputPodType           *string `pulumi:"outputPodType,optional"`
+}
+
+// Annotate provides descriptions for PodState output fields.
+func (s *PodState) Annotate(a infer.Annotator) {
+	a.Describe(&s.PodID, "The unique identifier of the pod.")
+	a.Describe(&s.MachineID, "The ID of the machine the pod is running on.")
+	a.Describe(&s.CostPerHr, "The cost per hour for the pod in USD.")
+	a.Describe(&s.DesiredStatus, "The desired status of the pod.")
+	a.Describe(&s.VcpuCount, "The number of vCPUs allocated.")
+	a.Describe(&s.MemoryInGb, "The amount of memory allocated in GB.")
+	a.Describe(&s.OutputGpuCount, "The number of GPUs allocated (from API response).")
+	a.Describe(&s.OutputContainerDiskInGb, "The container disk size in GB (from API response).")
+	a.Describe(&s.OutputVolumeInGb, "The volume size in GB (from API response).")
+	a.Describe(&s.OutputPorts, "The exposed ports (from API response).")
+	a.Describe(&s.OutputTemplateID, "The template ID used (from API response).")
+	a.Describe(&s.OutputNetworkVolumeID, "The network volume ID attached (from API response).")
+	a.Describe(&s.OutputContainerRegistryAuthID, "The container registry auth ID (from API response).")
+	a.Describe(&s.OutputPodType, "The pod type (from API response).")
 }
 
 // Create creates a new pod using podFindAndDeployOnDemand.
@@ -85,12 +185,42 @@ func (Pod) Create(
 		MinVcpuCount:            input.MinVcpuCount,
 		MinMemoryInGb:           input.MinMemoryInGb,
 		CudaVersion:             input.CudaVersion,
+		GlobalNetwork:           input.GlobalNetwork,
+		CountryCode:             input.CountryCode,
+		StopAfter:               input.StopAfter,
+		TerminateAfter:          input.TerminateAfter,
+		GpuTypeIdList:           runpod.StringPtrSlice(input.GpuTypeIDList),
+		AllowedCudaVersions:     runpod.StringPtrSlice(input.AllowedCudaVersions),
+		MinCudaVersion:          input.MinCudaVersion,
+		DeployCost:              input.DeployCost,
+		MinDisk:                 input.MinDisk,
+		MinDownload:             input.MinDownload,
+		MinUpload:               input.MinUpload,
+		VolumeKey:               input.VolumeKey,
+		AiApiId:                 input.AiApiID,
+		IdeAiApiId:              input.IdeAiApiID,
+		InstanceIds:             runpod.StringPtrSlice(input.InstanceIds),
+		ModelReferences:         runpod.StringPtrSlice(input.ModelReferences),
 	}
 
 	// CloudType needs conversion to the enum
 	if input.CloudType != nil {
 		ct := runpod.CloudTypeEnum(*input.CloudType)
 		createInput.CloudType = &ct
+	}
+
+	// ComputeType needs conversion to the enum
+	if input.ComputeType != nil {
+		ct := runpod.ComputeType(*input.ComputeType)
+		createInput.ComputeType = &ct
+	}
+
+	// SavingsPlan nested type
+	if input.SavingsPlan != nil {
+		createInput.SavingsPlan = &runpod.SavingsPlanInput{
+			PlanLength:  input.SavingsPlan.PlanLength,
+			UpfrontCost: input.SavingsPlan.UpfrontCost,
+		}
 	}
 
 	resp, err := runpod.CreatePod(ctx, client, createInput)
@@ -134,7 +264,7 @@ func (Pod) Read(
 	}, nil
 }
 
-// Update modifies mutable pod fields (imageName, dockerArgs, env).
+// Update modifies mutable pod fields.
 func (Pod) Update(
 	ctx context.Context,
 	req infer.UpdateRequest[PodArgs, PodState],
@@ -152,11 +282,21 @@ func (Pod) Update(
 		imageName = *req.Inputs.ImageName
 	}
 
+	containerDiskInGb := 0
+	if req.Inputs.ContainerDiskInGb != nil {
+		containerDiskInGb = *req.Inputs.ContainerDiskInGb
+	}
+
 	updateInput := runpod.PodEditJobInput{
-		PodId:     req.ID,
-		ImageName: imageName,
-		DockerArgs: req.Inputs.DockerArgs,
-		Env:       runpod.EnvMapToGQL(req.Inputs.Env),
+		PodId:                   req.ID,
+		ImageName:               imageName,
+		DockerArgs:              req.Inputs.DockerArgs,
+		Env:                     runpod.EnvMapToGQL(req.Inputs.Env),
+		Ports:                   req.Inputs.Ports,
+		ContainerDiskInGb:       containerDiskInGb,
+		VolumeInGb:              req.Inputs.VolumeInGb,
+		VolumeMountPath:         req.Inputs.VolumeMountPath,
+		ContainerRegistryAuthId: req.Inputs.ContainerRegistryAuthID,
 	}
 
 	resp, err := runpod.UpdatePod(ctx, client, updateInput)
@@ -190,6 +330,17 @@ func podResponseToState(input PodArgs, pod *runpod.PodResponse) PodState {
 		DesiredStatus: string(pod.DesiredStatus),
 		VcpuCount:     pod.VcpuCount,
 		MemoryInGb:    pod.MemoryInGb,
+		OutputGpuCount: pod.GpuCount,
+		OutputContainerDiskInGb: pod.ContainerDiskInGb,
+		OutputVolumeInGb:        pod.VolumeInGb,
+		OutputPorts:             pod.Ports,
+		OutputTemplateID:        pod.TemplateId,
+		OutputNetworkVolumeID:   pod.NetworkVolumeId,
+		OutputContainerRegistryAuthID: pod.ContainerRegistryAuthId,
+	}
+	if pod.PodType != nil {
+		pt := string(*pod.PodType)
+		state.OutputPodType = &pt
 	}
 	// Sync mutable fields from API response
 	if pod.ImageName != nil {

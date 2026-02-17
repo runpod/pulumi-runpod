@@ -2,10 +2,10 @@ template: native
 provider: runpod
 major-version: 0
 providerDefaultBranch: main
-publishRegistry: false
+publishRegistry: true
 providerVersion: github.com/runpod/pulumi-runpod/provider.Version
 parallel: 3
-sdkModuleDir: sdk/go/pulumi-runpod
+sdkModuleDir: sdk/go/runpod
 esc:
     enabled: true
     environment: imports/github-secrets

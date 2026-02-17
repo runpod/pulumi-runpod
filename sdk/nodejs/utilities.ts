@@ -42,7 +42,7 @@ export function getEnvNumber(...vars: string[]): number | undefined {
 }
 
 export function getVersion(): string {
-    let version = require('./package.json').version;
+    let version = require('../package.json').version;
     // Node allows for the version to be prefixed by a "v", while semver doesn't.
     // If there is a v, strip it off.
     if (version.indexOf('v') === 0) {
@@ -53,7 +53,7 @@ export function getVersion(): string {
 
 /** @internal */
 export function resourceOptsDefaults(): any {
-    return { version: getVersion() };
+    return { version: getVersion(), pluginDownloadURL: "github://api.github.com/runpod/pulumi-runpod" };
 }
 
 /** @internal */

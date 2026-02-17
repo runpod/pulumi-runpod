@@ -17,9 +17,9 @@ func TestGoExampleLifecycle(t *testing.T) {
 	cwd, err := os.Getwd()
 	require.NoError(t, err)
 
-	module := filepath.Join(cwd, "../sdk/go/pulumi-runpod")
+	module := filepath.Join(cwd, "../sdk/go/runpod")
 	pt := pulumitest.NewPulumiTest(t, "go",
-		opttest.GoModReplacement("github.com/runpod/pulumi-runpod/sdk/go/pulumi-runpod", module),
+		opttest.GoModReplacement("github.com/runpod/pulumi-runpod/sdk/go/runpod", module),
 		opttest.AttachProviderServer("runpod", providerFactory),
 		opttest.SkipInstall(),
 	)

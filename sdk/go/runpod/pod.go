@@ -15,33 +15,59 @@ import (
 type Pod struct {
 	pulumi.CustomResourceState
 
-	CloudType               pulumi.StringPtrOutput `pulumi:"cloudType"`
-	ContainerDiskInGb       pulumi.IntPtrOutput    `pulumi:"containerDiskInGb"`
-	ContainerRegistryAuthId pulumi.StringPtrOutput `pulumi:"containerRegistryAuthId"`
-	CostPerHr               pulumi.Float64Output   `pulumi:"costPerHr"`
-	CudaVersion             pulumi.StringPtrOutput `pulumi:"cudaVersion"`
-	DataCenterId            pulumi.StringPtrOutput `pulumi:"dataCenterId"`
-	DesiredStatus           pulumi.StringOutput    `pulumi:"desiredStatus"`
-	DockerArgs              pulumi.StringPtrOutput `pulumi:"dockerArgs"`
-	Env                     pulumi.StringMapOutput `pulumi:"env"`
-	GpuCount                pulumi.IntPtrOutput    `pulumi:"gpuCount"`
-	GpuTypeId               pulumi.StringOutput    `pulumi:"gpuTypeId"`
-	ImageName               pulumi.StringPtrOutput `pulumi:"imageName"`
-	MachineId               pulumi.StringOutput    `pulumi:"machineId"`
-	MemoryInGb              pulumi.Float64Output   `pulumi:"memoryInGb"`
-	MinMemoryInGb           pulumi.IntPtrOutput    `pulumi:"minMemoryInGb"`
-	MinVcpuCount            pulumi.IntPtrOutput    `pulumi:"minVcpuCount"`
-	Name                    pulumi.StringOutput    `pulumi:"name"`
-	NetworkVolumeId         pulumi.StringPtrOutput `pulumi:"networkVolumeId"`
-	PodId                   pulumi.StringOutput    `pulumi:"podId"`
-	Ports                   pulumi.StringPtrOutput `pulumi:"ports"`
-	StartJupyter            pulumi.BoolPtrOutput   `pulumi:"startJupyter"`
-	StartSsh                pulumi.BoolPtrOutput   `pulumi:"startSsh"`
-	SupportPublicIp         pulumi.BoolPtrOutput   `pulumi:"supportPublicIp"`
-	TemplateId              pulumi.StringPtrOutput `pulumi:"templateId"`
-	VcpuCount               pulumi.Float64Output   `pulumi:"vcpuCount"`
-	VolumeInGb              pulumi.IntPtrOutput    `pulumi:"volumeInGb"`
-	VolumeMountPath         pulumi.StringPtrOutput `pulumi:"volumeMountPath"`
+	AiApiId                       pulumi.StringPtrOutput   `pulumi:"aiApiId"`
+	AllowedCudaVersions           pulumi.StringArrayOutput `pulumi:"allowedCudaVersions"`
+	CloudType                     pulumi.StringPtrOutput   `pulumi:"cloudType"`
+	ComputeType                   pulumi.StringPtrOutput   `pulumi:"computeType"`
+	ContainerDiskInGb             pulumi.IntPtrOutput      `pulumi:"containerDiskInGb"`
+	ContainerRegistryAuthId       pulumi.StringPtrOutput   `pulumi:"containerRegistryAuthId"`
+	CostPerHr                     pulumi.Float64Output     `pulumi:"costPerHr"`
+	CountryCode                   pulumi.StringPtrOutput   `pulumi:"countryCode"`
+	CudaVersion                   pulumi.StringPtrOutput   `pulumi:"cudaVersion"`
+	DataCenterId                  pulumi.StringPtrOutput   `pulumi:"dataCenterId"`
+	DeployCost                    pulumi.Float64PtrOutput  `pulumi:"deployCost"`
+	DesiredStatus                 pulumi.StringOutput      `pulumi:"desiredStatus"`
+	DockerArgs                    pulumi.StringPtrOutput   `pulumi:"dockerArgs"`
+	Env                           pulumi.StringMapOutput   `pulumi:"env"`
+	GlobalNetwork                 pulumi.BoolPtrOutput     `pulumi:"globalNetwork"`
+	GpuCount                      pulumi.IntPtrOutput      `pulumi:"gpuCount"`
+	GpuTypeId                     pulumi.StringOutput      `pulumi:"gpuTypeId"`
+	GpuTypeIdList                 pulumi.StringArrayOutput `pulumi:"gpuTypeIdList"`
+	IdeAiApiId                    pulumi.StringPtrOutput   `pulumi:"ideAiApiId"`
+	ImageName                     pulumi.StringPtrOutput   `pulumi:"imageName"`
+	InstanceIds                   pulumi.StringArrayOutput `pulumi:"instanceIds"`
+	MachineId                     pulumi.StringOutput      `pulumi:"machineId"`
+	MemoryInGb                    pulumi.Float64Output     `pulumi:"memoryInGb"`
+	MinCudaVersion                pulumi.StringPtrOutput   `pulumi:"minCudaVersion"`
+	MinDisk                       pulumi.IntPtrOutput      `pulumi:"minDisk"`
+	MinDownload                   pulumi.IntPtrOutput      `pulumi:"minDownload"`
+	MinMemoryInGb                 pulumi.IntPtrOutput      `pulumi:"minMemoryInGb"`
+	MinUpload                     pulumi.IntPtrOutput      `pulumi:"minUpload"`
+	MinVcpuCount                  pulumi.IntPtrOutput      `pulumi:"minVcpuCount"`
+	ModelReferences               pulumi.StringArrayOutput `pulumi:"modelReferences"`
+	Name                          pulumi.StringOutput      `pulumi:"name"`
+	NetworkVolumeId               pulumi.StringPtrOutput   `pulumi:"networkVolumeId"`
+	OutputContainerDiskInGb       pulumi.IntPtrOutput      `pulumi:"outputContainerDiskInGb"`
+	OutputContainerRegistryAuthId pulumi.StringPtrOutput   `pulumi:"outputContainerRegistryAuthId"`
+	OutputGpuCount                pulumi.IntOutput         `pulumi:"outputGpuCount"`
+	OutputNetworkVolumeId         pulumi.StringPtrOutput   `pulumi:"outputNetworkVolumeId"`
+	OutputPodType                 pulumi.StringPtrOutput   `pulumi:"outputPodType"`
+	OutputPorts                   pulumi.StringPtrOutput   `pulumi:"outputPorts"`
+	OutputTemplateId              pulumi.StringPtrOutput   `pulumi:"outputTemplateId"`
+	OutputVolumeInGb              pulumi.Float64PtrOutput  `pulumi:"outputVolumeInGb"`
+	PodId                         pulumi.StringOutput      `pulumi:"podId"`
+	Ports                         pulumi.StringPtrOutput   `pulumi:"ports"`
+	SavingsPlan                   SavingsPlanPtrOutput     `pulumi:"savingsPlan"`
+	StartJupyter                  pulumi.BoolPtrOutput     `pulumi:"startJupyter"`
+	StartSsh                      pulumi.BoolPtrOutput     `pulumi:"startSsh"`
+	StopAfter                     pulumi.StringPtrOutput   `pulumi:"stopAfter"`
+	SupportPublicIp               pulumi.BoolPtrOutput     `pulumi:"supportPublicIp"`
+	TemplateId                    pulumi.StringPtrOutput   `pulumi:"templateId"`
+	TerminateAfter                pulumi.StringPtrOutput   `pulumi:"terminateAfter"`
+	VcpuCount                     pulumi.Float64Output     `pulumi:"vcpuCount"`
+	VolumeInGb                    pulumi.IntPtrOutput      `pulumi:"volumeInGb"`
+	VolumeKey                     pulumi.StringPtrOutput   `pulumi:"volumeKey"`
+	VolumeMountPath               pulumi.StringPtrOutput   `pulumi:"volumeMountPath"`
 }
 
 // NewPod registers a new resource with the given unique name, arguments, and options.
@@ -90,51 +116,87 @@ func (PodState) ElementType() reflect.Type {
 }
 
 type podArgs struct {
+	AiApiId                 *string           `pulumi:"aiApiId"`
+	AllowedCudaVersions     []string          `pulumi:"allowedCudaVersions"`
 	CloudType               *string           `pulumi:"cloudType"`
+	ComputeType             *string           `pulumi:"computeType"`
 	ContainerDiskInGb       *int              `pulumi:"containerDiskInGb"`
 	ContainerRegistryAuthId *string           `pulumi:"containerRegistryAuthId"`
+	CountryCode             *string           `pulumi:"countryCode"`
 	CudaVersion             *string           `pulumi:"cudaVersion"`
 	DataCenterId            *string           `pulumi:"dataCenterId"`
+	DeployCost              *float64          `pulumi:"deployCost"`
 	DockerArgs              *string           `pulumi:"dockerArgs"`
 	Env                     map[string]string `pulumi:"env"`
+	GlobalNetwork           *bool             `pulumi:"globalNetwork"`
 	GpuCount                *int              `pulumi:"gpuCount"`
 	GpuTypeId               string            `pulumi:"gpuTypeId"`
+	GpuTypeIdList           []string          `pulumi:"gpuTypeIdList"`
+	IdeAiApiId              *string           `pulumi:"ideAiApiId"`
 	ImageName               *string           `pulumi:"imageName"`
+	InstanceIds             []string          `pulumi:"instanceIds"`
+	MinCudaVersion          *string           `pulumi:"minCudaVersion"`
+	MinDisk                 *int              `pulumi:"minDisk"`
+	MinDownload             *int              `pulumi:"minDownload"`
 	MinMemoryInGb           *int              `pulumi:"minMemoryInGb"`
+	MinUpload               *int              `pulumi:"minUpload"`
 	MinVcpuCount            *int              `pulumi:"minVcpuCount"`
+	ModelReferences         []string          `pulumi:"modelReferences"`
 	Name                    string            `pulumi:"name"`
 	NetworkVolumeId         *string           `pulumi:"networkVolumeId"`
 	Ports                   *string           `pulumi:"ports"`
+	SavingsPlan             *SavingsPlan      `pulumi:"savingsPlan"`
 	StartJupyter            *bool             `pulumi:"startJupyter"`
 	StartSsh                *bool             `pulumi:"startSsh"`
+	StopAfter               *string           `pulumi:"stopAfter"`
 	SupportPublicIp         *bool             `pulumi:"supportPublicIp"`
 	TemplateId              *string           `pulumi:"templateId"`
+	TerminateAfter          *string           `pulumi:"terminateAfter"`
 	VolumeInGb              *int              `pulumi:"volumeInGb"`
+	VolumeKey               *string           `pulumi:"volumeKey"`
 	VolumeMountPath         *string           `pulumi:"volumeMountPath"`
 }
 
 // The set of arguments for constructing a Pod resource.
 type PodArgs struct {
+	AiApiId                 pulumi.StringPtrInput
+	AllowedCudaVersions     pulumi.StringArrayInput
 	CloudType               pulumi.StringPtrInput
+	ComputeType             pulumi.StringPtrInput
 	ContainerDiskInGb       pulumi.IntPtrInput
 	ContainerRegistryAuthId pulumi.StringPtrInput
+	CountryCode             pulumi.StringPtrInput
 	CudaVersion             pulumi.StringPtrInput
 	DataCenterId            pulumi.StringPtrInput
+	DeployCost              pulumi.Float64PtrInput
 	DockerArgs              pulumi.StringPtrInput
 	Env                     pulumi.StringMapInput
+	GlobalNetwork           pulumi.BoolPtrInput
 	GpuCount                pulumi.IntPtrInput
 	GpuTypeId               pulumi.StringInput
+	GpuTypeIdList           pulumi.StringArrayInput
+	IdeAiApiId              pulumi.StringPtrInput
 	ImageName               pulumi.StringPtrInput
+	InstanceIds             pulumi.StringArrayInput
+	MinCudaVersion          pulumi.StringPtrInput
+	MinDisk                 pulumi.IntPtrInput
+	MinDownload             pulumi.IntPtrInput
 	MinMemoryInGb           pulumi.IntPtrInput
+	MinUpload               pulumi.IntPtrInput
 	MinVcpuCount            pulumi.IntPtrInput
+	ModelReferences         pulumi.StringArrayInput
 	Name                    pulumi.StringInput
 	NetworkVolumeId         pulumi.StringPtrInput
 	Ports                   pulumi.StringPtrInput
+	SavingsPlan             SavingsPlanPtrInput
 	StartJupyter            pulumi.BoolPtrInput
 	StartSsh                pulumi.BoolPtrInput
+	StopAfter               pulumi.StringPtrInput
 	SupportPublicIp         pulumi.BoolPtrInput
 	TemplateId              pulumi.StringPtrInput
+	TerminateAfter          pulumi.StringPtrInput
 	VolumeInGb              pulumi.IntPtrInput
+	VolumeKey               pulumi.StringPtrInput
 	VolumeMountPath         pulumi.StringPtrInput
 }
 
@@ -225,8 +287,20 @@ func (o PodOutput) ToPodOutputWithContext(ctx context.Context) PodOutput {
 	return o
 }
 
+func (o PodOutput) AiApiId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.AiApiId }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) AllowedCudaVersions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.AllowedCudaVersions }).(pulumi.StringArrayOutput)
+}
+
 func (o PodOutput) CloudType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.CloudType }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) ComputeType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ComputeType }).(pulumi.StringPtrOutput)
 }
 
 func (o PodOutput) ContainerDiskInGb() pulumi.IntPtrOutput {
@@ -241,12 +315,20 @@ func (o PodOutput) CostPerHr() pulumi.Float64Output {
 	return o.ApplyT(func(v *Pod) pulumi.Float64Output { return v.CostPerHr }).(pulumi.Float64Output)
 }
 
+func (o PodOutput) CountryCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.CountryCode }).(pulumi.StringPtrOutput)
+}
+
 func (o PodOutput) CudaVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.CudaVersion }).(pulumi.StringPtrOutput)
 }
 
 func (o PodOutput) DataCenterId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.DataCenterId }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) DeployCost() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.Float64PtrOutput { return v.DeployCost }).(pulumi.Float64PtrOutput)
 }
 
 func (o PodOutput) DesiredStatus() pulumi.StringOutput {
@@ -261,6 +343,10 @@ func (o PodOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }
 
+func (o PodOutput) GlobalNetwork() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.GlobalNetwork }).(pulumi.BoolPtrOutput)
+}
+
 func (o PodOutput) GpuCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.GpuCount }).(pulumi.IntPtrOutput)
 }
@@ -269,8 +355,20 @@ func (o PodOutput) GpuTypeId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.GpuTypeId }).(pulumi.StringOutput)
 }
 
+func (o PodOutput) GpuTypeIdList() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.GpuTypeIdList }).(pulumi.StringArrayOutput)
+}
+
+func (o PodOutput) IdeAiApiId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.IdeAiApiId }).(pulumi.StringPtrOutput)
+}
+
 func (o PodOutput) ImageName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ImageName }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) InstanceIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.InstanceIds }).(pulumi.StringArrayOutput)
 }
 
 func (o PodOutput) MachineId() pulumi.StringOutput {
@@ -281,12 +379,32 @@ func (o PodOutput) MemoryInGb() pulumi.Float64Output {
 	return o.ApplyT(func(v *Pod) pulumi.Float64Output { return v.MemoryInGb }).(pulumi.Float64Output)
 }
 
+func (o PodOutput) MinCudaVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.MinCudaVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) MinDisk() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinDisk }).(pulumi.IntPtrOutput)
+}
+
+func (o PodOutput) MinDownload() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinDownload }).(pulumi.IntPtrOutput)
+}
+
 func (o PodOutput) MinMemoryInGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinMemoryInGb }).(pulumi.IntPtrOutput)
 }
 
+func (o PodOutput) MinUpload() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinUpload }).(pulumi.IntPtrOutput)
+}
+
 func (o PodOutput) MinVcpuCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.MinVcpuCount }).(pulumi.IntPtrOutput)
+}
+
+func (o PodOutput) ModelReferences() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringArrayOutput { return v.ModelReferences }).(pulumi.StringArrayOutput)
 }
 
 func (o PodOutput) Name() pulumi.StringOutput {
@@ -297,12 +415,48 @@ func (o PodOutput) NetworkVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.NetworkVolumeId }).(pulumi.StringPtrOutput)
 }
 
+func (o PodOutput) OutputContainerDiskInGb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.OutputContainerDiskInGb }).(pulumi.IntPtrOutput)
+}
+
+func (o PodOutput) OutputContainerRegistryAuthId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputContainerRegistryAuthId }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) OutputGpuCount() pulumi.IntOutput {
+	return o.ApplyT(func(v *Pod) pulumi.IntOutput { return v.OutputGpuCount }).(pulumi.IntOutput)
+}
+
+func (o PodOutput) OutputNetworkVolumeId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputNetworkVolumeId }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) OutputPodType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputPodType }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) OutputPorts() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputPorts }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) OutputTemplateId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.OutputTemplateId }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) OutputVolumeInGb() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.Float64PtrOutput { return v.OutputVolumeInGb }).(pulumi.Float64PtrOutput)
+}
+
 func (o PodOutput) PodId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.PodId }).(pulumi.StringOutput)
 }
 
 func (o PodOutput) Ports() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.Ports }).(pulumi.StringPtrOutput)
+}
+
+func (o PodOutput) SavingsPlan() SavingsPlanPtrOutput {
+	return o.ApplyT(func(v *Pod) SavingsPlanPtrOutput { return v.SavingsPlan }).(SavingsPlanPtrOutput)
 }
 
 func (o PodOutput) StartJupyter() pulumi.BoolPtrOutput {
@@ -313,6 +467,10 @@ func (o PodOutput) StartSsh() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.StartSsh }).(pulumi.BoolPtrOutput)
 }
 
+func (o PodOutput) StopAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.StopAfter }).(pulumi.StringPtrOutput)
+}
+
 func (o PodOutput) SupportPublicIp() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.BoolPtrOutput { return v.SupportPublicIp }).(pulumi.BoolPtrOutput)
 }
@@ -321,12 +479,20 @@ func (o PodOutput) TemplateId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.TemplateId }).(pulumi.StringPtrOutput)
 }
 
+func (o PodOutput) TerminateAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.TerminateAfter }).(pulumi.StringPtrOutput)
+}
+
 func (o PodOutput) VcpuCount() pulumi.Float64Output {
 	return o.ApplyT(func(v *Pod) pulumi.Float64Output { return v.VcpuCount }).(pulumi.Float64Output)
 }
 
 func (o PodOutput) VolumeInGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.IntPtrOutput { return v.VolumeInGb }).(pulumi.IntPtrOutput)
+}
+
+func (o PodOutput) VolumeKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.VolumeKey }).(pulumi.StringPtrOutput)
 }
 
 func (o PodOutput) VolumeMountPath() pulumi.StringPtrOutput {

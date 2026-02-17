@@ -1,7 +1,10 @@
 {
-    "name": "@pulumi/runpod",
+    "name": "@runpod/pulumi",
     "version": "1.0.0-alpha.0+dev",
-    "homepage": "https://www.pulumi.com",
+    "main": "bin/index.js",
+    "types": "bin/index.d.ts",
+    "homepage": "https://www.runpod.io",
+    "repository": "https://github.com/runpod/pulumi-runpod",
     "scripts": {
         "build": "tsc"
     },
@@ -15,6 +18,7 @@
     "pulumi": {
         "resource": true,
         "name": "runpod",
-        "version": "1.0.0-alpha.0+dev"
+        "version": "1.0.0-alpha.0+dev",
+        "server": "github://api.github.com/runpod/pulumi-runpod"
     }
 }

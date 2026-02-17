@@ -10,5 +10,5 @@ pluginManagement {
   }
 }
 
-rootProject.name = "com.pulumi.runpod"
+rootProject.name = "com.runpod.runpod"
 include("lib")

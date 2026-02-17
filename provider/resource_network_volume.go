@@ -14,15 +14,29 @@ type NetworkVolume struct{}
 
 // NetworkVolumeArgs are the inputs for creating a network volume.
 type NetworkVolumeArgs struct {
-	Name         string `pulumi:"name"`
-	Size         int    `pulumi:"size"`
-	DataCenterID string `pulumi:"dataCenterId"`
+	Name             string `pulumi:"name"`
+	Size             int    `pulumi:"size"`
+	DataCenterID     string `pulumi:"dataCenterId"`
+	IsNextGenStorage *bool  `pulumi:"isNextGenStorage,optional"`
+}
+
+// Annotate provides descriptions for NetworkVolumeArgs fields.
+func (a *NetworkVolumeArgs) Annotate(an infer.Annotator) {
+	an.Describe(&a.Name, "A name for the network volume.")
+	an.Describe(&a.Size, "The size of the network volume in GB.")
+	an.Describe(&a.DataCenterID, "The data center ID where the volume will be created (e.g. \"US-TX-3\").")
+	an.Describe(&a.IsNextGenStorage, "Whether to use next-generation storage.")
 }
 
 // NetworkVolumeState is the persisted state of a network volume resource.
 type NetworkVolumeState struct {
 	NetworkVolumeArgs
 	NetworkVolumeID string `pulumi:"networkVolumeId"`
+}
+
+// Annotate provides descriptions for NetworkVolumeState fields.
+func (s *NetworkVolumeState) Annotate(a infer.Annotator) {
+	a.Describe(&s.NetworkVolumeID, "The unique identifier of the network volume.")
 }
 
 // Create creates a new network volume.
@@ -41,9 +55,10 @@ func (NetworkVolume) Create(
 	client := getClient(ctx)
 
 	createInput := runpod.CreateNetworkVolumeInput{
-		Name:         &input.Name,
-		Size:         &input.Size,
-		DataCenterId: input.DataCenterID,
+		Name:             &input.Name,
+		Size:             &input.Size,
+		DataCenterId:     input.DataCenterID,
+		IsNextGenStorage: input.IsNextGenStorage,
 	}
 
 	resp, err := runpod.CreateNetworkVolume(ctx, client, createInput)

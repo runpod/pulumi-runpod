@@ -12,6 +12,13 @@ namespace Pulumi.Runpod
     [RunpodResourceType("pulumi:providers:runpod")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
+        [Output("apiKey")]
+        public Output<string?> ApiKey { get; private set; } = null!;
+
+        [Output("apiUrl")]
+        public Output<string?> ApiUrl { get; private set; } = null!;
+
+
         /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
         /// </summary>
@@ -29,6 +36,11 @@ namespace Pulumi.Runpod
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/runpod/pulumi-runpod",
+                AdditionalSecretOutputs =
+                {
+                    "apiKey",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -39,8 +51,20 @@ namespace Pulumi.Runpod
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
-        [Input("itsasecret", json: true)]
-        public Input<bool>? Itsasecret { get; set; }
+        [Input("apiKey")]
+        private Input<string>? _apiKey;
+        public Input<string>? ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _apiKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("apiUrl")]
+        public Input<string>? ApiUrl { get; set; }
 
         public ProviderArgs()
         {

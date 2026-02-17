@@ -28,12 +28,42 @@ type TemplateArgs struct {
 	IsServerless            *bool             `pulumi:"isServerless,optional"`
 	IsPublic                *bool             `pulumi:"isPublic,optional"`
 	ContainerRegistryAuthID *string           `pulumi:"containerRegistryAuthId,optional"`
+	// New fields
+	Readme        *string `pulumi:"readme,optional"`
+	AdvancedStart *bool   `pulumi:"advancedStart,optional"`
+	Category      *string `pulumi:"category,optional"`
+}
+
+// Annotate provides descriptions for TemplateArgs fields.
+func (a *TemplateArgs) Annotate(an infer.Annotator) {
+	an.Describe(&a.Name, "A name for the template.")
+	an.Describe(&a.ImageName, "The Docker image to use for the template.")
+	an.Describe(&a.ContainerDiskInGb, "The size of the container disk in GB.")
+	an.Describe(&a.VolumeInGb, "The size of the persistent volume in GB. Use 0 for no volume.")
+	an.Describe(&a.DockerArgs, "Docker arguments to pass to the container.")
+	an.Describe(&a.Env, "Environment variables as key-value pairs.")
+	an.Describe(&a.Ports, "Ports to expose (e.g. \"8080/http,22/tcp\").")
+	an.Describe(&a.VolumeMountPath, "The path to mount the persistent volume.")
+	an.Describe(&a.StartJupyter, "Whether to start Jupyter notebook server.")
+	an.Describe(&a.StartSsh, "Whether to start an SSH server.")
+	an.Describe(&a.StartScript, "A bash script to run on container start.")
+	an.Describe(&a.IsServerless, "Whether this template is for serverless endpoints.")
+	an.Describe(&a.IsPublic, "Whether this template is publicly visible.")
+	an.Describe(&a.ContainerRegistryAuthID, "The ID of the container registry auth credentials to use.")
+	an.Describe(&a.Readme, "A readme/description for the template in Markdown.")
+	an.Describe(&a.AdvancedStart, "Whether to use advanced start mode.")
+	an.Describe(&a.Category, "The category of the template.")
 }
 
 // TemplateState is the persisted state of a template resource.
 type TemplateState struct {
 	TemplateArgs
 	TemplateID string `pulumi:"templateId"`
+}
+
+// Annotate provides descriptions for TemplateState fields.
+func (s *TemplateState) Annotate(a infer.Annotator) {
+	a.Describe(&s.TemplateID, "The unique identifier of the template.")
 }
 
 // Create creates a new template.
@@ -145,7 +175,7 @@ func templateArgsToSaveInput(id *string, args TemplateArgs) runpod.SaveTemplateI
 		dockerArgs = *args.DockerArgs
 	}
 
-	return runpod.SaveTemplateInput{
+	input := runpod.SaveTemplateInput{
 		Id:                      id,
 		Name:                    args.Name,
 		ImageName:               &args.ImageName,
@@ -161,7 +191,16 @@ func templateArgsToSaveInput(id *string, args TemplateArgs) runpod.SaveTemplateI
 		IsServerless:            args.IsServerless,
 		IsPublic:                args.IsPublic,
 		ContainerRegistryAuthId: args.ContainerRegistryAuthID,
+		Readme:                  args.Readme,
+		AdvancedStart:           args.AdvancedStart,
 	}
+
+	if args.Category != nil {
+		cat := runpod.TemplateCategory(*args.Category)
+		input.Category = &cat
+	}
+
+	return input
 }
 
 func templateResponseToState(input TemplateArgs, tmpl *runpod.TemplateResponse) TemplateState {

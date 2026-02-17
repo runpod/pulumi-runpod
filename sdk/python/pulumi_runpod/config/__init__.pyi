@@ -15,5 +15,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 
-itsasecret: Optional[bool]
+apiKey: Optional[str]
+
+apiUrl: Optional[str]
 

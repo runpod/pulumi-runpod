@@ -20,21 +20,33 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 itsasecret: Optional[pulumi.Input[builtins.bool]] = None):
+                 api_key: Optional[pulumi.Input[builtins.str]] = None,
+                 api_url: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Provider resource.
         """
-        if itsasecret is not None:
-            pulumi.set(__self__, "itsasecret", itsasecret)
+        if api_key is not None:
+            pulumi.set(__self__, "api_key", api_key)
+        if api_url is not None:
+            pulumi.set(__self__, "api_url", api_url)
 
     @property
-    @pulumi.getter
-    def itsasecret(self) -> Optional[pulumi.Input[builtins.bool]]:
-        return pulumi.get(self, "itsasecret")
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> Optional[pulumi.Input[builtins.str]]:
+        return pulumi.get(self, "api_key")
 
-    @itsasecret.setter
-    def itsasecret(self, value: Optional[pulumi.Input[builtins.bool]]):
-        pulumi.set(self, "itsasecret", value)
+    @api_key.setter
+    def api_key(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "api_key", value)
+
+    @property
+    @pulumi.getter(name="apiUrl")
+    def api_url(self) -> Optional[pulumi.Input[builtins.str]]:
+        return pulumi.get(self, "api_url")
+
+    @api_url.setter
+    def api_url(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "api_url", value)
 
 
 @pulumi.type_token("pulumi:providers:runpod")
@@ -43,7 +55,8 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 itsasecret: Optional[pulumi.Input[builtins.bool]] = None,
+                 api_key: Optional[pulumi.Input[builtins.str]] = None,
+                 api_url: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         """
         Create a Runpod resource with the given unique name, props, and options.
@@ -73,7 +86,8 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 itsasecret: Optional[pulumi.Input[builtins.bool]] = None,
+                 api_key: Optional[pulumi.Input[builtins.str]] = None,
+                 api_url: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -83,10 +97,23 @@ class Provider(pulumi.ProviderResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
-            __props__.__dict__["itsasecret"] = pulumi.Output.from_input(itsasecret).apply(pulumi.runtime.to_json) if itsasecret is not None else None
+            __props__.__dict__["api_key"] = None if api_key is None else pulumi.Output.secret(api_key)
+            __props__.__dict__["api_url"] = api_url
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiKey"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
             'runpod',
             resource_name,
             __props__,
             opts)
+
+    @property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> pulumi.Output[Optional[builtins.str]]:
+        return pulumi.get(self, "api_key")
+
+    @property
+    @pulumi.getter(name="apiUrl")
+    def api_url(self) -> pulumi.Output[Optional[builtins.str]]:
+        return pulumi.get(self, "api_url")
 

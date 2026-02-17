@@ -6,9 +6,16 @@ import builtins
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .container_registry_auth import *
+from .endpoint import *
+from .get_gpu_types import *
+from .network_volume import *
+from .pod import *
 from .provider import *
-from .random import *
-from .random_component import *
+from .secret import *
+from .template import *
+from ._inputs import *
+from . import outputs
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
@@ -25,8 +32,12 @@ _utilities.register(
   "mod": "index",
   "fqn": "pulumi_runpod",
   "classes": {
-   "runpod:index:Random": "Random",
-   "runpod:index:RandomComponent": "RandomComponent"
+   "runpod:index:ContainerRegistryAuth": "ContainerRegistryAuth",
+   "runpod:index:Endpoint": "Endpoint",
+   "runpod:index:NetworkVolume": "NetworkVolume",
+   "runpod:index:Pod": "Pod",
+   "runpod:index:Secret": "Secret",
+   "runpod:index:Template": "Template"
   }
  }
 ]

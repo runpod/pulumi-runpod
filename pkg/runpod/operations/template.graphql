@@ -20,6 +20,9 @@ mutation SaveTemplate($input: SaveTemplateInput) {
     isServerless
     isPublic
     containerRegistryAuthId
+    readme
+    advancedStart
+    category
   }
 }
 
@@ -46,6 +49,9 @@ query GetMyTemplates {
       isServerless
       isPublic
       containerRegistryAuthId
+      readme
+      advancedStart
+      category
     }
   }
 }

@@ -1,556 +1,1142 @@
 {
-    "name": "runpod",
-    "displayName": "RunPod",
-    "description": "Manage RunPod GPU cloud resources.",
-    "homepage": "https://www.runpod.io",
-    "namespace": "runpod",
-    "meta": {
-        "moduleFormat": "(.*)"
+  "name": "runpod",
+  "displayName": "RunPod",
+  "description": "Manage RunPod GPU cloud resources.",
+  "homepage": "https://www.runpod.io",
+  "repository": "https://github.com/runpod/pulumi-runpod",
+  "pluginDownloadURL": "github://api.github.com/runpod/pulumi-runpod",
+  "namespace": "runpod",
+  "meta": {
+    "moduleFormat": "(.*)"
+  },
+  "language": {
+    "csharp": {
+      "respectSchemaVersion": true,
+      "rootNamespace": "Pulumi"
     },
-    "language": {
-        "csharp": {
-            "respectSchemaVersion": true
+    "go": {
+      "generateResourceContainerTypes": true,
+      "importBasePath": "github.com/runpod/pulumi-runpod/sdk/go/runpod",
+      "respectSchemaVersion": true
+    },
+    "nodejs": {
+      "packageName": "@runpod/pulumi",
+      "respectSchemaVersion": true
+    },
+    "python": {
+      "packageName": "pulumi_runpod",
+      "pyproject": {
+        "enabled": true
+      },
+      "respectSchemaVersion": true
+    }
+  },
+  "config": {
+    "variables": {
+      "apiKey": {
+        "type": "string",
+        "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "RUNPOD_API_KEY"
+          ]
         },
-        "go": {
-            "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/runpod/pulumi-runpod/sdk/go/runpod",
-            "respectSchemaVersion": true
+        "secret": true
+      },
+      "apiUrl": {
+        "type": "string",
+        "description": "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "RUNPOD_API_URL"
+          ]
+        }
+      }
+    }
+  },
+  "types": {
+    "runpod:index:GpuTypeOutput": {
+      "properties": {
+        "communityCloud": {
+          "type": "boolean",
+          "description": "Whether the GPU is available in community cloud."
         },
-        "nodejs": {
-            "respectSchemaVersion": true
+        "communityPrice": {
+          "type": "number",
+          "description": "The price per hour in community cloud (USD)."
         },
-        "python": {
-            "pyproject": {
-                "enabled": true
-            },
-            "respectSchemaVersion": true
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the GPU type."
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the GPU type."
+        },
+        "maxGpuCount": {
+          "type": "integer",
+          "description": "The maximum number of this GPU type that can be allocated."
+        },
+        "memoryInGb": {
+          "type": "integer",
+          "description": "The amount of VRAM in GB."
+        },
+        "secureCloud": {
+          "type": "boolean",
+          "description": "Whether the GPU is available in secure cloud."
+        },
+        "securePrice": {
+          "type": "number",
+          "description": "The price per hour in secure cloud (USD)."
         }
+      },
+      "type": "object",
+      "required": [
+        "communityCloud",
+        "communityPrice",
+        "displayName",
+        "id",
+        "maxGpuCount",
+        "memoryInGb",
+        "secureCloud",
+        "securePrice"
+      ]
     },
-    "config": {
-        "variables": {
-            "apiKey": {
-                "type": "string",
-                "secret": true
-            },
-            "apiUrl": {
-                "type": "string"
-            }
+    "runpod:index:SavingsPlan": {
+      "properties": {
+        "planLength": {
+          "type": "string",
+          "description": "The length of the savings plan."
+        },
+        "upfrontCost": {
+          "type": "number",
+          "description": "The upfront cost for the savings plan."
         }
-    },
-    "types": {
-        "runpod:index:GpuTypeOutput": {
-            "properties": {
-                "communityCloud": {
-                    "type": "boolean"
-                },
-                "communityPrice": {
-                    "type": "number"
-                },
-                "displayName": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "maxGpuCount": {
-                    "type": "integer"
-                },
-                "memoryInGb": {
-                    "type": "integer"
-                },
-                "secureCloud": {
-                    "type": "boolean"
-                },
-                "securePrice": {
-                    "type": "number"
-                }
-            },
-            "type": "object",
-            "required": [
-                "communityCloud",
-                "communityPrice",
-                "displayName",
-                "id",
-                "maxGpuCount",
-                "memoryInGb",
-                "secureCloud",
-                "securePrice"
-            ]
+      },
+      "type": "object"
+    }
+  },
+  "provider": {
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "RUNPOD_API_KEY"
+          ]
+        },
+        "secret": true
+      },
+      "apiUrl": {
+        "type": "string",
+        "description": "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "RUNPOD_API_URL"
+          ]
         }
+      }
     },
-    "provider": {
+    "type": "object",
+    "inputProperties": {
+      "apiKey": {
+        "type": "string",
+        "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "RUNPOD_API_KEY"
+          ]
+        },
+        "secret": true
+      },
+      "apiUrl": {
+        "type": "string",
+        "description": "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "RUNPOD_API_URL"
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "runpod:index:ContainerRegistryAuth": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A name for the registry auth credentials."
+        },
+        "password": {
+          "type": "string",
+          "description": "The password or access token for the container registry.",
+          "secret": true
+        },
+        "registryAuthId": {
+          "type": "string",
+          "description": "The unique identifier of the registry auth."
+        },
+        "username": {
+          "type": "string",
+          "description": "The username for the container registry."
+        }
+      },
+      "type": "object",
+      "required": [
+        "name",
+        "password",
+        "registryAuthId",
+        "username"
+      ],
+      "inputProperties": {
+        "name": {
+          "type": "string",
+          "description": "A name for the registry auth credentials."
+        },
+        "password": {
+          "type": "string",
+          "description": "The password or access token for the container registry.",
+          "secret": true
+        },
+        "username": {
+          "type": "string",
+          "description": "The username for the container registry."
+        }
+      },
+      "requiredInputs": [
+        "name",
+        "password",
+        "username"
+      ]
+    },
+    "runpod:index:Endpoint": {
+      "properties": {
+        "allowedCudaVersions": {
+          "type": "string",
+          "description": "Comma-separated list of allowed CUDA versions."
+        },
+        "bindEndpoint": {
+          "type": "boolean",
+          "description": "Whether to bind the endpoint to specific workers."
+        },
+        "endpointId": {
+          "type": "string",
+          "description": "The unique identifier of the endpoint."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables as key-value pairs."
+        },
+        "executionTimeoutMs": {
+          "type": "integer",
+          "description": "Maximum execution time in milliseconds before a request is terminated."
+        },
+        "flashBootType": {
+          "type": "string",
+          "description": "The flash boot type."
+        },
+        "flashEnvironmentId": {
+          "type": "string",
+          "description": "The flash environment ID."
+        },
+        "gpuCount": {
+          "type": "integer",
+          "description": "The number of GPUs per worker."
+        },
+        "gpuIds": {
+          "type": "string",
+          "description": "The GPU type IDs to use (e.g. \"AMPERE_16\")."
+        },
+        "hubReleaseId": {
+          "type": "string",
+          "description": "The hub release ID for the endpoint."
+        },
+        "idleTimeout": {
+          "type": "integer",
+          "description": "The number of seconds a worker can remain idle before being scaled down."
+        },
+        "instanceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific instance IDs to use for workers."
+        },
+        "locations": {
+          "type": "string",
+          "description": "Comma-separated data center locations for worker deployment."
+        },
+        "minCudaVersion": {
+          "type": "string",
+          "description": "The minimum CUDA version required."
+        },
+        "modelName": {
+          "type": "string",
+          "description": "The model name for the endpoint."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Model references for the endpoint."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the endpoint."
+        },
+        "networkVolumeId": {
+          "type": "string",
+          "description": "The network volume ID to attach to endpoint workers."
+        },
+        "scalerType": {
+          "type": "string",
+          "description": "The autoscaler type (e.g. \"QUEUE_DELAY\", \"REQUEST_COUNT\")."
+        },
+        "scalerValue": {
+          "type": "integer",
+          "description": "The autoscaler target value."
+        },
+        "templateId": {
+          "type": "string",
+          "description": "The template ID to use for the endpoint workers."
+        },
+        "type": {
+          "type": "string",
+          "description": "The endpoint type."
+        },
+        "workersMax": {
+          "type": "integer",
+          "description": "The maximum number of workers to scale up to."
+        },
+        "workersMin": {
+          "type": "integer",
+          "description": "The minimum number of workers to keep running."
+        }
+      },
+      "type": "object",
+      "required": [
+        "endpointId",
+        "name"
+      ],
+      "inputProperties": {
+        "allowedCudaVersions": {
+          "type": "string",
+          "description": "Comma-separated list of allowed CUDA versions."
+        },
+        "bindEndpoint": {
+          "type": "boolean",
+          "description": "Whether to bind the endpoint to specific workers."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables as key-value pairs."
+        },
+        "executionTimeoutMs": {
+          "type": "integer",
+          "description": "Maximum execution time in milliseconds before a request is terminated."
+        },
+        "flashBootType": {
+          "type": "string",
+          "description": "The flash boot type."
+        },
+        "flashEnvironmentId": {
+          "type": "string",
+          "description": "The flash environment ID."
+        },
+        "gpuCount": {
+          "type": "integer",
+          "description": "The number of GPUs per worker."
+        },
+        "gpuIds": {
+          "type": "string",
+          "description": "The GPU type IDs to use (e.g. \"AMPERE_16\")."
+        },
+        "hubReleaseId": {
+          "type": "string",
+          "description": "The hub release ID for the endpoint."
+        },
+        "idleTimeout": {
+          "type": "integer",
+          "description": "The number of seconds a worker can remain idle before being scaled down."
+        },
+        "instanceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific instance IDs to use for workers."
+        },
+        "locations": {
+          "type": "string",
+          "description": "Comma-separated data center locations for worker deployment."
+        },
+        "minCudaVersion": {
+          "type": "string",
+          "description": "The minimum CUDA version required."
+        },
+        "modelName": {
+          "type": "string",
+          "description": "The model name for the endpoint."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Model references for the endpoint."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the endpoint."
+        },
+        "networkVolumeId": {
+          "type": "string",
+          "description": "The network volume ID to attach to endpoint workers."
+        },
+        "scalerType": {
+          "type": "string",
+          "description": "The autoscaler type (e.g. \"QUEUE_DELAY\", \"REQUEST_COUNT\")."
+        },
+        "scalerValue": {
+          "type": "integer",
+          "description": "The autoscaler target value."
+        },
+        "templateId": {
+          "type": "string",
+          "description": "The template ID to use for the endpoint workers."
+        },
+        "type": {
+          "type": "string",
+          "description": "The endpoint type."
+        },
+        "workersMax": {
+          "type": "integer",
+          "description": "The maximum number of workers to scale up to."
+        },
+        "workersMin": {
+          "type": "integer",
+          "description": "The minimum number of workers to keep running."
+        }
+      },
+      "requiredInputs": [
+        "name"
+      ]
+    },
+    "runpod:index:NetworkVolume": {
+      "properties": {
+        "dataCenterId": {
+          "type": "string",
+          "description": "The data center ID where the volume will be created (e.g. \"US-TX-3\")."
+        },
+        "isNextGenStorage": {
+          "type": "boolean",
+          "description": "Whether to use next-generation storage."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the network volume."
+        },
+        "networkVolumeId": {
+          "type": "string",
+          "description": "The unique identifier of the network volume."
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size of the network volume in GB."
+        }
+      },
+      "type": "object",
+      "required": [
+        "dataCenterId",
+        "name",
+        "networkVolumeId",
+        "size"
+      ],
+      "inputProperties": {
+        "dataCenterId": {
+          "type": "string",
+          "description": "The data center ID where the volume will be created (e.g. \"US-TX-3\")."
+        },
+        "isNextGenStorage": {
+          "type": "boolean",
+          "description": "Whether to use next-generation storage."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the network volume."
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size of the network volume in GB."
+        }
+      },
+      "requiredInputs": [
+        "dataCenterId",
+        "name",
+        "size"
+      ]
+    },
+    "runpod:index:Pod": {
+      "properties": {
+        "aiApiId": {
+          "type": "string",
+          "description": "The AI API ID for the pod."
+        },
+        "allowedCudaVersions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of allowed CUDA versions."
+        },
+        "cloudType": {
+          "type": "string",
+          "description": "The cloud type: SECURE, COMMUNITY, or ALL."
+        },
+        "computeType": {
+          "type": "string",
+          "description": "The compute type: CPU or GPU."
+        },
+        "containerDiskInGb": {
+          "type": "integer",
+          "description": "The size of the container disk in GB."
+        },
+        "containerRegistryAuthId": {
+          "type": "string",
+          "description": "The container registry auth ID for pulling private images."
+        },
+        "costPerHr": {
+          "type": "number",
+          "description": "The cost per hour for the pod in USD."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The country code for data residency."
+        },
+        "cudaVersion": {
+          "type": "string",
+          "description": "The CUDA version to use."
+        },
+        "dataCenterId": {
+          "type": "string",
+          "description": "The data center ID to deploy the pod in."
+        },
+        "deployCost": {
+          "type": "number",
+          "description": "The maximum bid price per GPU per hour for spot instances."
+        },
+        "desiredStatus": {
+          "type": "string",
+          "description": "The desired status of the pod."
+        },
+        "dockerArgs": {
+          "type": "string",
+          "description": "Docker arguments to pass to the container."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables as key-value pairs."
+        },
+        "globalNetwork": {
+          "type": "boolean",
+          "description": "Whether to enable global networking."
+        },
+        "gpuCount": {
+          "type": "integer",
+          "description": "The number of GPUs to allocate."
+        },
+        "gpuTypeId": {
+          "type": "string",
+          "description": "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\")."
+        },
+        "gpuTypeIdList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of acceptable GPU type IDs (fallback options)."
+        },
+        "ideAiApiId": {
+          "type": "string",
+          "description": "The IDE AI API ID for the pod."
+        },
+        "imageName": {
+          "type": "string",
+          "description": "The Docker image to run on the pod."
+        },
+        "instanceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific instance IDs to deploy on."
+        },
+        "machineId": {
+          "type": "string",
+          "description": "The ID of the machine the pod is running on."
+        },
+        "memoryInGb": {
+          "type": "number",
+          "description": "The amount of memory allocated in GB."
+        },
+        "minCudaVersion": {
+          "type": "string",
+          "description": "The minimum CUDA version required."
+        },
+        "minDisk": {
+          "type": "integer",
+          "description": "Minimum disk space in GB required on the host."
+        },
+        "minDownload": {
+          "type": "integer",
+          "description": "Minimum download bandwidth in Mbps."
+        },
+        "minMemoryInGb": {
+          "type": "integer",
+          "description": "Minimum memory in GB required."
+        },
+        "minUpload": {
+          "type": "integer",
+          "description": "Minimum upload bandwidth in Mbps."
+        },
+        "minVcpuCount": {
+          "type": "integer",
+          "description": "Minimum number of vCPUs required."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Model references for the pod."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the pod."
+        },
+        "networkVolumeId": {
+          "type": "string",
+          "description": "The network volume ID to attach to the pod."
+        },
+        "outputContainerDiskInGb": {
+          "type": "integer",
+          "description": "The container disk size in GB (from API response)."
+        },
+        "outputContainerRegistryAuthId": {
+          "type": "string",
+          "description": "The container registry auth ID (from API response)."
+        },
+        "outputGpuCount": {
+          "type": "integer",
+          "description": "The number of GPUs allocated (from API response)."
+        },
+        "outputNetworkVolumeId": {
+          "type": "string",
+          "description": "The network volume ID attached (from API response)."
+        },
+        "outputPodType": {
+          "type": "string",
+          "description": "The pod type (from API response)."
+        },
+        "outputPorts": {
+          "type": "string",
+          "description": "The exposed ports (from API response)."
+        },
+        "outputTemplateId": {
+          "type": "string",
+          "description": "The template ID used (from API response)."
+        },
+        "outputVolumeInGb": {
+          "type": "number",
+          "description": "The volume size in GB (from API response)."
+        },
+        "podId": {
+          "type": "string",
+          "description": "The unique identifier of the pod."
+        },
+        "ports": {
+          "type": "string",
+          "description": "Ports to expose (e.g. \"8080/http,22/tcp\")."
+        },
+        "savingsPlan": {
+          "$ref": "#/types/runpod:index:SavingsPlan",
+          "description": "Savings plan configuration for reduced pricing."
+        },
+        "startJupyter": {
+          "type": "boolean",
+          "description": "Whether to start a Jupyter notebook server."
+        },
+        "startSsh": {
+          "type": "boolean",
+          "description": "Whether to start an SSH server."
+        },
+        "stopAfter": {
+          "type": "string",
+          "description": "Duration after which the pod is automatically stopped."
+        },
+        "supportPublicIp": {
+          "type": "boolean",
+          "description": "Whether to assign a public IP address."
+        },
+        "templateId": {
+          "type": "string",
+          "description": "The template ID to use for the pod."
+        },
+        "terminateAfter": {
+          "type": "string",
+          "description": "Duration after which the pod is automatically terminated."
+        },
+        "vcpuCount": {
+          "type": "number",
+          "description": "The number of vCPUs allocated."
+        },
+        "volumeInGb": {
+          "type": "integer",
+          "description": "The size of the persistent volume in GB."
+        },
+        "volumeKey": {
+          "type": "string",
+          "description": "The volume key for persistent storage."
+        },
+        "volumeMountPath": {
+          "type": "string",
+          "description": "The path to mount the persistent volume."
+        }
+      },
+      "type": "object",
+      "required": [
+        "costPerHr",
+        "desiredStatus",
+        "gpuTypeId",
+        "machineId",
+        "memoryInGb",
+        "name",
+        "outputGpuCount",
+        "podId",
+        "vcpuCount"
+      ],
+      "inputProperties": {
+        "aiApiId": {
+          "type": "string",
+          "description": "The AI API ID for the pod."
+        },
+        "allowedCudaVersions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of allowed CUDA versions."
+        },
+        "cloudType": {
+          "type": "string",
+          "description": "The cloud type: SECURE, COMMUNITY, or ALL."
+        },
+        "computeType": {
+          "type": "string",
+          "description": "The compute type: CPU or GPU."
+        },
+        "containerDiskInGb": {
+          "type": "integer",
+          "description": "The size of the container disk in GB."
+        },
+        "containerRegistryAuthId": {
+          "type": "string",
+          "description": "The container registry auth ID for pulling private images."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The country code for data residency."
+        },
+        "cudaVersion": {
+          "type": "string",
+          "description": "The CUDA version to use."
+        },
+        "dataCenterId": {
+          "type": "string",
+          "description": "The data center ID to deploy the pod in."
+        },
+        "deployCost": {
+          "type": "number",
+          "description": "The maximum bid price per GPU per hour for spot instances."
+        },
+        "dockerArgs": {
+          "type": "string",
+          "description": "Docker arguments to pass to the container."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables as key-value pairs."
+        },
+        "globalNetwork": {
+          "type": "boolean",
+          "description": "Whether to enable global networking."
+        },
+        "gpuCount": {
+          "type": "integer",
+          "description": "The number of GPUs to allocate."
+        },
+        "gpuTypeId": {
+          "type": "string",
+          "description": "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\")."
+        },
+        "gpuTypeIdList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of acceptable GPU type IDs (fallback options)."
+        },
+        "ideAiApiId": {
+          "type": "string",
+          "description": "The IDE AI API ID for the pod."
+        },
+        "imageName": {
+          "type": "string",
+          "description": "The Docker image to run on the pod."
+        },
+        "instanceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific instance IDs to deploy on."
+        },
+        "minCudaVersion": {
+          "type": "string",
+          "description": "The minimum CUDA version required."
+        },
+        "minDisk": {
+          "type": "integer",
+          "description": "Minimum disk space in GB required on the host."
+        },
+        "minDownload": {
+          "type": "integer",
+          "description": "Minimum download bandwidth in Mbps."
+        },
+        "minMemoryInGb": {
+          "type": "integer",
+          "description": "Minimum memory in GB required."
+        },
+        "minUpload": {
+          "type": "integer",
+          "description": "Minimum upload bandwidth in Mbps."
+        },
+        "minVcpuCount": {
+          "type": "integer",
+          "description": "Minimum number of vCPUs required."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Model references for the pod."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the pod."
+        },
+        "networkVolumeId": {
+          "type": "string",
+          "description": "The network volume ID to attach to the pod."
+        },
+        "ports": {
+          "type": "string",
+          "description": "Ports to expose (e.g. \"8080/http,22/tcp\")."
+        },
+        "savingsPlan": {
+          "$ref": "#/types/runpod:index:SavingsPlan",
+          "description": "Savings plan configuration for reduced pricing."
+        },
+        "startJupyter": {
+          "type": "boolean",
+          "description": "Whether to start a Jupyter notebook server."
+        },
+        "startSsh": {
+          "type": "boolean",
+          "description": "Whether to start an SSH server."
+        },
+        "stopAfter": {
+          "type": "string",
+          "description": "Duration after which the pod is automatically stopped."
+        },
+        "supportPublicIp": {
+          "type": "boolean",
+          "description": "Whether to assign a public IP address."
+        },
+        "templateId": {
+          "type": "string",
+          "description": "The template ID to use for the pod."
+        },
+        "terminateAfter": {
+          "type": "string",
+          "description": "Duration after which the pod is automatically terminated."
+        },
+        "volumeInGb": {
+          "type": "integer",
+          "description": "The size of the persistent volume in GB."
+        },
+        "volumeKey": {
+          "type": "string",
+          "description": "The volume key for persistent storage."
+        },
+        "volumeMountPath": {
+          "type": "string",
+          "description": "The path to mount the persistent volume."
+        }
+      },
+      "requiredInputs": [
+        "gpuTypeId",
+        "name"
+      ]
+    },
+    "runpod:index:Secret": {
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A human-readable description of the secret."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the secret."
+        },
+        "secretId": {
+          "type": "string",
+          "description": "The unique identifier of the secret."
+        },
+        "value": {
+          "type": "string",
+          "description": "The secret value.",
+          "secret": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "name",
+        "secretId",
+        "value"
+      ],
+      "inputProperties": {
+        "description": {
+          "type": "string",
+          "description": "A human-readable description of the secret."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the secret."
+        },
+        "value": {
+          "type": "string",
+          "description": "The secret value.",
+          "secret": true
+        }
+      },
+      "requiredInputs": [
+        "name",
+        "value"
+      ]
+    },
+    "runpod:index:Template": {
+      "properties": {
+        "advancedStart": {
+          "type": "boolean",
+          "description": "Whether to use advanced start mode."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the template."
+        },
+        "containerDiskInGb": {
+          "type": "integer",
+          "description": "The size of the container disk in GB."
+        },
+        "containerRegistryAuthId": {
+          "type": "string",
+          "description": "The ID of the container registry auth credentials to use."
+        },
+        "dockerArgs": {
+          "type": "string",
+          "description": "Docker arguments to pass to the container."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables as key-value pairs."
+        },
+        "imageName": {
+          "type": "string",
+          "description": "The Docker image to use for the template."
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Whether this template is publicly visible."
+        },
+        "isServerless": {
+          "type": "boolean",
+          "description": "Whether this template is for serverless endpoints."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the template."
+        },
+        "ports": {
+          "type": "string",
+          "description": "Ports to expose (e.g. \"8080/http,22/tcp\")."
+        },
+        "readme": {
+          "type": "string",
+          "description": "A readme/description for the template in Markdown."
+        },
+        "startJupyter": {
+          "type": "boolean",
+          "description": "Whether to start Jupyter notebook server."
+        },
+        "startScript": {
+          "type": "string",
+          "description": "A bash script to run on container start."
+        },
+        "startSsh": {
+          "type": "boolean",
+          "description": "Whether to start an SSH server."
+        },
+        "templateId": {
+          "type": "string",
+          "description": "The unique identifier of the template."
+        },
+        "volumeInGb": {
+          "type": "integer",
+          "description": "The size of the persistent volume in GB. Use 0 for no volume."
+        },
+        "volumeMountPath": {
+          "type": "string",
+          "description": "The path to mount the persistent volume."
+        }
+      },
+      "type": "object",
+      "required": [
+        "containerDiskInGb",
+        "imageName",
+        "name",
+        "templateId",
+        "volumeInGb"
+      ],
+      "inputProperties": {
+        "advancedStart": {
+          "type": "boolean",
+          "description": "Whether to use advanced start mode."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the template."
+        },
+        "containerDiskInGb": {
+          "type": "integer",
+          "description": "The size of the container disk in GB."
+        },
+        "containerRegistryAuthId": {
+          "type": "string",
+          "description": "The ID of the container registry auth credentials to use."
+        },
+        "dockerArgs": {
+          "type": "string",
+          "description": "Docker arguments to pass to the container."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables as key-value pairs."
+        },
+        "imageName": {
+          "type": "string",
+          "description": "The Docker image to use for the template."
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Whether this template is publicly visible."
+        },
+        "isServerless": {
+          "type": "boolean",
+          "description": "Whether this template is for serverless endpoints."
+        },
+        "name": {
+          "type": "string",
+          "description": "A name for the template."
+        },
+        "ports": {
+          "type": "string",
+          "description": "Ports to expose (e.g. \"8080/http,22/tcp\")."
+        },
+        "readme": {
+          "type": "string",
+          "description": "A readme/description for the template in Markdown."
+        },
+        "startJupyter": {
+          "type": "boolean",
+          "description": "Whether to start Jupyter notebook server."
+        },
+        "startScript": {
+          "type": "string",
+          "description": "A bash script to run on container start."
+        },
+        "startSsh": {
+          "type": "boolean",
+          "description": "Whether to start an SSH server."
+        },
+        "volumeInGb": {
+          "type": "integer",
+          "description": "The size of the persistent volume in GB. Use 0 for no volume."
+        },
+        "volumeMountPath": {
+          "type": "string",
+          "description": "The path to mount the persistent volume."
+        }
+      },
+      "requiredInputs": [
+        "containerDiskInGb",
+        "imageName",
+        "name",
+        "volumeInGb"
+      ]
+    }
+  },
+  "functions": {
+    "runpod:index:getGpuTypes": {
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
         "properties": {
-            "apiKey": {
-                "type": "string",
-                "secret": true
+          "gpuTypes": {
+            "description": "The list of available GPU types.",
+            "items": {
+              "$ref": "#/types/runpod:index:GpuTypeOutput"
             },
-            "apiUrl": {
-                "type": "string"
-            }
+            "type": "array"
+          }
         },
-        "type": "object",
-        "inputProperties": {
-            "apiKey": {
-                "type": "string",
-                "secret": true
-            },
-            "apiUrl": {
-                "type": "string"
-            }
-        }
-    },
-    "resources": {
-        "runpod:index:Endpoint": {
-            "properties": {
-                "endpointId": {
-                    "type": "string"
-                },
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "gpuCount": {
-                    "type": "integer"
-                },
-                "gpuIds": {
-                    "type": "string"
-                },
-                "idleTimeout": {
-                    "type": "integer"
-                },
-                "instanceIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "locations": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "networkVolumeId": {
-                    "type": "string"
-                },
-                "scalerType": {
-                    "type": "string"
-                },
-                "scalerValue": {
-                    "type": "integer"
-                },
-                "templateId": {
-                    "type": "string"
-                },
-                "workersMax": {
-                    "type": "integer"
-                },
-                "workersMin": {
-                    "type": "integer"
-                }
-            },
-            "type": "object",
-            "required": [
-                "endpointId",
-                "name"
-            ],
-            "inputProperties": {
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "gpuCount": {
-                    "type": "integer"
-                },
-                "gpuIds": {
-                    "type": "string"
-                },
-                "idleTimeout": {
-                    "type": "integer"
-                },
-                "instanceIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "locations": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "networkVolumeId": {
-                    "type": "string"
-                },
-                "scalerType": {
-                    "type": "string"
-                },
-                "scalerValue": {
-                    "type": "integer"
-                },
-                "templateId": {
-                    "type": "string"
-                },
-                "workersMax": {
-                    "type": "integer"
-                },
-                "workersMin": {
-                    "type": "integer"
-                }
-            },
-            "requiredInputs": [
-                "name"
-            ]
-        },
-        "runpod:index:NetworkVolume": {
-            "properties": {
-                "dataCenterId": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "networkVolumeId": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "integer"
-                }
-            },
-            "type": "object",
-            "required": [
-                "dataCenterId",
-                "name",
-                "networkVolumeId",
-                "size"
-            ],
-            "inputProperties": {
-                "dataCenterId": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "integer"
-                }
-            },
-            "requiredInputs": [
-                "dataCenterId",
-                "name",
-                "size"
-            ]
-        },
-        "runpod:index:Pod": {
-            "properties": {
-                "cloudType": {
-                    "type": "string"
-                },
-                "containerDiskInGb": {
-                    "type": "integer"
-                },
-                "containerRegistryAuthId": {
-                    "type": "string"
-                },
-                "costPerHr": {
-                    "type": "number"
-                },
-                "cudaVersion": {
-                    "type": "string"
-                },
-                "dataCenterId": {
-                    "type": "string"
-                },
-                "desiredStatus": {
-                    "type": "string"
-                },
-                "dockerArgs": {
-                    "type": "string"
-                },
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "gpuCount": {
-                    "type": "integer"
-                },
-                "gpuTypeId": {
-                    "type": "string"
-                },
-                "imageName": {
-                    "type": "string"
-                },
-                "machineId": {
-                    "type": "string"
-                },
-                "memoryInGb": {
-                    "type": "number"
-                },
-                "minMemoryInGb": {
-                    "type": "integer"
-                },
-                "minVcpuCount": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "networkVolumeId": {
-                    "type": "string"
-                },
-                "podId": {
-                    "type": "string"
-                },
-                "ports": {
-                    "type": "string"
-                },
-                "startJupyter": {
-                    "type": "boolean"
-                },
-                "startSsh": {
-                    "type": "boolean"
-                },
-                "supportPublicIp": {
-                    "type": "boolean"
-                },
-                "templateId": {
-                    "type": "string"
-                },
-                "vcpuCount": {
-                    "type": "number"
-                },
-                "volumeInGb": {
-                    "type": "integer"
-                },
-                "volumeMountPath": {
-                    "type": "string"
-                }
-            },
-            "type": "object",
-            "required": [
-                "costPerHr",
-                "desiredStatus",
-                "gpuTypeId",
-                "machineId",
-                "memoryInGb",
-                "name",
-                "podId",
-                "vcpuCount"
-            ],
-            "inputProperties": {
-                "cloudType": {
-                    "type": "string"
-                },
-                "containerDiskInGb": {
-                    "type": "integer"
-                },
-                "containerRegistryAuthId": {
-                    "type": "string"
-                },
-                "cudaVersion": {
-                    "type": "string"
-                },
-                "dataCenterId": {
-                    "type": "string"
-                },
-                "dockerArgs": {
-                    "type": "string"
-                },
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "gpuCount": {
-                    "type": "integer"
-                },
-                "gpuTypeId": {
-                    "type": "string"
-                },
-                "imageName": {
-                    "type": "string"
-                },
-                "minMemoryInGb": {
-                    "type": "integer"
-                },
-                "minVcpuCount": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "networkVolumeId": {
-                    "type": "string"
-                },
-                "ports": {
-                    "type": "string"
-                },
-                "startJupyter": {
-                    "type": "boolean"
-                },
-                "startSsh": {
-                    "type": "boolean"
-                },
-                "supportPublicIp": {
-                    "type": "boolean"
-                },
-                "templateId": {
-                    "type": "string"
-                },
-                "volumeInGb": {
-                    "type": "integer"
-                },
-                "volumeMountPath": {
-                    "type": "string"
-                }
-            },
-            "requiredInputs": [
-                "gpuTypeId",
-                "name"
-            ]
-        },
-        "runpod:index:Template": {
-            "properties": {
-                "containerDiskInGb": {
-                    "type": "integer"
-                },
-                "containerRegistryAuthId": {
-                    "type": "string"
-                },
-                "dockerArgs": {
-                    "type": "string"
-                },
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "imageName": {
-                    "type": "string"
-                },
-                "isPublic": {
-                    "type": "boolean"
-                },
-                "isServerless": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "ports": {
-                    "type": "string"
-                },
-                "startJupyter": {
-                    "type": "boolean"
-                },
-                "startScript": {
-                    "type": "string"
-                },
-                "startSsh": {
-                    "type": "boolean"
-                },
-                "templateId": {
-                    "type": "string"
-                },
-                "volumeInGb": {
-                    "type": "integer"
-                },
-                "volumeMountPath": {
-                    "type": "string"
-                }
-            },
-            "type": "object",
-            "required": [
-                "containerDiskInGb",
-                "imageName",
-                "name",
-                "templateId",
-                "volumeInGb"
-            ],
-            "inputProperties": {
-                "containerDiskInGb": {
-                    "type": "integer"
-                },
-                "containerRegistryAuthId": {
-                    "type": "string"
-                },
-                "dockerArgs": {
-                    "type": "string"
-                },
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "imageName": {
-                    "type": "string"
-                },
-                "isPublic": {
-                    "type": "boolean"
-                },
-                "isServerless": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "ports": {
-                    "type": "string"
-                },
-                "startJupyter": {
-                    "type": "boolean"
-                },
-                "startScript": {
-                    "type": "string"
-                },
-                "startSsh": {
-                    "type": "boolean"
-                },
-                "volumeInGb": {
-                    "type": "integer"
-                },
-                "volumeMountPath": {
-                    "type": "string"
-                }
-            },
-            "requiredInputs": [
-                "containerDiskInGb",
-                "imageName",
-                "name",
-                "volumeInGb"
-            ]
-        }
-    },
-    "functions": {
-        "runpod:index:getGpuTypes": {
-            "inputs": {
-                "type": "object"
-            },
-            "outputs": {
-                "properties": {
-                    "gpuTypes": {
-                        "items": {
-                            "$ref": "#/types/runpod:index:GpuTypeOutput"
-                        },
-                        "type": "array"
-                    }
-                },
-                "required": [
-                    "gpuTypes"
-                ],
-                "type": "object"
-            }
-        }
-    },
-    "repository": "https://github.com/runpod/pulumi-runpod"
+        "required": [
+          "gpuTypes"
+        ],
+        "type": "object"
+      }
+    }
+  }
 }

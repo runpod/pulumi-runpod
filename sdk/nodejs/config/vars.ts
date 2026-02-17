@@ -7,10 +7,18 @@ import * as utilities from "../utilities";
 declare var exports: any;
 const __config = new pulumi.Config("runpod");
 
-export declare const itsasecret: boolean | undefined;
-Object.defineProperty(exports, "itsasecret", {
+export declare const apiKey: string | undefined;
+Object.defineProperty(exports, "apiKey", {
     get() {
-        return __config.getObject<boolean>("itsasecret");
+        return __config.get("apiKey");
+    },
+    enumerable: true,
+});
+
+export declare const apiUrl: string | undefined;
+Object.defineProperty(exports, "apiUrl", {
+    get() {
+        return __config.get("apiUrl");
     },
     enumerable: true,
 });
