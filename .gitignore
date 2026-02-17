@@ -19,7 +19,7 @@ sdk/java/build.gradle
 sdk/python/venv
 sdk/nodejs/*.tgz
 provider/coverage.txt
-pulumi-resource-runpod
+/pulumi-resource-runpod
 examples/sst/.sst/
 
 # Claude Code / local artifacts
