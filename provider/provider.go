@@ -21,11 +21,12 @@ import (
 	"os"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/runpod/pulumi-runpod/pkg/runpod"
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+
+	"github.com/runpod/pulumi-runpod/pkg/runpod"
 )
 
 // Version is initialized by the Go linker to contain the semver of this build.

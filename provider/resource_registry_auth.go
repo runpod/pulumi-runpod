@@ -18,9 +18,9 @@ import (
 	"context"
 	"errors"
 
-	"github.com/runpod/pulumi-runpod/pkg/runpod"
-
 	"github.com/pulumi/pulumi-go-provider/infer"
+
+	"github.com/runpod/pulumi-runpod/pkg/runpod"
 )
 
 // ContainerRegistryAuth is the controller for the runpod:index:ContainerRegistryAuth resource.

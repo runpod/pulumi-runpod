@@ -17,9 +17,9 @@ package provider
 import (
 	"context"
 
-	"github.com/runpod/pulumi-runpod/pkg/runpod"
-
 	"github.com/pulumi/pulumi-go-provider/infer"
+
+	"github.com/runpod/pulumi-runpod/pkg/runpod"
 )
 
 // GetGpuTypes is the controller for the runpod:index:getGpuTypes function (invoke).
