@@ -27,7 +27,10 @@ jobs:
         's/go:embed/ goembed/g'
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@55c2c1448f86e01eaae002a5a3a9624417608d84 # v6.5.2
+      env:
+        GOGC: "50"
       with:
         install-mode: none # Handled by mise.
         working-directory: provider
+        args: --timeout 10m
     name: lint

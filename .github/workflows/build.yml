@@ -58,19 +58,17 @@ jobs:
       run: make generate_schema
     - if: github.event_name == 'pull_request'
       name: Check Schema is Valid
-      continue-on-error: true # Will 404 until schema exists on the default branch
-      run: >-
-        {
-          echo 'SCHEMA_CHANGES<<EOF';
-
-          schema-tools compare -r github://api.github.com/runpod -p ${{ env.PROVIDER }} -o ${{ github.event.repository.default_branch }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json;
-
-          echo 'EOF';
-        } >> "$GITHUB_ENV"
+      continue-on-error: true
+      run: |
+        RESULT=$(schema-tools compare -r github://api.github.com/runpod -p ${{ env.PROVIDER }} -o ${{ github.event.repository.default_branch }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json 2>&1) || true
+        echo "SCHEMA_CHANGES<<EOF" >> "$GITHUB_ENV"
+        echo "$RESULT" >> "$GITHUB_ENV"
+        echo "EOF" >> "$GITHUB_ENV"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
       name: Comment on PR with Details of Schema Check
+      continue-on-error: true
       uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
       with:
         message: |
