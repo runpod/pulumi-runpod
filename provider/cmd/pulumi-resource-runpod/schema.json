@@ -2,13 +2,16 @@
   "name": "runpod",
   "displayName": "RunPod",
   "description": "Manage RunPod GPU cloud resources.",
+  "keywords": [
+    "category/infrastructure",
+    "kind/native"
+  ],
   "homepage": "https://www.runpod.io",
+  "license": "Apache-2.0",
   "repository": "https://github.com/runpod/pulumi-runpod",
   "pluginDownloadURL": "github://api.github.com/runpod/pulumi-runpod",
+  "publisher": "RunPod",
   "namespace": "runpod",
-  "meta": {
-    "moduleFormat": "(.*)"
-  },
   "language": {
     "csharp": {
       "respectSchemaVersion": true,
@@ -92,14 +95,14 @@
       },
       "type": "object",
       "required": [
-        "communityCloud",
-        "communityPrice",
-        "displayName",
         "id",
-        "maxGpuCount",
+        "displayName",
         "memoryInGb",
         "secureCloud",
-        "securePrice"
+        "communityCloud",
+        "securePrice",
+        "communityPrice",
+        "maxGpuCount"
       ]
     },
     "runpod:index:SavingsPlan": {
@@ -138,7 +141,6 @@
         }
       }
     },
-    "type": "object",
     "inputProperties": {
       "apiKey": {
         "type": "string",
@@ -183,12 +185,11 @@
           "description": "The username for the container registry."
         }
       },
-      "type": "object",
       "required": [
         "name",
+        "username",
         "password",
-        "registryAuthId",
-        "username"
+        "registryAuthId"
       ],
       "inputProperties": {
         "name": {
@@ -208,8 +209,8 @@
       },
       "requiredInputs": [
         "name",
-        "password",
-        "username"
+        "username",
+        "password"
       ]
     },
     "runpod:index:Endpoint": {
@@ -320,10 +321,9 @@
           "description": "The minimum number of workers to keep running."
         }
       },
-      "type": "object",
       "required": [
-        "endpointId",
-        "name"
+        "name",
+        "endpointId"
       ],
       "inputProperties": {
         "allowedCudaVersions": {
@@ -457,12 +457,11 @@
           "description": "The size of the network volume in GB."
         }
       },
-      "type": "object",
       "required": [
-        "dataCenterId",
         "name",
-        "networkVolumeId",
-        "size"
+        "size",
+        "dataCenterId",
+        "networkVolumeId"
       ],
       "inputProperties": {
         "dataCenterId": {
@@ -485,9 +484,9 @@
         }
       },
       "requiredInputs": [
-        "dataCenterId",
         "name",
-        "size"
+        "size",
+        "dataCenterId"
       ]
     },
     "runpod:index:Pod": {
@@ -751,17 +750,16 @@
           "description": "The path to mount the persistent volume."
         }
       },
-      "type": "object",
       "required": [
+        "name",
+        "gpuTypeId",
+        "podId",
+        "machineId",
         "costPerHr",
         "desiredStatus",
-        "gpuTypeId",
-        "machineId",
+        "vcpuCount",
         "memoryInGb",
-        "name",
-        "outputGpuCount",
-        "podId",
-        "vcpuCount"
+        "outputGpuCount"
       ],
       "inputProperties": {
         "aiApiId": {
@@ -968,8 +966,8 @@
         }
       },
       "requiredInputs": [
-        "gpuTypeId",
-        "name"
+        "name",
+        "gpuTypeId"
       ]
     },
     "runpod:index:Secret": {
@@ -993,11 +991,10 @@
           "secret": true
         }
       },
-      "type": "object",
       "required": [
         "name",
-        "secretId",
-        "value"
+        "value",
+        "secretId"
       ],
       "inputProperties": {
         "description": {
@@ -1098,13 +1095,12 @@
           "description": "The path to mount the persistent volume."
         }
       },
-      "type": "object",
       "required": [
-        "containerDiskInGb",
-        "imageName",
         "name",
-        "templateId",
-        "volumeInGb"
+        "imageName",
+        "containerDiskInGb",
+        "volumeInGb",
+        "templateId"
       ],
       "inputProperties": {
         "advancedStart": {
@@ -1180,9 +1176,9 @@
         }
       },
       "requiredInputs": [
-        "containerDiskInGb",
-        "imageName",
         "name",
+        "imageName",
+        "containerDiskInGb",
         "volumeInGb"
       ]
     }
