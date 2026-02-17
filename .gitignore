@@ -20,3 +20,4 @@ sdk/python/venv
 sdk/nodejs/*.tgz
 provider/coverage.txt
 pulumi-resource-runpod
+examples/sst/.sst/
