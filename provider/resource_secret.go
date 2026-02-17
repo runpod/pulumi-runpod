@@ -14,7 +14,7 @@ type Secret struct{}
 
 // SecretArgs are the inputs for creating a secret.
 type SecretArgs struct {
-	Name        string  `pulumi:"name"`
+	Name        string  `pulumi:"name" provider:"replaceOnChanges"`
 	Value       string  `pulumi:"value" provider:"secret"`
 	Description *string `pulumi:"description,optional"`
 }
@@ -88,8 +88,7 @@ func (Secret) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[SecretArgs, SecretState]{},
-			fmt.Errorf("secret %q not found", req.ID)
+		return infer.ReadResponse[SecretArgs, SecretState]{ID: ""}, nil
 	}
 
 	for _, s := range resp.Myself.Secrets {
@@ -103,8 +102,7 @@ func (Secret) Read(
 		}
 	}
 
-	return infer.ReadResponse[SecretArgs, SecretState]{},
-		fmt.Errorf("secret %q not found", req.ID)
+	return infer.ReadResponse[SecretArgs, SecretState]{ID: ""}, nil
 }
 
 // Update modifies a secret's value and/or description.

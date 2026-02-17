@@ -19,11 +19,42 @@ type SavingsPlan struct {
 }
 
 // PodArgs are the inputs for creating a pod.
+// Fields tagged with replaceOnChanges are immutable — changing them requires replacing the pod.
 type PodArgs struct {
-	Name                    string            `pulumi:"name"`
-	GpuTypeID               string            `pulumi:"gpuTypeId"`
-	GpuCount                *int              `pulumi:"gpuCount,optional"`
-	CloudType               *string           `pulumi:"cloudType,optional"`
+	// Immutable fields (not in PodEditJobInput — require replacement)
+	Name            string   `pulumi:"name" provider:"replaceOnChanges"`
+	GpuTypeID       string   `pulumi:"gpuTypeId" provider:"replaceOnChanges"`
+	GpuCount        *int     `pulumi:"gpuCount,optional" provider:"replaceOnChanges"`
+	CloudType       *string  `pulumi:"cloudType,optional" provider:"replaceOnChanges"`
+	TemplateID      *string  `pulumi:"templateId,optional" provider:"replaceOnChanges"`
+	NetworkVolumeID *string  `pulumi:"networkVolumeId,optional" provider:"replaceOnChanges"`
+	DataCenterID    *string  `pulumi:"dataCenterId,optional" provider:"replaceOnChanges"`
+	StartJupyter    *bool    `pulumi:"startJupyter,optional" provider:"replaceOnChanges"`
+	StartSsh        *bool    `pulumi:"startSsh,optional" provider:"replaceOnChanges"`
+	SupportPublicIP *bool    `pulumi:"supportPublicIp,optional" provider:"replaceOnChanges"`
+	MinVcpuCount    *int     `pulumi:"minVcpuCount,optional" provider:"replaceOnChanges"`
+	MinMemoryInGb   *int     `pulumi:"minMemoryInGb,optional" provider:"replaceOnChanges"`
+	CudaVersion     *string  `pulumi:"cudaVersion,optional" provider:"replaceOnChanges"`
+	ComputeType     *string  `pulumi:"computeType,optional" provider:"replaceOnChanges"`
+	GlobalNetwork   *bool    `pulumi:"globalNetwork,optional" provider:"replaceOnChanges"`
+	CountryCode     *string  `pulumi:"countryCode,optional" provider:"replaceOnChanges"`
+	StopAfter       *string  `pulumi:"stopAfter,optional" provider:"replaceOnChanges"`
+	TerminateAfter  *string  `pulumi:"terminateAfter,optional" provider:"replaceOnChanges"`
+	GpuTypeIDList   []string `pulumi:"gpuTypeIdList,optional" provider:"replaceOnChanges"`
+	AllowedCudaVersions []string  `pulumi:"allowedCudaVersions,optional" provider:"replaceOnChanges"`
+	MinCudaVersion      *string   `pulumi:"minCudaVersion,optional" provider:"replaceOnChanges"`
+	DeployCost          *float64  `pulumi:"deployCost,optional" provider:"replaceOnChanges"`
+	MinDisk             *int      `pulumi:"minDisk,optional" provider:"replaceOnChanges"`
+	MinDownload         *int      `pulumi:"minDownload,optional" provider:"replaceOnChanges"`
+	MinUpload           *int      `pulumi:"minUpload,optional" provider:"replaceOnChanges"`
+	VolumeKey           *string   `pulumi:"volumeKey,optional" provider:"replaceOnChanges"`
+	AiApiID             *string   `pulumi:"aiApiId,optional" provider:"replaceOnChanges"`
+	IdeAiApiID          *string   `pulumi:"ideAiApiId,optional" provider:"replaceOnChanges"`
+	InstanceIds         []string  `pulumi:"instanceIds,optional" provider:"replaceOnChanges"`
+	ModelReferences     []string  `pulumi:"modelReferences,optional" provider:"replaceOnChanges"`
+	SavingsPlan         *SavingsPlan `pulumi:"savingsPlan,optional" provider:"replaceOnChanges"`
+
+	// Mutable fields (in PodEditJobInput — can be updated in-place)
 	ImageName               *string           `pulumi:"imageName,optional"`
 	DockerArgs              *string           `pulumi:"dockerArgs,optional"`
 	Env                     map[string]string `pulumi:"env,optional"`
@@ -31,35 +62,7 @@ type PodArgs struct {
 	VolumeInGb              *int              `pulumi:"volumeInGb,optional"`
 	VolumeMountPath         *string           `pulumi:"volumeMountPath,optional"`
 	ContainerDiskInGb       *int              `pulumi:"containerDiskInGb,optional"`
-	TemplateID              *string           `pulumi:"templateId,optional"`
-	NetworkVolumeID         *string           `pulumi:"networkVolumeId,optional"`
 	ContainerRegistryAuthID *string           `pulumi:"containerRegistryAuthId,optional"`
-	DataCenterID            *string           `pulumi:"dataCenterId,optional"`
-	StartJupyter            *bool             `pulumi:"startJupyter,optional"`
-	StartSsh                *bool             `pulumi:"startSsh,optional"`
-	SupportPublicIP         *bool             `pulumi:"supportPublicIp,optional"`
-	MinVcpuCount            *int              `pulumi:"minVcpuCount,optional"`
-	MinMemoryInGb           *int              `pulumi:"minMemoryInGb,optional"`
-	CudaVersion             *string           `pulumi:"cudaVersion,optional"`
-	// New fields
-	ComputeType         *string      `pulumi:"computeType,optional"`
-	GlobalNetwork       *bool        `pulumi:"globalNetwork,optional"`
-	CountryCode         *string      `pulumi:"countryCode,optional"`
-	StopAfter           *string      `pulumi:"stopAfter,optional"`
-	TerminateAfter      *string      `pulumi:"terminateAfter,optional"`
-	GpuTypeIDList       []string     `pulumi:"gpuTypeIdList,optional"`
-	AllowedCudaVersions []string     `pulumi:"allowedCudaVersions,optional"`
-	MinCudaVersion      *string      `pulumi:"minCudaVersion,optional"`
-	DeployCost          *float64     `pulumi:"deployCost,optional"`
-	MinDisk             *int         `pulumi:"minDisk,optional"`
-	MinDownload         *int         `pulumi:"minDownload,optional"`
-	MinUpload           *int         `pulumi:"minUpload,optional"`
-	VolumeKey           *string      `pulumi:"volumeKey,optional"`
-	AiApiID             *string      `pulumi:"aiApiId,optional"`
-	IdeAiApiID          *string      `pulumi:"ideAiApiId,optional"`
-	InstanceIds         []string     `pulumi:"instanceIds,optional"`
-	ModelReferences     []string     `pulumi:"modelReferences,optional"`
-	SavingsPlan         *SavingsPlan `pulumi:"savingsPlan,optional"`
 }
 
 // Annotate provides descriptions for PodArgs fields.
@@ -253,7 +256,8 @@ func (Pod) Read(
 	}
 
 	if resp.Pod == nil {
-		return infer.ReadResponse[PodArgs, PodState]{}, fmt.Errorf("pod %q not found", req.ID)
+		// Resource was deleted externally — return empty ID so Pulumi removes it from state.
+		return infer.ReadResponse[PodArgs, PodState]{ID: ""}, nil
 	}
 
 	state := podResponseToState(req.Inputs, resp.Pod)

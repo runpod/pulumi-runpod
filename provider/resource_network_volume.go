@@ -16,8 +16,8 @@ type NetworkVolume struct{}
 type NetworkVolumeArgs struct {
 	Name             string `pulumi:"name"`
 	Size             int    `pulumi:"size"`
-	DataCenterID     string `pulumi:"dataCenterId"`
-	IsNextGenStorage *bool  `pulumi:"isNextGenStorage,optional"`
+	DataCenterID     string `pulumi:"dataCenterId" provider:"replaceOnChanges"`
+	IsNextGenStorage *bool  `pulumi:"isNextGenStorage,optional" provider:"replaceOnChanges"`
 }
 
 // Annotate provides descriptions for NetworkVolumeArgs fields.
@@ -91,8 +91,7 @@ func (NetworkVolume) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{},
-			fmt.Errorf("network volume %q not found", req.ID)
+		return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{ID: ""}, nil
 	}
 
 	for _, v := range resp.Myself.NetworkVolumes {
@@ -106,8 +105,7 @@ func (NetworkVolume) Read(
 		}
 	}
 
-	return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{},
-		fmt.Errorf("network volume %q not found", req.ID)
+	return infer.ReadResponse[NetworkVolumeArgs, NetworkVolumeState]{ID: ""}, nil
 }
 
 // Update modifies a network volume (name and size are mutable).

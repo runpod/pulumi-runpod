@@ -111,8 +111,7 @@ func (Template) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[TemplateArgs, TemplateState]{},
-			fmt.Errorf("template %q not found", req.ID)
+		return infer.ReadResponse[TemplateArgs, TemplateState]{ID: ""}, nil
 	}
 
 	for _, t := range resp.Myself.PodTemplates {
@@ -126,8 +125,8 @@ func (Template) Read(
 		}
 	}
 
-	return infer.ReadResponse[TemplateArgs, TemplateState]{},
-		fmt.Errorf("template %q not found", req.ID)
+	// Resource was deleted externally — return empty ID so Pulumi removes it from state.
+	return infer.ReadResponse[TemplateArgs, TemplateState]{ID: ""}, nil
 }
 
 // Update modifies a template using the upsert pattern (saveTemplate with id).

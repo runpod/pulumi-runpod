@@ -166,7 +166,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "A name for the registry auth credentials."
+          "description": "A name for the registry auth credentials.",
+          "replaceOnChanges": true
         },
         "password": {
           "type": "string",
@@ -192,7 +193,8 @@
       "inputProperties": {
         "name": {
           "type": "string",
-          "description": "A name for the registry auth credentials."
+          "description": "A name for the registry auth credentials.",
+          "replaceOnChanges": true
         },
         "password": {
           "type": "string",
@@ -434,11 +436,13 @@
       "properties": {
         "dataCenterId": {
           "type": "string",
-          "description": "The data center ID where the volume will be created (e.g. \"US-TX-3\")."
+          "description": "The data center ID where the volume will be created (e.g. \"US-TX-3\").",
+          "replaceOnChanges": true
         },
         "isNextGenStorage": {
           "type": "boolean",
-          "description": "Whether to use next-generation storage."
+          "description": "Whether to use next-generation storage.",
+          "replaceOnChanges": true
         },
         "name": {
           "type": "string",
@@ -463,11 +467,13 @@
       "inputProperties": {
         "dataCenterId": {
           "type": "string",
-          "description": "The data center ID where the volume will be created (e.g. \"US-TX-3\")."
+          "description": "The data center ID where the volume will be created (e.g. \"US-TX-3\").",
+          "replaceOnChanges": true
         },
         "isNextGenStorage": {
           "type": "boolean",
-          "description": "Whether to use next-generation storage."
+          "description": "Whether to use next-generation storage.",
+          "replaceOnChanges": true
         },
         "name": {
           "type": "string",
@@ -488,22 +494,26 @@
       "properties": {
         "aiApiId": {
           "type": "string",
-          "description": "The AI API ID for the pod."
+          "description": "The AI API ID for the pod.",
+          "replaceOnChanges": true
         },
         "allowedCudaVersions": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "A list of allowed CUDA versions."
+          "description": "A list of allowed CUDA versions.",
+          "replaceOnChanges": true
         },
         "cloudType": {
           "type": "string",
-          "description": "The cloud type: SECURE, COMMUNITY, or ALL."
+          "description": "The cloud type: SECURE, COMMUNITY, or ALL.",
+          "replaceOnChanges": true
         },
         "computeType": {
           "type": "string",
-          "description": "The compute type: CPU or GPU."
+          "description": "The compute type: CPU or GPU.",
+          "replaceOnChanges": true
         },
         "containerDiskInGb": {
           "type": "integer",
@@ -519,19 +529,23 @@
         },
         "countryCode": {
           "type": "string",
-          "description": "The country code for data residency."
+          "description": "The country code for data residency.",
+          "replaceOnChanges": true
         },
         "cudaVersion": {
           "type": "string",
-          "description": "The CUDA version to use."
+          "description": "The CUDA version to use.",
+          "replaceOnChanges": true
         },
         "dataCenterId": {
           "type": "string",
-          "description": "The data center ID to deploy the pod in."
+          "description": "The data center ID to deploy the pod in.",
+          "replaceOnChanges": true
         },
         "deployCost": {
           "type": "number",
-          "description": "The maximum bid price per GPU per hour for spot instances."
+          "description": "The maximum bid price per GPU per hour for spot instances.",
+          "replaceOnChanges": true
         },
         "desiredStatus": {
           "type": "string",
@@ -550,26 +564,31 @@
         },
         "globalNetwork": {
           "type": "boolean",
-          "description": "Whether to enable global networking."
+          "description": "Whether to enable global networking.",
+          "replaceOnChanges": true
         },
         "gpuCount": {
           "type": "integer",
-          "description": "The number of GPUs to allocate."
+          "description": "The number of GPUs to allocate.",
+          "replaceOnChanges": true
         },
         "gpuTypeId": {
           "type": "string",
-          "description": "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\")."
+          "description": "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\").",
+          "replaceOnChanges": true
         },
         "gpuTypeIdList": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "A list of acceptable GPU type IDs (fallback options)."
+          "description": "A list of acceptable GPU type IDs (fallback options).",
+          "replaceOnChanges": true
         },
         "ideAiApiId": {
           "type": "string",
-          "description": "The IDE AI API ID for the pod."
+          "description": "The IDE AI API ID for the pod.",
+          "replaceOnChanges": true
         },
         "imageName": {
           "type": "string",
@@ -580,7 +599,8 @@
           "items": {
             "type": "string"
           },
-          "description": "Specific instance IDs to deploy on."
+          "description": "Specific instance IDs to deploy on.",
+          "replaceOnChanges": true
         },
         "machineId": {
           "type": "string",
@@ -592,42 +612,51 @@
         },
         "minCudaVersion": {
           "type": "string",
-          "description": "The minimum CUDA version required."
+          "description": "The minimum CUDA version required.",
+          "replaceOnChanges": true
         },
         "minDisk": {
           "type": "integer",
-          "description": "Minimum disk space in GB required on the host."
+          "description": "Minimum disk space in GB required on the host.",
+          "replaceOnChanges": true
         },
         "minDownload": {
           "type": "integer",
-          "description": "Minimum download bandwidth in Mbps."
+          "description": "Minimum download bandwidth in Mbps.",
+          "replaceOnChanges": true
         },
         "minMemoryInGb": {
           "type": "integer",
-          "description": "Minimum memory in GB required."
+          "description": "Minimum memory in GB required.",
+          "replaceOnChanges": true
         },
         "minUpload": {
           "type": "integer",
-          "description": "Minimum upload bandwidth in Mbps."
+          "description": "Minimum upload bandwidth in Mbps.",
+          "replaceOnChanges": true
         },
         "minVcpuCount": {
           "type": "integer",
-          "description": "Minimum number of vCPUs required."
+          "description": "Minimum number of vCPUs required.",
+          "replaceOnChanges": true
         },
         "modelReferences": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Model references for the pod."
+          "description": "Model references for the pod.",
+          "replaceOnChanges": true
         },
         "name": {
           "type": "string",
-          "description": "A name for the pod."
+          "description": "A name for the pod.",
+          "replaceOnChanges": true
         },
         "networkVolumeId": {
           "type": "string",
-          "description": "The network volume ID to attach to the pod."
+          "description": "The network volume ID to attach to the pod.",
+          "replaceOnChanges": true
         },
         "outputContainerDiskInGb": {
           "type": "integer",
@@ -671,31 +700,38 @@
         },
         "savingsPlan": {
           "$ref": "#/types/runpod:index:SavingsPlan",
-          "description": "Savings plan configuration for reduced pricing."
+          "description": "Savings plan configuration for reduced pricing.",
+          "replaceOnChanges": true
         },
         "startJupyter": {
           "type": "boolean",
-          "description": "Whether to start a Jupyter notebook server."
+          "description": "Whether to start a Jupyter notebook server.",
+          "replaceOnChanges": true
         },
         "startSsh": {
           "type": "boolean",
-          "description": "Whether to start an SSH server."
+          "description": "Whether to start an SSH server.",
+          "replaceOnChanges": true
         },
         "stopAfter": {
           "type": "string",
-          "description": "Duration after which the pod is automatically stopped."
+          "description": "Duration after which the pod is automatically stopped.",
+          "replaceOnChanges": true
         },
         "supportPublicIp": {
           "type": "boolean",
-          "description": "Whether to assign a public IP address."
+          "description": "Whether to assign a public IP address.",
+          "replaceOnChanges": true
         },
         "templateId": {
           "type": "string",
-          "description": "The template ID to use for the pod."
+          "description": "The template ID to use for the pod.",
+          "replaceOnChanges": true
         },
         "terminateAfter": {
           "type": "string",
-          "description": "Duration after which the pod is automatically terminated."
+          "description": "Duration after which the pod is automatically terminated.",
+          "replaceOnChanges": true
         },
         "vcpuCount": {
           "type": "number",
@@ -707,7 +743,8 @@
         },
         "volumeKey": {
           "type": "string",
-          "description": "The volume key for persistent storage."
+          "description": "The volume key for persistent storage.",
+          "replaceOnChanges": true
         },
         "volumeMountPath": {
           "type": "string",
@@ -729,22 +766,26 @@
       "inputProperties": {
         "aiApiId": {
           "type": "string",
-          "description": "The AI API ID for the pod."
+          "description": "The AI API ID for the pod.",
+          "replaceOnChanges": true
         },
         "allowedCudaVersions": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "A list of allowed CUDA versions."
+          "description": "A list of allowed CUDA versions.",
+          "replaceOnChanges": true
         },
         "cloudType": {
           "type": "string",
-          "description": "The cloud type: SECURE, COMMUNITY, or ALL."
+          "description": "The cloud type: SECURE, COMMUNITY, or ALL.",
+          "replaceOnChanges": true
         },
         "computeType": {
           "type": "string",
-          "description": "The compute type: CPU or GPU."
+          "description": "The compute type: CPU or GPU.",
+          "replaceOnChanges": true
         },
         "containerDiskInGb": {
           "type": "integer",
@@ -756,19 +797,23 @@
         },
         "countryCode": {
           "type": "string",
-          "description": "The country code for data residency."
+          "description": "The country code for data residency.",
+          "replaceOnChanges": true
         },
         "cudaVersion": {
           "type": "string",
-          "description": "The CUDA version to use."
+          "description": "The CUDA version to use.",
+          "replaceOnChanges": true
         },
         "dataCenterId": {
           "type": "string",
-          "description": "The data center ID to deploy the pod in."
+          "description": "The data center ID to deploy the pod in.",
+          "replaceOnChanges": true
         },
         "deployCost": {
           "type": "number",
-          "description": "The maximum bid price per GPU per hour for spot instances."
+          "description": "The maximum bid price per GPU per hour for spot instances.",
+          "replaceOnChanges": true
         },
         "dockerArgs": {
           "type": "string",
@@ -783,26 +828,31 @@
         },
         "globalNetwork": {
           "type": "boolean",
-          "description": "Whether to enable global networking."
+          "description": "Whether to enable global networking.",
+          "replaceOnChanges": true
         },
         "gpuCount": {
           "type": "integer",
-          "description": "The number of GPUs to allocate."
+          "description": "The number of GPUs to allocate.",
+          "replaceOnChanges": true
         },
         "gpuTypeId": {
           "type": "string",
-          "description": "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\")."
+          "description": "The GPU type ID to deploy (e.g. \"NVIDIA GeForce RTX 4090\").",
+          "replaceOnChanges": true
         },
         "gpuTypeIdList": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "A list of acceptable GPU type IDs (fallback options)."
+          "description": "A list of acceptable GPU type IDs (fallback options).",
+          "replaceOnChanges": true
         },
         "ideAiApiId": {
           "type": "string",
-          "description": "The IDE AI API ID for the pod."
+          "description": "The IDE AI API ID for the pod.",
+          "replaceOnChanges": true
         },
         "imageName": {
           "type": "string",
@@ -813,46 +863,56 @@
           "items": {
             "type": "string"
           },
-          "description": "Specific instance IDs to deploy on."
+          "description": "Specific instance IDs to deploy on.",
+          "replaceOnChanges": true
         },
         "minCudaVersion": {
           "type": "string",
-          "description": "The minimum CUDA version required."
+          "description": "The minimum CUDA version required.",
+          "replaceOnChanges": true
         },
         "minDisk": {
           "type": "integer",
-          "description": "Minimum disk space in GB required on the host."
+          "description": "Minimum disk space in GB required on the host.",
+          "replaceOnChanges": true
         },
         "minDownload": {
           "type": "integer",
-          "description": "Minimum download bandwidth in Mbps."
+          "description": "Minimum download bandwidth in Mbps.",
+          "replaceOnChanges": true
         },
         "minMemoryInGb": {
           "type": "integer",
-          "description": "Minimum memory in GB required."
+          "description": "Minimum memory in GB required.",
+          "replaceOnChanges": true
         },
         "minUpload": {
           "type": "integer",
-          "description": "Minimum upload bandwidth in Mbps."
+          "description": "Minimum upload bandwidth in Mbps.",
+          "replaceOnChanges": true
         },
         "minVcpuCount": {
           "type": "integer",
-          "description": "Minimum number of vCPUs required."
+          "description": "Minimum number of vCPUs required.",
+          "replaceOnChanges": true
         },
         "modelReferences": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Model references for the pod."
+          "description": "Model references for the pod.",
+          "replaceOnChanges": true
         },
         "name": {
           "type": "string",
-          "description": "A name for the pod."
+          "description": "A name for the pod.",
+          "replaceOnChanges": true
         },
         "networkVolumeId": {
           "type": "string",
-          "description": "The network volume ID to attach to the pod."
+          "description": "The network volume ID to attach to the pod.",
+          "replaceOnChanges": true
         },
         "ports": {
           "type": "string",
@@ -860,31 +920,38 @@
         },
         "savingsPlan": {
           "$ref": "#/types/runpod:index:SavingsPlan",
-          "description": "Savings plan configuration for reduced pricing."
+          "description": "Savings plan configuration for reduced pricing.",
+          "replaceOnChanges": true
         },
         "startJupyter": {
           "type": "boolean",
-          "description": "Whether to start a Jupyter notebook server."
+          "description": "Whether to start a Jupyter notebook server.",
+          "replaceOnChanges": true
         },
         "startSsh": {
           "type": "boolean",
-          "description": "Whether to start an SSH server."
+          "description": "Whether to start an SSH server.",
+          "replaceOnChanges": true
         },
         "stopAfter": {
           "type": "string",
-          "description": "Duration after which the pod is automatically stopped."
+          "description": "Duration after which the pod is automatically stopped.",
+          "replaceOnChanges": true
         },
         "supportPublicIp": {
           "type": "boolean",
-          "description": "Whether to assign a public IP address."
+          "description": "Whether to assign a public IP address.",
+          "replaceOnChanges": true
         },
         "templateId": {
           "type": "string",
-          "description": "The template ID to use for the pod."
+          "description": "The template ID to use for the pod.",
+          "replaceOnChanges": true
         },
         "terminateAfter": {
           "type": "string",
-          "description": "Duration after which the pod is automatically terminated."
+          "description": "Duration after which the pod is automatically terminated.",
+          "replaceOnChanges": true
         },
         "volumeInGb": {
           "type": "integer",
@@ -892,7 +959,8 @@
         },
         "volumeKey": {
           "type": "string",
-          "description": "The volume key for persistent storage."
+          "description": "The volume key for persistent storage.",
+          "replaceOnChanges": true
         },
         "volumeMountPath": {
           "type": "string",
@@ -912,7 +980,8 @@
         },
         "name": {
           "type": "string",
-          "description": "A name for the secret."
+          "description": "A name for the secret.",
+          "replaceOnChanges": true
         },
         "secretId": {
           "type": "string",
@@ -937,7 +1006,8 @@
         },
         "name": {
           "type": "string",
-          "description": "A name for the secret."
+          "description": "A name for the secret.",
+          "replaceOnChanges": true
         },
         "value": {
           "type": "string",

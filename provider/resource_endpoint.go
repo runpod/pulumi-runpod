@@ -2,7 +2,6 @@ package provider
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/pulumi/pulumi-go-provider/infer"
 
@@ -120,8 +119,7 @@ func (Endpoint) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[EndpointArgs, EndpointState]{},
-			fmt.Errorf("endpoint %q not found", req.ID)
+		return infer.ReadResponse[EndpointArgs, EndpointState]{ID: ""}, nil
 	}
 
 	for _, e := range resp.Myself.Endpoints {
@@ -135,8 +133,7 @@ func (Endpoint) Read(
 		}
 	}
 
-	return infer.ReadResponse[EndpointArgs, EndpointState]{},
-		fmt.Errorf("endpoint %q not found", req.ID)
+	return infer.ReadResponse[EndpointArgs, EndpointState]{ID: ""}, nil
 }
 
 // Update modifies an endpoint using the upsert pattern (saveEndpoint with id).

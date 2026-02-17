@@ -14,7 +14,7 @@ type ContainerRegistryAuth struct{}
 
 // ContainerRegistryAuthArgs are the inputs for creating a container registry auth.
 type ContainerRegistryAuthArgs struct {
-	Name     string `pulumi:"name"`
+	Name     string `pulumi:"name" provider:"replaceOnChanges"`
 	Username string `pulumi:"username"`
 	Password string `pulumi:"password" provider:"secret"`
 }
@@ -88,8 +88,7 @@ func (ContainerRegistryAuth) Read(
 	}
 
 	if resp.Myself == nil {
-		return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{},
-			fmt.Errorf("registry auth %q not found", req.ID)
+		return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{ID: ""}, nil
 	}
 
 	for _, ra := range resp.Myself.ContainerRegistryCreds {
@@ -103,8 +102,7 @@ func (ContainerRegistryAuth) Read(
 		}
 	}
 
-	return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{},
-		fmt.Errorf("registry auth %q not found", req.ID)
+	return infer.ReadResponse[ContainerRegistryAuthArgs, ContainerRegistryAuthState]{ID: ""}, nil
 }
 
 // Update modifies a container registry auth's credentials.
