@@ -12,6 +12,9 @@
   "pluginDownloadURL": "github://api.github.com/runpod/pulumi-runpod",
   "publisher": "RunPod",
   "namespace": "runpod",
+  "meta": {
+    "moduleFormat": "(.*)"
+  },
   "language": {
     "csharp": {
       "respectSchemaVersion": true,
@@ -95,14 +98,14 @@
       },
       "type": "object",
       "required": [
-        "id",
+        "communityCloud",
+        "communityPrice",
         "displayName",
+        "id",
+        "maxGpuCount",
         "memoryInGb",
         "secureCloud",
-        "communityCloud",
-        "securePrice",
-        "communityPrice",
-        "maxGpuCount"
+        "securePrice"
       ]
     },
     "runpod:index:SavingsPlan": {
@@ -141,6 +144,7 @@
         }
       }
     },
+    "type": "object",
     "inputProperties": {
       "apiKey": {
         "type": "string",
@@ -185,11 +189,12 @@
           "description": "The username for the container registry."
         }
       },
+      "type": "object",
       "required": [
         "name",
-        "username",
         "password",
-        "registryAuthId"
+        "registryAuthId",
+        "username"
       ],
       "inputProperties": {
         "name": {
@@ -209,8 +214,8 @@
       },
       "requiredInputs": [
         "name",
-        "username",
-        "password"
+        "password",
+        "username"
       ]
     },
     "runpod:index:Endpoint": {
@@ -321,9 +326,10 @@
           "description": "The minimum number of workers to keep running."
         }
       },
+      "type": "object",
       "required": [
-        "name",
-        "endpointId"
+        "endpointId",
+        "name"
       ],
       "inputProperties": {
         "allowedCudaVersions": {
@@ -457,11 +463,12 @@
           "description": "The size of the network volume in GB."
         }
       },
+      "type": "object",
       "required": [
-        "name",
-        "size",
         "dataCenterId",
-        "networkVolumeId"
+        "name",
+        "networkVolumeId",
+        "size"
       ],
       "inputProperties": {
         "dataCenterId": {
@@ -484,9 +491,9 @@
         }
       },
       "requiredInputs": [
+        "dataCenterId",
         "name",
-        "size",
-        "dataCenterId"
+        "size"
       ]
     },
     "runpod:index:Pod": {
@@ -750,16 +757,17 @@
           "description": "The path to mount the persistent volume."
         }
       },
+      "type": "object",
       "required": [
-        "name",
-        "gpuTypeId",
-        "podId",
-        "machineId",
         "costPerHr",
         "desiredStatus",
-        "vcpuCount",
+        "gpuTypeId",
+        "machineId",
         "memoryInGb",
-        "outputGpuCount"
+        "name",
+        "outputGpuCount",
+        "podId",
+        "vcpuCount"
       ],
       "inputProperties": {
         "aiApiId": {
@@ -966,8 +974,8 @@
         }
       },
       "requiredInputs": [
-        "name",
-        "gpuTypeId"
+        "gpuTypeId",
+        "name"
       ]
     },
     "runpod:index:Secret": {
@@ -991,10 +999,11 @@
           "secret": true
         }
       },
+      "type": "object",
       "required": [
         "name",
-        "value",
-        "secretId"
+        "secretId",
+        "value"
       ],
       "inputProperties": {
         "description": {
@@ -1095,12 +1104,13 @@
           "description": "The path to mount the persistent volume."
         }
       },
+      "type": "object",
       "required": [
-        "name",
-        "imageName",
         "containerDiskInGb",
-        "volumeInGb",
-        "templateId"
+        "imageName",
+        "name",
+        "templateId",
+        "volumeInGb"
       ],
       "inputProperties": {
         "advancedStart": {
@@ -1176,9 +1186,9 @@
         }
       },
       "requiredInputs": [
-        "name",
-        "imageName",
         "containerDiskInGb",
+        "imageName",
+        "name",
         "volumeInGb"
       ]
     }

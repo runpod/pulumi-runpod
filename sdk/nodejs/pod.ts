@@ -36,215 +36,215 @@ export class Pod extends pulumi.CustomResource {
     /**
      * The AI API ID for the pod.
      */
-    declare public readonly aiApiId: pulumi.Output<string | undefined>;
+    public readonly aiApiId!: pulumi.Output<string | undefined>;
     /**
      * A list of allowed CUDA versions.
      */
-    declare public readonly allowedCudaVersions: pulumi.Output<string[] | undefined>;
+    public readonly allowedCudaVersions!: pulumi.Output<string[] | undefined>;
     /**
      * The cloud type: SECURE, COMMUNITY, or ALL.
      */
-    declare public readonly cloudType: pulumi.Output<string | undefined>;
+    public readonly cloudType!: pulumi.Output<string | undefined>;
     /**
      * The compute type: CPU or GPU.
      */
-    declare public readonly computeType: pulumi.Output<string | undefined>;
+    public readonly computeType!: pulumi.Output<string | undefined>;
     /**
      * The size of the container disk in GB.
      */
-    declare public readonly containerDiskInGb: pulumi.Output<number | undefined>;
+    public readonly containerDiskInGb!: pulumi.Output<number | undefined>;
     /**
      * The container registry auth ID for pulling private images.
      */
-    declare public readonly containerRegistryAuthId: pulumi.Output<string | undefined>;
+    public readonly containerRegistryAuthId!: pulumi.Output<string | undefined>;
     /**
      * The cost per hour for the pod in USD.
      */
-    declare public /*out*/ readonly costPerHr: pulumi.Output<number>;
+    public /*out*/ readonly costPerHr!: pulumi.Output<number>;
     /**
      * The country code for data residency.
      */
-    declare public readonly countryCode: pulumi.Output<string | undefined>;
+    public readonly countryCode!: pulumi.Output<string | undefined>;
     /**
      * The CUDA version to use.
      */
-    declare public readonly cudaVersion: pulumi.Output<string | undefined>;
+    public readonly cudaVersion!: pulumi.Output<string | undefined>;
     /**
      * The data center ID to deploy the pod in.
      */
-    declare public readonly dataCenterId: pulumi.Output<string | undefined>;
+    public readonly dataCenterId!: pulumi.Output<string | undefined>;
     /**
      * The maximum bid price per GPU per hour for spot instances.
      */
-    declare public readonly deployCost: pulumi.Output<number | undefined>;
+    public readonly deployCost!: pulumi.Output<number | undefined>;
     /**
      * The desired status of the pod.
      */
-    declare public /*out*/ readonly desiredStatus: pulumi.Output<string>;
+    public /*out*/ readonly desiredStatus!: pulumi.Output<string>;
     /**
      * Docker arguments to pass to the container.
      */
-    declare public readonly dockerArgs: pulumi.Output<string | undefined>;
+    public readonly dockerArgs!: pulumi.Output<string | undefined>;
     /**
      * Environment variables as key-value pairs.
      */
-    declare public readonly env: pulumi.Output<{[key: string]: string} | undefined>;
+    public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
      * Whether to enable global networking.
      */
-    declare public readonly globalNetwork: pulumi.Output<boolean | undefined>;
+    public readonly globalNetwork!: pulumi.Output<boolean | undefined>;
     /**
      * The number of GPUs to allocate.
      */
-    declare public readonly gpuCount: pulumi.Output<number | undefined>;
+    public readonly gpuCount!: pulumi.Output<number | undefined>;
     /**
      * The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
      */
-    declare public readonly gpuTypeId: pulumi.Output<string>;
+    public readonly gpuTypeId!: pulumi.Output<string>;
     /**
      * A list of acceptable GPU type IDs (fallback options).
      */
-    declare public readonly gpuTypeIdList: pulumi.Output<string[] | undefined>;
+    public readonly gpuTypeIdList!: pulumi.Output<string[] | undefined>;
     /**
      * The IDE AI API ID for the pod.
      */
-    declare public readonly ideAiApiId: pulumi.Output<string | undefined>;
+    public readonly ideAiApiId!: pulumi.Output<string | undefined>;
     /**
      * The Docker image to run on the pod.
      */
-    declare public readonly imageName: pulumi.Output<string | undefined>;
+    public readonly imageName!: pulumi.Output<string | undefined>;
     /**
      * Specific instance IDs to deploy on.
      */
-    declare public readonly instanceIds: pulumi.Output<string[] | undefined>;
+    public readonly instanceIds!: pulumi.Output<string[] | undefined>;
     /**
      * The ID of the machine the pod is running on.
      */
-    declare public /*out*/ readonly machineId: pulumi.Output<string>;
+    public /*out*/ readonly machineId!: pulumi.Output<string>;
     /**
      * The amount of memory allocated in GB.
      */
-    declare public /*out*/ readonly memoryInGb: pulumi.Output<number>;
+    public /*out*/ readonly memoryInGb!: pulumi.Output<number>;
     /**
      * The minimum CUDA version required.
      */
-    declare public readonly minCudaVersion: pulumi.Output<string | undefined>;
+    public readonly minCudaVersion!: pulumi.Output<string | undefined>;
     /**
      * Minimum disk space in GB required on the host.
      */
-    declare public readonly minDisk: pulumi.Output<number | undefined>;
+    public readonly minDisk!: pulumi.Output<number | undefined>;
     /**
      * Minimum download bandwidth in Mbps.
      */
-    declare public readonly minDownload: pulumi.Output<number | undefined>;
+    public readonly minDownload!: pulumi.Output<number | undefined>;
     /**
      * Minimum memory in GB required.
      */
-    declare public readonly minMemoryInGb: pulumi.Output<number | undefined>;
+    public readonly minMemoryInGb!: pulumi.Output<number | undefined>;
     /**
      * Minimum upload bandwidth in Mbps.
      */
-    declare public readonly minUpload: pulumi.Output<number | undefined>;
+    public readonly minUpload!: pulumi.Output<number | undefined>;
     /**
      * Minimum number of vCPUs required.
      */
-    declare public readonly minVcpuCount: pulumi.Output<number | undefined>;
+    public readonly minVcpuCount!: pulumi.Output<number | undefined>;
     /**
      * Model references for the pod.
      */
-    declare public readonly modelReferences: pulumi.Output<string[] | undefined>;
+    public readonly modelReferences!: pulumi.Output<string[] | undefined>;
     /**
      * A name for the pod.
      */
-    declare public readonly name: pulumi.Output<string>;
+    public readonly name!: pulumi.Output<string>;
     /**
      * The network volume ID to attach to the pod.
      */
-    declare public readonly networkVolumeId: pulumi.Output<string | undefined>;
+    public readonly networkVolumeId!: pulumi.Output<string | undefined>;
     /**
      * The container disk size in GB (from API response).
      */
-    declare public /*out*/ readonly outputContainerDiskInGb: pulumi.Output<number | undefined>;
+    public /*out*/ readonly outputContainerDiskInGb!: pulumi.Output<number | undefined>;
     /**
      * The container registry auth ID (from API response).
      */
-    declare public /*out*/ readonly outputContainerRegistryAuthId: pulumi.Output<string | undefined>;
+    public /*out*/ readonly outputContainerRegistryAuthId!: pulumi.Output<string | undefined>;
     /**
      * The number of GPUs allocated (from API response).
      */
-    declare public /*out*/ readonly outputGpuCount: pulumi.Output<number>;
+    public /*out*/ readonly outputGpuCount!: pulumi.Output<number>;
     /**
      * The network volume ID attached (from API response).
      */
-    declare public /*out*/ readonly outputNetworkVolumeId: pulumi.Output<string | undefined>;
+    public /*out*/ readonly outputNetworkVolumeId!: pulumi.Output<string | undefined>;
     /**
      * The pod type (from API response).
      */
-    declare public /*out*/ readonly outputPodType: pulumi.Output<string | undefined>;
+    public /*out*/ readonly outputPodType!: pulumi.Output<string | undefined>;
     /**
      * The exposed ports (from API response).
      */
-    declare public /*out*/ readonly outputPorts: pulumi.Output<string | undefined>;
+    public /*out*/ readonly outputPorts!: pulumi.Output<string | undefined>;
     /**
      * The template ID used (from API response).
      */
-    declare public /*out*/ readonly outputTemplateId: pulumi.Output<string | undefined>;
+    public /*out*/ readonly outputTemplateId!: pulumi.Output<string | undefined>;
     /**
      * The volume size in GB (from API response).
      */
-    declare public /*out*/ readonly outputVolumeInGb: pulumi.Output<number | undefined>;
+    public /*out*/ readonly outputVolumeInGb!: pulumi.Output<number | undefined>;
     /**
      * The unique identifier of the pod.
      */
-    declare public /*out*/ readonly podId: pulumi.Output<string>;
+    public /*out*/ readonly podId!: pulumi.Output<string>;
     /**
      * Ports to expose (e.g. "8080/http,22/tcp").
      */
-    declare public readonly ports: pulumi.Output<string | undefined>;
+    public readonly ports!: pulumi.Output<string | undefined>;
     /**
      * Savings plan configuration for reduced pricing.
      */
-    declare public readonly savingsPlan: pulumi.Output<outputs.SavingsPlan | undefined>;
+    public readonly savingsPlan!: pulumi.Output<outputs.SavingsPlan | undefined>;
     /**
      * Whether to start a Jupyter notebook server.
      */
-    declare public readonly startJupyter: pulumi.Output<boolean | undefined>;
+    public readonly startJupyter!: pulumi.Output<boolean | undefined>;
     /**
      * Whether to start an SSH server.
      */
-    declare public readonly startSsh: pulumi.Output<boolean | undefined>;
+    public readonly startSsh!: pulumi.Output<boolean | undefined>;
     /**
      * Duration after which the pod is automatically stopped.
      */
-    declare public readonly stopAfter: pulumi.Output<string | undefined>;
+    public readonly stopAfter!: pulumi.Output<string | undefined>;
     /**
      * Whether to assign a public IP address.
      */
-    declare public readonly supportPublicIp: pulumi.Output<boolean | undefined>;
+    public readonly supportPublicIp!: pulumi.Output<boolean | undefined>;
     /**
      * The template ID to use for the pod.
      */
-    declare public readonly templateId: pulumi.Output<string | undefined>;
+    public readonly templateId!: pulumi.Output<string | undefined>;
     /**
      * Duration after which the pod is automatically terminated.
      */
-    declare public readonly terminateAfter: pulumi.Output<string | undefined>;
+    public readonly terminateAfter!: pulumi.Output<string | undefined>;
     /**
      * The number of vCPUs allocated.
      */
-    declare public /*out*/ readonly vcpuCount: pulumi.Output<number>;
+    public /*out*/ readonly vcpuCount!: pulumi.Output<number>;
     /**
      * The size of the persistent volume in GB.
      */
-    declare public readonly volumeInGb: pulumi.Output<number | undefined>;
+    public readonly volumeInGb!: pulumi.Output<number | undefined>;
     /**
      * The volume key for persistent storage.
      */
-    declare public readonly volumeKey: pulumi.Output<string | undefined>;
+    public readonly volumeKey!: pulumi.Output<string | undefined>;
     /**
      * The path to mount the persistent volume.
      */
-    declare public readonly volumeMountPath: pulumi.Output<string | undefined>;
+    public readonly volumeMountPath!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Pod resource with the given unique name, arguments, and options.
@@ -257,51 +257,51 @@ export class Pod extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if (args?.gpuTypeId === undefined && !opts.urn) {
+            if ((!args || args.gpuTypeId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'gpuTypeId'");
             }
-            if (args?.name === undefined && !opts.urn) {
+            if ((!args || args.name === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
-            resourceInputs["aiApiId"] = args?.aiApiId;
-            resourceInputs["allowedCudaVersions"] = args?.allowedCudaVersions;
-            resourceInputs["cloudType"] = args?.cloudType;
-            resourceInputs["computeType"] = args?.computeType;
-            resourceInputs["containerDiskInGb"] = args?.containerDiskInGb;
-            resourceInputs["containerRegistryAuthId"] = args?.containerRegistryAuthId;
-            resourceInputs["countryCode"] = args?.countryCode;
-            resourceInputs["cudaVersion"] = args?.cudaVersion;
-            resourceInputs["dataCenterId"] = args?.dataCenterId;
-            resourceInputs["deployCost"] = args?.deployCost;
-            resourceInputs["dockerArgs"] = args?.dockerArgs;
-            resourceInputs["env"] = args?.env;
-            resourceInputs["globalNetwork"] = args?.globalNetwork;
-            resourceInputs["gpuCount"] = args?.gpuCount;
-            resourceInputs["gpuTypeId"] = args?.gpuTypeId;
-            resourceInputs["gpuTypeIdList"] = args?.gpuTypeIdList;
-            resourceInputs["ideAiApiId"] = args?.ideAiApiId;
-            resourceInputs["imageName"] = args?.imageName;
-            resourceInputs["instanceIds"] = args?.instanceIds;
-            resourceInputs["minCudaVersion"] = args?.minCudaVersion;
-            resourceInputs["minDisk"] = args?.minDisk;
-            resourceInputs["minDownload"] = args?.minDownload;
-            resourceInputs["minMemoryInGb"] = args?.minMemoryInGb;
-            resourceInputs["minUpload"] = args?.minUpload;
-            resourceInputs["minVcpuCount"] = args?.minVcpuCount;
-            resourceInputs["modelReferences"] = args?.modelReferences;
-            resourceInputs["name"] = args?.name;
-            resourceInputs["networkVolumeId"] = args?.networkVolumeId;
-            resourceInputs["ports"] = args?.ports;
-            resourceInputs["savingsPlan"] = args?.savingsPlan;
-            resourceInputs["startJupyter"] = args?.startJupyter;
-            resourceInputs["startSsh"] = args?.startSsh;
-            resourceInputs["stopAfter"] = args?.stopAfter;
-            resourceInputs["supportPublicIp"] = args?.supportPublicIp;
-            resourceInputs["templateId"] = args?.templateId;
-            resourceInputs["terminateAfter"] = args?.terminateAfter;
-            resourceInputs["volumeInGb"] = args?.volumeInGb;
-            resourceInputs["volumeKey"] = args?.volumeKey;
-            resourceInputs["volumeMountPath"] = args?.volumeMountPath;
+            resourceInputs["aiApiId"] = args ? args.aiApiId : undefined;
+            resourceInputs["allowedCudaVersions"] = args ? args.allowedCudaVersions : undefined;
+            resourceInputs["cloudType"] = args ? args.cloudType : undefined;
+            resourceInputs["computeType"] = args ? args.computeType : undefined;
+            resourceInputs["containerDiskInGb"] = args ? args.containerDiskInGb : undefined;
+            resourceInputs["containerRegistryAuthId"] = args ? args.containerRegistryAuthId : undefined;
+            resourceInputs["countryCode"] = args ? args.countryCode : undefined;
+            resourceInputs["cudaVersion"] = args ? args.cudaVersion : undefined;
+            resourceInputs["dataCenterId"] = args ? args.dataCenterId : undefined;
+            resourceInputs["deployCost"] = args ? args.deployCost : undefined;
+            resourceInputs["dockerArgs"] = args ? args.dockerArgs : undefined;
+            resourceInputs["env"] = args ? args.env : undefined;
+            resourceInputs["globalNetwork"] = args ? args.globalNetwork : undefined;
+            resourceInputs["gpuCount"] = args ? args.gpuCount : undefined;
+            resourceInputs["gpuTypeId"] = args ? args.gpuTypeId : undefined;
+            resourceInputs["gpuTypeIdList"] = args ? args.gpuTypeIdList : undefined;
+            resourceInputs["ideAiApiId"] = args ? args.ideAiApiId : undefined;
+            resourceInputs["imageName"] = args ? args.imageName : undefined;
+            resourceInputs["instanceIds"] = args ? args.instanceIds : undefined;
+            resourceInputs["minCudaVersion"] = args ? args.minCudaVersion : undefined;
+            resourceInputs["minDisk"] = args ? args.minDisk : undefined;
+            resourceInputs["minDownload"] = args ? args.minDownload : undefined;
+            resourceInputs["minMemoryInGb"] = args ? args.minMemoryInGb : undefined;
+            resourceInputs["minUpload"] = args ? args.minUpload : undefined;
+            resourceInputs["minVcpuCount"] = args ? args.minVcpuCount : undefined;
+            resourceInputs["modelReferences"] = args ? args.modelReferences : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["networkVolumeId"] = args ? args.networkVolumeId : undefined;
+            resourceInputs["ports"] = args ? args.ports : undefined;
+            resourceInputs["savingsPlan"] = args ? args.savingsPlan : undefined;
+            resourceInputs["startJupyter"] = args ? args.startJupyter : undefined;
+            resourceInputs["startSsh"] = args ? args.startSsh : undefined;
+            resourceInputs["stopAfter"] = args ? args.stopAfter : undefined;
+            resourceInputs["supportPublicIp"] = args ? args.supportPublicIp : undefined;
+            resourceInputs["templateId"] = args ? args.templateId : undefined;
+            resourceInputs["terminateAfter"] = args ? args.terminateAfter : undefined;
+            resourceInputs["volumeInGb"] = args ? args.volumeInGb : undefined;
+            resourceInputs["volumeKey"] = args ? args.volumeKey : undefined;
+            resourceInputs["volumeMountPath"] = args ? args.volumeMountPath : undefined;
             resourceInputs["costPerHr"] = undefined /*out*/;
             resourceInputs["desiredStatus"] = undefined /*out*/;
             resourceInputs["machineId"] = undefined /*out*/;

@@ -34,19 +34,19 @@ export class Secret extends pulumi.CustomResource {
     /**
      * A human-readable description of the secret.
      */
-    declare public readonly description: pulumi.Output<string | undefined>;
+    public readonly description!: pulumi.Output<string | undefined>;
     /**
      * A name for the secret.
      */
-    declare public readonly name: pulumi.Output<string>;
+    public readonly name!: pulumi.Output<string>;
     /**
      * The unique identifier of the secret.
      */
-    declare public /*out*/ readonly secretId: pulumi.Output<string>;
+    public /*out*/ readonly secretId!: pulumi.Output<string>;
     /**
      * The secret value.
      */
-    declare public readonly value: pulumi.Output<string>;
+    public readonly value!: pulumi.Output<string>;
 
     /**
      * Create a Secret resource with the given unique name, arguments, and options.
@@ -59,14 +59,14 @@ export class Secret extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if (args?.name === undefined && !opts.urn) {
+            if ((!args || args.name === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
-            if (args?.value === undefined && !opts.urn) {
+            if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
-            resourceInputs["description"] = args?.description;
-            resourceInputs["name"] = args?.name;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
             resourceInputs["secretId"] = undefined /*out*/;
         } else {
