@@ -12,7 +12,6 @@ linters:
     - gocritic
     - gofumpt
     - goheader
-    - gosec
     - govet
     - importas
     - ineffassign
@@ -25,7 +24,8 @@ linters:
     - prealloc
     - revive
     - unconvert
-    - unused
+    # gosec and unused omitted — they require whole-program SSA analysis
+    # which exceeds the 7GB RAM limit on ubuntu-latest runners.
 
 linters-settings:
   depguard:
