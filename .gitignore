@@ -22,6 +22,9 @@ provider/coverage.txt
 /pulumi-resource-runpod
 examples/sst/.sst/
 
+# CI environment artifacts
+.local/
+
 # Claude Code / local artifacts
 .plan/
 .specify/

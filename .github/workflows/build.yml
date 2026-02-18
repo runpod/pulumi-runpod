@@ -86,8 +86,11 @@ jobs:
           sdk/dotnet/*.*.csproj
           sdk/dotnet/version.txt
           sdk/go/**/pulumiUtilities.go
+          sdk/go/**/go.mod
+          sdk/go/**/go.sum
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+          sdk/python/README.md
     - run: git status --porcelain
     - name: Tar provider binaries
       run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
@@ -151,8 +154,11 @@ jobs:
           sdk/dotnet/*.*.csproj
           sdk/dotnet/version.txt
           sdk/go/**/pulumiUtilities.go
+          sdk/go/**/go.mod
+          sdk/go/**/go.sum
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+          sdk/python/README.md
     - run: git status --porcelain
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
