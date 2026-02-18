@@ -11,7 +11,7 @@ env:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-4-cores
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -26,7 +26,6 @@ jobs:
       run: git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i
         's/go:embed/ goembed/g'
     - name: golangci-lint provider pkg
-      continue-on-error: true
       uses: golangci/golangci-lint-action@55c2c1448f86e01eaae002a5a3a9624417608d84 # v6.5.2
       env:
         GOGC: "50"
