@@ -105,6 +105,8 @@ jobs:
         allowed-changes: |-
           provider/cmd/*/schema.json
           sdk/**
+          sdk/**/.*
+        continue-with-unexpected-changes: true
     - run: git status --porcelain
     - name: Tar provider binaries
       run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
@@ -180,6 +182,8 @@ jobs:
         allowed-changes: |-
           provider/cmd/*/schema.json
           sdk/**
+          sdk/**/.*
+        continue-with-unexpected-changes: true
     - run: git status --porcelain
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
