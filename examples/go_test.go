@@ -14,6 +14,10 @@ import (
 )
 
 func TestGoExampleLifecycle(t *testing.T) {
+	if os.Getenv("RUNPOD_API_KEY") == "" {
+		t.Skip("RUNPOD_API_KEY not set, skipping integration test")
+	}
+
 	cwd, err := os.Getwd()
 	require.NoError(t, err)
 

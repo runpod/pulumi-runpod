@@ -4,6 +4,7 @@
 package examples
 
 import (
+	"os"
 	"testing"
 
 	"github.com/pulumi/providertest/pulumitest"
@@ -11,6 +12,10 @@ import (
 )
 
 func TestYAMLExampleLifecycle(t *testing.T) {
+	if os.Getenv("RUNPOD_API_KEY") == "" {
+		t.Skip("RUNPOD_API_KEY not set, skipping integration test")
+	}
+
 	pt := pulumitest.NewPulumiTest(t, "yaml",
 		opttest.AttachProviderServer("runpod", providerFactory),
 		opttest.SkipInstall(),
