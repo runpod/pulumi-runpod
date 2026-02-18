@@ -26,19 +26,6 @@ resources:
       dockerArgs: ""
       startSsh: true
 
-  # Create a GPU pod
-  myPod:
-    type: runpod:Pod
-    properties:
-      name: my-gpu-pod
-      gpuTypeId: NVIDIA RTX A4000
-      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
-      containerDiskInGb: 20
-      volumeInGb: 20
-      startSsh: true
-      env:
-        MY_VAR: hello
-
   # Create a serverless endpoint
   myEndpoint:
     type: runpod:Endpoint
@@ -51,7 +38,6 @@ resources:
       idleTimeout: 5
 
 outputs:
-  podId: ${myPod.podId}
   volumeId: ${myVolume.networkVolumeId}
   endpointId: ${myEndpoint.endpointId}
   templateId: ${myTemplate.templateId}
