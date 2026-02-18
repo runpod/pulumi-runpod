@@ -43,10 +43,24 @@ linters-settings:
       - prefix(github.com/runpod/pulumi-runpod/) # Custom section: local imports
     custom-order: true
   gocritic:
-    enable-all: true
-    disabled-checks:
-      - hugeParam
-      - importShadow
+    enabled-checks:
+      - appendAssign
+      - argOrder
+      - badCall
+      - badCond
+      - badLock
+      - badRegexp
+      - builtinShadowDecl
+      - dupArg
+      - dupBranchBody
+      - dupCase
+      - dupSubExpr
+      - evalOrder
+      - nilValReturn
+      - sloppyLen
+      - typeSwitchVar
+      - underef
+      - unnamedResult
   goheader:
     template: |-
       Copyright 2025, RunPod, Inc.

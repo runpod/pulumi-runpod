@@ -203,7 +203,7 @@ jobs:
     needs:
     - build_sdks
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         language:
         - nodejs
@@ -315,10 +315,10 @@ jobs:
       with:
         install-mode: none # Handled by mise.
         working-directory: provider
-        args: --concurrency=2
+        args: --concurrency=1
       env:
         GOGC: 50
-        GOMEMLIMIT: 5GiB
+        GOMEMLIMIT: 6GiB
     name: lint
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
