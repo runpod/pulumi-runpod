@@ -20,7 +20,7 @@ import (
 
 	"github.com/pulumi/pulumi-go-provider/infer"
 
-	"github.com/runpod/pulumi-runpod/pkg/runpod"
+	"github.com/runpod/pulumi-runpod/provider/pkg/runpod"
 )
 
 // Pod is the controller for the runpod:index:Pod resource.

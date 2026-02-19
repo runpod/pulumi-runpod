@@ -12,6 +12,7 @@ linters:
     - gocritic
     - gofumpt
     - goheader
+    - gosec
     - govet
     - importas
     - ineffassign
@@ -24,8 +25,7 @@ linters:
     - prealloc
     - revive
     - unconvert
-    # unused requires whole-program analysis (>7GB RAM on this codebase).
-    # Enable when provider/ has its own go.mod or larger runners are available.
+    - unused
 
 linters-settings:
   depguard:
