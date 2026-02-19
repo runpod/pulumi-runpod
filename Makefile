@@ -90,6 +90,8 @@ sdk/go: ${SCHEMA_FILE}
 	cp go.mod ${PACKDIR}/go/${PACK}/go.mod
 	cd ${PACKDIR}/go/${PACK} && \
 		go mod edit -module=github.com/runpod/pulumi-runpod/${PACKDIR}/go/${PACK} && \
+		go mod edit -droprequire=github.com/runpod/pulumi-runpod/provider && \
+		go mod edit -dropreplace=github.com/runpod/pulumi-runpod/provider && \
 		go mod tidy
 
 .PHONY: provider
