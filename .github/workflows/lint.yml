@@ -11,7 +11,7 @@ env:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest-4-cores
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
     - name: Free Disk Space (Ubuntu)

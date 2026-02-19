@@ -24,7 +24,8 @@ linters:
     - prealloc
     - revive
     - unconvert
-    - unused
+    # unused requires whole-program analysis (>7GB RAM on this codebase).
+    # Enable when provider/ has its own go.mod or larger runners are available.
 
 linters-settings:
   depguard:
