@@ -17,4 +17,4 @@ runs:
 
     - name: UnTar SDK folder
       shell: bash
-      run: tar -zxf ${{ github.workspace }}/sdk/${{ inputs.language }}.tar.gz -C ${{ github.workspace }}/sdk/${{ inputs.language }}
+      run: mkdir -p ${{ github.workspace }}/sdk/${{ inputs.language }} && tar -zxf ${{ github.workspace }}/sdk/${{ inputs.language }}-sdk.tar.gz -C ${{ github.workspace }}/sdk/${{ inputs.language }}

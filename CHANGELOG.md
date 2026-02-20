@@ -20,6 +20,6 @@ Initial pre-release of the RunPod Pulumi provider.
 ### SDK Packages
 
 - npm: `@runpod/pulumi`
-- PyPI: `pulumi-runpod`
+- PyPI: `pulumi_runpod`
 - NuGet: `Pulumi.Runpod`
 - Go: `github.com/runpod/pulumi-runpod/sdk/go/runpod`

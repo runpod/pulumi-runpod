@@ -153,11 +153,11 @@ func (Secret) Update(
 	}
 
 	// Update description
+	oldDesc := ""
+	if req.State.Description != nil {
+		oldDesc = *req.State.Description
+	}
 	if req.Inputs.Description != nil {
-		oldDesc := ""
-		if req.State.Description != nil {
-			oldDesc = *req.State.Description
-		}
 		if *req.Inputs.Description != oldDesc {
 			_, err := runpod.SecretDescriptionUpdate(
 				ctx, client, runpod.SecretDescriptionUpdateInput{
@@ -168,6 +168,17 @@ func (Secret) Update(
 			if err != nil {
 				return infer.UpdateResponse[SecretState]{}, err
 			}
+		}
+	} else if req.State.Description != nil {
+		// Treat nil input as a request to clear an existing description.
+		_, err := runpod.SecretDescriptionUpdate(
+			ctx, client, runpod.SecretDescriptionUpdateInput{
+				Id:          req.ID,
+				Description: "",
+			},
+		)
+		if err != nil {
+			return infer.UpdateResponse[SecretState]{}, err
 		}
 	}
 

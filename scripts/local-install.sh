@@ -5,7 +5,7 @@
 #   ./scripts/local-install.sh /path/to/your-sst-project
 #
 # Prerequisites:
-#   - Go, Node.js, and Pulumi CLI installed
+#   - Go, Node.js, Bun, and Pulumi CLI installed
 #   - The SST project has been initialized (`.sst/platform/` exists)
 #     Run `npx sst deploy --stage dev` once first if it doesn't.
 

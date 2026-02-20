@@ -79,12 +79,12 @@ func (GetGpuTypes) Invoke(
 		return infer.FunctionResponse[GetGpuTypesResult]{}, err
 	}
 
-	result := make([]GpuTypeOutput, len(resp.GpuTypes))
-	for i, g := range resp.GpuTypes {
+	result := make([]GpuTypeOutput, 0, len(resp.GpuTypes))
+	for _, g := range resp.GpuTypes {
 		if g == nil {
 			continue
 		}
-		result[i] = GpuTypeOutput{
+		result = append(result, GpuTypeOutput{
 			ID:             runpod.PtrString(g.Id),
 			DisplayName:    runpod.PtrString(g.DisplayName),
 			MemoryInGb:     runpod.PtrInt(g.MemoryInGb),
@@ -93,7 +93,7 @@ func (GetGpuTypes) Invoke(
 			SecurePrice:    runpod.PtrFloat64(g.SecurePrice),
 			CommunityPrice: runpod.PtrFloat64(g.CommunityPrice),
 			MaxGpuCount:    runpod.PtrInt(g.MaxGpuCount),
-		}
+		})
 	}
 
 	return infer.FunctionResponse[GetGpuTypesResult]{
