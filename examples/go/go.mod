@@ -1,6 +1,6 @@
 module github.com/runpod/pulumi-runpod/examples/go
 
-go 1.24.2
+go 1.24
 
 replace github.com/runpod/pulumi-runpod/sdk/go/runpod => ../../sdk/go/runpod
 
