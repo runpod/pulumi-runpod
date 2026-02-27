@@ -10,5 +10,12 @@ query GetGpuTypes($input: GpuTypeFilter) {
     securePrice
     communityPrice
     maxGpuCount
+    lowestPrice(input: {gpuCount: 1}) {
+      minimumBidPrice
+      uninterruptablePrice
+      rentedCount
+      totalCount
+      stockStatus
+    }
   }
 }

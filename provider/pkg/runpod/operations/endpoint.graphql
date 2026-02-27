@@ -13,6 +13,10 @@ mutation SaveEndpoint($input: EndpointInput!) {
     scalerType
     scalerValue
     networkVolumeId
+    networkVolumeIds {
+      networkVolumeId
+      dataCenterId
+    }
     gpuCount
     instanceIds
     workersPFBTarget
@@ -41,6 +45,10 @@ query GetMyEndpoints {
       scalerType
       scalerValue
       networkVolumeId
+      networkVolumeIds {
+        networkVolumeId
+        dataCenterId
+      }
       gpuCount
       instanceIds
       workersPFBTarget

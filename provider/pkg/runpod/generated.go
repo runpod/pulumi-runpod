@@ -575,26 +575,27 @@ func (v *EndpointRepoInput) GetContainerRegistryAuthId() *string { return v.Cont
 
 // EndpointResponse includes the requested fields of the GraphQL type Endpoint.
 type EndpointResponse struct {
-	Id                  *string        `json:"id,omitempty"`
-	Name                *string        `json:"name,omitempty"`
-	TemplateId          *string        `json:"templateId,omitempty"`
-	GpuIds              *string        `json:"gpuIds,omitempty"`
-	WorkersMin          *int           `json:"workersMin,omitempty"`
-	WorkersMax          *int           `json:"workersMax,omitempty"`
-	IdleTimeout         *int           `json:"idleTimeout,omitempty"`
-	Locations           *string        `json:"locations,omitempty"`
-	ScalerType          *string        `json:"scalerType,omitempty"`
-	ScalerValue         *int           `json:"scalerValue,omitempty"`
-	NetworkVolumeId     *string        `json:"networkVolumeId,omitempty"`
-	GpuCount            *int           `json:"gpuCount,omitempty"`
-	InstanceIds         []*string      `json:"instanceIds"`
-	WorkersPFBTarget    *int           `json:"workersPFBTarget,omitempty"`
-	AllowedCudaVersions *string        `json:"allowedCudaVersions,omitempty"`
-	MinCudaVersion      *string        `json:"minCudaVersion,omitempty"`
-	ExecutionTimeoutMs  *int           `json:"executionTimeoutMs,omitempty"`
-	FlashBootType       *FlashBootType `json:"flashBootType,omitempty"`
-	Type                *string        `json:"type,omitempty"`
-	ModelReferences     []*string      `json:"modelReferences"`
+	Id                  *string                             `json:"id,omitempty"`
+	Name                *string                             `json:"name,omitempty"`
+	TemplateId          *string                             `json:"templateId,omitempty"`
+	GpuIds              *string                             `json:"gpuIds,omitempty"`
+	WorkersMin          *int                                `json:"workersMin,omitempty"`
+	WorkersMax          *int                                `json:"workersMax,omitempty"`
+	IdleTimeout         *int                                `json:"idleTimeout,omitempty"`
+	Locations           *string                             `json:"locations,omitempty"`
+	ScalerType          *string                             `json:"scalerType,omitempty"`
+	ScalerValue         *int                                `json:"scalerValue,omitempty"`
+	NetworkVolumeId     *string                             `json:"networkVolumeId,omitempty"`
+	NetworkVolumeIds    []*EndpointResponseNetworkVolumeIds `json:"networkVolumeIds"`
+	GpuCount            *int                                `json:"gpuCount,omitempty"`
+	InstanceIds         []*string                           `json:"instanceIds"`
+	WorkersPFBTarget    *int                                `json:"workersPFBTarget,omitempty"`
+	AllowedCudaVersions *string                             `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string                             `json:"minCudaVersion,omitempty"`
+	ExecutionTimeoutMs  *int                                `json:"executionTimeoutMs,omitempty"`
+	FlashBootType       *FlashBootType                      `json:"flashBootType,omitempty"`
+	Type                *string                             `json:"type,omitempty"`
+	ModelReferences     []*string                           `json:"modelReferences"`
 }
 
 // GetId returns EndpointResponse.Id, and is useful for accessing the field via an interface.
@@ -630,6 +631,11 @@ func (v *EndpointResponse) GetScalerValue() *int { return v.ScalerValue }
 // GetNetworkVolumeId returns EndpointResponse.NetworkVolumeId, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetNetworkVolumeId() *string { return v.NetworkVolumeId }
 
+// GetNetworkVolumeIds returns EndpointResponse.NetworkVolumeIds, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetNetworkVolumeIds() []*EndpointResponseNetworkVolumeIds {
+	return v.NetworkVolumeIds
+}
+
 // GetGpuCount returns EndpointResponse.GpuCount, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetGpuCount() *int { return v.GpuCount }
 
@@ -656,6 +662,18 @@ func (v *EndpointResponse) GetType() *string { return v.Type }
 
 // GetModelReferences returns EndpointResponse.ModelReferences, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetModelReferences() []*string { return v.ModelReferences }
+
+// EndpointResponseNetworkVolumeIds includes the requested fields of the GraphQL type NetworkVolumeIds.
+type EndpointResponseNetworkVolumeIds struct {
+	NetworkVolumeId *string `json:"networkVolumeId,omitempty"`
+	DataCenterId    *string `json:"dataCenterId,omitempty"`
+}
+
+// GetNetworkVolumeId returns EndpointResponseNetworkVolumeIds.NetworkVolumeId, and is useful for accessing the field via an interface.
+func (v *EndpointResponseNetworkVolumeIds) GetNetworkVolumeId() *string { return v.NetworkVolumeId }
+
+// GetDataCenterId returns EndpointResponseNetworkVolumeIds.DataCenterId, and is useful for accessing the field via an interface.
+func (v *EndpointResponseNetworkVolumeIds) GetDataCenterId() *string { return v.DataCenterId }
 
 type EndpointTemplateInput struct {
 	AdvancedStart           *bool                       `json:"advancedStart,omitempty"`
@@ -872,14 +890,15 @@ func (v *GpuTypeFilter) GetCluster() *bool { return v.Cluster }
 
 // GpuTypeResponse includes the requested fields of the GraphQL type GpuType.
 type GpuTypeResponse struct {
-	Id             *string  `json:"id,omitempty"`
-	DisplayName    *string  `json:"displayName,omitempty"`
-	MemoryInGb     *int     `json:"memoryInGb,omitempty"`
-	SecureCloud    *bool    `json:"secureCloud,omitempty"`
-	CommunityCloud *bool    `json:"communityCloud,omitempty"`
-	SecurePrice    *float64 `json:"securePrice,omitempty"`
-	CommunityPrice *float64 `json:"communityPrice,omitempty"`
-	MaxGpuCount    *int     `json:"maxGpuCount,omitempty"`
+	Id             *string                     `json:"id,omitempty"`
+	DisplayName    *string                     `json:"displayName,omitempty"`
+	MemoryInGb     *int                        `json:"memoryInGb,omitempty"`
+	SecureCloud    *bool                       `json:"secureCloud,omitempty"`
+	CommunityCloud *bool                       `json:"communityCloud,omitempty"`
+	SecurePrice    *float64                    `json:"securePrice,omitempty"`
+	CommunityPrice *float64                    `json:"communityPrice,omitempty"`
+	MaxGpuCount    *int                        `json:"maxGpuCount,omitempty"`
+	LowestPrice    *GpuTypeResponseLowestPrice `json:"lowestPrice,omitempty"`
 }
 
 // GetId returns GpuTypeResponse.Id, and is useful for accessing the field via an interface.
@@ -905,6 +924,35 @@ func (v *GpuTypeResponse) GetCommunityPrice() *float64 { return v.CommunityPrice
 
 // GetMaxGpuCount returns GpuTypeResponse.MaxGpuCount, and is useful for accessing the field via an interface.
 func (v *GpuTypeResponse) GetMaxGpuCount() *int { return v.MaxGpuCount }
+
+// GetLowestPrice returns GpuTypeResponse.LowestPrice, and is useful for accessing the field via an interface.
+func (v *GpuTypeResponse) GetLowestPrice() *GpuTypeResponseLowestPrice { return v.LowestPrice }
+
+// GpuTypeResponseLowestPrice includes the requested fields of the GraphQL type LowestPrice.
+type GpuTypeResponseLowestPrice struct {
+	MinimumBidPrice      *float64 `json:"minimumBidPrice,omitempty"`
+	UninterruptablePrice *float64 `json:"uninterruptablePrice,omitempty"`
+	RentedCount          *int     `json:"rentedCount,omitempty"`
+	TotalCount           *int     `json:"totalCount,omitempty"`
+	StockStatus          *string  `json:"stockStatus,omitempty"`
+}
+
+// GetMinimumBidPrice returns GpuTypeResponseLowestPrice.MinimumBidPrice, and is useful for accessing the field via an interface.
+func (v *GpuTypeResponseLowestPrice) GetMinimumBidPrice() *float64 { return v.MinimumBidPrice }
+
+// GetUninterruptablePrice returns GpuTypeResponseLowestPrice.UninterruptablePrice, and is useful for accessing the field via an interface.
+func (v *GpuTypeResponseLowestPrice) GetUninterruptablePrice() *float64 {
+	return v.UninterruptablePrice
+}
+
+// GetRentedCount returns GpuTypeResponseLowestPrice.RentedCount, and is useful for accessing the field via an interface.
+func (v *GpuTypeResponseLowestPrice) GetRentedCount() *int { return v.RentedCount }
+
+// GetTotalCount returns GpuTypeResponseLowestPrice.TotalCount, and is useful for accessing the field via an interface.
+func (v *GpuTypeResponseLowestPrice) GetTotalCount() *int { return v.TotalCount }
+
+// GetStockStatus returns GpuTypeResponseLowestPrice.StockStatus, and is useful for accessing the field via an interface.
+func (v *GpuTypeResponseLowestPrice) GetStockStatus() *string { return v.StockStatus }
 
 type NetworkVolumeIdsInput struct {
 	NetworkVolumeId string `json:"networkVolumeId"`
@@ -2235,6 +2283,13 @@ query GetGpuTypes ($input: GpuTypeFilter) {
 		securePrice
 		communityPrice
 		maxGpuCount
+		lowestPrice(input: {gpuCount:1}) {
+			minimumBidPrice
+			uninterruptablePrice
+			rentedCount
+			totalCount
+			stockStatus
+		}
 	}
 }
 `
@@ -2280,6 +2335,10 @@ query GetMyEndpoints {
 			scalerType
 			scalerValue
 			networkVolumeId
+			networkVolumeIds {
+				networkVolumeId
+				dataCenterId
+			}
 			gpuCount
 			instanceIds
 			workersPFBTarget
@@ -2538,6 +2597,10 @@ mutation SaveEndpoint ($input: EndpointInput!) {
 		scalerType
 		scalerValue
 		networkVolumeId
+		networkVolumeIds {
+			networkVolumeId
+			dataCenterId
+		}
 		gpuCount
 		instanceIds
 		workersPFBTarget

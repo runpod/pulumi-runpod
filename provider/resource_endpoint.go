@@ -103,10 +103,17 @@ func (a *EndpointArgs) Annotate(an infer.Annotator) {
 		"Model references for the endpoint.")
 }
 
+// EndpointNetworkVolumeBinding represents a network volume attached to an endpoint in a specific data center.
+type EndpointNetworkVolumeBinding struct {
+	NetworkVolumeID string `pulumi:"networkVolumeId"`
+	DataCenterID    string `pulumi:"dataCenterId"`
+}
+
 // EndpointState is the persisted state of an endpoint resource.
 type EndpointState struct {
 	EndpointArgs
-	EndpointID string `pulumi:"endpointId"`
+	EndpointID       string                         `pulumi:"endpointId"`
+	NetworkVolumeIDs []EndpointNetworkVolumeBinding  `pulumi:"networkVolumeIds,optional"`
 }
 
 // Annotate provides descriptions for EndpointState fields.
@@ -255,8 +262,23 @@ func endpointArgsToInput(
 func endpointResponseToState(
 	input EndpointArgs, ep *runpod.EndpointResponse,
 ) EndpointState {
-	return EndpointState{
+	state := EndpointState{
 		EndpointArgs: input,
 		EndpointID:   runpod.PtrString(ep.Id),
 	}
+
+	if len(ep.NetworkVolumeIds) > 0 {
+		bindings := make([]EndpointNetworkVolumeBinding, 0, len(ep.NetworkVolumeIds))
+		for _, nv := range ep.NetworkVolumeIds {
+			if nv != nil {
+				bindings = append(bindings, EndpointNetworkVolumeBinding{
+					NetworkVolumeID: runpod.PtrString(nv.NetworkVolumeId),
+					DataCenterID:    runpod.PtrString(nv.DataCenterId),
+				})
+			}
+		}
+		state.NetworkVolumeIDs = bindings
+	}
+
+	return state
 }

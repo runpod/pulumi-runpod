@@ -33,16 +33,26 @@ type GetGpuTypesResult struct {
 	GpuTypes []GpuTypeOutput `pulumi:"gpuTypes"`
 }
 
+// LowestPriceOutput represents the lowest available pricing for a GPU type.
+type LowestPriceOutput struct {
+	MinimumBidPrice    float64 `pulumi:"minimumBidPrice"`
+	UninterruptablePrice float64 `pulumi:"uninterruptablePrice"`
+	RentedCount        int     `pulumi:"rentedCount"`
+	TotalCount         int     `pulumi:"totalCount"`
+	StockStatus        string  `pulumi:"stockStatus"`
+}
+
 // GpuTypeOutput represents a single GPU type in the output.
 type GpuTypeOutput struct {
-	ID             string  `pulumi:"id"`
-	DisplayName    string  `pulumi:"displayName"`
-	MemoryInGb     int     `pulumi:"memoryInGb"`
-	SecureCloud    bool    `pulumi:"secureCloud"`
-	CommunityCloud bool    `pulumi:"communityCloud"`
-	SecurePrice    float64 `pulumi:"securePrice"`
-	CommunityPrice float64 `pulumi:"communityPrice"`
-	MaxGpuCount    int     `pulumi:"maxGpuCount"`
+	ID             string             `pulumi:"id"`
+	DisplayName    string             `pulumi:"displayName"`
+	MemoryInGb     int                `pulumi:"memoryInGb"`
+	SecureCloud    bool               `pulumi:"secureCloud"`
+	CommunityCloud bool               `pulumi:"communityCloud"`
+	SecurePrice    float64            `pulumi:"securePrice"`
+	CommunityPrice float64            `pulumi:"communityPrice"`
+	MaxGpuCount    int                `pulumi:"maxGpuCount"`
+	LowestPrice    *LowestPriceOutput `pulumi:"lowestPrice,optional"`
 }
 
 // Annotate provides descriptions for GetGpuTypesResult fields.
@@ -84,7 +94,7 @@ func (GetGpuTypes) Invoke(
 		if g == nil {
 			continue
 		}
-		result = append(result, GpuTypeOutput{
+		out := GpuTypeOutput{
 			ID:             runpod.PtrString(g.Id),
 			DisplayName:    runpod.PtrString(g.DisplayName),
 			MemoryInGb:     runpod.PtrInt(g.MemoryInGb),
@@ -93,7 +103,17 @@ func (GetGpuTypes) Invoke(
 			SecurePrice:    runpod.PtrFloat64(g.SecurePrice),
 			CommunityPrice: runpod.PtrFloat64(g.CommunityPrice),
 			MaxGpuCount:    runpod.PtrInt(g.MaxGpuCount),
-		})
+		}
+		if g.LowestPrice != nil {
+			out.LowestPrice = &LowestPriceOutput{
+				MinimumBidPrice:      runpod.PtrFloat64(g.LowestPrice.MinimumBidPrice),
+				UninterruptablePrice: runpod.PtrFloat64(g.LowestPrice.UninterruptablePrice),
+				RentedCount:          runpod.PtrInt(g.LowestPrice.RentedCount),
+				TotalCount:           runpod.PtrInt(g.LowestPrice.TotalCount),
+				StockStatus:          runpod.PtrString(g.LowestPrice.StockStatus),
+			}
+		}
+		result = append(result, out)
 	}
 
 	return infer.FunctionResponse[GetGpuTypesResult]{
