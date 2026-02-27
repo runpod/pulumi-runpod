@@ -250,8 +250,27 @@ jobs:
       run: npm publish ${{ github.workspace }}/sdk/nodejs --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    # TODO: Enable PyPI publishing once PYPI_API_TOKEN is configured
-    # TODO: Enable NuGet publishing once NUGET_API_KEY is configured
+    - name: Download python SDK
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      with:
+        name: python-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/
+    - name: Uncompress python SDK
+      run: tar -zxf ${{ github.workspace }}/sdk/python.tar.gz -C ${{ github.workspace }}/sdk/python
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: ${{ github.workspace }}/sdk/python/bin/dist/
+        password: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Download dotnet SDK
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      with:
+        name: dotnet-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/
+    - name: Uncompress dotnet SDK
+      run: tar -zxf ${{ github.workspace }}/sdk/dotnet.tar.gz -C ${{ github.workspace }}/sdk/dotnet
+    - name: Publish dotnet SDK to NuGet
+      run: find ${{ github.workspace }}/sdk/dotnet -name "*.nupkg" | xargs -I{} dotnet nuget push {} -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
 
   publish_go_sdk:
     runs-on: ubuntu-latest
