@@ -88,9 +88,9 @@ var AllComputeType = []ComputeType{
 }
 
 type CpuFlavorInput struct {
-	Id      *string `json:"id"`
-	SlsOnly *bool   `json:"slsOnly"`
-	IsSls   *bool   `json:"isSls"`
+	Id      *string `json:"id,omitempty"`
+	SlsOnly *bool   `json:"slsOnly,omitempty"`
+	IsSls   *bool   `json:"isSls,omitempty"`
 }
 
 // GetId returns CpuFlavorInput.Id, and is useful for accessing the field via an interface.
@@ -104,15 +104,15 @@ func (v *CpuFlavorInput) GetIsSls() *bool { return v.IsSls }
 
 // CpuFlavorResponse includes the requested fields of the GraphQL type CpuFlavor.
 type CpuFlavorResponse struct {
-	Id               *string  `json:"id"`
-	GroupId          *string  `json:"groupId"`
-	GroupName        *string  `json:"groupName"`
-	DisplayName      *string  `json:"displayName"`
-	MinVcpu          *float64 `json:"minVcpu"`
-	MaxVcpu          *int     `json:"maxVcpu"`
-	VcpuBurstable    *bool    `json:"vcpuBurstable"`
-	RamMultiplier    *float64 `json:"ramMultiplier"`
-	DiskLimitPerVcpu *int     `json:"diskLimitPerVcpu"`
+	Id               *string  `json:"id,omitempty"`
+	GroupId          *string  `json:"groupId,omitempty"`
+	GroupName        *string  `json:"groupName,omitempty"`
+	DisplayName      *string  `json:"displayName,omitempty"`
+	MinVcpu          *float64 `json:"minVcpu,omitempty"`
+	MaxVcpu          *int     `json:"maxVcpu,omitempty"`
+	VcpuBurstable    *bool    `json:"vcpuBurstable,omitempty"`
+	RamMultiplier    *float64 `json:"ramMultiplier,omitempty"`
+	DiskLimitPerVcpu *int     `json:"diskLimitPerVcpu,omitempty"`
 }
 
 // GetId returns CpuFlavorResponse.Id, and is useful for accessing the field via an interface.
@@ -143,11 +143,11 @@ func (v *CpuFlavorResponse) GetRamMultiplier() *float64 { return v.RamMultiplier
 func (v *CpuFlavorResponse) GetDiskLimitPerVcpu() *int { return v.DiskLimitPerVcpu }
 
 type CreateNetworkVolumeInput struct {
-	Name             *string `json:"name"`
-	Size             *int    `json:"size"`
+	Name             *string `json:"name,omitempty"`
+	Size             *int    `json:"size,omitempty"`
 	DataCenterId     string  `json:"dataCenterId"`
-	UserId           *string `json:"userId"`
-	IsNextGenStorage *bool   `json:"isNextGenStorage"`
+	UserId           *string `json:"userId,omitempty"`
+	IsNextGenStorage *bool   `json:"isNextGenStorage,omitempty"`
 }
 
 // GetName returns CreateNetworkVolumeInput.Name, and is useful for accessing the field via an interface.
@@ -167,7 +167,7 @@ func (v *CreateNetworkVolumeInput) GetIsNextGenStorage() *bool { return v.IsNext
 
 // CreateNetworkVolumeResponse is returned by CreateNetworkVolume on success.
 type CreateNetworkVolumeResponse struct {
-	CreateNetworkVolume *NetworkVolumeResponse `json:"createNetworkVolume"`
+	CreateNetworkVolume *NetworkVolumeResponse `json:"createNetworkVolume,omitempty"`
 }
 
 // GetCreateNetworkVolume returns CreateNetworkVolumeResponse.CreateNetworkVolume, and is useful for accessing the field via an interface.
@@ -177,7 +177,7 @@ func (v *CreateNetworkVolumeResponse) GetCreateNetworkVolume() *NetworkVolumeRes
 
 // CreatePodResponse is returned by CreatePod on success.
 type CreatePodResponse struct {
-	PodFindAndDeployOnDemand *PodResponse `json:"podFindAndDeployOnDemand"`
+	PodFindAndDeployOnDemand *PodResponse `json:"podFindAndDeployOnDemand,omitempty"`
 }
 
 // GetPodFindAndDeployOnDemand returns CreatePodResponse.PodFindAndDeployOnDemand, and is useful for accessing the field via an interface.
@@ -213,15 +213,15 @@ var AllDataCenterRegion = []DataCenterRegion{
 
 // DataCenterResponse includes the requested fields of the GraphQL type DataCenter.
 type DataCenterResponse struct {
-	Id              *string                              `json:"id"`
-	Name            *string                              `json:"name"`
-	Location        *string                              `json:"location"`
-	Listed          *bool                                `json:"listed"`
-	StorageSupport  *bool                                `json:"storageSupport"`
-	GlobalNetwork   *bool                                `json:"globalNetwork"`
-	Region          *DataCenterRegion                    `json:"region"`
-	Compliance      []*Compliance                        `json:"compliance"`
-	GpuAvailability []*DataCenterResponseGpuAvailability `json:"gpuAvailability"`
+	Id              *string                              `json:"id,omitempty"`
+	Name            *string                              `json:"name,omitempty"`
+	Location        *string                              `json:"location,omitempty"`
+	Listed          *bool                                `json:"listed,omitempty"`
+	StorageSupport  *bool                                `json:"storageSupport,omitempty"`
+	GlobalNetwork   *bool                                `json:"globalNetwork,omitempty"`
+	Region          *DataCenterRegion                    `json:"region,omitempty"`
+	Compliance      []*Compliance                        `json:"compliance,omitempty"`
+	GpuAvailability []*DataCenterResponseGpuAvailability `json:"gpuAvailability,omitempty"`
 }
 
 // GetId returns DataCenterResponse.Id, and is useful for accessing the field via an interface.
@@ -255,10 +255,10 @@ func (v *DataCenterResponse) GetGpuAvailability() []*DataCenterResponseGpuAvaila
 
 // DataCenterResponseGpuAvailability includes the requested fields of the GraphQL type GpuAvailability.
 type DataCenterResponseGpuAvailability struct {
-	GpuTypeId          *string `json:"gpuTypeId"`
-	GpuTypeDisplayName *string `json:"gpuTypeDisplayName"`
-	Available          *bool   `json:"available"`
-	StockStatus        *string `json:"stockStatus"`
+	GpuTypeId          *string `json:"gpuTypeId,omitempty"`
+	GpuTypeDisplayName *string `json:"gpuTypeDisplayName,omitempty"`
+	Available          *bool   `json:"available,omitempty"`
+	StockStatus        *string `json:"stockStatus,omitempty"`
 }
 
 // GetGpuTypeId returns DataCenterResponseGpuAvailability.GpuTypeId, and is useful for accessing the field via an interface.
@@ -277,7 +277,7 @@ func (v *DataCenterResponseGpuAvailability) GetStockStatus() *string { return v.
 
 // DeleteEndpointResponse is returned by DeleteEndpoint on success.
 type DeleteEndpointResponse struct {
-	DeleteEndpoint *interface{} `json:"deleteEndpoint"`
+	DeleteEndpoint *interface{} `json:"deleteEndpoint,omitempty"`
 }
 
 // GetDeleteEndpoint returns DeleteEndpointResponse.DeleteEndpoint, and is useful for accessing the field via an interface.
@@ -292,7 +292,7 @@ func (v *DeleteNetworkVolumeInput) GetId() string { return v.Id }
 
 // DeleteNetworkVolumeResponse is returned by DeleteNetworkVolume on success.
 type DeleteNetworkVolumeResponse struct {
-	DeleteNetworkVolume *interface{} `json:"deleteNetworkVolume"`
+	DeleteNetworkVolume *interface{} `json:"deleteNetworkVolume,omitempty"`
 }
 
 // GetDeleteNetworkVolume returns DeleteNetworkVolumeResponse.DeleteNetworkVolume, and is useful for accessing the field via an interface.
@@ -302,7 +302,7 @@ func (v *DeleteNetworkVolumeResponse) GetDeleteNetworkVolume() *interface{} {
 
 // DeleteRegistryAuthResponse is returned by DeleteRegistryAuth on success.
 type DeleteRegistryAuthResponse struct {
-	DeleteRegistryAuth *interface{} `json:"deleteRegistryAuth"`
+	DeleteRegistryAuth *interface{} `json:"deleteRegistryAuth,omitempty"`
 }
 
 // GetDeleteRegistryAuth returns DeleteRegistryAuthResponse.DeleteRegistryAuth, and is useful for accessing the field via an interface.
@@ -312,43 +312,43 @@ func (v *DeleteRegistryAuthResponse) GetDeleteRegistryAuth() *interface{} {
 
 // DeleteTemplateResponse is returned by DeleteTemplate on success.
 type DeleteTemplateResponse struct {
-	DeleteTemplate *interface{} `json:"deleteTemplate"`
+	DeleteTemplate *interface{} `json:"deleteTemplate,omitempty"`
 }
 
 // GetDeleteTemplate returns DeleteTemplateResponse.DeleteTemplate, and is useful for accessing the field via an interface.
 func (v *DeleteTemplateResponse) GetDeleteTemplate() *interface{} { return v.DeleteTemplate }
 
 type EndpointInput struct {
-	InstanceIds []*string `json:"instanceIds"`
-	GpuIds      *string   `json:"gpuIds"`
-	Id          *string   `json:"id"`
-	IdleTimeout *int      `json:"idleTimeout"`
-	Locations   *string   `json:"locations"`
+	InstanceIds []*string `json:"instanceIds,omitempty"`
+	GpuIds      *string   `json:"gpuIds,omitempty"`
+	Id          *string   `json:"id,omitempty"`
+	IdleTimeout *int      `json:"idleTimeout,omitempty"`
+	Locations   *string   `json:"locations,omitempty"`
 	Name        string    `json:"name"`
 	// Flash environment linkage; omit to keep current, set null to clear.
-	FlashEnvironmentId  *string                     `json:"flashEnvironmentId"`
-	NetworkVolumeId     *string                     `json:"networkVolumeId"`
-	NetworkVolumeIds    []*NetworkVolumeIdsInput    `json:"networkVolumeIds"`
-	ScalerType          *string                     `json:"scalerType"`
-	ScalerValue         *int                        `json:"scalerValue"`
-	TemplateId          *string                     `json:"templateId"`
-	Template            *EndpointTemplateInput      `json:"template"`
-	WorkersMax          *int                        `json:"workersMax"`
-	WorkersMin          *int                        `json:"workersMin"`
-	WorkersPFBTarget    *int                        `json:"workersPFBTarget"`
-	GpuCount            *int                        `json:"gpuCount"`
+	FlashEnvironmentId  *string                     `json:"flashEnvironmentId,omitempty"`
+	NetworkVolumeId     *string                     `json:"networkVolumeId,omitempty"`
+	NetworkVolumeIds    []*NetworkVolumeIdsInput    `json:"networkVolumeIds,omitempty"`
+	ScalerType          *string                     `json:"scalerType,omitempty"`
+	ScalerValue         *int                        `json:"scalerValue,omitempty"`
+	TemplateId          *string                     `json:"templateId,omitempty"`
+	Template            *EndpointTemplateInput      `json:"template,omitempty"`
+	WorkersMax          *int                        `json:"workersMax,omitempty"`
+	WorkersMin          *int                        `json:"workersMin,omitempty"`
+	WorkersPFBTarget    *int                        `json:"workersPFBTarget,omitempty"`
+	GpuCount            *int                        `json:"gpuCount,omitempty"`
 	Env                 []*EnvironmentVariableInput `json:"env"`
-	AllowedCudaVersions *string                     `json:"allowedCudaVersions"`
-	MinCudaVersion      *string                     `json:"minCudaVersion"`
-	ExecutionTimeoutMs  *int                        `json:"executionTimeoutMs"`
-	BindEndpoint        *bool                       `json:"bindEndpoint"`
-	Repo                *EndpointRepoInput          `json:"repo"`
-	HubReleaseId        *string                     `json:"hubReleaseId"`
-	Type                *string                     `json:"type"`
-	ModelName           *string                     `json:"modelName"`
-	ModelReferences     []*string                   `json:"modelReferences"`
-	CloudStorageConfig  *CloudStorageConfigInput    `json:"cloudStorageConfig"`
-	FlashBootType       *FlashBootType              `json:"flashBootType"`
+	AllowedCudaVersions *string                     `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string                     `json:"minCudaVersion,omitempty"`
+	ExecutionTimeoutMs  *int                        `json:"executionTimeoutMs,omitempty"`
+	BindEndpoint        *bool                       `json:"bindEndpoint,omitempty"`
+	Repo                *EndpointRepoInput          `json:"repo,omitempty"`
+	HubReleaseId        *string                     `json:"hubReleaseId,omitempty"`
+	Type                *string                     `json:"type,omitempty"`
+	ModelName           *string                     `json:"modelName,omitempty"`
+	ModelReferences     []*string                   `json:"modelReferences,omitempty"`
+	CloudStorageConfig  *CloudStorageConfigInput    `json:"cloudStorageConfig,omitempty"`
+	FlashBootType       *FlashBootType              `json:"flashBootType,omitempty"`
 }
 
 // GetInstanceIds returns EndpointInput.InstanceIds, and is useful for accessing the field via an interface.
@@ -440,11 +440,11 @@ func (v *EndpointInput) GetFlashBootType() *FlashBootType { return v.FlashBootTy
 
 type EndpointRepoInput struct {
 	RepoName                string  `json:"repoName"`
-	Branch                  *string `json:"branch"`
-	DockerFilePath          *string `json:"dockerFilePath"`
-	BuildContext            *string `json:"buildContext"`
-	DockerArgs              *string `json:"dockerArgs"`
-	ContainerRegistryAuthId *string `json:"containerRegistryAuthId"`
+	Branch                  *string `json:"branch,omitempty"`
+	DockerFilePath          *string `json:"dockerFilePath,omitempty"`
+	BuildContext            *string `json:"buildContext,omitempty"`
+	DockerArgs              *string `json:"dockerArgs,omitempty"`
+	ContainerRegistryAuthId *string `json:"containerRegistryAuthId,omitempty"`
 }
 
 // GetRepoName returns EndpointRepoInput.RepoName, and is useful for accessing the field via an interface.
@@ -467,26 +467,26 @@ func (v *EndpointRepoInput) GetContainerRegistryAuthId() *string { return v.Cont
 
 // EndpointResponse includes the requested fields of the GraphQL type Endpoint.
 type EndpointResponse struct {
-	Id                  *string        `json:"id"`
-	Name                *string        `json:"name"`
-	TemplateId          *string        `json:"templateId"`
-	GpuIds              *string        `json:"gpuIds"`
-	WorkersMin          *int           `json:"workersMin"`
-	WorkersMax          *int           `json:"workersMax"`
-	IdleTimeout         *int           `json:"idleTimeout"`
-	Locations           *string        `json:"locations"`
-	ScalerType          *string        `json:"scalerType"`
-	ScalerValue         *int           `json:"scalerValue"`
-	NetworkVolumeId     *string        `json:"networkVolumeId"`
-	GpuCount            *int           `json:"gpuCount"`
-	InstanceIds         []*string      `json:"instanceIds"`
-	WorkersPFBTarget    *int           `json:"workersPFBTarget"`
-	AllowedCudaVersions *string        `json:"allowedCudaVersions"`
-	MinCudaVersion      *string        `json:"minCudaVersion"`
-	ExecutionTimeoutMs  *int           `json:"executionTimeoutMs"`
-	FlashBootType       *FlashBootType `json:"flashBootType"`
-	Type                *string        `json:"type"`
-	ModelReferences     []*string      `json:"modelReferences"`
+	Id                  *string        `json:"id,omitempty"`
+	Name                *string        `json:"name,omitempty"`
+	TemplateId          *string        `json:"templateId,omitempty"`
+	GpuIds              *string        `json:"gpuIds,omitempty"`
+	WorkersMin          *int           `json:"workersMin,omitempty"`
+	WorkersMax          *int           `json:"workersMax,omitempty"`
+	IdleTimeout         *int           `json:"idleTimeout,omitempty"`
+	Locations           *string        `json:"locations,omitempty"`
+	ScalerType          *string        `json:"scalerType,omitempty"`
+	ScalerValue         *int           `json:"scalerValue,omitempty"`
+	NetworkVolumeId     *string        `json:"networkVolumeId,omitempty"`
+	GpuCount            *int           `json:"gpuCount,omitempty"`
+	InstanceIds         []*string      `json:"instanceIds,omitempty"`
+	WorkersPFBTarget    *int           `json:"workersPFBTarget,omitempty"`
+	AllowedCudaVersions *string        `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string        `json:"minCudaVersion,omitempty"`
+	ExecutionTimeoutMs  *int           `json:"executionTimeoutMs,omitempty"`
+	FlashBootType       *FlashBootType `json:"flashBootType,omitempty"`
+	Type                *string        `json:"type,omitempty"`
+	ModelReferences     []*string      `json:"modelReferences,omitempty"`
 }
 
 // GetId returns EndpointResponse.Id, and is useful for accessing the field via an interface.
@@ -550,19 +550,19 @@ func (v *EndpointResponse) GetType() *string { return v.Type }
 func (v *EndpointResponse) GetModelReferences() []*string { return v.ModelReferences }
 
 type EndpointTemplateInput struct {
-	AdvancedStart           *bool                       `json:"advancedStart"`
+	AdvancedStart           *bool                       `json:"advancedStart,omitempty"`
 	ContainerDiskInGb       int                         `json:"containerDiskInGb"`
-	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId"`
+	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId,omitempty"`
 	DockerArgs              string                      `json:"dockerArgs"`
 	Env                     []*EnvironmentVariableInput `json:"env"`
-	ImageName               *string                     `json:"imageName"`
+	ImageName               *string                     `json:"imageName,omitempty"`
 	Name                    string                      `json:"name"`
-	Readme                  *string                     `json:"readme"`
-	StartJupyter            *bool                       `json:"startJupyter"`
-	StartScript             *string                     `json:"startScript"`
-	StartSsh                *bool                       `json:"startSsh"`
-	Config                  *interface{}                `json:"config"`
-	Ports                   *string                     `json:"ports"`
+	Readme                  *string                     `json:"readme,omitempty"`
+	StartJupyter            *bool                       `json:"startJupyter,omitempty"`
+	StartScript             *string                     `json:"startScript,omitempty"`
+	StartSsh                *bool                       `json:"startSsh,omitempty"`
+	Config                  *interface{}                `json:"config,omitempty"`
+	Ports                   *string                     `json:"ports,omitempty"`
 }
 
 // GetAdvancedStart returns EndpointTemplateInput.AdvancedStart, and is useful for accessing the field via an interface.
@@ -633,7 +633,7 @@ var AllFlashBootType = []FlashBootType{
 
 // GetCpuFlavorsResponse is returned by GetCpuFlavors on success.
 type GetCpuFlavorsResponse struct {
-	CpuFlavors []*CpuFlavorResponse `json:"cpuFlavors"`
+	CpuFlavors []*CpuFlavorResponse `json:"cpuFlavors,omitempty"`
 }
 
 // GetCpuFlavors returns GetCpuFlavorsResponse.CpuFlavors, and is useful for accessing the field via an interface.
@@ -641,7 +641,7 @@ func (v *GetCpuFlavorsResponse) GetCpuFlavors() []*CpuFlavorResponse { return v.
 
 // GetDataCentersResponse is returned by GetDataCenters on success.
 type GetDataCentersResponse struct {
-	DataCenters []*DataCenterResponse `json:"dataCenters"`
+	DataCenters []*DataCenterResponse `json:"dataCenters,omitempty"`
 }
 
 // GetDataCenters returns GetDataCentersResponse.DataCenters, and is useful for accessing the field via an interface.
@@ -649,7 +649,7 @@ func (v *GetDataCentersResponse) GetDataCenters() []*DataCenterResponse { return
 
 // GetGpuTypesResponse is returned by GetGpuTypes on success.
 type GetGpuTypesResponse struct {
-	GpuTypes []*GpuTypeResponse `json:"gpuTypes"`
+	GpuTypes []*GpuTypeResponse `json:"gpuTypes,omitempty"`
 }
 
 // GetGpuTypes returns GetGpuTypesResponse.GpuTypes, and is useful for accessing the field via an interface.
@@ -657,7 +657,7 @@ func (v *GetGpuTypesResponse) GetGpuTypes() []*GpuTypeResponse { return v.GpuTyp
 
 // GetMyEndpointsMyselfUser includes the requested fields of the GraphQL type User.
 type GetMyEndpointsMyselfUser struct {
-	Endpoints []*EndpointResponse `json:"endpoints"`
+	Endpoints []*EndpointResponse `json:"endpoints,omitempty"`
 }
 
 // GetEndpoints returns GetMyEndpointsMyselfUser.Endpoints, and is useful for accessing the field via an interface.
@@ -665,7 +665,7 @@ func (v *GetMyEndpointsMyselfUser) GetEndpoints() []*EndpointResponse { return v
 
 // GetMyEndpointsResponse is returned by GetMyEndpoints on success.
 type GetMyEndpointsResponse struct {
-	Myself *GetMyEndpointsMyselfUser `json:"myself"`
+	Myself *GetMyEndpointsMyselfUser `json:"myself,omitempty"`
 }
 
 // GetMyself returns GetMyEndpointsResponse.Myself, and is useful for accessing the field via an interface.
@@ -673,7 +673,7 @@ func (v *GetMyEndpointsResponse) GetMyself() *GetMyEndpointsMyselfUser { return 
 
 // GetMyNetworkVolumesMyselfUser includes the requested fields of the GraphQL type User.
 type GetMyNetworkVolumesMyselfUser struct {
-	NetworkVolumes []*NetworkVolumeResponse `json:"networkVolumes"`
+	NetworkVolumes []*NetworkVolumeResponse `json:"networkVolumes,omitempty"`
 }
 
 // GetNetworkVolumes returns GetMyNetworkVolumesMyselfUser.NetworkVolumes, and is useful for accessing the field via an interface.
@@ -683,7 +683,7 @@ func (v *GetMyNetworkVolumesMyselfUser) GetNetworkVolumes() []*NetworkVolumeResp
 
 // GetMyNetworkVolumesResponse is returned by GetMyNetworkVolumes on success.
 type GetMyNetworkVolumesResponse struct {
-	Myself *GetMyNetworkVolumesMyselfUser `json:"myself"`
+	Myself *GetMyNetworkVolumesMyselfUser `json:"myself,omitempty"`
 }
 
 // GetMyself returns GetMyNetworkVolumesResponse.Myself, and is useful for accessing the field via an interface.
@@ -691,7 +691,7 @@ func (v *GetMyNetworkVolumesResponse) GetMyself() *GetMyNetworkVolumesMyselfUser
 
 // GetMyRegistryAuthsMyselfUser includes the requested fields of the GraphQL type User.
 type GetMyRegistryAuthsMyselfUser struct {
-	ContainerRegistryCreds []*RegistryAuthResponse `json:"containerRegistryCreds"`
+	ContainerRegistryCreds []*RegistryAuthResponse `json:"containerRegistryCreds,omitempty"`
 }
 
 // GetContainerRegistryCreds returns GetMyRegistryAuthsMyselfUser.ContainerRegistryCreds, and is useful for accessing the field via an interface.
@@ -701,7 +701,7 @@ func (v *GetMyRegistryAuthsMyselfUser) GetContainerRegistryCreds() []*RegistryAu
 
 // GetMyRegistryAuthsResponse is returned by GetMyRegistryAuths on success.
 type GetMyRegistryAuthsResponse struct {
-	Myself *GetMyRegistryAuthsMyselfUser `json:"myself"`
+	Myself *GetMyRegistryAuthsMyselfUser `json:"myself,omitempty"`
 }
 
 // GetMyself returns GetMyRegistryAuthsResponse.Myself, and is useful for accessing the field via an interface.
@@ -717,7 +717,7 @@ func (v *GetMySecretsMyselfUser) GetSecrets() []SecretResponse { return v.Secret
 
 // GetMySecretsResponse is returned by GetMySecrets on success.
 type GetMySecretsResponse struct {
-	Myself *GetMySecretsMyselfUser `json:"myself"`
+	Myself *GetMySecretsMyselfUser `json:"myself,omitempty"`
 }
 
 // GetMyself returns GetMySecretsResponse.Myself, and is useful for accessing the field via an interface.
@@ -725,7 +725,7 @@ func (v *GetMySecretsResponse) GetMyself() *GetMySecretsMyselfUser { return v.My
 
 // GetMyTemplatesMyselfUser includes the requested fields of the GraphQL type User.
 type GetMyTemplatesMyselfUser struct {
-	PodTemplates []*TemplateResponse `json:"podTemplates"`
+	PodTemplates []*TemplateResponse `json:"podTemplates,omitempty"`
 }
 
 // GetPodTemplates returns GetMyTemplatesMyselfUser.PodTemplates, and is useful for accessing the field via an interface.
@@ -733,7 +733,7 @@ func (v *GetMyTemplatesMyselfUser) GetPodTemplates() []*TemplateResponse { retur
 
 // GetMyTemplatesResponse is returned by GetMyTemplates on success.
 type GetMyTemplatesResponse struct {
-	Myself *GetMyTemplatesMyselfUser `json:"myself"`
+	Myself *GetMyTemplatesMyselfUser `json:"myself,omitempty"`
 }
 
 // GetMyself returns GetMyTemplatesResponse.Myself, and is useful for accessing the field via an interface.
@@ -741,16 +741,16 @@ func (v *GetMyTemplatesResponse) GetMyself() *GetMyTemplatesMyselfUser { return 
 
 // GetPodResponse is returned by GetPod on success.
 type GetPodResponse struct {
-	Pod *PodResponse `json:"pod"`
+	Pod *PodResponse `json:"pod,omitempty"`
 }
 
 // GetPod returns GetPodResponse.Pod, and is useful for accessing the field via an interface.
 func (v *GetPodResponse) GetPod() *PodResponse { return v.Pod }
 
 type GpuTypeFilter struct {
-	Id      *string  `json:"id"`
+	Id      *string  `json:"id,omitempty"`
 	Ids     []string `json:"ids"`
-	Cluster *bool    `json:"cluster"`
+	Cluster *bool    `json:"cluster,omitempty"`
 }
 
 // GetId returns GpuTypeFilter.Id, and is useful for accessing the field via an interface.
@@ -764,14 +764,14 @@ func (v *GpuTypeFilter) GetCluster() *bool { return v.Cluster }
 
 // GpuTypeResponse includes the requested fields of the GraphQL type GpuType.
 type GpuTypeResponse struct {
-	Id             *string  `json:"id"`
-	DisplayName    *string  `json:"displayName"`
-	MemoryInGb     *int     `json:"memoryInGb"`
-	SecureCloud    *bool    `json:"secureCloud"`
-	CommunityCloud *bool    `json:"communityCloud"`
-	SecurePrice    *float64 `json:"securePrice"`
-	CommunityPrice *float64 `json:"communityPrice"`
-	MaxGpuCount    *int     `json:"maxGpuCount"`
+	Id             *string  `json:"id,omitempty"`
+	DisplayName    *string  `json:"displayName,omitempty"`
+	MemoryInGb     *int     `json:"memoryInGb,omitempty"`
+	SecureCloud    *bool    `json:"secureCloud,omitempty"`
+	CommunityCloud *bool    `json:"communityCloud,omitempty"`
+	SecurePrice    *float64 `json:"securePrice,omitempty"`
+	CommunityPrice *float64 `json:"communityPrice,omitempty"`
+	MaxGpuCount    *int     `json:"maxGpuCount,omitempty"`
 }
 
 // GetId returns GpuTypeResponse.Id, and is useful for accessing the field via an interface.
@@ -807,10 +807,10 @@ func (v *NetworkVolumeIdsInput) GetNetworkVolumeId() string { return v.NetworkVo
 
 // NetworkVolumeResponse includes the requested fields of the GraphQL type NetworkVolume.
 type NetworkVolumeResponse struct {
-	Id           *string `json:"id"`
-	Name         *string `json:"name"`
-	Size         *int    `json:"size"`
-	DataCenterId *string `json:"dataCenterId"`
+	Id           *string `json:"id,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	Size         *int    `json:"size,omitempty"`
+	DataCenterId *string `json:"dataCenterId,omitempty"`
 }
 
 // GetId returns NetworkVolumeResponse.Id, and is useful for accessing the field via an interface.
@@ -827,15 +827,15 @@ func (v *NetworkVolumeResponse) GetDataCenterId() *string { return v.DataCenterI
 
 type PodEditJobInput struct {
 	PodId                   string                      `json:"podId"`
-	DockerArgs              *string                     `json:"dockerArgs"`
+	DockerArgs              *string                     `json:"dockerArgs,omitempty"`
 	ImageName               string                      `json:"imageName"`
 	Env                     []*EnvironmentVariableInput `json:"env"`
-	Port                    *interface{}                `json:"port"`
-	Ports                   *string                     `json:"ports"`
+	Port                    *interface{}                `json:"port,omitempty"`
+	Ports                   *string                     `json:"ports,omitempty"`
 	ContainerDiskInGb       int                         `json:"containerDiskInGb"`
-	VolumeInGb              *int                        `json:"volumeInGb"`
-	VolumeMountPath         *string                     `json:"volumeMountPath"`
-	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId"`
+	VolumeInGb              *int                        `json:"volumeInGb,omitempty"`
+	VolumeMountPath         *string                     `json:"volumeMountPath,omitempty"`
+	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId,omitempty"`
 }
 
 // GetPodId returns PodEditJobInput.PodId, and is useful for accessing the field via an interface.
@@ -876,47 +876,47 @@ type PodFilter struct {
 func (v *PodFilter) GetPodId() string { return v.PodId }
 
 type PodFindAndDeployOnDemandInput struct {
-	AiApiId                 *string                     `json:"aiApiId"`
-	CloudType               *CloudTypeEnum              `json:"cloudType"`
-	ContainerDiskInGb       *int                        `json:"containerDiskInGb"`
-	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId"`
-	CountryCode             *string                     `json:"countryCode"`
-	DeployCost              *float64                    `json:"deployCost"`
-	DockerArgs              *string                     `json:"dockerArgs"`
+	AiApiId                 *string                     `json:"aiApiId,omitempty"`
+	CloudType               *CloudTypeEnum              `json:"cloudType,omitempty"`
+	ContainerDiskInGb       *int                        `json:"containerDiskInGb,omitempty"`
+	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId,omitempty"`
+	CountryCode             *string                     `json:"countryCode,omitempty"`
+	DeployCost              *float64                    `json:"deployCost,omitempty"`
+	DockerArgs              *string                     `json:"dockerArgs,omitempty"`
 	Env                     []*EnvironmentVariableInput `json:"env"`
-	GpuCount                *int                        `json:"gpuCount"`
-	GpuTypeId               *string                     `json:"gpuTypeId"`
+	GpuCount                *int                        `json:"gpuCount,omitempty"`
+	GpuTypeId               *string                     `json:"gpuTypeId,omitempty"`
 	// List of a comma separated GPU ids, where each list item is priority group of GPUs
-	GpuTypeIdList       []*string         `json:"gpuTypeIdList"`
-	ImageName           *string           `json:"imageName"`
-	MinDisk             *int              `json:"minDisk"`
-	MinDownload         *int              `json:"minDownload"`
-	MinMemoryInGb       *int              `json:"minMemoryInGb"`
-	MinUpload           *int              `json:"minUpload"`
-	MinVcpuCount        *int              `json:"minVcpuCount"`
-	Name                *string           `json:"name"`
-	NetworkVolumeId     *string           `json:"networkVolumeId"`
-	Port                *interface{}      `json:"port"`
-	Ports               *string           `json:"ports"`
-	StartJupyter        *bool             `json:"startJupyter"`
-	StartSsh            *bool             `json:"startSsh"`
-	StopAfter           *string           `json:"stopAfter"`
-	SupportPublicIp     *bool             `json:"supportPublicIp"`
-	TemplateId          *string           `json:"templateId"`
-	TerminateAfter      *string           `json:"terminateAfter"`
-	VolumeInGb          *int              `json:"volumeInGb"`
-	VolumeKey           *string           `json:"volumeKey"`
-	VolumeMountPath     *string           `json:"volumeMountPath"`
-	DataCenterId        *string           `json:"dataCenterId"`
-	SavingsPlan         *SavingsPlanInput `json:"savingsPlan"`
-	CudaVersion         *string           `json:"cudaVersion"`
-	AllowedCudaVersions []*string         `json:"allowedCudaVersions"`
-	MinCudaVersion      *string           `json:"minCudaVersion"`
-	InstanceIds         []*string         `json:"instanceIds"`
-	ComputeType         *ComputeType      `json:"computeType"`
-	GlobalNetwork       *bool             `json:"globalNetwork"`
-	IdeAiApiId          *string           `json:"ideAiApiId"`
-	ModelReferences     []*string         `json:"modelReferences"`
+	GpuTypeIdList       []*string         `json:"gpuTypeIdList,omitempty"`
+	ImageName           *string           `json:"imageName,omitempty"`
+	MinDisk             *int              `json:"minDisk,omitempty"`
+	MinDownload         *int              `json:"minDownload,omitempty"`
+	MinMemoryInGb       *int              `json:"minMemoryInGb,omitempty"`
+	MinUpload           *int              `json:"minUpload,omitempty"`
+	MinVcpuCount        *int              `json:"minVcpuCount,omitempty"`
+	Name                *string           `json:"name,omitempty"`
+	NetworkVolumeId     *string           `json:"networkVolumeId,omitempty"`
+	Port                *interface{}      `json:"port,omitempty"`
+	Ports               *string           `json:"ports,omitempty"`
+	StartJupyter        *bool             `json:"startJupyter,omitempty"`
+	StartSsh            *bool             `json:"startSsh,omitempty"`
+	StopAfter           *string           `json:"stopAfter,omitempty"`
+	SupportPublicIp     *bool             `json:"supportPublicIp,omitempty"`
+	TemplateId          *string           `json:"templateId,omitempty"`
+	TerminateAfter      *string           `json:"terminateAfter,omitempty"`
+	VolumeInGb          *int              `json:"volumeInGb,omitempty"`
+	VolumeKey           *string           `json:"volumeKey,omitempty"`
+	VolumeMountPath     *string           `json:"volumeMountPath,omitempty"`
+	DataCenterId        *string           `json:"dataCenterId,omitempty"`
+	SavingsPlan         *SavingsPlanInput `json:"savingsPlan,omitempty"`
+	CudaVersion         *string           `json:"cudaVersion,omitempty"`
+	AllowedCudaVersions []*string         `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string           `json:"minCudaVersion,omitempty"`
+	InstanceIds         []*string         `json:"instanceIds,omitempty"`
+	ComputeType         *ComputeType      `json:"computeType,omitempty"`
+	GlobalNetwork       *bool             `json:"globalNetwork,omitempty"`
+	IdeAiApiId          *string           `json:"ideAiApiId,omitempty"`
+	ModelReferences     []*string         `json:"modelReferences,omitempty"`
 }
 
 // GetAiApiId returns PodFindAndDeployOnDemandInput.AiApiId, and is useful for accessing the field via an interface.
@@ -1048,22 +1048,22 @@ type PodResponse struct {
 	Id                      string    `json:"id"`
 	Name                    string    `json:"name"`
 	MachineId               string    `json:"machineId"`
-	ImageName               *string   `json:"imageName"`
-	DockerArgs              *string   `json:"dockerArgs"`
+	ImageName               *string   `json:"imageName,omitempty"`
+	DockerArgs              *string   `json:"dockerArgs,omitempty"`
 	GpuCount                int       `json:"gpuCount"`
 	VcpuCount               float64   `json:"vcpuCount"`
 	MemoryInGb              float64   `json:"memoryInGb"`
-	ContainerDiskInGb       *int      `json:"containerDiskInGb"`
-	VolumeInGb              *float64  `json:"volumeInGb"`
-	VolumeMountPath         *string   `json:"volumeMountPath"`
+	ContainerDiskInGb       *int      `json:"containerDiskInGb,omitempty"`
+	VolumeInGb              *float64  `json:"volumeInGb,omitempty"`
+	VolumeMountPath         *string   `json:"volumeMountPath,omitempty"`
 	DesiredStatus           PodStatus `json:"desiredStatus"`
 	CostPerHr               float64   `json:"costPerHr"`
 	Env                     []*string `json:"env"`
-	Ports                   *string   `json:"ports"`
-	TemplateId              *string   `json:"templateId"`
-	NetworkVolumeId         *string   `json:"networkVolumeId"`
-	ContainerRegistryAuthId *string   `json:"containerRegistryAuthId"`
-	PodType                 *PodType  `json:"podType"`
+	Ports                   *string   `json:"ports,omitempty"`
+	TemplateId              *string   `json:"templateId,omitempty"`
+	NetworkVolumeId         *string   `json:"networkVolumeId,omitempty"`
+	ContainerRegistryAuthId *string   `json:"containerRegistryAuthId,omitempty"`
+	PodType                 *PodType  `json:"podType,omitempty"`
 }
 
 // GetId returns PodResponse.Id, and is useful for accessing the field via an interface.
@@ -1181,8 +1181,8 @@ func (v *PortConfigInput) GetName() string { return v.Name }
 
 // RegistryAuthResponse includes the requested fields of the GraphQL type ContainerRegistryAuth.
 type RegistryAuthResponse struct {
-	Id   *string `json:"id"`
-	Name *string `json:"name"`
+	Id   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
 }
 
 // GetId returns RegistryAuthResponse.Id, and is useful for accessing the field via an interface.
@@ -1216,7 +1216,7 @@ func (v *SaveRegistryAuthInput) GetPassword() string { return v.Password }
 
 // SaveRegistryAuthResponse is returned by SaveRegistryAuth on success.
 type SaveRegistryAuthResponse struct {
-	SaveRegistryAuth *RegistryAuthResponse `json:"saveRegistryAuth"`
+	SaveRegistryAuth *RegistryAuthResponse `json:"saveRegistryAuth,omitempty"`
 }
 
 // GetSaveRegistryAuth returns SaveRegistryAuthResponse.SaveRegistryAuth, and is useful for accessing the field via an interface.
@@ -1225,26 +1225,26 @@ func (v *SaveRegistryAuthResponse) GetSaveRegistryAuth() *RegistryAuthResponse {
 }
 
 type SaveTemplateInput struct {
-	AdvancedStart           *bool                       `json:"advancedStart"`
+	AdvancedStart           *bool                       `json:"advancedStart,omitempty"`
 	ContainerDiskInGb       int                         `json:"containerDiskInGb"`
-	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId"`
+	ContainerRegistryAuthId *string                     `json:"containerRegistryAuthId,omitempty"`
 	DockerArgs              string                      `json:"dockerArgs"`
 	Env                     []*EnvironmentVariableInput `json:"env"`
-	Id                      *string                     `json:"id"`
-	ImageName               *string                     `json:"imageName"`
-	IsPublic                *bool                       `json:"isPublic"`
-	IsServerless            *bool                       `json:"isServerless"`
+	Id                      *string                     `json:"id,omitempty"`
+	ImageName               *string                     `json:"imageName,omitempty"`
+	IsPublic                *bool                       `json:"isPublic,omitempty"`
+	IsServerless            *bool                       `json:"isServerless,omitempty"`
 	Name                    string                      `json:"name"`
-	Ports                   *string                     `json:"ports"`
-	PortsConfig             []*PortConfigInput          `json:"portsConfig"`
-	Readme                  *string                     `json:"readme"`
-	StartJupyter            *bool                       `json:"startJupyter"`
-	StartScript             *string                     `json:"startScript"`
-	StartSsh                *bool                       `json:"startSsh"`
+	Ports                   *string                     `json:"ports,omitempty"`
+	PortsConfig             []*PortConfigInput          `json:"portsConfig,omitempty"`
+	Readme                  *string                     `json:"readme,omitempty"`
+	StartJupyter            *bool                       `json:"startJupyter,omitempty"`
+	StartScript             *string                     `json:"startScript,omitempty"`
+	StartSsh                *bool                       `json:"startSsh,omitempty"`
 	VolumeInGb              int                         `json:"volumeInGb"`
-	VolumeMountPath         *string                     `json:"volumeMountPath"`
-	Config                  *interface{}                `json:"config"`
-	Category                *TemplateCategory           `json:"category"`
+	VolumeMountPath         *string                     `json:"volumeMountPath,omitempty"`
+	Config                  *interface{}                `json:"config,omitempty"`
+	Category                *TemplateCategory           `json:"category,omitempty"`
 }
 
 // GetAdvancedStart returns SaveTemplateInput.AdvancedStart, and is useful for accessing the field via an interface.
@@ -1309,15 +1309,15 @@ func (v *SaveTemplateInput) GetCategory() *TemplateCategory { return v.Category 
 
 // SaveTemplateResponse is returned by SaveTemplate on success.
 type SaveTemplateResponse struct {
-	SaveTemplate *TemplateResponse `json:"saveTemplate"`
+	SaveTemplate *TemplateResponse `json:"saveTemplate,omitempty"`
 }
 
 // GetSaveTemplate returns SaveTemplateResponse.SaveTemplate, and is useful for accessing the field via an interface.
 func (v *SaveTemplateResponse) GetSaveTemplate() *TemplateResponse { return v.SaveTemplate }
 
 type SavingsPlanInput struct {
-	PlanLength  *string  `json:"planLength"`
-	UpfrontCost *float64 `json:"upfrontCost"`
+	PlanLength  *string  `json:"planLength,omitempty"`
+	UpfrontCost *float64 `json:"upfrontCost,omitempty"`
 }
 
 // GetPlanLength returns SavingsPlanInput.PlanLength, and is useful for accessing the field via an interface.
@@ -1329,7 +1329,7 @@ func (v *SavingsPlanInput) GetUpfrontCost() *float64 { return v.UpfrontCost }
 type SecretCreateInput struct {
 	Name        string  `json:"name"`
 	Value       string  `json:"value"`
-	Description *string `json:"description"`
+	Description *string `json:"description,omitempty"`
 }
 
 // GetName returns SecretCreateInput.Name, and is useful for accessing the field via an interface.
@@ -1343,7 +1343,7 @@ func (v *SecretCreateInput) GetDescription() *string { return v.Description }
 
 // SecretCreateResponse is returned by SecretCreate on success.
 type SecretCreateResponse struct {
-	SecretCreate *SecretResponse `json:"secretCreate"`
+	SecretCreate *SecretResponse `json:"secretCreate,omitempty"`
 }
 
 // GetSecretCreate returns SecretCreateResponse.SecretCreate, and is useful for accessing the field via an interface.
@@ -1351,7 +1351,7 @@ func (v *SecretCreateResponse) GetSecretCreate() *SecretResponse { return v.Secr
 
 // SecretDeleteResponse is returned by SecretDelete on success.
 type SecretDeleteResponse struct {
-	SecretDelete *interface{} `json:"secretDelete"`
+	SecretDelete *interface{} `json:"secretDelete,omitempty"`
 }
 
 // GetSecretDelete returns SecretDeleteResponse.SecretDelete, and is useful for accessing the field via an interface.
@@ -1370,7 +1370,7 @@ func (v *SecretDescriptionUpdateInput) GetDescription() string { return v.Descri
 
 // SecretDescriptionUpdateResponse is returned by SecretDescriptionUpdate on success.
 type SecretDescriptionUpdateResponse struct {
-	SecretDescriptionUpdate *SecretResponse `json:"secretDescriptionUpdate"`
+	SecretDescriptionUpdate *SecretResponse `json:"secretDescriptionUpdate,omitempty"`
 }
 
 // GetSecretDescriptionUpdate returns SecretDescriptionUpdateResponse.SecretDescriptionUpdate, and is useful for accessing the field via an interface.
@@ -1382,9 +1382,9 @@ func (v *SecretDescriptionUpdateResponse) GetSecretDescriptionUpdate() *SecretRe
 type SecretResponse struct {
 	Id          string  `json:"id"`
 	Name        string  `json:"name"`
-	Description *string `json:"description"`
+	Description *string `json:"description,omitempty"`
 	CreatedAt   string  `json:"createdAt"`
-	UpdatedAt   *string `json:"updatedAt"`
+	UpdatedAt   *string `json:"updatedAt,omitempty"`
 }
 
 // GetId returns SecretResponse.Id, and is useful for accessing the field via an interface.
@@ -1415,7 +1415,7 @@ func (v *SecretValueUpdateInput) GetValue() string { return v.Value }
 
 // SecretValueUpdateResponse is returned by SecretValueUpdate on success.
 type SecretValueUpdateResponse struct {
-	SecretValueUpdate *SecretResponse `json:"secretValueUpdate"`
+	SecretValueUpdate *SecretResponse `json:"secretValueUpdate,omitempty"`
 }
 
 // GetSecretValueUpdate returns SecretValueUpdateResponse.SecretValueUpdate, and is useful for accessing the field via an interface.
@@ -1441,24 +1441,24 @@ var AllTemplateCategory = []TemplateCategory{
 
 // TemplateResponse includes the requested fields of the GraphQL type PodTemplate.
 type TemplateResponse struct {
-	Id                      *string                                   `json:"id"`
-	Name                    *string                                   `json:"name"`
-	ImageName               *string                                   `json:"imageName"`
-	DockerArgs              *string                                   `json:"dockerArgs"`
+	Id                      *string                                   `json:"id,omitempty"`
+	Name                    *string                                   `json:"name,omitempty"`
+	ImageName               *string                                   `json:"imageName,omitempty"`
+	DockerArgs              *string                                   `json:"dockerArgs,omitempty"`
 	Env                     []*TemplateResponseEnvEnvironmentVariable `json:"env"`
-	Ports                   *string                                   `json:"ports"`
-	VolumeMountPath         *string                                   `json:"volumeMountPath"`
-	VolumeInGb              *int                                      `json:"volumeInGb"`
-	ContainerDiskInGb       *int                                      `json:"containerDiskInGb"`
-	StartJupyter            *bool                                     `json:"startJupyter"`
-	StartSsh                *bool                                     `json:"startSsh"`
-	StartScript             *string                                   `json:"startScript"`
-	IsServerless            *bool                                     `json:"isServerless"`
-	IsPublic                *bool                                     `json:"isPublic"`
-	ContainerRegistryAuthId *string                                   `json:"containerRegistryAuthId"`
-	Readme                  *string                                   `json:"readme"`
-	AdvancedStart           *bool                                     `json:"advancedStart"`
-	Category                *string                                   `json:"category"`
+	Ports                   *string                                   `json:"ports,omitempty"`
+	VolumeMountPath         *string                                   `json:"volumeMountPath,omitempty"`
+	VolumeInGb              *int                                      `json:"volumeInGb,omitempty"`
+	ContainerDiskInGb       *int                                      `json:"containerDiskInGb,omitempty"`
+	StartJupyter            *bool                                     `json:"startJupyter,omitempty"`
+	StartSsh                *bool                                     `json:"startSsh,omitempty"`
+	StartScript             *string                                   `json:"startScript,omitempty"`
+	IsServerless            *bool                                     `json:"isServerless,omitempty"`
+	IsPublic                *bool                                     `json:"isPublic,omitempty"`
+	ContainerRegistryAuthId *string                                   `json:"containerRegistryAuthId,omitempty"`
+	Readme                  *string                                   `json:"readme,omitempty"`
+	AdvancedStart           *bool                                     `json:"advancedStart,omitempty"`
+	Category                *string                                   `json:"category,omitempty"`
 }
 
 // GetId returns TemplateResponse.Id, and is useful for accessing the field via an interface.
@@ -1517,8 +1517,8 @@ func (v *TemplateResponse) GetCategory() *string { return v.Category }
 
 // TemplateResponseEnvEnvironmentVariable includes the requested fields of the GraphQL type EnvironmentVariable.
 type TemplateResponseEnvEnvironmentVariable struct {
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
+	Key   *string `json:"key,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // GetKey returns TemplateResponseEnvEnvironmentVariable.Key, and is useful for accessing the field via an interface.
@@ -1529,7 +1529,7 @@ func (v *TemplateResponseEnvEnvironmentVariable) GetValue() *string { return v.V
 
 // TerminatePodResponse is returned by TerminatePod on success.
 type TerminatePodResponse struct {
-	PodTerminate *interface{} `json:"podTerminate"`
+	PodTerminate *interface{} `json:"podTerminate,omitempty"`
 }
 
 // GetPodTerminate returns TerminatePodResponse.PodTerminate, and is useful for accessing the field via an interface.
@@ -1537,8 +1537,8 @@ func (v *TerminatePodResponse) GetPodTerminate() *interface{} { return v.PodTerm
 
 type UpdateNetworkVolumeInput struct {
 	Id   string  `json:"id"`
-	Name *string `json:"name"`
-	Size *int    `json:"size"`
+	Name *string `json:"name,omitempty"`
+	Size *int    `json:"size,omitempty"`
 }
 
 // GetId returns UpdateNetworkVolumeInput.Id, and is useful for accessing the field via an interface.
@@ -1552,7 +1552,7 @@ func (v *UpdateNetworkVolumeInput) GetSize() *int { return v.Size }
 
 // UpdateNetworkVolumeResponse is returned by UpdateNetworkVolume on success.
 type UpdateNetworkVolumeResponse struct {
-	UpdateNetworkVolume *NetworkVolumeResponse `json:"updateNetworkVolume"`
+	UpdateNetworkVolume *NetworkVolumeResponse `json:"updateNetworkVolume,omitempty"`
 }
 
 // GetUpdateNetworkVolume returns UpdateNetworkVolumeResponse.UpdateNetworkVolume, and is useful for accessing the field via an interface.
@@ -1562,7 +1562,7 @@ func (v *UpdateNetworkVolumeResponse) GetUpdateNetworkVolume() *NetworkVolumeRes
 
 // UpdatePodResponse is returned by UpdatePod on success.
 type UpdatePodResponse struct {
-	PodEditJob *PodResponse `json:"podEditJob"`
+	PodEditJob *PodResponse `json:"podEditJob,omitempty"`
 }
 
 // GetPodEditJob returns UpdatePodResponse.PodEditJob, and is useful for accessing the field via an interface.
@@ -1585,7 +1585,7 @@ func (v *UpdateRegistryAuthInput) GetPassword() string { return v.Password }
 
 // UpdateRegistryAuthResponse is returned by UpdateRegistryAuth on success.
 type UpdateRegistryAuthResponse struct {
-	UpdateRegistryAuth *RegistryAuthResponse `json:"updateRegistryAuth"`
+	UpdateRegistryAuth *RegistryAuthResponse `json:"updateRegistryAuth,omitempty"`
 }
 
 // GetUpdateRegistryAuth returns UpdateRegistryAuthResponse.UpdateRegistryAuth, and is useful for accessing the field via an interface.
@@ -1627,7 +1627,7 @@ func (v *__DeleteNetworkVolumeInput) GetInput() DeleteNetworkVolumeInput { retur
 
 // __DeleteRegistryAuthInput is used internally by genqlient
 type __DeleteRegistryAuthInput struct {
-	RegistryAuthId *string `json:"registryAuthId"`
+	RegistryAuthId *string `json:"registryAuthId,omitempty"`
 }
 
 // GetRegistryAuthId returns __DeleteRegistryAuthInput.RegistryAuthId, and is useful for accessing the field via an interface.
@@ -1635,7 +1635,7 @@ func (v *__DeleteRegistryAuthInput) GetRegistryAuthId() *string { return v.Regis
 
 // __DeleteTemplateInput is used internally by genqlient
 type __DeleteTemplateInput struct {
-	TemplateName *string `json:"templateName"`
+	TemplateName *string `json:"templateName,omitempty"`
 }
 
 // GetTemplateName returns __DeleteTemplateInput.TemplateName, and is useful for accessing the field via an interface.
@@ -1643,7 +1643,7 @@ func (v *__DeleteTemplateInput) GetTemplateName() *string { return v.TemplateNam
 
 // __GetCpuFlavorsInput is used internally by genqlient
 type __GetCpuFlavorsInput struct {
-	Input *CpuFlavorInput `json:"input"`
+	Input *CpuFlavorInput `json:"input,omitempty"`
 }
 
 // GetInput returns __GetCpuFlavorsInput.Input, and is useful for accessing the field via an interface.
@@ -1651,7 +1651,7 @@ func (v *__GetCpuFlavorsInput) GetInput() *CpuFlavorInput { return v.Input }
 
 // __GetGpuTypesInput is used internally by genqlient
 type __GetGpuTypesInput struct {
-	Input *GpuTypeFilter `json:"input"`
+	Input *GpuTypeFilter `json:"input,omitempty"`
 }
 
 // GetInput returns __GetGpuTypesInput.Input, and is useful for accessing the field via an interface.
@@ -1675,7 +1675,7 @@ func (v *__SaveEndpointInput) GetInput() EndpointInput { return v.Input }
 
 // __SaveRegistryAuthInput is used internally by genqlient
 type __SaveRegistryAuthInput struct {
-	Input *SaveRegistryAuthInput `json:"input"`
+	Input *SaveRegistryAuthInput `json:"input,omitempty"`
 }
 
 // GetInput returns __SaveRegistryAuthInput.Input, and is useful for accessing the field via an interface.
@@ -1683,7 +1683,7 @@ func (v *__SaveRegistryAuthInput) GetInput() *SaveRegistryAuthInput { return v.I
 
 // __SaveTemplateInput is used internally by genqlient
 type __SaveTemplateInput struct {
-	Input *SaveTemplateInput `json:"input"`
+	Input *SaveTemplateInput `json:"input,omitempty"`
 }
 
 // GetInput returns __SaveTemplateInput.Input, and is useful for accessing the field via an interface.
@@ -1747,7 +1747,7 @@ func (v *__UpdatePodInput) GetInput() PodEditJobInput { return v.Input }
 
 // __UpdateRegistryAuthInput is used internally by genqlient
 type __UpdateRegistryAuthInput struct {
-	Input *UpdateRegistryAuthInput `json:"input"`
+	Input *UpdateRegistryAuthInput `json:"input,omitempty"`
 }
 
 // GetInput returns __UpdateRegistryAuthInput.Input, and is useful for accessing the field via an interface.

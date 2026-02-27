@@ -53,6 +53,13 @@ export PULUMI_IGNORE_AMBIENT_PLUGINS = true
 ensure::
 	go mod tidy
 
+# Regenerate GraphQL client code from schema + operations, then apply JSON tag
+# fixups (omitempty on pointer fields, keep env without omitempty).
+.PHONY: generate
+generate:
+	cd provider/pkg/runpod && ~/go/bin/genqlient genqlient.yaml
+	cd provider/pkg/runpod && go run ../genqlient_fixup.go
+
 $(SCHEMA_FILE): provider $(PULUMI)
 	$(PULUMI) package get-schema $(WORKING_DIR)/bin/${PROVIDER} | \
 		jq 'del(.version)' > $(SCHEMA_FILE)
