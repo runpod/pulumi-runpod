@@ -34,11 +34,12 @@ if [ ! -d "$SST_PLATFORM" ]; then
 fi
 
 echo "==> Building provider binary..."
-cd "$REPO_ROOT"
+cd "$REPO_ROOT/provider"
 go build \
     -ldflags "-X github.com/runpod/pulumi-runpod/provider.Version=$VERSION" \
-    -o "bin/$PROVIDER_NAME" \
-    ./provider/cmd/pulumi-resource-runpod/
+    -o "$REPO_ROOT/bin/$PROVIDER_NAME" \
+    ./cmd/pulumi-resource-runpod/
+cd "$REPO_ROOT"
 
 echo "==> Installing Pulumi plugin..."
 pulumi plugin install resource runpod "$VERSION" --file "bin/$PROVIDER_NAME"
@@ -54,7 +55,7 @@ TARBALL=$(npm pack --silent 2>/dev/null)
 TARBALL_PATH="$REPO_ROOT/sdk/nodejs/$TARBALL"
 
 echo "==> Installing SDK into SST project..."
-cd "$SST_PLATFORM"
+cd "$SST_PROJECT"
 bun add "$TARBALL_PATH"
 
 echo ""

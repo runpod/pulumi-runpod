@@ -119,6 +119,8 @@ nodejs_sdk: sdk/nodejs
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	# Patch directory import for Node.js v22+ ESM compatibility (SST Ion / esbuild context)
+	sed -i.bak 's|require("@pulumi/pulumi/runtime")|require("@pulumi/pulumi/runtime/index.js")|g' ${PACKDIR}/nodejs/bin/utilities.js && rm -f ${PACKDIR}/nodejs/bin/utilities.js.bak
 
 python_sdk: sdk/python
 	cp README.md ${PACKDIR}/python/
