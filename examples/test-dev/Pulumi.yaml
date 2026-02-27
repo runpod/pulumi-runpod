@@ -53,7 +53,31 @@ resources:
       env:
         GPU_TEST: "true"
 
-  # 4. CPU Pod (cpu3s = Shared-Compute, 2 vCPUs, 4GB RAM)
+  # 4. Network Volume (MFS-1 is the only DC with storage in dev, min 10GB)
+  testVolume:
+    type: runpod:NetworkVolume
+    properties:
+      name: pulumi-test-volume
+      size: 10
+      dataCenterId: "MFS-1"
+
+  # 5. Secret
+  testSecret:
+    type: runpod:Secret
+    properties:
+      name: pulumi-test-secret-2
+      value: "supersecret123"
+      description: "Pulumi provider test secret"
+
+  # 6. Container Registry Auth
+  testRegistryAuth:
+    type: runpod:ContainerRegistryAuth
+    properties:
+      name: pulumi-test-registry
+      username: testuser
+      password: testpassword123
+
+  # 7. CPU Pod (cpu5c = Compute-Optimized, 2 vCPUs, 4GB RAM)
   cpuPod:
     type: runpod:Pod
     properties:
@@ -73,5 +97,8 @@ outputs:
   endpointId: ${testEndpoint.endpointId}
   gpuPodId: ${gpuPod.podId}
   cpuPodId: ${cpuPod.podId}
+  volumeId: ${testVolume.networkVolumeId}
+  secretId: ${testSecret.secretId}
+  registryAuthId: ${testRegistryAuth.registryAuthId}
   availableCpuFlavors: ${cpuFlavors.cpuFlavors}
   availableDataCenters: ${dataCenters.dataCenters}

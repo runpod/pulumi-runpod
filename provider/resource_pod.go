@@ -400,14 +400,20 @@ func (Pod) Update(
 
 	client := getClient(ctx)
 
+	// imageName and containerDiskInGb are required by the API (non-null).
+	// Fall back to current state values when not set in inputs.
 	imageName := ""
 	if req.Inputs.ImageName != nil {
 		imageName = *req.Inputs.ImageName
+	} else if req.State.ImageName != nil {
+		imageName = *req.State.ImageName
 	}
 
 	containerDiskInGb := 0
 	if req.Inputs.ContainerDiskInGb != nil {
 		containerDiskInGb = *req.Inputs.ContainerDiskInGb
+	} else if req.State.OutputContainerDiskInGb != nil {
+		containerDiskInGb = *req.State.OutputContainerDiskInGb
 	}
 
 	updateInput := runpod.PodEditJobInput{
@@ -482,8 +488,19 @@ func podResponseToState(
 	if pod.DockerArgs != nil {
 		state.DockerArgs = pod.DockerArgs
 	}
-	if env := runpod.EnvSliceToMap(pod.Env); len(env) > 0 {
-		state.Env = env
+	// Only retain env keys that were declared in inputs. The platform injects
+	// additional keys (e.g. PUBLIC_KEY for SSH) that are not Pulumi-managed —
+	// storing them in state would cause spurious diffs on every subsequent up.
+	if apiEnv := runpod.EnvSliceToMap(pod.Env); len(apiEnv) > 0 && len(input.Env) > 0 {
+		filtered := make(map[string]string, len(input.Env))
+		for k := range input.Env {
+			if v, ok := apiEnv[k]; ok {
+				filtered[k] = v
+			}
+		}
+		if len(filtered) > 0 {
+			state.Env = filtered
+		}
 	}
 	return state
 }
