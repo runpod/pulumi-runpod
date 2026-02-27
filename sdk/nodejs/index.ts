@@ -15,6 +15,16 @@ export type Endpoint = import("./endpoint").Endpoint;
 export const Endpoint: typeof import("./endpoint").Endpoint = null as any;
 utilities.lazyLoad(exports, ["Endpoint"], () => require("./endpoint"));
 
+export { GetCpuFlavorsArgs, GetCpuFlavorsResult, GetCpuFlavorsOutputArgs } from "./getCpuFlavors";
+export const getCpuFlavors: typeof import("./getCpuFlavors").getCpuFlavors = null as any;
+export const getCpuFlavorsOutput: typeof import("./getCpuFlavors").getCpuFlavorsOutput = null as any;
+utilities.lazyLoad(exports, ["getCpuFlavors","getCpuFlavorsOutput"], () => require("./getCpuFlavors"));
+
+export { GetDataCentersArgs, GetDataCentersResult } from "./getDataCenters";
+export const getDataCenters: typeof import("./getDataCenters").getDataCenters = null as any;
+export const getDataCentersOutput: typeof import("./getDataCenters").getDataCentersOutput = null as any;
+utilities.lazyLoad(exports, ["getDataCenters","getDataCentersOutput"], () => require("./getDataCenters"));
+
 export { GetGpuTypesArgs, GetGpuTypesResult } from "./getGpuTypes";
 export const getGpuTypes: typeof import("./getGpuTypes").getGpuTypes = null as any;
 export const getGpuTypesOutput: typeof import("./getGpuTypes").getGpuTypesOutput = null as any;

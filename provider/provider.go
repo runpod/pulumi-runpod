@@ -79,6 +79,8 @@ func Provider() p.Provider {
 		).
 		WithFunctions(
 			infer.Function(GetGpuTypes{}),
+			infer.Function(GetCpuFlavors{}),
+			infer.Function(GetDataCenters{}),
 		).
 		WithConfig(infer.Config(&Config{})).
 		WithModuleMap(map[tokens.ModuleName]tokens.ModuleName{

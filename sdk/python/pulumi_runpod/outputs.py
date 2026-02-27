@@ -14,11 +14,278 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
 
 __all__ = [
+    'CpuFlavorOutput',
+    'DataCenterOutput',
+    'GpuAvailabilityItem',
     'GpuTypeOutput',
     'SavingsPlan',
 ]
+
+@pulumi.output_type
+class CpuFlavorOutput(dict):
+    def __init__(__self__, *,
+                 disk_limit_per_vcpu: builtins.int,
+                 display_name: builtins.str,
+                 group_id: builtins.str,
+                 group_name: builtins.str,
+                 id: builtins.str,
+                 max_vcpu: builtins.int,
+                 min_vcpu: builtins.float,
+                 ram_multiplier: builtins.float,
+                 vcpu_burstable: builtins.bool):
+        """
+        :param builtins.int disk_limit_per_vcpu: Disk limit per vCPU (in GB).
+        :param builtins.str display_name: The human-readable name of the CPU flavor.
+        :param builtins.str group_id: The group this flavor belongs to.
+        :param builtins.str group_name: The display name of the flavor group.
+        :param builtins.str id: The unique identifier of the CPU flavor (used as flavorId in instanceId).
+        :param builtins.int max_vcpu: The maximum number of vCPUs for this flavor.
+        :param builtins.float min_vcpu: The minimum number of vCPUs for this flavor.
+        :param builtins.float ram_multiplier: RAM allocated per vCPU (in GB).
+        :param builtins.bool vcpu_burstable: Whether vCPUs are burstable.
+        """
+        pulumi.set(__self__, "disk_limit_per_vcpu", disk_limit_per_vcpu)
+        pulumi.set(__self__, "display_name", display_name)
+        pulumi.set(__self__, "group_id", group_id)
+        pulumi.set(__self__, "group_name", group_name)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "max_vcpu", max_vcpu)
+        pulumi.set(__self__, "min_vcpu", min_vcpu)
+        pulumi.set(__self__, "ram_multiplier", ram_multiplier)
+        pulumi.set(__self__, "vcpu_burstable", vcpu_burstable)
+
+    @property
+    @pulumi.getter(name="diskLimitPerVcpu")
+    def disk_limit_per_vcpu(self) -> builtins.int:
+        """
+        Disk limit per vCPU (in GB).
+        """
+        return pulumi.get(self, "disk_limit_per_vcpu")
+
+    @property
+    @pulumi.getter(name="displayName")
+    def display_name(self) -> builtins.str:
+        """
+        The human-readable name of the CPU flavor.
+        """
+        return pulumi.get(self, "display_name")
+
+    @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> builtins.str:
+        """
+        The group this flavor belongs to.
+        """
+        return pulumi.get(self, "group_id")
+
+    @property
+    @pulumi.getter(name="groupName")
+    def group_name(self) -> builtins.str:
+        """
+        The display name of the flavor group.
+        """
+        return pulumi.get(self, "group_name")
+
+    @property
+    @pulumi.getter
+    def id(self) -> builtins.str:
+        """
+        The unique identifier of the CPU flavor (used as flavorId in instanceId).
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter(name="maxVcpu")
+    def max_vcpu(self) -> builtins.int:
+        """
+        The maximum number of vCPUs for this flavor.
+        """
+        return pulumi.get(self, "max_vcpu")
+
+    @property
+    @pulumi.getter(name="minVcpu")
+    def min_vcpu(self) -> builtins.float:
+        """
+        The minimum number of vCPUs for this flavor.
+        """
+        return pulumi.get(self, "min_vcpu")
+
+    @property
+    @pulumi.getter(name="ramMultiplier")
+    def ram_multiplier(self) -> builtins.float:
+        """
+        RAM allocated per vCPU (in GB).
+        """
+        return pulumi.get(self, "ram_multiplier")
+
+    @property
+    @pulumi.getter(name="vcpuBurstable")
+    def vcpu_burstable(self) -> builtins.bool:
+        """
+        Whether vCPUs are burstable.
+        """
+        return pulumi.get(self, "vcpu_burstable")
+
+
+@pulumi.output_type
+class DataCenterOutput(dict):
+    def __init__(__self__, *,
+                 compliance: Sequence[builtins.str],
+                 global_network: builtins.bool,
+                 gpu_availability: Sequence['outputs.GpuAvailabilityItem'],
+                 id: builtins.str,
+                 listed: builtins.bool,
+                 location: builtins.str,
+                 name: builtins.str,
+                 region: builtins.str,
+                 storage_support: builtins.bool):
+        """
+        :param Sequence[builtins.str] compliance: Compliance certifications held by this data center.
+        :param builtins.bool global_network: Whether this data center is part of the global network.
+        :param Sequence['GpuAvailabilityItem'] gpu_availability: GPU availability within this data center.
+        :param builtins.str id: The unique identifier of the data center (used as dataCenterId).
+        :param builtins.bool listed: Whether this data center is publicly listed.
+        :param builtins.str location: The geographic location of the data center.
+        :param builtins.str name: The display name of the data center.
+        :param builtins.str region: The broad region (e.g. NORTH_AMERICA, EUROPE).
+        :param builtins.bool storage_support: Whether this data center supports network volumes.
+        """
+        pulumi.set(__self__, "compliance", compliance)
+        pulumi.set(__self__, "global_network", global_network)
+        pulumi.set(__self__, "gpu_availability", gpu_availability)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "listed", listed)
+        pulumi.set(__self__, "location", location)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "storage_support", storage_support)
+
+    @property
+    @pulumi.getter
+    def compliance(self) -> Sequence[builtins.str]:
+        """
+        Compliance certifications held by this data center.
+        """
+        return pulumi.get(self, "compliance")
+
+    @property
+    @pulumi.getter(name="globalNetwork")
+    def global_network(self) -> builtins.bool:
+        """
+        Whether this data center is part of the global network.
+        """
+        return pulumi.get(self, "global_network")
+
+    @property
+    @pulumi.getter(name="gpuAvailability")
+    def gpu_availability(self) -> Sequence['outputs.GpuAvailabilityItem']:
+        """
+        GPU availability within this data center.
+        """
+        return pulumi.get(self, "gpu_availability")
+
+    @property
+    @pulumi.getter
+    def id(self) -> builtins.str:
+        """
+        The unique identifier of the data center (used as dataCenterId).
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def listed(self) -> builtins.bool:
+        """
+        Whether this data center is publicly listed.
+        """
+        return pulumi.get(self, "listed")
+
+    @property
+    @pulumi.getter
+    def location(self) -> builtins.str:
+        """
+        The geographic location of the data center.
+        """
+        return pulumi.get(self, "location")
+
+    @property
+    @pulumi.getter
+    def name(self) -> builtins.str:
+        """
+        The display name of the data center.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def region(self) -> builtins.str:
+        """
+        The broad region (e.g. NORTH_AMERICA, EUROPE).
+        """
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="storageSupport")
+    def storage_support(self) -> builtins.bool:
+        """
+        Whether this data center supports network volumes.
+        """
+        return pulumi.get(self, "storage_support")
+
+
+@pulumi.output_type
+class GpuAvailabilityItem(dict):
+    def __init__(__self__, *,
+                 available: builtins.bool,
+                 gpu_type_display_name: builtins.str,
+                 gpu_type_id: builtins.str,
+                 stock_status: builtins.str):
+        """
+        :param builtins.bool available: Whether this GPU type is currently available at this data center.
+        :param builtins.str gpu_type_display_name: The human-readable GPU type name.
+        :param builtins.str gpu_type_id: The GPU type identifier.
+        :param builtins.str stock_status: Current stock status (e.g. High, Medium, Low).
+        """
+        pulumi.set(__self__, "available", available)
+        pulumi.set(__self__, "gpu_type_display_name", gpu_type_display_name)
+        pulumi.set(__self__, "gpu_type_id", gpu_type_id)
+        pulumi.set(__self__, "stock_status", stock_status)
+
+    @property
+    @pulumi.getter
+    def available(self) -> builtins.bool:
+        """
+        Whether this GPU type is currently available at this data center.
+        """
+        return pulumi.get(self, "available")
+
+    @property
+    @pulumi.getter(name="gpuTypeDisplayName")
+    def gpu_type_display_name(self) -> builtins.str:
+        """
+        The human-readable GPU type name.
+        """
+        return pulumi.get(self, "gpu_type_display_name")
+
+    @property
+    @pulumi.getter(name="gpuTypeId")
+    def gpu_type_id(self) -> builtins.str:
+        """
+        The GPU type identifier.
+        """
+        return pulumi.get(self, "gpu_type_id")
+
+    @property
+    @pulumi.getter(name="stockStatus")
+    def stock_status(self) -> builtins.str:
+        """
+        Current stock status (e.g. High, Medium, Low).
+        """
+        return pulumi.get(self, "stock_status")
+
 
 @pulumi.output_type
 class GpuTypeOutput(dict):

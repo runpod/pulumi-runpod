@@ -8,6 +8,8 @@ import typing
 # Export this package's modules as members:
 from .container_registry_auth import *
 from .endpoint import *
+from .get_cpu_flavors import *
+from .get_data_centers import *
 from .get_gpu_types import *
 from .network_volume import *
 from .pod import *

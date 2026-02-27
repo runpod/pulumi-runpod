@@ -13,6 +13,271 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type CpuFlavorOutput struct {
+	// Disk limit per vCPU (in GB).
+	DiskLimitPerVcpu int `pulumi:"diskLimitPerVcpu"`
+	// The human-readable name of the CPU flavor.
+	DisplayName string `pulumi:"displayName"`
+	// The group this flavor belongs to.
+	GroupId string `pulumi:"groupId"`
+	// The display name of the flavor group.
+	GroupName string `pulumi:"groupName"`
+	// The unique identifier of the CPU flavor (used as flavorId in instanceId).
+	Id string `pulumi:"id"`
+	// The maximum number of vCPUs for this flavor.
+	MaxVcpu int `pulumi:"maxVcpu"`
+	// The minimum number of vCPUs for this flavor.
+	MinVcpu float64 `pulumi:"minVcpu"`
+	// RAM allocated per vCPU (in GB).
+	RamMultiplier float64 `pulumi:"ramMultiplier"`
+	// Whether vCPUs are burstable.
+	VcpuBurstable bool `pulumi:"vcpuBurstable"`
+}
+
+type CpuFlavorOutputOutput struct{ *pulumi.OutputState }
+
+func (CpuFlavorOutputOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CpuFlavorOutput)(nil)).Elem()
+}
+
+func (o CpuFlavorOutputOutput) ToCpuFlavorOutputOutput() CpuFlavorOutputOutput {
+	return o
+}
+
+func (o CpuFlavorOutputOutput) ToCpuFlavorOutputOutputWithContext(ctx context.Context) CpuFlavorOutputOutput {
+	return o
+}
+
+// Disk limit per vCPU (in GB).
+func (o CpuFlavorOutputOutput) DiskLimitPerVcpu() pulumi.IntOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) int { return v.DiskLimitPerVcpu }).(pulumi.IntOutput)
+}
+
+// The human-readable name of the CPU flavor.
+func (o CpuFlavorOutputOutput) DisplayName() pulumi.StringOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) string { return v.DisplayName }).(pulumi.StringOutput)
+}
+
+// The group this flavor belongs to.
+func (o CpuFlavorOutputOutput) GroupId() pulumi.StringOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) string { return v.GroupId }).(pulumi.StringOutput)
+}
+
+// The display name of the flavor group.
+func (o CpuFlavorOutputOutput) GroupName() pulumi.StringOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) string { return v.GroupName }).(pulumi.StringOutput)
+}
+
+// The unique identifier of the CPU flavor (used as flavorId in instanceId).
+func (o CpuFlavorOutputOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The maximum number of vCPUs for this flavor.
+func (o CpuFlavorOutputOutput) MaxVcpu() pulumi.IntOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) int { return v.MaxVcpu }).(pulumi.IntOutput)
+}
+
+// The minimum number of vCPUs for this flavor.
+func (o CpuFlavorOutputOutput) MinVcpu() pulumi.Float64Output {
+	return o.ApplyT(func(v CpuFlavorOutput) float64 { return v.MinVcpu }).(pulumi.Float64Output)
+}
+
+// RAM allocated per vCPU (in GB).
+func (o CpuFlavorOutputOutput) RamMultiplier() pulumi.Float64Output {
+	return o.ApplyT(func(v CpuFlavorOutput) float64 { return v.RamMultiplier }).(pulumi.Float64Output)
+}
+
+// Whether vCPUs are burstable.
+func (o CpuFlavorOutputOutput) VcpuBurstable() pulumi.BoolOutput {
+	return o.ApplyT(func(v CpuFlavorOutput) bool { return v.VcpuBurstable }).(pulumi.BoolOutput)
+}
+
+type CpuFlavorOutputArrayOutput struct{ *pulumi.OutputState }
+
+func (CpuFlavorOutputArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CpuFlavorOutput)(nil)).Elem()
+}
+
+func (o CpuFlavorOutputArrayOutput) ToCpuFlavorOutputArrayOutput() CpuFlavorOutputArrayOutput {
+	return o
+}
+
+func (o CpuFlavorOutputArrayOutput) ToCpuFlavorOutputArrayOutputWithContext(ctx context.Context) CpuFlavorOutputArrayOutput {
+	return o
+}
+
+func (o CpuFlavorOutputArrayOutput) Index(i pulumi.IntInput) CpuFlavorOutputOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CpuFlavorOutput {
+		return vs[0].([]CpuFlavorOutput)[vs[1].(int)]
+	}).(CpuFlavorOutputOutput)
+}
+
+type DataCenterOutput struct {
+	// Compliance certifications held by this data center.
+	Compliance []string `pulumi:"compliance"`
+	// Whether this data center is part of the global network.
+	GlobalNetwork bool `pulumi:"globalNetwork"`
+	// GPU availability within this data center.
+	GpuAvailability []GpuAvailabilityItem `pulumi:"gpuAvailability"`
+	// The unique identifier of the data center (used as dataCenterId).
+	Id string `pulumi:"id"`
+	// Whether this data center is publicly listed.
+	Listed bool `pulumi:"listed"`
+	// The geographic location of the data center.
+	Location string `pulumi:"location"`
+	// The display name of the data center.
+	Name string `pulumi:"name"`
+	// The broad region (e.g. NORTH_AMERICA, EUROPE).
+	Region string `pulumi:"region"`
+	// Whether this data center supports network volumes.
+	StorageSupport bool `pulumi:"storageSupport"`
+}
+
+type DataCenterOutputOutput struct{ *pulumi.OutputState }
+
+func (DataCenterOutputOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DataCenterOutput)(nil)).Elem()
+}
+
+func (o DataCenterOutputOutput) ToDataCenterOutputOutput() DataCenterOutputOutput {
+	return o
+}
+
+func (o DataCenterOutputOutput) ToDataCenterOutputOutputWithContext(ctx context.Context) DataCenterOutputOutput {
+	return o
+}
+
+// Compliance certifications held by this data center.
+func (o DataCenterOutputOutput) Compliance() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DataCenterOutput) []string { return v.Compliance }).(pulumi.StringArrayOutput)
+}
+
+// Whether this data center is part of the global network.
+func (o DataCenterOutputOutput) GlobalNetwork() pulumi.BoolOutput {
+	return o.ApplyT(func(v DataCenterOutput) bool { return v.GlobalNetwork }).(pulumi.BoolOutput)
+}
+
+// GPU availability within this data center.
+func (o DataCenterOutputOutput) GpuAvailability() GpuAvailabilityItemArrayOutput {
+	return o.ApplyT(func(v DataCenterOutput) []GpuAvailabilityItem { return v.GpuAvailability }).(GpuAvailabilityItemArrayOutput)
+}
+
+// The unique identifier of the data center (used as dataCenterId).
+func (o DataCenterOutputOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v DataCenterOutput) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Whether this data center is publicly listed.
+func (o DataCenterOutputOutput) Listed() pulumi.BoolOutput {
+	return o.ApplyT(func(v DataCenterOutput) bool { return v.Listed }).(pulumi.BoolOutput)
+}
+
+// The geographic location of the data center.
+func (o DataCenterOutputOutput) Location() pulumi.StringOutput {
+	return o.ApplyT(func(v DataCenterOutput) string { return v.Location }).(pulumi.StringOutput)
+}
+
+// The display name of the data center.
+func (o DataCenterOutputOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DataCenterOutput) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The broad region (e.g. NORTH_AMERICA, EUROPE).
+func (o DataCenterOutputOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v DataCenterOutput) string { return v.Region }).(pulumi.StringOutput)
+}
+
+// Whether this data center supports network volumes.
+func (o DataCenterOutputOutput) StorageSupport() pulumi.BoolOutput {
+	return o.ApplyT(func(v DataCenterOutput) bool { return v.StorageSupport }).(pulumi.BoolOutput)
+}
+
+type DataCenterOutputArrayOutput struct{ *pulumi.OutputState }
+
+func (DataCenterOutputArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DataCenterOutput)(nil)).Elem()
+}
+
+func (o DataCenterOutputArrayOutput) ToDataCenterOutputArrayOutput() DataCenterOutputArrayOutput {
+	return o
+}
+
+func (o DataCenterOutputArrayOutput) ToDataCenterOutputArrayOutputWithContext(ctx context.Context) DataCenterOutputArrayOutput {
+	return o
+}
+
+func (o DataCenterOutputArrayOutput) Index(i pulumi.IntInput) DataCenterOutputOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DataCenterOutput {
+		return vs[0].([]DataCenterOutput)[vs[1].(int)]
+	}).(DataCenterOutputOutput)
+}
+
+type GpuAvailabilityItem struct {
+	// Whether this GPU type is currently available at this data center.
+	Available bool `pulumi:"available"`
+	// The human-readable GPU type name.
+	GpuTypeDisplayName string `pulumi:"gpuTypeDisplayName"`
+	// The GPU type identifier.
+	GpuTypeId string `pulumi:"gpuTypeId"`
+	// Current stock status (e.g. High, Medium, Low).
+	StockStatus string `pulumi:"stockStatus"`
+}
+
+type GpuAvailabilityItemOutput struct{ *pulumi.OutputState }
+
+func (GpuAvailabilityItemOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GpuAvailabilityItem)(nil)).Elem()
+}
+
+func (o GpuAvailabilityItemOutput) ToGpuAvailabilityItemOutput() GpuAvailabilityItemOutput {
+	return o
+}
+
+func (o GpuAvailabilityItemOutput) ToGpuAvailabilityItemOutputWithContext(ctx context.Context) GpuAvailabilityItemOutput {
+	return o
+}
+
+// Whether this GPU type is currently available at this data center.
+func (o GpuAvailabilityItemOutput) Available() pulumi.BoolOutput {
+	return o.ApplyT(func(v GpuAvailabilityItem) bool { return v.Available }).(pulumi.BoolOutput)
+}
+
+// The human-readable GPU type name.
+func (o GpuAvailabilityItemOutput) GpuTypeDisplayName() pulumi.StringOutput {
+	return o.ApplyT(func(v GpuAvailabilityItem) string { return v.GpuTypeDisplayName }).(pulumi.StringOutput)
+}
+
+// The GPU type identifier.
+func (o GpuAvailabilityItemOutput) GpuTypeId() pulumi.StringOutput {
+	return o.ApplyT(func(v GpuAvailabilityItem) string { return v.GpuTypeId }).(pulumi.StringOutput)
+}
+
+// Current stock status (e.g. High, Medium, Low).
+func (o GpuAvailabilityItemOutput) StockStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v GpuAvailabilityItem) string { return v.StockStatus }).(pulumi.StringOutput)
+}
+
+type GpuAvailabilityItemArrayOutput struct{ *pulumi.OutputState }
+
+func (GpuAvailabilityItemArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GpuAvailabilityItem)(nil)).Elem()
+}
+
+func (o GpuAvailabilityItemArrayOutput) ToGpuAvailabilityItemArrayOutput() GpuAvailabilityItemArrayOutput {
+	return o
+}
+
+func (o GpuAvailabilityItemArrayOutput) ToGpuAvailabilityItemArrayOutputWithContext(ctx context.Context) GpuAvailabilityItemArrayOutput {
+	return o
+}
+
+func (o GpuAvailabilityItemArrayOutput) Index(i pulumi.IntInput) GpuAvailabilityItemOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GpuAvailabilityItem {
+		return vs[0].([]GpuAvailabilityItem)[vs[1].(int)]
+	}).(GpuAvailabilityItemOutput)
+}
+
 type GpuTypeOutput struct {
 	// Whether the GPU is available in community cloud.
 	CommunityCloud bool `pulumi:"communityCloud"`
@@ -265,6 +530,12 @@ func (o SavingsPlanPtrOutput) UpfrontCost() pulumi.Float64PtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanInput)(nil)).Elem(), SavingsPlanArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanPtrInput)(nil)).Elem(), SavingsPlanArgs{})
+	pulumi.RegisterOutputType(CpuFlavorOutputOutput{})
+	pulumi.RegisterOutputType(CpuFlavorOutputArrayOutput{})
+	pulumi.RegisterOutputType(DataCenterOutputOutput{})
+	pulumi.RegisterOutputType(DataCenterOutputArrayOutput{})
+	pulumi.RegisterOutputType(GpuAvailabilityItemOutput{})
+	pulumi.RegisterOutputType(GpuAvailabilityItemArrayOutput{})
 	pulumi.RegisterOutputType(GpuTypeOutputOutput{})
 	pulumi.RegisterOutputType(GpuTypeOutputArrayOutput{})
 	pulumi.RegisterOutputType(SavingsPlanOutput{})

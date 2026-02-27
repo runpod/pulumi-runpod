@@ -61,6 +61,143 @@
     }
   },
   "types": {
+    "runpod:index:CpuFlavorOutput": {
+      "properties": {
+        "diskLimitPerVcpu": {
+          "type": "integer",
+          "description": "Disk limit per vCPU (in GB)."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The human-readable name of the CPU flavor."
+        },
+        "groupId": {
+          "type": "string",
+          "description": "The group this flavor belongs to."
+        },
+        "groupName": {
+          "type": "string",
+          "description": "The display name of the flavor group."
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the CPU flavor (used as flavorId in instanceId)."
+        },
+        "maxVcpu": {
+          "type": "integer",
+          "description": "The maximum number of vCPUs for this flavor."
+        },
+        "minVcpu": {
+          "type": "number",
+          "description": "The minimum number of vCPUs for this flavor."
+        },
+        "ramMultiplier": {
+          "type": "number",
+          "description": "RAM allocated per vCPU (in GB)."
+        },
+        "vcpuBurstable": {
+          "type": "boolean",
+          "description": "Whether vCPUs are burstable."
+        }
+      },
+      "type": "object",
+      "required": [
+        "diskLimitPerVcpu",
+        "displayName",
+        "groupId",
+        "groupName",
+        "id",
+        "maxVcpu",
+        "minVcpu",
+        "ramMultiplier",
+        "vcpuBurstable"
+      ]
+    },
+    "runpod:index:DataCenterOutput": {
+      "properties": {
+        "compliance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compliance certifications held by this data center."
+        },
+        "globalNetwork": {
+          "type": "boolean",
+          "description": "Whether this data center is part of the global network."
+        },
+        "gpuAvailability": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/runpod:index:GpuAvailabilityItem"
+          },
+          "description": "GPU availability within this data center."
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the data center (used as dataCenterId)."
+        },
+        "listed": {
+          "type": "boolean",
+          "description": "Whether this data center is publicly listed."
+        },
+        "location": {
+          "type": "string",
+          "description": "The geographic location of the data center."
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the data center."
+        },
+        "region": {
+          "type": "string",
+          "description": "The broad region (e.g. NORTH_AMERICA, EUROPE)."
+        },
+        "storageSupport": {
+          "type": "boolean",
+          "description": "Whether this data center supports network volumes."
+        }
+      },
+      "type": "object",
+      "required": [
+        "compliance",
+        "globalNetwork",
+        "gpuAvailability",
+        "id",
+        "listed",
+        "location",
+        "name",
+        "region",
+        "storageSupport"
+      ]
+    },
+    "runpod:index:GpuAvailabilityItem": {
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether this GPU type is currently available at this data center."
+        },
+        "gpuTypeDisplayName": {
+          "type": "string",
+          "description": "The human-readable GPU type name."
+        },
+        "gpuTypeId": {
+          "type": "string",
+          "description": "The GPU type identifier."
+        },
+        "stockStatus": {
+          "type": "string",
+          "description": "Current stock status (e.g. High, Medium, Low)."
+        }
+      },
+      "type": "object",
+      "required": [
+        "available",
+        "gpuTypeDisplayName",
+        "gpuTypeId",
+        "stockStatus"
+      ]
+    },
     "runpod:index:GpuTypeOutput": {
       "properties": {
         "communityCloud": {
@@ -1194,6 +1331,56 @@
     }
   },
   "functions": {
+    "runpod:index:getCpuFlavors": {
+      "inputs": {
+        "properties": {
+          "isSls": {
+            "type": "boolean",
+            "description": "Filter by serverless eligibility."
+          },
+          "slsOnly": {
+            "type": "boolean",
+            "description": "When true, return only serverless-eligible CPU flavors."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "cpuFlavors": {
+            "description": "The list of available CPU instance flavors.",
+            "items": {
+              "$ref": "#/types/runpod:index:CpuFlavorOutput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "cpuFlavors"
+        ],
+        "type": "object"
+      }
+    },
+    "runpod:index:getDataCenters": {
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "dataCenters": {
+            "description": "The list of available RunPod data centers.",
+            "items": {
+              "$ref": "#/types/runpod:index:DataCenterOutput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "dataCenters"
+        ],
+        "type": "object"
+      }
+    },
     "runpod:index:getGpuTypes": {
       "inputs": {
         "type": "object"

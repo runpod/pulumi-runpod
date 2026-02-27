@@ -5,6 +5,103 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface CpuFlavorOutput {
+    /**
+     * Disk limit per vCPU (in GB).
+     */
+    diskLimitPerVcpu: number;
+    /**
+     * The human-readable name of the CPU flavor.
+     */
+    displayName: string;
+    /**
+     * The group this flavor belongs to.
+     */
+    groupId: string;
+    /**
+     * The display name of the flavor group.
+     */
+    groupName: string;
+    /**
+     * The unique identifier of the CPU flavor (used as flavorId in instanceId).
+     */
+    id: string;
+    /**
+     * The maximum number of vCPUs for this flavor.
+     */
+    maxVcpu: number;
+    /**
+     * The minimum number of vCPUs for this flavor.
+     */
+    minVcpu: number;
+    /**
+     * RAM allocated per vCPU (in GB).
+     */
+    ramMultiplier: number;
+    /**
+     * Whether vCPUs are burstable.
+     */
+    vcpuBurstable: boolean;
+}
+
+export interface DataCenterOutput {
+    /**
+     * Compliance certifications held by this data center.
+     */
+    compliance: string[];
+    /**
+     * Whether this data center is part of the global network.
+     */
+    globalNetwork: boolean;
+    /**
+     * GPU availability within this data center.
+     */
+    gpuAvailability: outputs.GpuAvailabilityItem[];
+    /**
+     * The unique identifier of the data center (used as dataCenterId).
+     */
+    id: string;
+    /**
+     * Whether this data center is publicly listed.
+     */
+    listed: boolean;
+    /**
+     * The geographic location of the data center.
+     */
+    location: string;
+    /**
+     * The display name of the data center.
+     */
+    name: string;
+    /**
+     * The broad region (e.g. NORTH_AMERICA, EUROPE).
+     */
+    region: string;
+    /**
+     * Whether this data center supports network volumes.
+     */
+    storageSupport: boolean;
+}
+
+export interface GpuAvailabilityItem {
+    /**
+     * Whether this GPU type is currently available at this data center.
+     */
+    available: boolean;
+    /**
+     * The human-readable GPU type name.
+     */
+    gpuTypeDisplayName: string;
+    /**
+     * The GPU type identifier.
+     */
+    gpuTypeId: string;
+    /**
+     * Current stock status (e.g. High, Medium, Low).
+     */
+    stockStatus: string;
+}
+
 export interface GpuTypeOutput {
     /**
      * Whether the GPU is available in community cloud.
