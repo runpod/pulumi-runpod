@@ -258,6 +258,7 @@ jobs:
     - name: Uncompress python SDK
       run: tar -zxf ${{ github.workspace }}/sdk/python.tar.gz -C ${{ github.workspace }}/sdk/python
     - name: Publish package to PyPI
+      if: ${{ secrets.PYPI_API_TOKEN != '' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: ${{ github.workspace }}/sdk/python/bin/dist/
@@ -270,6 +271,7 @@ jobs:
     - name: Uncompress dotnet SDK
       run: tar -zxf ${{ github.workspace }}/sdk/dotnet.tar.gz -C ${{ github.workspace }}/sdk/dotnet
     - name: Publish dotnet SDK to NuGet
+      if: ${{ secrets.NUGET_API_KEY != '' }}
       run: find ${{ github.workspace }}/sdk/dotnet -name "*.nupkg" | xargs -I{} dotnet nuget push {} -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
 
   publish_go_sdk:
