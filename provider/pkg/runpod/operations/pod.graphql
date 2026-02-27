@@ -80,3 +80,29 @@ mutation UpdatePod($input: PodEditJobInput!) {
 mutation TerminatePod($input: PodTerminateInput!) {
   podTerminate(input: $input)
 }
+
+# @genqlient
+mutation CreateCpuPod($input: deployCpuPodInput!) {
+  # @genqlient(typename: "PodResponse")
+  deployCpuPod(input: $input) {
+    id
+    name
+    machineId
+    imageName
+    dockerArgs
+    gpuCount
+    vcpuCount
+    memoryInGb
+    containerDiskInGb
+    volumeInGb
+    volumeMountPath
+    desiredStatus
+    costPerHr
+    env
+    ports
+    templateId
+    networkVolumeId
+    containerRegistryAuthId
+    podType
+  }
+}

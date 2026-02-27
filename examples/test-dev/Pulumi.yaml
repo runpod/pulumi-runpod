@@ -58,10 +58,10 @@ resources:
     type: runpod:Pod
     properties:
       name: pulumi-test-cpu-pod
-      gpuTypeId: "cpu3s"
+      gpuTypeId: "cpu5c"
       computeType: "CPU"
       instanceIds:
-        - "cpu3s-2-4"
+        - "cpu5c-2-4"
       imageName: runpod/base:0.4.4
       containerDiskInGb: 5
       startSsh: true

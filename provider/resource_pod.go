@@ -297,6 +297,53 @@ func (Pod) Create(
 		}
 	}
 
+	// CPU pods use a dedicated mutation with a required instanceId.
+	if input.ComputeType != nil && *input.ComputeType == "CPU" {
+		instanceID := ""
+		if len(input.InstanceIDs) > 0 {
+			instanceID = input.InstanceIDs[0]
+		}
+		cpuInput := runpod.DeployCpuPodInput{
+			InstanceId:              instanceID,
+			Name:                    &input.Name,
+			ImageName:               input.ImageName,
+			DockerArgs:              input.DockerArgs,
+			Env:                     runpod.EnvMapToGQL(input.Env),
+			Ports:                   input.Ports,
+			ContainerDiskInGb:       input.ContainerDiskInGb,
+			VolumeMountPath:         input.VolumeMountPath,
+			TemplateId:              input.TemplateID,
+			NetworkVolumeId:         input.NetworkVolumeID,
+			ContainerRegistryAuthId: input.ContainerRegistryAuthID,
+			DataCenterId:            input.DataCenterID,
+			StartJupyter:            input.StartJupyter,
+			StartSsh:                input.StartSSH,
+			SupportPublicIp:         input.SupportPublicIP,
+			CountryCode:             input.CountryCode,
+			StopAfter:               input.StopAfter,
+			TerminateAfter:          input.TerminateAfter,
+			VolumeKey:               input.VolumeKey,
+		}
+		if input.CloudType != nil {
+			ct := runpod.CloudTypeEnum(*input.CloudType)
+			cpuInput.CloudType = &ct
+		}
+		cpuResp, err := runpod.CreateCpuPod(ctx, client, cpuInput)
+		if err != nil {
+			return infer.CreateResponse[PodState]{}, err
+		}
+		if cpuResp.DeployCpuPod == nil {
+			return infer.CreateResponse[PodState]{},
+				errors.New("API returned nil CPU pod")
+		}
+		pod := cpuResp.DeployCpuPod
+		state := podResponseToState(input, pod)
+		return infer.CreateResponse[PodState]{
+			ID:     pod.Id,
+			Output: state,
+		}, nil
+	}
+
 	resp, err := runpod.CreatePod(ctx, client, createInput)
 	if err != nil {
 		return infer.CreateResponse[PodState]{}, err
