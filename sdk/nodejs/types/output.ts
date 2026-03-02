@@ -83,6 +83,11 @@ export interface DataCenterOutput {
     storageSupport: boolean;
 }
 
+export interface EndpointNetworkVolumeBinding {
+    dataCenterId: string;
+    networkVolumeId: string;
+}
+
 export interface GpuAvailabilityItem {
     /**
      * Whether this GPU type is currently available at this data center.
@@ -119,6 +124,7 @@ export interface GpuTypeOutput {
      * The unique identifier of the GPU type.
      */
     id: string;
+    lowestPrice?: outputs.LowestPriceOutput;
     /**
      * The maximum number of this GPU type that can be allocated.
      */
@@ -135,6 +141,14 @@ export interface GpuTypeOutput {
      * The price per hour in secure cloud (USD).
      */
     securePrice: number;
+}
+
+export interface LowestPriceOutput {
+    minimumBidPrice: number;
+    rentedCount: number;
+    stockStatus: string;
+    totalCount: number;
+    uninterruptablePrice: number;
 }
 
 export interface SavingsPlan {

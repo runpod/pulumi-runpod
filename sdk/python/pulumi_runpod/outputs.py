@@ -19,8 +19,10 @@ from . import outputs
 __all__ = [
     'CpuFlavorOutput',
     'DataCenterOutput',
+    'EndpointNetworkVolumeBinding',
     'GpuAvailabilityItem',
     'GpuTypeOutput',
+    'LowestPriceOutput',
     'SavingsPlan',
 ]
 
@@ -237,6 +239,44 @@ class DataCenterOutput(dict):
 
 
 @pulumi.output_type
+class EndpointNetworkVolumeBinding(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dataCenterId":
+            suggest = "data_center_id"
+        elif key == "networkVolumeId":
+            suggest = "network_volume_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointNetworkVolumeBinding. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointNetworkVolumeBinding.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointNetworkVolumeBinding.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 data_center_id: builtins.str,
+                 network_volume_id: builtins.str):
+        pulumi.set(__self__, "data_center_id", data_center_id)
+        pulumi.set(__self__, "network_volume_id", network_volume_id)
+
+    @property
+    @pulumi.getter(name="dataCenterId")
+    def data_center_id(self) -> builtins.str:
+        return pulumi.get(self, "data_center_id")
+
+    @property
+    @pulumi.getter(name="networkVolumeId")
+    def network_volume_id(self) -> builtins.str:
+        return pulumi.get(self, "network_volume_id")
+
+
+@pulumi.output_type
 class GpuAvailabilityItem(dict):
     def __init__(__self__, *,
                  available: builtins.bool,
@@ -297,7 +337,8 @@ class GpuTypeOutput(dict):
                  max_gpu_count: builtins.int,
                  memory_in_gb: builtins.int,
                  secure_cloud: builtins.bool,
-                 secure_price: builtins.float):
+                 secure_price: builtins.float,
+                 lowest_price: Optional['outputs.LowestPriceOutput'] = None):
         """
         :param builtins.bool community_cloud: Whether the GPU is available in community cloud.
         :param builtins.float community_price: The price per hour in community cloud (USD).
@@ -316,6 +357,8 @@ class GpuTypeOutput(dict):
         pulumi.set(__self__, "memory_in_gb", memory_in_gb)
         pulumi.set(__self__, "secure_cloud", secure_cloud)
         pulumi.set(__self__, "secure_price", secure_price)
+        if lowest_price is not None:
+            pulumi.set(__self__, "lowest_price", lowest_price)
 
     @property
     @pulumi.getter(name="communityCloud")
@@ -380,6 +423,51 @@ class GpuTypeOutput(dict):
         The price per hour in secure cloud (USD).
         """
         return pulumi.get(self, "secure_price")
+
+    @property
+    @pulumi.getter(name="lowestPrice")
+    def lowest_price(self) -> Optional['outputs.LowestPriceOutput']:
+        return pulumi.get(self, "lowest_price")
+
+
+@pulumi.output_type
+class LowestPriceOutput(dict):
+    def __init__(__self__, *,
+                 minimum_bid_price: builtins.float,
+                 rented_count: builtins.int,
+                 stock_status: builtins.str,
+                 total_count: builtins.int,
+                 uninterruptable_price: builtins.float):
+        pulumi.set(__self__, "minimum_bid_price", minimum_bid_price)
+        pulumi.set(__self__, "rented_count", rented_count)
+        pulumi.set(__self__, "stock_status", stock_status)
+        pulumi.set(__self__, "total_count", total_count)
+        pulumi.set(__self__, "uninterruptable_price", uninterruptable_price)
+
+    @property
+    @pulumi.getter(name="minimumBidPrice")
+    def minimum_bid_price(self) -> builtins.float:
+        return pulumi.get(self, "minimum_bid_price")
+
+    @property
+    @pulumi.getter(name="rentedCount")
+    def rented_count(self) -> builtins.int:
+        return pulumi.get(self, "rented_count")
+
+    @property
+    @pulumi.getter(name="stockStatus")
+    def stock_status(self) -> builtins.str:
+        return pulumi.get(self, "stock_status")
+
+    @property
+    @pulumi.getter(name="totalCount")
+    def total_count(self) -> builtins.int:
+        return pulumi.get(self, "total_count")
+
+    @property
+    @pulumi.getter(name="uninterruptablePrice")
+    def uninterruptable_price(self) -> builtins.float:
+        return pulumi.get(self, "uninterruptable_price")
 
 
 @pulumi.output_type

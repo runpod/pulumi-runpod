@@ -14,6 +14,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
 
 __all__ = ['EndpointArgs', 'Endpoint']
 
@@ -531,6 +532,7 @@ class Endpoint(pulumi.CustomResource):
             __props__.__dict__["workers_max"] = workers_max
             __props__.__dict__["workers_min"] = workers_min
             __props__.__dict__["endpoint_id"] = None
+            __props__.__dict__["network_volume_ids"] = None
         super(Endpoint, __self__).__init__(
             'runpod:index:Endpoint',
             resource_name,
@@ -571,6 +573,7 @@ class Endpoint(pulumi.CustomResource):
         __props__.__dict__["model_references"] = None
         __props__.__dict__["name"] = None
         __props__.__dict__["network_volume_id"] = None
+        __props__.__dict__["network_volume_ids"] = None
         __props__.__dict__["scaler_type"] = None
         __props__.__dict__["scaler_value"] = None
         __props__.__dict__["template_id"] = None
@@ -722,6 +725,11 @@ class Endpoint(pulumi.CustomResource):
         The network volume ID to attach to endpoint workers.
         """
         return pulumi.get(self, "network_volume_id")
+
+    @property
+    @pulumi.getter(name="networkVolumeIds")
+    def network_volume_ids(self) -> pulumi.Output[Optional[Sequence['outputs.EndpointNetworkVolumeBinding']]]:
+        return pulumi.get(self, "network_volume_ids")
 
     @property
     @pulumi.getter(name="scalerType")

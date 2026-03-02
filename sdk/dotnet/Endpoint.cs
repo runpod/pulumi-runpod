@@ -120,6 +120,9 @@ namespace Pulumi.Runpod
         [Output("networkVolumeId")]
         public Output<string?> NetworkVolumeId { get; private set; } = null!;
 
+        [Output("networkVolumeIds")]
+        public Output<ImmutableArray<Outputs.EndpointNetworkVolumeBinding>> NetworkVolumeIds { get; private set; } = null!;
+
         /// <summary>
         /// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
         /// </summary>

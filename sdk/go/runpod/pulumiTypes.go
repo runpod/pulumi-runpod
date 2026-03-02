@@ -213,6 +213,53 @@ func (o DataCenterOutputArrayOutput) Index(i pulumi.IntInput) DataCenterOutputOu
 	}).(DataCenterOutputOutput)
 }
 
+type EndpointNetworkVolumeBinding struct {
+	DataCenterId    string `pulumi:"dataCenterId"`
+	NetworkVolumeId string `pulumi:"networkVolumeId"`
+}
+
+type EndpointNetworkVolumeBindingOutput struct{ *pulumi.OutputState }
+
+func (EndpointNetworkVolumeBindingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointNetworkVolumeBinding)(nil)).Elem()
+}
+
+func (o EndpointNetworkVolumeBindingOutput) ToEndpointNetworkVolumeBindingOutput() EndpointNetworkVolumeBindingOutput {
+	return o
+}
+
+func (o EndpointNetworkVolumeBindingOutput) ToEndpointNetworkVolumeBindingOutputWithContext(ctx context.Context) EndpointNetworkVolumeBindingOutput {
+	return o
+}
+
+func (o EndpointNetworkVolumeBindingOutput) DataCenterId() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointNetworkVolumeBinding) string { return v.DataCenterId }).(pulumi.StringOutput)
+}
+
+func (o EndpointNetworkVolumeBindingOutput) NetworkVolumeId() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointNetworkVolumeBinding) string { return v.NetworkVolumeId }).(pulumi.StringOutput)
+}
+
+type EndpointNetworkVolumeBindingArrayOutput struct{ *pulumi.OutputState }
+
+func (EndpointNetworkVolumeBindingArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointNetworkVolumeBinding)(nil)).Elem()
+}
+
+func (o EndpointNetworkVolumeBindingArrayOutput) ToEndpointNetworkVolumeBindingArrayOutput() EndpointNetworkVolumeBindingArrayOutput {
+	return o
+}
+
+func (o EndpointNetworkVolumeBindingArrayOutput) ToEndpointNetworkVolumeBindingArrayOutputWithContext(ctx context.Context) EndpointNetworkVolumeBindingArrayOutput {
+	return o
+}
+
+func (o EndpointNetworkVolumeBindingArrayOutput) Index(i pulumi.IntInput) EndpointNetworkVolumeBindingOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointNetworkVolumeBinding {
+		return vs[0].([]EndpointNetworkVolumeBinding)[vs[1].(int)]
+	}).(EndpointNetworkVolumeBindingOutput)
+}
+
 type GpuAvailabilityItem struct {
 	// Whether this GPU type is currently available at this data center.
 	Available bool `pulumi:"available"`
@@ -286,7 +333,8 @@ type GpuTypeOutput struct {
 	// The display name of the GPU type.
 	DisplayName string `pulumi:"displayName"`
 	// The unique identifier of the GPU type.
-	Id string `pulumi:"id"`
+	Id          string             `pulumi:"id"`
+	LowestPrice *LowestPriceOutput `pulumi:"lowestPrice"`
 	// The maximum number of this GPU type that can be allocated.
 	MaxGpuCount int `pulumi:"maxGpuCount"`
 	// The amount of VRAM in GB.
@@ -331,6 +379,10 @@ func (o GpuTypeOutputOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GpuTypeOutput) string { return v.Id }).(pulumi.StringOutput)
 }
 
+func (o GpuTypeOutputOutput) LowestPrice() LowestPriceOutputPtrOutput {
+	return o.ApplyT(func(v GpuTypeOutput) *LowestPriceOutput { return v.LowestPrice }).(LowestPriceOutputPtrOutput)
+}
+
 // The maximum number of this GPU type that can be allocated.
 func (o GpuTypeOutputOutput) MaxGpuCount() pulumi.IntOutput {
 	return o.ApplyT(func(v GpuTypeOutput) int { return v.MaxGpuCount }).(pulumi.IntOutput)
@@ -369,6 +421,117 @@ func (o GpuTypeOutputArrayOutput) Index(i pulumi.IntInput) GpuTypeOutputOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GpuTypeOutput {
 		return vs[0].([]GpuTypeOutput)[vs[1].(int)]
 	}).(GpuTypeOutputOutput)
+}
+
+type LowestPriceOutput struct {
+	MinimumBidPrice      float64 `pulumi:"minimumBidPrice"`
+	RentedCount          int     `pulumi:"rentedCount"`
+	StockStatus          string  `pulumi:"stockStatus"`
+	TotalCount           int     `pulumi:"totalCount"`
+	UninterruptablePrice float64 `pulumi:"uninterruptablePrice"`
+}
+
+type LowestPriceOutputOutput struct{ *pulumi.OutputState }
+
+func (LowestPriceOutputOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LowestPriceOutput)(nil)).Elem()
+}
+
+func (o LowestPriceOutputOutput) ToLowestPriceOutputOutput() LowestPriceOutputOutput {
+	return o
+}
+
+func (o LowestPriceOutputOutput) ToLowestPriceOutputOutputWithContext(ctx context.Context) LowestPriceOutputOutput {
+	return o
+}
+
+func (o LowestPriceOutputOutput) MinimumBidPrice() pulumi.Float64Output {
+	return o.ApplyT(func(v LowestPriceOutput) float64 { return v.MinimumBidPrice }).(pulumi.Float64Output)
+}
+
+func (o LowestPriceOutputOutput) RentedCount() pulumi.IntOutput {
+	return o.ApplyT(func(v LowestPriceOutput) int { return v.RentedCount }).(pulumi.IntOutput)
+}
+
+func (o LowestPriceOutputOutput) StockStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v LowestPriceOutput) string { return v.StockStatus }).(pulumi.StringOutput)
+}
+
+func (o LowestPriceOutputOutput) TotalCount() pulumi.IntOutput {
+	return o.ApplyT(func(v LowestPriceOutput) int { return v.TotalCount }).(pulumi.IntOutput)
+}
+
+func (o LowestPriceOutputOutput) UninterruptablePrice() pulumi.Float64Output {
+	return o.ApplyT(func(v LowestPriceOutput) float64 { return v.UninterruptablePrice }).(pulumi.Float64Output)
+}
+
+type LowestPriceOutputPtrOutput struct{ *pulumi.OutputState }
+
+func (LowestPriceOutputPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LowestPriceOutput)(nil)).Elem()
+}
+
+func (o LowestPriceOutputPtrOutput) ToLowestPriceOutputPtrOutput() LowestPriceOutputPtrOutput {
+	return o
+}
+
+func (o LowestPriceOutputPtrOutput) ToLowestPriceOutputPtrOutputWithContext(ctx context.Context) LowestPriceOutputPtrOutput {
+	return o
+}
+
+func (o LowestPriceOutputPtrOutput) Elem() LowestPriceOutputOutput {
+	return o.ApplyT(func(v *LowestPriceOutput) LowestPriceOutput {
+		if v != nil {
+			return *v
+		}
+		var ret LowestPriceOutput
+		return ret
+	}).(LowestPriceOutputOutput)
+}
+
+func (o LowestPriceOutputPtrOutput) MinimumBidPrice() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *LowestPriceOutput) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.MinimumBidPrice
+	}).(pulumi.Float64PtrOutput)
+}
+
+func (o LowestPriceOutputPtrOutput) RentedCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *LowestPriceOutput) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.RentedCount
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o LowestPriceOutputPtrOutput) StockStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LowestPriceOutput) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.StockStatus
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o LowestPriceOutputPtrOutput) TotalCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *LowestPriceOutput) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.TotalCount
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o LowestPriceOutputPtrOutput) UninterruptablePrice() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *LowestPriceOutput) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.UninterruptablePrice
+	}).(pulumi.Float64PtrOutput)
 }
 
 type SavingsPlan struct {
@@ -534,10 +697,14 @@ func init() {
 	pulumi.RegisterOutputType(CpuFlavorOutputArrayOutput{})
 	pulumi.RegisterOutputType(DataCenterOutputOutput{})
 	pulumi.RegisterOutputType(DataCenterOutputArrayOutput{})
+	pulumi.RegisterOutputType(EndpointNetworkVolumeBindingOutput{})
+	pulumi.RegisterOutputType(EndpointNetworkVolumeBindingArrayOutput{})
 	pulumi.RegisterOutputType(GpuAvailabilityItemOutput{})
 	pulumi.RegisterOutputType(GpuAvailabilityItemArrayOutput{})
 	pulumi.RegisterOutputType(GpuTypeOutputOutput{})
 	pulumi.RegisterOutputType(GpuTypeOutputArrayOutput{})
+	pulumi.RegisterOutputType(LowestPriceOutputOutput{})
+	pulumi.RegisterOutputType(LowestPriceOutputPtrOutput{})
 	pulumi.RegisterOutputType(SavingsPlanOutput{})
 	pulumi.RegisterOutputType(SavingsPlanPtrOutput{})
 }

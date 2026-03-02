@@ -29,6 +29,7 @@ namespace Pulumi.Runpod.Outputs
         /// The unique identifier of the GPU type.
         /// </summary>
         public readonly string Id;
+        public readonly Outputs.LowestPriceOutput? LowestPrice;
         /// <summary>
         /// The maximum number of this GPU type that can be allocated.
         /// </summary>
@@ -56,6 +57,8 @@ namespace Pulumi.Runpod.Outputs
 
             string id,
 
+            Outputs.LowestPriceOutput? lowestPrice,
+
             int maxGpuCount,
 
             int memoryInGb,
@@ -68,6 +71,7 @@ namespace Pulumi.Runpod.Outputs
             CommunityPrice = communityPrice;
             DisplayName = displayName;
             Id = id;
+            LowestPrice = lowestPrice;
             MaxGpuCount = maxGpuCount;
             MemoryInGb = memoryInGb;
             SecureCloud = secureCloud;

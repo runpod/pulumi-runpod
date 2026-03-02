@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export class Endpoint extends pulumi.CustomResource {
@@ -103,6 +105,7 @@ export class Endpoint extends pulumi.CustomResource {
      * The network volume ID to attach to endpoint workers.
      */
     public readonly networkVolumeId!: pulumi.Output<string | undefined>;
+    public /*out*/ readonly networkVolumeIds!: pulumi.Output<outputs.EndpointNetworkVolumeBinding[] | undefined>;
     /**
      * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
      */
@@ -166,6 +169,7 @@ export class Endpoint extends pulumi.CustomResource {
             resourceInputs["workersMax"] = args ? args.workersMax : undefined;
             resourceInputs["workersMin"] = args ? args.workersMin : undefined;
             resourceInputs["endpointId"] = undefined /*out*/;
+            resourceInputs["networkVolumeIds"] = undefined /*out*/;
         } else {
             resourceInputs["allowedCudaVersions"] = undefined /*out*/;
             resourceInputs["bindEndpoint"] = undefined /*out*/;
@@ -185,6 +189,7 @@ export class Endpoint extends pulumi.CustomResource {
             resourceInputs["modelReferences"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["networkVolumeId"] = undefined /*out*/;
+            resourceInputs["networkVolumeIds"] = undefined /*out*/;
             resourceInputs["scalerType"] = undefined /*out*/;
             resourceInputs["scalerValue"] = undefined /*out*/;
             resourceInputs["templateId"] = undefined /*out*/;

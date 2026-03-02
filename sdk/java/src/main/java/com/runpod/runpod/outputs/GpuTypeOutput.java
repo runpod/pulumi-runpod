@@ -5,11 +5,14 @@ package com.runpod.runpod.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.runpod.runpod.outputs.LowestPriceOutput;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class GpuTypeOutput {
@@ -33,6 +36,7 @@ public final class GpuTypeOutput {
      * 
      */
     private String id;
+    private @Nullable LowestPriceOutput lowestPrice;
     /**
      * @return The maximum number of this GPU type that can be allocated.
      * 
@@ -83,6 +87,9 @@ public final class GpuTypeOutput {
     public String id() {
         return this.id;
     }
+    public Optional<LowestPriceOutput> lowestPrice() {
+        return Optional.ofNullable(this.lowestPrice);
+    }
     /**
      * @return The maximum number of this GPU type that can be allocated.
      * 
@@ -125,6 +132,7 @@ public final class GpuTypeOutput {
         private Double communityPrice;
         private String displayName;
         private String id;
+        private @Nullable LowestPriceOutput lowestPrice;
         private Integer maxGpuCount;
         private Integer memoryInGb;
         private Boolean secureCloud;
@@ -136,6 +144,7 @@ public final class GpuTypeOutput {
     	      this.communityPrice = defaults.communityPrice;
     	      this.displayName = defaults.displayName;
     	      this.id = defaults.id;
+    	      this.lowestPrice = defaults.lowestPrice;
     	      this.maxGpuCount = defaults.maxGpuCount;
     	      this.memoryInGb = defaults.memoryInGb;
     	      this.secureCloud = defaults.secureCloud;
@@ -172,6 +181,12 @@ public final class GpuTypeOutput {
               throw new MissingRequiredPropertyException("GpuTypeOutput", "id");
             }
             this.id = id;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder lowestPrice(@Nullable LowestPriceOutput lowestPrice) {
+
+            this.lowestPrice = lowestPrice;
             return this;
         }
         @CustomType.Setter
@@ -212,6 +227,7 @@ public final class GpuTypeOutput {
             _resultValue.communityPrice = communityPrice;
             _resultValue.displayName = displayName;
             _resultValue.id = id;
+            _resultValue.lowestPrice = lowestPrice;
             _resultValue.maxGpuCount = maxGpuCount;
             _resultValue.memoryInGb = memoryInGb;
             _resultValue.secureCloud = secureCloud;

@@ -9,6 +9,7 @@ import com.pulumi.core.annotations.ResourceType;
 import com.pulumi.core.internal.Codegen;
 import com.runpod.runpod.EndpointArgs;
 import com.runpod.runpod.Utilities;
+import com.runpod.runpod.outputs.EndpointNetworkVolumeBinding;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -270,6 +271,12 @@ public class Endpoint extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> networkVolumeId() {
         return Codegen.optional(this.networkVolumeId);
+    }
+    @Export(name="networkVolumeIds", refs={List.class,EndpointNetworkVolumeBinding.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<EndpointNetworkVolumeBinding>> networkVolumeIds;
+
+    public Output<Optional<List<EndpointNetworkVolumeBinding>>> networkVolumeIds() {
+        return Codegen.optional(this.networkVolumeIds);
     }
     /**
      * The autoscaler type (e.g. &#34;QUEUE_DELAY&#34;, &#34;REQUEST_COUNT&#34;).

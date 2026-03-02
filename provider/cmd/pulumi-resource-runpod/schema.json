@@ -171,6 +171,21 @@
         "storageSupport"
       ]
     },
+    "runpod:index:EndpointNetworkVolumeBinding": {
+      "properties": {
+        "dataCenterId": {
+          "type": "string"
+        },
+        "networkVolumeId": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "required": [
+        "dataCenterId",
+        "networkVolumeId"
+      ]
+    },
     "runpod:index:GpuAvailabilityItem": {
       "properties": {
         "available": {
@@ -216,6 +231,9 @@
           "type": "string",
           "description": "The unique identifier of the GPU type."
         },
+        "lowestPrice": {
+          "$ref": "#/types/runpod:index:LowestPriceOutput"
+        },
         "maxGpuCount": {
           "type": "integer",
           "description": "The maximum number of this GPU type that can be allocated."
@@ -243,6 +261,33 @@
         "memoryInGb",
         "secureCloud",
         "securePrice"
+      ]
+    },
+    "runpod:index:LowestPriceOutput": {
+      "properties": {
+        "minimumBidPrice": {
+          "type": "number"
+        },
+        "rentedCount": {
+          "type": "integer"
+        },
+        "stockStatus": {
+          "type": "string"
+        },
+        "totalCount": {
+          "type": "integer"
+        },
+        "uninterruptablePrice": {
+          "type": "number"
+        }
+      },
+      "type": "object",
+      "required": [
+        "minimumBidPrice",
+        "rentedCount",
+        "stockStatus",
+        "totalCount",
+        "uninterruptablePrice"
       ]
     },
     "runpod:index:SavingsPlan": {
@@ -437,6 +482,12 @@
         "networkVolumeId": {
           "type": "string",
           "description": "The network volume ID to attach to endpoint workers."
+        },
+        "networkVolumeIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/runpod:index:EndpointNetworkVolumeBinding"
+          }
         },
         "scalerType": {
           "type": "string",
