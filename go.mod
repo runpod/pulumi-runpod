@@ -5,7 +5,6 @@ go 1.24
 toolchain go1.24.1
 
 require (
-	github.com/Khan/genqlient v0.8.1
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pulumi/providertest v0.3.1
 	github.com/pulumi/pulumi-go-provider v1.1.0
@@ -19,6 +18,7 @@ replace github.com/runpod/pulumi-runpod/provider => ./provider
 require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/BurntSushi/toml v1.2.1 // indirect
+	github.com/Khan/genqlient v0.8.1 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v1.1.3 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect

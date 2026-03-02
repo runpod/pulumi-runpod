@@ -427,13 +427,12 @@ func (v *DeployCpuPodInput) GetVolumeMountPath() *string { return v.VolumeMountP
 func (v *DeployCpuPodInput) GetDataCenterId() *string { return v.DataCenterId }
 
 type EndpointInput struct {
-	InstanceIds []*string `json:"instanceIds"`
-	GpuIds      *string   `json:"gpuIds,omitempty"`
-	Id          *string   `json:"id,omitempty"`
-	IdleTimeout *int      `json:"idleTimeout,omitempty"`
-	Locations   *string   `json:"locations,omitempty"`
-	Name        string    `json:"name"`
-	// Flash environment linkage; omit to keep current, set null to clear.
+	InstanceIds         []*string                   `json:"instanceIds"`
+	GpuIds              *string                     `json:"gpuIds,omitempty"`
+	Id                  *string                     `json:"id,omitempty"`
+	IdleTimeout         *int                        `json:"idleTimeout,omitempty"`
+	Locations           *string                     `json:"locations,omitempty"`
+	Name                string                      `json:"name"`
 	FlashEnvironmentId  *string                     `json:"flashEnvironmentId,omitempty"`
 	NetworkVolumeId     *string                     `json:"networkVolumeId,omitempty"`
 	NetworkVolumeIds    []*NetworkVolumeIdsInput    `json:"networkVolumeIds"`
@@ -1042,37 +1041,36 @@ type PodFindAndDeployOnDemandInput struct {
 	Env                     []*EnvironmentVariableInput `json:"env"`
 	GpuCount                *int                        `json:"gpuCount,omitempty"`
 	GpuTypeId               *string                     `json:"gpuTypeId,omitempty"`
-	// List of a comma separated GPU ids, where each list item is priority group of GPUs
-	GpuTypeIdList       []*string         `json:"gpuTypeIdList"`
-	ImageName           *string           `json:"imageName,omitempty"`
-	MinDisk             *int              `json:"minDisk,omitempty"`
-	MinDownload         *int              `json:"minDownload,omitempty"`
-	MinMemoryInGb       *int              `json:"minMemoryInGb,omitempty"`
-	MinUpload           *int              `json:"minUpload,omitempty"`
-	MinVcpuCount        *int              `json:"minVcpuCount,omitempty"`
-	Name                *string           `json:"name,omitempty"`
-	NetworkVolumeId     *string           `json:"networkVolumeId,omitempty"`
-	Port                *interface{}      `json:"port,omitempty"`
-	Ports               *string           `json:"ports,omitempty"`
-	StartJupyter        *bool             `json:"startJupyter,omitempty"`
-	StartSsh            *bool             `json:"startSsh,omitempty"`
-	StopAfter           *string           `json:"stopAfter,omitempty"`
-	SupportPublicIp     *bool             `json:"supportPublicIp,omitempty"`
-	TemplateId          *string           `json:"templateId,omitempty"`
-	TerminateAfter      *string           `json:"terminateAfter,omitempty"`
-	VolumeInGb          *int              `json:"volumeInGb,omitempty"`
-	VolumeKey           *string           `json:"volumeKey,omitempty"`
-	VolumeMountPath     *string           `json:"volumeMountPath,omitempty"`
-	DataCenterId        *string           `json:"dataCenterId,omitempty"`
-	SavingsPlan         *SavingsPlanInput `json:"savingsPlan,omitempty"`
-	CudaVersion         *string           `json:"cudaVersion,omitempty"`
-	AllowedCudaVersions []*string         `json:"allowedCudaVersions"`
-	MinCudaVersion      *string           `json:"minCudaVersion,omitempty"`
-	InstanceIds         []*string         `json:"instanceIds"`
-	ComputeType         *ComputeType      `json:"computeType,omitempty"`
-	GlobalNetwork       *bool             `json:"globalNetwork,omitempty"`
-	IdeAiApiId          *string           `json:"ideAiApiId,omitempty"`
-	ModelReferences     []*string         `json:"modelReferences"`
+	GpuTypeIdList           []*string                   `json:"gpuTypeIdList"`
+	ImageName               *string                     `json:"imageName,omitempty"`
+	MinDisk                 *int                        `json:"minDisk,omitempty"`
+	MinDownload             *int                        `json:"minDownload,omitempty"`
+	MinMemoryInGb           *int                        `json:"minMemoryInGb,omitempty"`
+	MinUpload               *int                        `json:"minUpload,omitempty"`
+	MinVcpuCount            *int                        `json:"minVcpuCount,omitempty"`
+	Name                    *string                     `json:"name,omitempty"`
+	NetworkVolumeId         *string                     `json:"networkVolumeId,omitempty"`
+	Port                    *interface{}                `json:"port,omitempty"`
+	Ports                   *string                     `json:"ports,omitempty"`
+	StartJupyter            *bool                       `json:"startJupyter,omitempty"`
+	StartSsh                *bool                       `json:"startSsh,omitempty"`
+	StopAfter               *string                     `json:"stopAfter,omitempty"`
+	SupportPublicIp         *bool                       `json:"supportPublicIp,omitempty"`
+	TemplateId              *string                     `json:"templateId,omitempty"`
+	TerminateAfter          *string                     `json:"terminateAfter,omitempty"`
+	VolumeInGb              *int                        `json:"volumeInGb,omitempty"`
+	VolumeKey               *string                     `json:"volumeKey,omitempty"`
+	VolumeMountPath         *string                     `json:"volumeMountPath,omitempty"`
+	DataCenterId            *string                     `json:"dataCenterId,omitempty"`
+	SavingsPlan             *SavingsPlanInput           `json:"savingsPlan,omitempty"`
+	CudaVersion             *string                     `json:"cudaVersion,omitempty"`
+	AllowedCudaVersions     []*string                   `json:"allowedCudaVersions"`
+	MinCudaVersion          *string                     `json:"minCudaVersion,omitempty"`
+	InstanceIds             []*string                   `json:"instanceIds"`
+	ComputeType             *ComputeType                `json:"computeType,omitempty"`
+	GlobalNetwork           *bool                       `json:"globalNetwork,omitempty"`
+	IdeAiApiId              *string                     `json:"ideAiApiId,omitempty"`
+	ModelReferences         []*string                   `json:"modelReferences"`
 }
 
 // GetAiApiId returns PodFindAndDeployOnDemandInput.AiApiId, and is useful for accessing the field via an interface.
