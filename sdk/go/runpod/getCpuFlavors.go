@@ -11,67 +11,67 @@ import (
 	"github.com/runpod/pulumi-runpod/sdk/go/runpod/internal"
 )
 
-func GetCpuFlavors(ctx *pulumi.Context, args *GetCpuFlavorsArgs, opts ...pulumi.InvokeOption) (*GetCpuFlavorsResult, error) {
+func GetCPUFlavors(ctx *pulumi.Context, args *GetCPUFlavorsArgs, opts ...pulumi.InvokeOption) (*GetCPUFlavorsResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
-	var rv GetCpuFlavorsResult
-	err := ctx.Invoke("runpod:index:getCpuFlavors", args, &rv, opts...)
+	var rv GetCPUFlavorsResult
+	err := ctx.Invoke("runpod:index:getCPUFlavors", args, &rv, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &rv, nil
 }
 
-type GetCpuFlavorsArgs struct {
+type GetCPUFlavorsArgs struct {
 	// Filter by serverless eligibility.
 	IsSls *bool `pulumi:"isSls"`
 	// When true, return only serverless-eligible CPU flavors.
 	SlsOnly *bool `pulumi:"slsOnly"`
 }
 
-type GetCpuFlavorsResult struct {
+type GetCPUFlavorsResult struct {
 	// The list of available CPU instance flavors.
-	CpuFlavors []CpuFlavorOutput `pulumi:"cpuFlavors"`
+	CpuFlavors []CPUFlavorOutput `pulumi:"cpuFlavors"`
 }
 
-func GetCpuFlavorsOutput(ctx *pulumi.Context, args GetCpuFlavorsOutputArgs, opts ...pulumi.InvokeOption) GetCpuFlavorsResultOutput {
+func GetCPUFlavorsOutput(ctx *pulumi.Context, args GetCPUFlavorsOutputArgs, opts ...pulumi.InvokeOption) GetCPUFlavorsResultOutput {
 	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (GetCpuFlavorsResultOutput, error) {
-			args := v.(GetCpuFlavorsArgs)
+		ApplyT(func(v interface{}) (GetCPUFlavorsResultOutput, error) {
+			args := v.(GetCPUFlavorsArgs)
 			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("runpod:index:getCpuFlavors", args, GetCpuFlavorsResultOutput{}, options).(GetCpuFlavorsResultOutput), nil
-		}).(GetCpuFlavorsResultOutput)
+			return ctx.InvokeOutput("runpod:index:getCPUFlavors", args, GetCPUFlavorsResultOutput{}, options).(GetCPUFlavorsResultOutput), nil
+		}).(GetCPUFlavorsResultOutput)
 }
 
-type GetCpuFlavorsOutputArgs struct {
+type GetCPUFlavorsOutputArgs struct {
 	// Filter by serverless eligibility.
 	IsSls pulumi.BoolPtrInput `pulumi:"isSls"`
 	// When true, return only serverless-eligible CPU flavors.
 	SlsOnly pulumi.BoolPtrInput `pulumi:"slsOnly"`
 }
 
-func (GetCpuFlavorsOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetCpuFlavorsArgs)(nil)).Elem()
+func (GetCPUFlavorsOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetCPUFlavorsArgs)(nil)).Elem()
 }
 
-type GetCpuFlavorsResultOutput struct{ *pulumi.OutputState }
+type GetCPUFlavorsResultOutput struct{ *pulumi.OutputState }
 
-func (GetCpuFlavorsResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetCpuFlavorsResult)(nil)).Elem()
+func (GetCPUFlavorsResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetCPUFlavorsResult)(nil)).Elem()
 }
 
-func (o GetCpuFlavorsResultOutput) ToGetCpuFlavorsResultOutput() GetCpuFlavorsResultOutput {
+func (o GetCPUFlavorsResultOutput) ToGetCPUFlavorsResultOutput() GetCPUFlavorsResultOutput {
 	return o
 }
 
-func (o GetCpuFlavorsResultOutput) ToGetCpuFlavorsResultOutputWithContext(ctx context.Context) GetCpuFlavorsResultOutput {
+func (o GetCPUFlavorsResultOutput) ToGetCPUFlavorsResultOutputWithContext(ctx context.Context) GetCPUFlavorsResultOutput {
 	return o
 }
 
 // The list of available CPU instance flavors.
-func (o GetCpuFlavorsResultOutput) CpuFlavors() CpuFlavorOutputArrayOutput {
-	return o.ApplyT(func(v GetCpuFlavorsResult) []CpuFlavorOutput { return v.CpuFlavors }).(CpuFlavorOutputArrayOutput)
+func (o GetCPUFlavorsResultOutput) CpuFlavors() CPUFlavorOutputArrayOutput {
+	return o.ApplyT(func(v GetCPUFlavorsResult) []CPUFlavorOutput { return v.CpuFlavors }).(CPUFlavorOutputArrayOutput)
 }
 
 func init() {
-	pulumi.RegisterOutputType(GetCpuFlavorsResultOutput{})
+	pulumi.RegisterOutputType(GetCPUFlavorsResultOutput{})
 }

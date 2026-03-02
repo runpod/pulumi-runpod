@@ -61,7 +61,7 @@
     }
   },
   "types": {
-    "runpod:index:CpuFlavorOutput": {
+    "runpod:index:CPUFlavorOutput": {
       "properties": {
         "diskLimitPerVcpu": {
           "type": "integer",
@@ -1382,7 +1382,7 @@
     }
   },
   "functions": {
-    "runpod:index:getCpuFlavors": {
+    "runpod:index:getCPUFlavors": {
       "inputs": {
         "properties": {
           "isSls": {
@@ -1401,7 +1401,7 @@
           "cpuFlavors": {
             "description": "The list of available CPU instance flavors.",
             "items": {
-              "$ref": "#/types/runpod:index:CpuFlavorOutput"
+              "$ref": "#/types/runpod:index:CPUFlavorOutput"
             },
             "type": "array"
           }

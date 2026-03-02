@@ -22,35 +22,35 @@ import (
 	"github.com/runpod/pulumi-runpod/provider/pkg/runpod"
 )
 
-// GetCpuFlavors is the controller for the runpod:index:getCpuFlavors function (invoke).
-type GetCpuFlavors struct{}
+// GetCPUFlavors is the controller for the runpod:index:getCPUFlavors function (invoke).
+type GetCPUFlavors struct{}
 
-// GetCpuFlavorsArgs are the inputs for the CPU flavors query.
-type GetCpuFlavorsArgs struct {
+// GetCPUFlavorsArgs are the inputs for the CPU flavors query.
+type GetCPUFlavorsArgs struct {
 	// SlsOnly filters to serverless-only flavors.
 	SlsOnly *bool `pulumi:"slsOnly,optional"`
 	// IsSls filters by serverless eligibility.
 	IsSls *bool `pulumi:"isSls,optional"`
 }
 
-// Annotate provides descriptions for GetCpuFlavorsArgs fields.
-func (a *GetCpuFlavorsArgs) Annotate(ann infer.Annotator) {
+// Annotate provides descriptions for GetCPUFlavorsArgs fields.
+func (a *GetCPUFlavorsArgs) Annotate(ann infer.Annotator) {
 	ann.Describe(&a.SlsOnly, "When true, return only serverless-eligible CPU flavors.")
 	ann.Describe(&a.IsSls, "Filter by serverless eligibility.")
 }
 
-// GetCpuFlavorsResult is the output of the CPU flavors query.
-type GetCpuFlavorsResult struct {
-	CpuFlavors []CpuFlavorOutput `pulumi:"cpuFlavors"`
+// GetCPUFlavorsResult is the output of the CPU flavors query.
+type GetCPUFlavorsResult struct {
+	CPUFlavors []CPUFlavorOutput `pulumi:"cpuFlavors"`
 }
 
-// Annotate provides descriptions for GetCpuFlavorsResult fields.
-func (r *GetCpuFlavorsResult) Annotate(a infer.Annotator) {
-	a.Describe(&r.CpuFlavors, "The list of available CPU instance flavors.")
+// Annotate provides descriptions for GetCPUFlavorsResult fields.
+func (r *GetCPUFlavorsResult) Annotate(a infer.Annotator) {
+	a.Describe(&r.CPUFlavors, "The list of available CPU instance flavors.")
 }
 
-// CpuFlavorOutput represents a single CPU flavor in the output.
-type CpuFlavorOutput struct {
+// CPUFlavorOutput represents a single CPU flavor in the output.
+type CPUFlavorOutput struct {
 	ID               string  `pulumi:"id"`
 	GroupID          string  `pulumi:"groupId"`
 	GroupName        string  `pulumi:"groupName"`
@@ -58,12 +58,12 @@ type CpuFlavorOutput struct {
 	MinVcpu          float64 `pulumi:"minVcpu"`
 	MaxVcpu          int     `pulumi:"maxVcpu"`
 	VcpuBurstable    bool    `pulumi:"vcpuBurstable"`
-	RamMultiplier    float64 `pulumi:"ramMultiplier"`
+	RAMMultiplier    float64 `pulumi:"ramMultiplier"`
 	DiskLimitPerVcpu int     `pulumi:"diskLimitPerVcpu"`
 }
 
-// Annotate provides descriptions for CpuFlavorOutput fields.
-func (c *CpuFlavorOutput) Annotate(a infer.Annotator) {
+// Annotate provides descriptions for CPUFlavorOutput fields.
+func (c *CPUFlavorOutput) Annotate(a infer.Annotator) {
 	a.Describe(&c.ID, "The unique identifier of the CPU flavor (used as flavorId in instanceId).")
 	a.Describe(&c.GroupID, "The group this flavor belongs to.")
 	a.Describe(&c.GroupName, "The display name of the flavor group.")
@@ -71,15 +71,15 @@ func (c *CpuFlavorOutput) Annotate(a infer.Annotator) {
 	a.Describe(&c.MinVcpu, "The minimum number of vCPUs for this flavor.")
 	a.Describe(&c.MaxVcpu, "The maximum number of vCPUs for this flavor.")
 	a.Describe(&c.VcpuBurstable, "Whether vCPUs are burstable.")
-	a.Describe(&c.RamMultiplier, "RAM allocated per vCPU (in GB).")
+	a.Describe(&c.RAMMultiplier, "RAM allocated per vCPU (in GB).")
 	a.Describe(&c.DiskLimitPerVcpu, "Disk limit per vCPU (in GB).")
 }
 
 // Invoke executes the CPU flavors query.
-func (GetCpuFlavors) Invoke(
+func (GetCPUFlavors) Invoke(
 	ctx context.Context,
-	req infer.FunctionRequest[GetCpuFlavorsArgs],
-) (infer.FunctionResponse[GetCpuFlavorsResult], error) {
+	req infer.FunctionRequest[GetCPUFlavorsArgs],
+) (infer.FunctionResponse[GetCPUFlavorsResult], error) {
 	client := getClient(ctx)
 
 	var input *runpod.CpuFlavorInput
@@ -92,15 +92,15 @@ func (GetCpuFlavors) Invoke(
 
 	resp, err := runpod.GetCpuFlavors(ctx, client, input)
 	if err != nil {
-		return infer.FunctionResponse[GetCpuFlavorsResult]{}, err
+		return infer.FunctionResponse[GetCPUFlavorsResult]{}, err
 	}
 
-	result := make([]CpuFlavorOutput, 0, len(resp.CpuFlavors))
+	result := make([]CPUFlavorOutput, 0, len(resp.CpuFlavors))
 	for _, f := range resp.CpuFlavors {
 		if f == nil {
 			continue
 		}
-		result = append(result, CpuFlavorOutput{
+		result = append(result, CPUFlavorOutput{
 			ID:               runpod.PtrString(f.Id),
 			GroupID:          runpod.PtrString(f.GroupId),
 			GroupName:        runpod.PtrString(f.GroupName),
@@ -108,12 +108,12 @@ func (GetCpuFlavors) Invoke(
 			MinVcpu:          runpod.PtrFloat64(f.MinVcpu),
 			MaxVcpu:          runpod.PtrInt(f.MaxVcpu),
 			VcpuBurstable:    runpod.PtrBool(f.VcpuBurstable),
-			RamMultiplier:    runpod.PtrFloat64(f.RamMultiplier),
+			RAMMultiplier:    runpod.PtrFloat64(f.RamMultiplier),
 			DiskLimitPerVcpu: runpod.PtrInt(f.DiskLimitPerVcpu),
 		})
 	}
 
-	return infer.FunctionResponse[GetCpuFlavorsResult]{
-		Output: GetCpuFlavorsResult{CpuFlavors: result},
+	return infer.FunctionResponse[GetCPUFlavorsResult]{
+		Output: GetCPUFlavorsResult{CPUFlavors: result},
 	}, nil
 }

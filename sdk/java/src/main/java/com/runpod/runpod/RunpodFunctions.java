@@ -9,38 +9,38 @@ import com.pulumi.deployment.Deployment;
 import com.pulumi.deployment.InvokeOptions;
 import com.pulumi.deployment.InvokeOutputOptions;
 import com.runpod.runpod.Utilities;
-import com.runpod.runpod.inputs.GetCpuFlavorsArgs;
-import com.runpod.runpod.inputs.GetCpuFlavorsPlainArgs;
+import com.runpod.runpod.inputs.GetCPUFlavorsArgs;
+import com.runpod.runpod.inputs.GetCPUFlavorsPlainArgs;
 import com.runpod.runpod.inputs.GetDataCentersArgs;
 import com.runpod.runpod.inputs.GetDataCentersPlainArgs;
 import com.runpod.runpod.inputs.GetGpuTypesArgs;
 import com.runpod.runpod.inputs.GetGpuTypesPlainArgs;
-import com.runpod.runpod.outputs.GetCpuFlavorsResult;
+import com.runpod.runpod.outputs.GetCPUFlavorsResult;
 import com.runpod.runpod.outputs.GetDataCentersResult;
 import com.runpod.runpod.outputs.GetGpuTypesResult;
 import java.util.concurrent.CompletableFuture;
 
 public final class RunpodFunctions {
-    public static Output<GetCpuFlavorsResult> getCpuFlavors() {
-        return getCpuFlavors(GetCpuFlavorsArgs.Empty, InvokeOptions.Empty);
+    public static Output<GetCPUFlavorsResult> getCPUFlavors() {
+        return getCPUFlavors(GetCPUFlavorsArgs.Empty, InvokeOptions.Empty);
     }
-    public static CompletableFuture<GetCpuFlavorsResult> getCpuFlavorsPlain() {
-        return getCpuFlavorsPlain(GetCpuFlavorsPlainArgs.Empty, InvokeOptions.Empty);
+    public static CompletableFuture<GetCPUFlavorsResult> getCPUFlavorsPlain() {
+        return getCPUFlavorsPlain(GetCPUFlavorsPlainArgs.Empty, InvokeOptions.Empty);
     }
-    public static Output<GetCpuFlavorsResult> getCpuFlavors(GetCpuFlavorsArgs args) {
-        return getCpuFlavors(args, InvokeOptions.Empty);
+    public static Output<GetCPUFlavorsResult> getCPUFlavors(GetCPUFlavorsArgs args) {
+        return getCPUFlavors(args, InvokeOptions.Empty);
     }
-    public static CompletableFuture<GetCpuFlavorsResult> getCpuFlavorsPlain(GetCpuFlavorsPlainArgs args) {
-        return getCpuFlavorsPlain(args, InvokeOptions.Empty);
+    public static CompletableFuture<GetCPUFlavorsResult> getCPUFlavorsPlain(GetCPUFlavorsPlainArgs args) {
+        return getCPUFlavorsPlain(args, InvokeOptions.Empty);
     }
-    public static Output<GetCpuFlavorsResult> getCpuFlavors(GetCpuFlavorsArgs args, InvokeOptions options) {
-        return Deployment.getInstance().invoke("runpod:index:getCpuFlavors", TypeShape.of(GetCpuFlavorsResult.class), args, Utilities.withVersion(options));
+    public static Output<GetCPUFlavorsResult> getCPUFlavors(GetCPUFlavorsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("runpod:index:getCPUFlavors", TypeShape.of(GetCPUFlavorsResult.class), args, Utilities.withVersion(options));
     }
-    public static Output<GetCpuFlavorsResult> getCpuFlavors(GetCpuFlavorsArgs args, InvokeOutputOptions options) {
-        return Deployment.getInstance().invoke("runpod:index:getCpuFlavors", TypeShape.of(GetCpuFlavorsResult.class), args, Utilities.withVersion(options));
+    public static Output<GetCPUFlavorsResult> getCPUFlavors(GetCPUFlavorsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("runpod:index:getCPUFlavors", TypeShape.of(GetCPUFlavorsResult.class), args, Utilities.withVersion(options));
     }
-    public static CompletableFuture<GetCpuFlavorsResult> getCpuFlavorsPlain(GetCpuFlavorsPlainArgs args, InvokeOptions options) {
-        return Deployment.getInstance().invokeAsync("runpod:index:getCpuFlavors", TypeShape.of(GetCpuFlavorsResult.class), args, Utilities.withVersion(options));
+    public static CompletableFuture<GetCPUFlavorsResult> getCPUFlavorsPlain(GetCPUFlavorsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("runpod:index:getCPUFlavors", TypeShape.of(GetCPUFlavorsResult.class), args, Utilities.withVersion(options));
     }
     public static Output<GetDataCentersResult> getDataCenters() {
         return getDataCenters(GetDataCentersArgs.Empty, InvokeOptions.Empty);

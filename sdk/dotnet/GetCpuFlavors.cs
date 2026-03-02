@@ -9,20 +9,20 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Runpod
 {
-    public static class GetCpuFlavors
+    public static class GetCPUFlavors
     {
-        public static Task<GetCpuFlavorsResult> InvokeAsync(GetCpuFlavorsArgs? args = null, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.InvokeAsync<GetCpuFlavorsResult>("runpod:index:getCpuFlavors", args ?? new GetCpuFlavorsArgs(), options.WithDefaults());
+        public static Task<GetCPUFlavorsResult> InvokeAsync(GetCPUFlavorsArgs? args = null, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetCPUFlavorsResult>("runpod:index:getCPUFlavors", args ?? new GetCPUFlavorsArgs(), options.WithDefaults());
 
-        public static Output<GetCpuFlavorsResult> Invoke(GetCpuFlavorsInvokeArgs? args = null, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetCpuFlavorsResult>("runpod:index:getCpuFlavors", args ?? new GetCpuFlavorsInvokeArgs(), options.WithDefaults());
+        public static Output<GetCPUFlavorsResult> Invoke(GetCPUFlavorsInvokeArgs? args = null, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetCPUFlavorsResult>("runpod:index:getCPUFlavors", args ?? new GetCPUFlavorsInvokeArgs(), options.WithDefaults());
 
-        public static Output<GetCpuFlavorsResult> Invoke(GetCpuFlavorsInvokeArgs args, InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<GetCpuFlavorsResult>("runpod:index:getCpuFlavors", args ?? new GetCpuFlavorsInvokeArgs(), options.WithDefaults());
+        public static Output<GetCPUFlavorsResult> Invoke(GetCPUFlavorsInvokeArgs args, InvokeOutputOptions options)
+            => global::Pulumi.Deployment.Instance.Invoke<GetCPUFlavorsResult>("runpod:index:getCPUFlavors", args ?? new GetCPUFlavorsInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetCpuFlavorsArgs : global::Pulumi.InvokeArgs
+    public sealed class GetCPUFlavorsArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Filter by serverless eligibility.
@@ -36,13 +36,13 @@ namespace Pulumi.Runpod
         [Input("slsOnly")]
         public bool? SlsOnly { get; set; }
 
-        public GetCpuFlavorsArgs()
+        public GetCPUFlavorsArgs()
         {
         }
-        public static new GetCpuFlavorsArgs Empty => new GetCpuFlavorsArgs();
+        public static new GetCPUFlavorsArgs Empty => new GetCPUFlavorsArgs();
     }
 
-    public sealed class GetCpuFlavorsInvokeArgs : global::Pulumi.InvokeArgs
+    public sealed class GetCPUFlavorsInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Filter by serverless eligibility.
@@ -56,23 +56,23 @@ namespace Pulumi.Runpod
         [Input("slsOnly")]
         public Input<bool>? SlsOnly { get; set; }
 
-        public GetCpuFlavorsInvokeArgs()
+        public GetCPUFlavorsInvokeArgs()
         {
         }
-        public static new GetCpuFlavorsInvokeArgs Empty => new GetCpuFlavorsInvokeArgs();
+        public static new GetCPUFlavorsInvokeArgs Empty => new GetCPUFlavorsInvokeArgs();
     }
 
 
     [OutputType]
-    public sealed class GetCpuFlavorsResult
+    public sealed class GetCPUFlavorsResult
     {
         /// <summary>
         /// The list of available CPU instance flavors.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CpuFlavorOutput> CpuFlavors;
+        public readonly ImmutableArray<Outputs.CPUFlavorOutput> CpuFlavors;
 
         [OutputConstructor]
-        private GetCpuFlavorsResult(ImmutableArray<Outputs.CpuFlavorOutput> cpuFlavors)
+        private GetCPUFlavorsResult(ImmutableArray<Outputs.CPUFlavorOutput> cpuFlavors)
         {
             CpuFlavors = cpuFlavors;
         }

@@ -17,7 +17,7 @@
         "config/vars.ts",
         "containerRegistryAuth.ts",
         "endpoint.ts",
-        "getCpuFlavors.ts",
+        "getCPUFlavors.ts",
         "getDataCenters.ts",
         "getGpuTypes.ts",
         "index.ts",

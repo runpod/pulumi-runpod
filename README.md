@@ -18,7 +18,7 @@ The Pulumi RunPod provider lets you manage [RunPod](https://www.runpod.io/) GPU 
 | Function | Description |
 |----------|-------------|
 | `runpod:getGpuTypes` | List available GPU types with pricing and availability |
-| `runpod:getCpuFlavors` | List available CPU configurations |
+| `runpod:getCPUFlavors` | List available CPU configurations |
 | `runpod:getDataCenters` | List data centers with GPU availability |
 
 ## Installation

@@ -10,9 +10,9 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 
-public final class GetCpuFlavorsPlainArgs extends com.pulumi.resources.InvokeArgs {
+public final class GetCPUFlavorsPlainArgs extends com.pulumi.resources.InvokeArgs {
 
-    public static final GetCpuFlavorsPlainArgs Empty = new GetCpuFlavorsPlainArgs();
+    public static final GetCPUFlavorsPlainArgs Empty = new GetCPUFlavorsPlainArgs();
 
     /**
      * Filter by serverless eligibility.
@@ -44,9 +44,9 @@ public final class GetCpuFlavorsPlainArgs extends com.pulumi.resources.InvokeArg
         return Optional.ofNullable(this.slsOnly);
     }
 
-    private GetCpuFlavorsPlainArgs() {}
+    private GetCPUFlavorsPlainArgs() {}
 
-    private GetCpuFlavorsPlainArgs(GetCpuFlavorsPlainArgs $) {
+    private GetCPUFlavorsPlainArgs(GetCPUFlavorsPlainArgs $) {
         this.isSls = $.isSls;
         this.slsOnly = $.slsOnly;
     }
@@ -54,19 +54,19 @@ public final class GetCpuFlavorsPlainArgs extends com.pulumi.resources.InvokeArg
     public static Builder builder() {
         return new Builder();
     }
-    public static Builder builder(GetCpuFlavorsPlainArgs defaults) {
+    public static Builder builder(GetCPUFlavorsPlainArgs defaults) {
         return new Builder(defaults);
     }
 
     public static final class Builder {
-        private GetCpuFlavorsPlainArgs $;
+        private GetCPUFlavorsPlainArgs $;
 
         public Builder() {
-            $ = new GetCpuFlavorsPlainArgs();
+            $ = new GetCPUFlavorsPlainArgs();
         }
 
-        public Builder(GetCpuFlavorsPlainArgs defaults) {
-            $ = new GetCpuFlavorsPlainArgs(Objects.requireNonNull(defaults));
+        public Builder(GetCPUFlavorsPlainArgs defaults) {
+            $ = new GetCPUFlavorsPlainArgs(Objects.requireNonNull(defaults));
         }
 
         /**
@@ -91,7 +91,7 @@ public final class GetCpuFlavorsPlainArgs extends com.pulumi.resources.InvokeArg
             return this;
         }
 
-        public GetCpuFlavorsPlainArgs build() {
+        public GetCPUFlavorsPlainArgs build() {
             return $;
         }
     }

@@ -35,11 +35,11 @@ type GetGpuTypesResult struct {
 
 // LowestPriceOutput represents the lowest available pricing for a GPU type.
 type LowestPriceOutput struct {
-	MinimumBidPrice    float64 `pulumi:"minimumBidPrice"`
+	MinimumBidPrice      float64 `pulumi:"minimumBidPrice"`
 	UninterruptablePrice float64 `pulumi:"uninterruptablePrice"`
-	RentedCount        int     `pulumi:"rentedCount"`
-	TotalCount         int     `pulumi:"totalCount"`
-	StockStatus        string  `pulumi:"stockStatus"`
+	RentedCount          int     `pulumi:"rentedCount"`
+	TotalCount           int     `pulumi:"totalCount"`
+	StockStatus          string  `pulumi:"stockStatus"`
 }
 
 // GpuTypeOutput represents a single GPU type in the output.

@@ -113,7 +113,7 @@ type EndpointNetworkVolumeBinding struct {
 type EndpointState struct {
 	EndpointArgs
 	EndpointID       string                         `pulumi:"endpointId"`
-	NetworkVolumeIDs []EndpointNetworkVolumeBinding  `pulumi:"networkVolumeIds,optional"`
+	NetworkVolumeIDs []EndpointNetworkVolumeBinding `pulumi:"networkVolumeIds,optional"`
 }
 
 // Annotate provides descriptions for EndpointState fields.

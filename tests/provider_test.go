@@ -23,10 +23,11 @@ import (
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/integration"
-	xyz "github.com/runpod/pulumi-runpod/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/property"
+
+	xyz "github.com/runpod/pulumi-runpod/provider"
 )
 
 func TestTemplateDryRun(t *testing.T) {
@@ -47,7 +48,8 @@ func TestTemplateDryRun(t *testing.T) {
 
 	require.NoError(t, err)
 	require.Equal(t, "test-template", response.Properties.Get("name").AsString())
-	require.Equal(t, "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04", response.Properties.Get("imageName").AsString())
+	expectedImage := "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"
+	require.Equal(t, expectedImage, response.Properties.Get("imageName").AsString())
 }
 
 func TestTemplateWithNewFieldsDryRun(t *testing.T) {

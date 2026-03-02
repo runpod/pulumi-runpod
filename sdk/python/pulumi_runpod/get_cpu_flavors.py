@@ -17,14 +17,14 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
-    'GetCpuFlavorsResult',
-    'AwaitableGetCpuFlavorsResult',
+    'GetCPUFlavorsResult',
+    'AwaitableGetCPUFlavorsResult',
     'get_cpu_flavors',
     'get_cpu_flavors_output',
 ]
 
 @pulumi.output_type
-class GetCpuFlavorsResult:
+class GetCPUFlavorsResult:
     def __init__(__self__, cpu_flavors=None):
         if cpu_flavors and not isinstance(cpu_flavors, list):
             raise TypeError("Expected argument 'cpu_flavors' to be a list")
@@ -32,25 +32,25 @@ class GetCpuFlavorsResult:
 
     @property
     @pulumi.getter(name="cpuFlavors")
-    def cpu_flavors(self) -> Sequence['outputs.CpuFlavorOutput']:
+    def cpu_flavors(self) -> Sequence['outputs.CPUFlavorOutput']:
         """
         The list of available CPU instance flavors.
         """
         return pulumi.get(self, "cpu_flavors")
 
 
-class AwaitableGetCpuFlavorsResult(GetCpuFlavorsResult):
+class AwaitableGetCPUFlavorsResult(GetCPUFlavorsResult):
     # pylint: disable=using-constant-test
     def __await__(self):
         if False:
             yield self
-        return GetCpuFlavorsResult(
+        return GetCPUFlavorsResult(
             cpu_flavors=self.cpu_flavors)
 
 
 def get_cpu_flavors(is_sls: Optional[builtins.bool] = None,
                     sls_only: Optional[builtins.bool] = None,
-                    opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetCpuFlavorsResult:
+                    opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetCPUFlavorsResult:
     """
     Use this data source to access information about an existing resource.
 
@@ -61,13 +61,13 @@ def get_cpu_flavors(is_sls: Optional[builtins.bool] = None,
     __args__['isSls'] = is_sls
     __args__['slsOnly'] = sls_only
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('runpod:index:getCpuFlavors', __args__, opts=opts, typ=GetCpuFlavorsResult).value
+    __ret__ = pulumi.runtime.invoke('runpod:index:getCPUFlavors', __args__, opts=opts, typ=GetCPUFlavorsResult).value
 
-    return AwaitableGetCpuFlavorsResult(
+    return AwaitableGetCPUFlavorsResult(
         cpu_flavors=pulumi.get(__ret__, 'cpu_flavors'))
 def get_cpu_flavors_output(is_sls: Optional[pulumi.Input[Optional[builtins.bool]]] = None,
                            sls_only: Optional[pulumi.Input[Optional[builtins.bool]]] = None,
-                           opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetCpuFlavorsResult]:
+                           opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetCPUFlavorsResult]:
     """
     Use this data source to access information about an existing resource.
 
@@ -78,6 +78,6 @@ def get_cpu_flavors_output(is_sls: Optional[pulumi.Input[Optional[builtins.bool]
     __args__['isSls'] = is_sls
     __args__['slsOnly'] = sls_only
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke_output('runpod:index:getCpuFlavors', __args__, opts=opts, typ=GetCpuFlavorsResult)
-    return __ret__.apply(lambda __response__: GetCpuFlavorsResult(
+    __ret__ = pulumi.runtime.invoke_output('runpod:index:getCPUFlavors', __args__, opts=opts, typ=GetCPUFlavorsResult)
+    return __ret__.apply(lambda __response__: GetCPUFlavorsResult(
         cpu_flavors=pulumi.get(__response__, 'cpu_flavors')))

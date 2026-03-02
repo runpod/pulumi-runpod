@@ -5,24 +5,24 @@ package com.runpod.runpod.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
-import com.runpod.runpod.outputs.CpuFlavorOutput;
+import com.runpod.runpod.outputs.CPUFlavorOutput;
 import java.util.List;
 import java.util.Objects;
 
 @CustomType
-public final class GetCpuFlavorsResult {
+public final class GetCPUFlavorsResult {
     /**
      * @return The list of available CPU instance flavors.
      * 
      */
-    private List<CpuFlavorOutput> cpuFlavors;
+    private List<CPUFlavorOutput> cpuFlavors;
 
-    private GetCpuFlavorsResult() {}
+    private GetCPUFlavorsResult() {}
     /**
      * @return The list of available CPU instance flavors.
      * 
      */
-    public List<CpuFlavorOutput> cpuFlavors() {
+    public List<CPUFlavorOutput> cpuFlavors() {
         return this.cpuFlavors;
     }
 
@@ -30,31 +30,31 @@ public final class GetCpuFlavorsResult {
         return new Builder();
     }
 
-    public static Builder builder(GetCpuFlavorsResult defaults) {
+    public static Builder builder(GetCPUFlavorsResult defaults) {
         return new Builder(defaults);
     }
     @CustomType.Builder
     public static final class Builder {
-        private List<CpuFlavorOutput> cpuFlavors;
+        private List<CPUFlavorOutput> cpuFlavors;
         public Builder() {}
-        public Builder(GetCpuFlavorsResult defaults) {
+        public Builder(GetCPUFlavorsResult defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.cpuFlavors = defaults.cpuFlavors;
         }
 
         @CustomType.Setter
-        public Builder cpuFlavors(List<CpuFlavorOutput> cpuFlavors) {
+        public Builder cpuFlavors(List<CPUFlavorOutput> cpuFlavors) {
             if (cpuFlavors == null) {
-              throw new MissingRequiredPropertyException("GetCpuFlavorsResult", "cpuFlavors");
+              throw new MissingRequiredPropertyException("GetCPUFlavorsResult", "cpuFlavors");
             }
             this.cpuFlavors = cpuFlavors;
             return this;
         }
-        public Builder cpuFlavors(CpuFlavorOutput... cpuFlavors) {
+        public Builder cpuFlavors(CPUFlavorOutput... cpuFlavors) {
             return cpuFlavors(List.of(cpuFlavors));
         }
-        public GetCpuFlavorsResult build() {
-            final var _resultValue = new GetCpuFlavorsResult();
+        public GetCPUFlavorsResult build() {
+            final var _resultValue = new GetCPUFlavorsResult();
             _resultValue.cpuFlavors = cpuFlavors;
             return _resultValue;
         }

@@ -17,7 +17,7 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
-    'CpuFlavorOutput',
+    'CPUFlavorOutput',
     'DataCenterOutput',
     'EndpointNetworkVolumeBinding',
     'GpuAvailabilityItem',
@@ -27,7 +27,7 @@ __all__ = [
 ]
 
 @pulumi.output_type
-class CpuFlavorOutput(dict):
+class CPUFlavorOutput(dict):
     def __init__(__self__, *,
                  disk_limit_per_vcpu: builtins.int,
                  display_name: builtins.str,

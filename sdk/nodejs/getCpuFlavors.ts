@@ -6,16 +6,16 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
-export function getCpuFlavors(args?: GetCpuFlavorsArgs, opts?: pulumi.InvokeOptions): Promise<GetCpuFlavorsResult> {
+export function getCPUFlavors(args?: GetCPUFlavorsArgs, opts?: pulumi.InvokeOptions): Promise<GetCPUFlavorsResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invoke("runpod:index:getCpuFlavors", {
+    return pulumi.runtime.invoke("runpod:index:getCPUFlavors", {
         "isSls": args.isSls,
         "slsOnly": args.slsOnly,
     }, opts);
 }
 
-export interface GetCpuFlavorsArgs {
+export interface GetCPUFlavorsArgs {
     /**
      * Filter by serverless eligibility.
      */
@@ -26,22 +26,22 @@ export interface GetCpuFlavorsArgs {
     slsOnly?: boolean;
 }
 
-export interface GetCpuFlavorsResult {
+export interface GetCPUFlavorsResult {
     /**
      * The list of available CPU instance flavors.
      */
-    readonly cpuFlavors: outputs.CpuFlavorOutput[];
+    readonly cpuFlavors: outputs.CPUFlavorOutput[];
 }
-export function getCpuFlavorsOutput(args?: GetCpuFlavorsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetCpuFlavorsResult> {
+export function getCPUFlavorsOutput(args?: GetCPUFlavorsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetCPUFlavorsResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invokeOutput("runpod:index:getCpuFlavors", {
+    return pulumi.runtime.invokeOutput("runpod:index:getCPUFlavors", {
         "isSls": args.isSls,
         "slsOnly": args.slsOnly,
     }, opts);
 }
 
-export interface GetCpuFlavorsOutputArgs {
+export interface GetCPUFlavorsOutputArgs {
     /**
      * Filter by serverless eligibility.
      */

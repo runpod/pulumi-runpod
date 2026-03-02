@@ -11,9 +11,9 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 
-public final class GetCpuFlavorsArgs extends com.pulumi.resources.InvokeArgs {
+public final class GetCPUFlavorsArgs extends com.pulumi.resources.InvokeArgs {
 
-    public static final GetCpuFlavorsArgs Empty = new GetCpuFlavorsArgs();
+    public static final GetCPUFlavorsArgs Empty = new GetCPUFlavorsArgs();
 
     /**
      * Filter by serverless eligibility.
@@ -45,9 +45,9 @@ public final class GetCpuFlavorsArgs extends com.pulumi.resources.InvokeArgs {
         return Optional.ofNullable(this.slsOnly);
     }
 
-    private GetCpuFlavorsArgs() {}
+    private GetCPUFlavorsArgs() {}
 
-    private GetCpuFlavorsArgs(GetCpuFlavorsArgs $) {
+    private GetCPUFlavorsArgs(GetCPUFlavorsArgs $) {
         this.isSls = $.isSls;
         this.slsOnly = $.slsOnly;
     }
@@ -55,19 +55,19 @@ public final class GetCpuFlavorsArgs extends com.pulumi.resources.InvokeArgs {
     public static Builder builder() {
         return new Builder();
     }
-    public static Builder builder(GetCpuFlavorsArgs defaults) {
+    public static Builder builder(GetCPUFlavorsArgs defaults) {
         return new Builder(defaults);
     }
 
     public static final class Builder {
-        private GetCpuFlavorsArgs $;
+        private GetCPUFlavorsArgs $;
 
         public Builder() {
-            $ = new GetCpuFlavorsArgs();
+            $ = new GetCPUFlavorsArgs();
         }
 
-        public Builder(GetCpuFlavorsArgs defaults) {
-            $ = new GetCpuFlavorsArgs(Objects.requireNonNull(defaults));
+        public Builder(GetCPUFlavorsArgs defaults) {
+            $ = new GetCPUFlavorsArgs(Objects.requireNonNull(defaults));
         }
 
         /**
@@ -112,7 +112,7 @@ public final class GetCpuFlavorsArgs extends com.pulumi.resources.InvokeArgs {
             return slsOnly(Output.of(slsOnly));
         }
 
-        public GetCpuFlavorsArgs build() {
+        public GetCPUFlavorsArgs build() {
             return $;
         }
     }

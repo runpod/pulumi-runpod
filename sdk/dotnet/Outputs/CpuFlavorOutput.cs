@@ -11,7 +11,7 @@ namespace Pulumi.Runpod.Outputs
 {
 
     [OutputType]
-    public sealed class CpuFlavorOutput
+    public sealed class CPUFlavorOutput
     {
         /// <summary>
         /// Disk limit per vCPU (in GB).
@@ -51,7 +51,7 @@ namespace Pulumi.Runpod.Outputs
         public readonly bool VcpuBurstable;
 
         [OutputConstructor]
-        private CpuFlavorOutput(
+        private CPUFlavorOutput(
             int diskLimitPerVcpu,
 
             string displayName,

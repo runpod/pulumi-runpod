@@ -12,7 +12,7 @@ import java.lang.String;
 import java.util.Objects;
 
 @CustomType
-public final class CpuFlavorOutput {
+public final class CPUFlavorOutput {
     /**
      * @return Disk limit per vCPU (in GB).
      * 
@@ -59,7 +59,7 @@ public final class CpuFlavorOutput {
      */
     private Boolean vcpuBurstable;
 
-    private CpuFlavorOutput() {}
+    private CPUFlavorOutput() {}
     /**
      * @return Disk limit per vCPU (in GB).
      * 
@@ -128,7 +128,7 @@ public final class CpuFlavorOutput {
         return new Builder();
     }
 
-    public static Builder builder(CpuFlavorOutput defaults) {
+    public static Builder builder(CPUFlavorOutput defaults) {
         return new Builder(defaults);
     }
     @CustomType.Builder
@@ -143,7 +143,7 @@ public final class CpuFlavorOutput {
         private Double ramMultiplier;
         private Boolean vcpuBurstable;
         public Builder() {}
-        public Builder(CpuFlavorOutput defaults) {
+        public Builder(CPUFlavorOutput defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.diskLimitPerVcpu = defaults.diskLimitPerVcpu;
     	      this.displayName = defaults.displayName;
@@ -159,7 +159,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder diskLimitPerVcpu(Integer diskLimitPerVcpu) {
             if (diskLimitPerVcpu == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "diskLimitPerVcpu");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "diskLimitPerVcpu");
             }
             this.diskLimitPerVcpu = diskLimitPerVcpu;
             return this;
@@ -167,7 +167,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder displayName(String displayName) {
             if (displayName == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "displayName");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "displayName");
             }
             this.displayName = displayName;
             return this;
@@ -175,7 +175,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder groupId(String groupId) {
             if (groupId == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "groupId");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "groupId");
             }
             this.groupId = groupId;
             return this;
@@ -183,7 +183,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder groupName(String groupName) {
             if (groupName == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "groupName");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "groupName");
             }
             this.groupName = groupName;
             return this;
@@ -191,7 +191,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder id(String id) {
             if (id == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "id");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "id");
             }
             this.id = id;
             return this;
@@ -199,7 +199,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder maxVcpu(Integer maxVcpu) {
             if (maxVcpu == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "maxVcpu");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "maxVcpu");
             }
             this.maxVcpu = maxVcpu;
             return this;
@@ -207,7 +207,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder minVcpu(Double minVcpu) {
             if (minVcpu == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "minVcpu");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "minVcpu");
             }
             this.minVcpu = minVcpu;
             return this;
@@ -215,7 +215,7 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder ramMultiplier(Double ramMultiplier) {
             if (ramMultiplier == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "ramMultiplier");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "ramMultiplier");
             }
             this.ramMultiplier = ramMultiplier;
             return this;
@@ -223,13 +223,13 @@ public final class CpuFlavorOutput {
         @CustomType.Setter
         public Builder vcpuBurstable(Boolean vcpuBurstable) {
             if (vcpuBurstable == null) {
-              throw new MissingRequiredPropertyException("CpuFlavorOutput", "vcpuBurstable");
+              throw new MissingRequiredPropertyException("CPUFlavorOutput", "vcpuBurstable");
             }
             this.vcpuBurstable = vcpuBurstable;
             return this;
         }
-        public CpuFlavorOutput build() {
-            final var _resultValue = new CpuFlavorOutput();
+        public CPUFlavorOutput build() {
+            final var _resultValue = new CPUFlavorOutput();
             _resultValue.diskLimitPerVcpu = diskLimitPerVcpu;
             _resultValue.displayName = displayName;
             _resultValue.groupId = groupId;

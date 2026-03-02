@@ -16,7 +16,7 @@ Initial pre-release of the RunPod Pulumi provider.
 ### Functions
 
 - `runpod:index:getGpuTypes` — Query available GPU types with pricing and availability
-- `runpod:index:getCpuFlavors` — Query available CPU configurations
+- `runpod:index:getCPUFlavors` — Query available CPU configurations
 - `runpod:index:getDataCenters` — Query data centers with GPU availability
 
 ### SDK Packages

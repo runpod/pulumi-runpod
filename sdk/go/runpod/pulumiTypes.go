@@ -13,7 +13,7 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type CpuFlavorOutput struct {
+type CPUFlavorOutput struct {
 	// Disk limit per vCPU (in GB).
 	DiskLimitPerVcpu int `pulumi:"diskLimitPerVcpu"`
 	// The human-readable name of the CPU flavor.
@@ -34,83 +34,83 @@ type CpuFlavorOutput struct {
 	VcpuBurstable bool `pulumi:"vcpuBurstable"`
 }
 
-type CpuFlavorOutputOutput struct{ *pulumi.OutputState }
+type CPUFlavorOutputOutput struct{ *pulumi.OutputState }
 
-func (CpuFlavorOutputOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CpuFlavorOutput)(nil)).Elem()
+func (CPUFlavorOutputOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CPUFlavorOutput)(nil)).Elem()
 }
 
-func (o CpuFlavorOutputOutput) ToCpuFlavorOutputOutput() CpuFlavorOutputOutput {
+func (o CPUFlavorOutputOutput) ToCPUFlavorOutputOutput() CPUFlavorOutputOutput {
 	return o
 }
 
-func (o CpuFlavorOutputOutput) ToCpuFlavorOutputOutputWithContext(ctx context.Context) CpuFlavorOutputOutput {
+func (o CPUFlavorOutputOutput) ToCPUFlavorOutputOutputWithContext(ctx context.Context) CPUFlavorOutputOutput {
 	return o
 }
 
 // Disk limit per vCPU (in GB).
-func (o CpuFlavorOutputOutput) DiskLimitPerVcpu() pulumi.IntOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) int { return v.DiskLimitPerVcpu }).(pulumi.IntOutput)
+func (o CPUFlavorOutputOutput) DiskLimitPerVcpu() pulumi.IntOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) int { return v.DiskLimitPerVcpu }).(pulumi.IntOutput)
 }
 
 // The human-readable name of the CPU flavor.
-func (o CpuFlavorOutputOutput) DisplayName() pulumi.StringOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) string { return v.DisplayName }).(pulumi.StringOutput)
+func (o CPUFlavorOutputOutput) DisplayName() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) string { return v.DisplayName }).(pulumi.StringOutput)
 }
 
 // The group this flavor belongs to.
-func (o CpuFlavorOutputOutput) GroupId() pulumi.StringOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) string { return v.GroupId }).(pulumi.StringOutput)
+func (o CPUFlavorOutputOutput) GroupId() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) string { return v.GroupId }).(pulumi.StringOutput)
 }
 
 // The display name of the flavor group.
-func (o CpuFlavorOutputOutput) GroupName() pulumi.StringOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) string { return v.GroupName }).(pulumi.StringOutput)
+func (o CPUFlavorOutputOutput) GroupName() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) string { return v.GroupName }).(pulumi.StringOutput)
 }
 
 // The unique identifier of the CPU flavor (used as flavorId in instanceId).
-func (o CpuFlavorOutputOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) string { return v.Id }).(pulumi.StringOutput)
+func (o CPUFlavorOutputOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) string { return v.Id }).(pulumi.StringOutput)
 }
 
 // The maximum number of vCPUs for this flavor.
-func (o CpuFlavorOutputOutput) MaxVcpu() pulumi.IntOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) int { return v.MaxVcpu }).(pulumi.IntOutput)
+func (o CPUFlavorOutputOutput) MaxVcpu() pulumi.IntOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) int { return v.MaxVcpu }).(pulumi.IntOutput)
 }
 
 // The minimum number of vCPUs for this flavor.
-func (o CpuFlavorOutputOutput) MinVcpu() pulumi.Float64Output {
-	return o.ApplyT(func(v CpuFlavorOutput) float64 { return v.MinVcpu }).(pulumi.Float64Output)
+func (o CPUFlavorOutputOutput) MinVcpu() pulumi.Float64Output {
+	return o.ApplyT(func(v CPUFlavorOutput) float64 { return v.MinVcpu }).(pulumi.Float64Output)
 }
 
 // RAM allocated per vCPU (in GB).
-func (o CpuFlavorOutputOutput) RamMultiplier() pulumi.Float64Output {
-	return o.ApplyT(func(v CpuFlavorOutput) float64 { return v.RamMultiplier }).(pulumi.Float64Output)
+func (o CPUFlavorOutputOutput) RamMultiplier() pulumi.Float64Output {
+	return o.ApplyT(func(v CPUFlavorOutput) float64 { return v.RamMultiplier }).(pulumi.Float64Output)
 }
 
 // Whether vCPUs are burstable.
-func (o CpuFlavorOutputOutput) VcpuBurstable() pulumi.BoolOutput {
-	return o.ApplyT(func(v CpuFlavorOutput) bool { return v.VcpuBurstable }).(pulumi.BoolOutput)
+func (o CPUFlavorOutputOutput) VcpuBurstable() pulumi.BoolOutput {
+	return o.ApplyT(func(v CPUFlavorOutput) bool { return v.VcpuBurstable }).(pulumi.BoolOutput)
 }
 
-type CpuFlavorOutputArrayOutput struct{ *pulumi.OutputState }
+type CPUFlavorOutputArrayOutput struct{ *pulumi.OutputState }
 
-func (CpuFlavorOutputArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CpuFlavorOutput)(nil)).Elem()
+func (CPUFlavorOutputArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CPUFlavorOutput)(nil)).Elem()
 }
 
-func (o CpuFlavorOutputArrayOutput) ToCpuFlavorOutputArrayOutput() CpuFlavorOutputArrayOutput {
+func (o CPUFlavorOutputArrayOutput) ToCPUFlavorOutputArrayOutput() CPUFlavorOutputArrayOutput {
 	return o
 }
 
-func (o CpuFlavorOutputArrayOutput) ToCpuFlavorOutputArrayOutputWithContext(ctx context.Context) CpuFlavorOutputArrayOutput {
+func (o CPUFlavorOutputArrayOutput) ToCPUFlavorOutputArrayOutputWithContext(ctx context.Context) CPUFlavorOutputArrayOutput {
 	return o
 }
 
-func (o CpuFlavorOutputArrayOutput) Index(i pulumi.IntInput) CpuFlavorOutputOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CpuFlavorOutput {
-		return vs[0].([]CpuFlavorOutput)[vs[1].(int)]
-	}).(CpuFlavorOutputOutput)
+func (o CPUFlavorOutputArrayOutput) Index(i pulumi.IntInput) CPUFlavorOutputOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CPUFlavorOutput {
+		return vs[0].([]CPUFlavorOutput)[vs[1].(int)]
+	}).(CPUFlavorOutputOutput)
 }
 
 type DataCenterOutput struct {
@@ -693,8 +693,8 @@ func (o SavingsPlanPtrOutput) UpfrontCost() pulumi.Float64PtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanInput)(nil)).Elem(), SavingsPlanArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanPtrInput)(nil)).Elem(), SavingsPlanArgs{})
-	pulumi.RegisterOutputType(CpuFlavorOutputOutput{})
-	pulumi.RegisterOutputType(CpuFlavorOutputArrayOutput{})
+	pulumi.RegisterOutputType(CPUFlavorOutputOutput{})
+	pulumi.RegisterOutputType(CPUFlavorOutputArrayOutput{})
 	pulumi.RegisterOutputType(DataCenterOutputOutput{})
 	pulumi.RegisterOutputType(DataCenterOutputArrayOutput{})
 	pulumi.RegisterOutputType(EndpointNetworkVolumeBindingOutput{})
