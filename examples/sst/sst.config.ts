@@ -12,11 +12,9 @@ export default $config({
   async run() {
     const runpod = await import("@runpod/pulumi");
 
-    // Explicit provider pointing at RunPod dev API.
     // Set RUNPOD_API_KEY env var before deploying.
-    const provider = new runpod.Provider("runpod-dev", {
+    const provider = new runpod.Provider("runpod", {
       apiKey: process.env.RUNPOD_API_KEY,
-      apiUrl: "https://api.runpod.dev/graphql",
     });
 
     const opts = { provider };
@@ -42,7 +40,7 @@ export default $config({
       "sst-test-secret",
       {
         name: "sst-test-secret",
-        value: "test-secret-value-123",
+        value: process.env.SECRET_VALUE ?? "REPLACE_ME",
         description: "SST integration test secret",
       },
       opts,
@@ -54,7 +52,7 @@ export default $config({
       {
         name: "sst-test-registry",
         username: "testuser",
-        password: "testpassword",
+        password: process.env.REGISTRY_PASSWORD ?? "REPLACE_ME",
       },
       opts,
     );

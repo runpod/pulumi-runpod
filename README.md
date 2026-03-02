@@ -7,15 +7,19 @@ The Pulumi RunPod provider lets you manage [RunPod](https://www.runpod.io/) GPU 
 | Resource | Description |
 |----------|-------------|
 | `runpod:Template` | Container templates for pods and serverless endpoints |
-| `runpod:Pod` | GPU pod instances |
+| `runpod:Pod` | GPU and CPU pod instances |
 | `runpod:Endpoint` | Serverless GPU endpoints |
 | `runpod:NetworkVolume` | Persistent network-attached storage volumes |
+| `runpod:Secret` | Encrypted secrets for use in pods and endpoints |
+| `runpod:ContainerRegistryAuth` | Container registry authentication credentials |
 
 ## Functions
 
 | Function | Description |
 |----------|-------------|
-| `runpod:getGpuTypes` | List available GPU types with pricing |
+| `runpod:getGpuTypes` | List available GPU types with pricing and availability |
+| `runpod:getCpuFlavors` | List available CPU configurations |
+| `runpod:getDataCenters` | List data centers with GPU availability |
 
 ## Installation
 

@@ -55,19 +55,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
         run: gh pr checkout "$PR_NUMBER"
-      - name: Setup mise
-        uses: blampe/mise-action@blampe/plugins
-        env:
-          MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
+      - name: Setup Go
+        uses: actions/setup-go@v5
         with:
-          version: 2026.1.1
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          plugin_install: https://github.com/pulumi/vfox-pulumi
-          # only saving the cache in the prerequisites job
-          cache_save: false
-      - name: Prepare local workspace
-        # this runs install_plugins and upstream
-        run: make prepare_local_workspace
+          go-version-file: go.mod
+      - name: Build provider
+        run: make provider
       - name: Run Claude Code Review
         # Comment must contain '@claude review'
         if: |

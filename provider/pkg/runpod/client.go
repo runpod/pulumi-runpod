@@ -25,11 +25,8 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
-// RunPod API endpoints.
-const (
-	DefaultAPIURL = "https://api.runpod.io/graphql"
-	DevAPIURL     = "https://api.runpod.dev/graphql"
-)
+// RunPod API endpoint.
+const DefaultAPIURL = "https://api.runpod.io/graphql"
 
 // authTransport adds Bearer token authentication to HTTP requests.
 type authTransport struct {

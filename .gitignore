@@ -21,6 +21,8 @@ sdk/nodejs/*.tgz
 provider/coverage.txt
 /pulumi-resource-runpod
 examples/sst/.sst/
+examples/sst/sst-env.d.ts
+examples/test-dev/
 
 # CI environment artifacts
 .local/
