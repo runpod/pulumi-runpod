@@ -1,8 +1,0 @@
-{
-  "name": "runpod-sst-test",
-  "private": true,
-  "type": "module",
-  "devDependencies": {
-    "sst": "^3.17.0"
-  }
-}

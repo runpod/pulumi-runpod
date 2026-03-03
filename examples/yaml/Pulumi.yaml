@@ -3,7 +3,6 @@ runtime: yaml
 
 config:
   runpod:apiKey:
-    value: ""
     secret: true
 
 resources:
@@ -13,7 +12,7 @@ resources:
     properties:
       name: my-volume
       size: 20
-      dataCenterId: US-TX-3
+      dataCenterId: US-TX-3  # Replace with a valid data center ID from getDataCenters
 
   # Create a pod template
   myTemplate:

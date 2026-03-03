@@ -27,7 +27,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/property"
 
-	xyz "github.com/runpod/pulumi-runpod/provider"
+	runpod "github.com/runpod/pulumi-runpod/provider"
 )
 
 func TestTemplateDryRun(t *testing.T) {
@@ -257,9 +257,9 @@ func urn(typ string) resource.URN {
 func newProvider(t *testing.T) integration.Server {
 	s, err := integration.NewServer(
 		context.Background(),
-		xyz.Name,
+		runpod.Name,
 		semver.MustParse("0.1.0"),
-		integration.WithProvider(xyz.Provider()),
+		integration.WithProvider(runpod.Provider()),
 	)
 	require.NoError(t, err)
 	return s

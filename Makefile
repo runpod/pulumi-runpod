@@ -8,7 +8,7 @@ NUGET_PKG_NAME   := Pulumi.Runpod
 
 PROVIDER        := pulumi-resource-${PACK}
 PROVIDER_PATH   := provider
-VERSION_PATH    := ${PROVIDER_PATH}/version.Version
+VERSION_PATH    := ${PROVIDER_PATH}.Version
 
 PULUMI          := .pulumi/bin/pulumi
 
@@ -164,9 +164,6 @@ GO_TEST := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
 test_all:: test
 	cd provider/pkg && $(GO_TEST) ./...
-	cd tests/sdk/nodejs && $(GO_TEST) ./...
-	cd tests/sdk/python && $(GO_TEST) ./...
-	cd tests/sdk/dotnet && $(GO_TEST) ./...
 	cd tests/sdk/go && $(GO_TEST) ./...
 
 install_dotnet_sdk::
@@ -263,7 +260,7 @@ ci-mgmt: .ci-mgmt.yaml
 local_generate: # Required by CI
 
 .PHONY: generate_schema
-generate_schema: ${SCHEMA_PATH} # Required by CI
+generate_schema: ${SCHEMA_FILE} # Required by CI
 
 .PHONY: build_go install_go_sdk
 generate_go: sdk/go # Required by CI

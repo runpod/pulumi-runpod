@@ -2,6 +2,7 @@ module github.com/runpod/pulumi-runpod/examples/go
 
 go 1.24
 
+// Local development only — remove this for your own projects.
 replace github.com/runpod/pulumi-runpod/sdk/go/runpod => ../../sdk/go/runpod
 
 require (
