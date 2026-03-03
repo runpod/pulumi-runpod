@@ -14,7 +14,9 @@ env:
 jobs:
   weekly-pulumi-update:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write      # push branch
+      pull-requests: write # create PR
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1

@@ -14,7 +14,8 @@ env:
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
   DOTNETVERSION: "8.0.x"
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # NOTE: NPM_TOKEN removed from workflow-level env. It is scoped to the publish job only
+  # (as NODE_AUTH_TOKEN) to prevent exposure to setup-tools and other jobs.
 
 jobs:
   prerequisites:

@@ -22,7 +22,7 @@ env:
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
   DOTNETVERSION: "8.0.x"
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # NOTE: NPM_TOKEN removed from workflow-level env to prevent exposure to all jobs.
 
 jobs:
   prerequisites:

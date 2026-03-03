@@ -14,7 +14,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup mise
-      uses: blampe/mise-action@blampe/plugins
+      uses: blampe/mise-action@5ddb5c0a9c6adab4625508336393f99153168536 # blampe/plugins 2026.1.1
       env:
         MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
       with:
