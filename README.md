@@ -152,9 +152,8 @@ func main() {
 name: runpod-example
 runtime: yaml
 
-config:
-  runpod:apiKey:
-    secret: true
+# Set runpod:apiKey via: pulumi config set runpod:apiKey --secret YOUR_KEY
+# Or use the RUNPOD_API_KEY environment variable.
 
 resources:
   myTemplate:
