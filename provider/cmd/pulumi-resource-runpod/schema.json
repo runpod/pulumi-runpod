@@ -487,7 +487,8 @@
           "type": "array",
           "items": {
             "$ref": "#/types/runpod:index:EndpointNetworkVolumeBinding"
-          }
+          },
+          "description": "Network volumes attached to the endpoint, returned by the API."
         },
         "scalerType": {
           "type": "string",

@@ -70,7 +70,19 @@ $(SCHEMA_FILE): provider $(PULUMI)
 # To build the SDKs, use `make build_sdks`
 #
 # Required by CI (weekly-pulumi-update)
-codegen: $(SCHEMA_FILE) sdk/dotnet sdk/go sdk/nodejs sdk/python sdk/java
+codegen: $(SCHEMA_FILE) sdk/dotnet sdk/go sdk/nodejs sdk/python sdk/java nodejs_sdk_fixup
+
+# Apply post-codegen fixups to the Node.js SDK that the Pulumi codegen does not emit:
+#   - "main"/"types" fields in package.json pointing to the compiled bin/ output
+#   - utilities.ts require path uses '../package.json' so bin/utilities.js can find it
+.PHONY: nodejs_sdk_fixup
+nodejs_sdk_fixup:
+	@python3 -c "import json; f='sdk/nodejs/package.json'; p=json.load(open(f)); p['main']='bin/index.js'; p['types']='bin/index.d.ts'; open(f,'w').write(json.dumps(p, indent=4)+'\n')"
+	@echo "patched sdk/nodejs/package.json"
+	@grep -q "require('../package.json')" sdk/nodejs/utilities.ts || \
+		(content=$$(cat sdk/nodejs/utilities.ts) && \
+		 echo "$$content" | sed "s|require('./package.json')|require('../package.json')|g" > sdk/nodejs/utilities.ts && \
+		 echo "patched sdk/nodejs/utilities.ts") || true
 
 .PHONY: sdk/%
 sdk/%: $(SCHEMA_FILE)

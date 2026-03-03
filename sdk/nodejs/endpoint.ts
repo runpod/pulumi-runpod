@@ -105,6 +105,9 @@ export class Endpoint extends pulumi.CustomResource {
      * The network volume ID to attach to endpoint workers.
      */
     public readonly networkVolumeId!: pulumi.Output<string | undefined>;
+    /**
+     * Network volumes attached to the endpoint, returned by the API.
+     */
     public /*out*/ readonly networkVolumeIds!: pulumi.Output<outputs.EndpointNetworkVolumeBinding[] | undefined>;
     /**
      * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").

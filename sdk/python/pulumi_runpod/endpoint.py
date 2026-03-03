@@ -729,6 +729,9 @@ class Endpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="networkVolumeIds")
     def network_volume_ids(self) -> pulumi.Output[Optional[Sequence['outputs.EndpointNetworkVolumeBinding']]]:
+        """
+        Network volumes attached to the endpoint, returned by the API.
+        """
         return pulumi.get(self, "network_volume_ids")
 
     @property

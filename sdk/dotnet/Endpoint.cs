@@ -120,6 +120,9 @@ namespace Pulumi.Runpod
         [Output("networkVolumeId")]
         public Output<string?> NetworkVolumeId { get; private set; } = null!;
 
+        /// <summary>
+        /// Network volumes attached to the endpoint, returned by the API.
+        /// </summary>
         [Output("networkVolumeIds")]
         public Output<ImmutableArray<Outputs.EndpointNetworkVolumeBinding>> NetworkVolumeIds { get; private set; } = null!;
 

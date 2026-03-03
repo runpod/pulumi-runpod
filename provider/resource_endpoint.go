@@ -120,6 +120,8 @@ type EndpointState struct {
 func (s *EndpointState) Annotate(a infer.Annotator) {
 	a.Describe(&s.EndpointID,
 		"The unique identifier of the endpoint.")
+	a.Describe(&s.NetworkVolumeIDs,
+		"Network volumes attached to the endpoint, returned by the API.")
 }
 
 // Create creates a new serverless endpoint.

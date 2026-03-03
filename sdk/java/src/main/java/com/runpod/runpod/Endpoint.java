@@ -272,9 +272,17 @@ public class Endpoint extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> networkVolumeId() {
         return Codegen.optional(this.networkVolumeId);
     }
+    /**
+     * Network volumes attached to the endpoint, returned by the API.
+     * 
+     */
     @Export(name="networkVolumeIds", refs={List.class,EndpointNetworkVolumeBinding.class}, tree="[0,1]")
     private Output</* @Nullable */ List<EndpointNetworkVolumeBinding>> networkVolumeIds;
 
+    /**
+     * @return Network volumes attached to the endpoint, returned by the API.
+     * 
+     */
     public Output<Optional<List<EndpointNetworkVolumeBinding>>> networkVolumeIds() {
         return Codegen.optional(this.networkVolumeIds);
     }

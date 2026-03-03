@@ -50,7 +50,8 @@ type Endpoint struct {
 	// A name for the endpoint.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The network volume ID to attach to endpoint workers.
-	NetworkVolumeId  pulumi.StringPtrOutput                  `pulumi:"networkVolumeId"`
+	NetworkVolumeId pulumi.StringPtrOutput `pulumi:"networkVolumeId"`
+	// Network volumes attached to the endpoint, returned by the API.
 	NetworkVolumeIds EndpointNetworkVolumeBindingArrayOutput `pulumi:"networkVolumeIds"`
 	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
 	ScalerType pulumi.StringPtrOutput `pulumi:"scalerType"`
@@ -384,6 +385,7 @@ func (o EndpointOutput) NetworkVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.NetworkVolumeId }).(pulumi.StringPtrOutput)
 }
 
+// Network volumes attached to the endpoint, returned by the API.
 func (o EndpointOutput) NetworkVolumeIds() EndpointNetworkVolumeBindingArrayOutput {
 	return o.ApplyT(func(v *Endpoint) EndpointNetworkVolumeBindingArrayOutput { return v.NetworkVolumeIds }).(EndpointNetworkVolumeBindingArrayOutput)
 }
