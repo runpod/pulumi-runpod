@@ -1,42 +1,18 @@
 name: runpod-example
 runtime: yaml
 
-config:
-  runpod:apiKey:
-    secret: true
+# Set your RunPod API key via: pulumi config set runpod:apiKey --secret YOUR_KEY
+# Or set the RUNPOD_API_KEY environment variable.
 
 resources:
-  # Create a network volume for persistent storage
-  myVolume:
-    type: runpod:NetworkVolume
-    properties:
-      name: my-volume
-      size: 20
-      dataCenterId: US-TX-3  # Replace with a valid data center ID from getDataCenters
-
-  # Create a pod template
   myTemplate:
     type: runpod:Template
     properties:
-      name: my-template
+      name: my-pulumi-template
       imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
       containerDiskInGb: 20
       volumeInGb: 20
-      dockerArgs: ""
       startSsh: true
 
-  # Create a serverless endpoint
-  myEndpoint:
-    type: runpod:Endpoint
-    properties:
-      name: my-endpoint
-      templateId: ${myTemplate.templateId}
-      gpuIds: AMPERE_16
-      workersMin: 0
-      workersMax: 3
-      idleTimeout: 5
-
 outputs:
-  volumeId: ${myVolume.networkVolumeId}
-  endpointId: ${myEndpoint.endpointId}
   templateId: ${myTemplate.templateId}
