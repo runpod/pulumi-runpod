@@ -17,7 +17,10 @@ package provider
 import (
 	"context"
 	"errors"
+	"fmt"
+	"strings"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/pulumi/pulumi-go-provider/infer"
 
 	"github.com/runpod/pulumi-runpod/provider/pkg/runpod"
@@ -229,6 +232,16 @@ func (Pod) Create(
 	req infer.CreateRequest[PodArgs],
 ) (infer.CreateResponse[PodState], error) {
 	input := req.Inputs
+
+	// Validate CPU-pod requirements early so preview catches them too.
+	if input.ComputeType != nil && *input.ComputeType == "CPU" && len(input.InstanceIDs) == 0 {
+		return infer.CreateResponse[PodState]{}, errors.New(
+			"instanceIds is required for CPU pods " +
+				"(e.g. \"cpu3m-2-16\"); " +
+				"use the getCPUFlavors function to list valid flavors",
+		)
+	}
+
 	if req.DryRun {
 		return infer.CreateResponse[PodState]{
 			ID:     req.Name,
@@ -299,10 +312,10 @@ func (Pod) Create(
 
 	// CPU pods use a dedicated mutation with a required instanceId.
 	if input.ComputeType != nil && *input.ComputeType == "CPU" {
-		instanceID := ""
-		if len(input.InstanceIDs) > 0 {
-			instanceID = input.InstanceIDs[0]
+		if err := validateCPUInstanceIDs(ctx, client, input.InstanceIDs); err != nil {
+			return infer.CreateResponse[PodState]{}, err
 		}
+		instanceID := input.InstanceIDs[0]
 		cpuInput := runpod.DeployCpuPodInput{
 			InstanceId:              instanceID,
 			Name:                    &input.Name,
@@ -503,4 +516,77 @@ func podResponseToState(
 		}
 	}
 	return state
+}
+
+// validateCPUInstanceIDs checks that instanceIds is non-empty and that each
+// entry uses a recognized CPU flavor ID prefix. It fetches the valid flavor
+// list from the API, so callers should only invoke this outside of dry-run.
+//
+// If the API call fails we log a warning and skip format validation — the
+// downstream mutation will surface the real error. This avoids blocking pod
+// creation when the flavors endpoint is temporarily unavailable.
+func validateCPUInstanceIDs(ctx context.Context, client graphql.Client, instanceIDs []string) error {
+	// Fetch current valid CPU flavors from the API.
+	flavorsResp, err := runpod.GetCpuFlavors(ctx, client, nil)
+
+	if err != nil || flavorsResp == nil {
+		// Best-effort: still validate non-empty.
+		if len(instanceIDs) == 0 {
+			return errors.New(
+				"instanceIds is required for CPU pods " +
+					"(e.g. \"cpu3m-2-16\"); " +
+					"use the getCPUFlavors function to list valid flavors",
+			)
+		}
+		return nil
+	}
+
+	// Build set of valid flavor ID prefixes (e.g. "cpu3m").
+	validFlavors := make([]string, 0, len(flavorsResp.CpuFlavors))
+	validSet := make(map[string]struct{}, len(flavorsResp.CpuFlavors))
+	for _, f := range flavorsResp.CpuFlavors {
+		if f == nil {
+			continue
+		}
+		id := runpod.PtrString(f.Id)
+		if id != "" {
+			validFlavors = append(validFlavors, id)
+			validSet[id] = struct{}{}
+		}
+	}
+
+	if len(instanceIDs) == 0 {
+		return fmt.Errorf(
+			"instanceIds is required for CPU pods\n"+
+				"Instance ID format: {flavorId}-{vcpuCount}-{memoryInGb} (e.g. \"cpu3m-2-16\")\n"+
+				"Valid flavor IDs: %s",
+			strings.Join(validFlavors, ", "),
+		)
+	}
+
+	// Validate each instance ID's flavor prefix. The format is
+	// {flavorId}-{vcpuCount}-{memoryInGb}; we match by checking whether the
+	// instance ID starts with a known flavorId followed by a hyphen.
+	for _, instanceID := range instanceIDs {
+		if !hasKnownFlavorPrefix(instanceID, validSet) {
+			return fmt.Errorf(
+				"instanceId %q does not match any known CPU flavor\n"+
+					"Instance ID format: {flavorId}-{vcpuCount}-{memoryInGb} (e.g. \"cpu3m-2-16\")\n"+
+					"Valid flavor IDs: %s",
+				instanceID, strings.Join(validFlavors, ", "),
+			)
+		}
+	}
+	return nil
+}
+
+// hasKnownFlavorPrefix returns true if instanceID starts with any key in
+// validSet followed by a hyphen (e.g. "cpu3m-2-16" matches flavor "cpu3m").
+func hasKnownFlavorPrefix(instanceID string, validSet map[string]struct{}) bool {
+	for flavorID := range validSet {
+		if strings.HasPrefix(instanceID, flavorID+"-") {
+			return true
+		}
+	}
+	return false
 }

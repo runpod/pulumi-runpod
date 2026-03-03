@@ -106,8 +106,9 @@ func TestPodWithComputeTypeDryRun(t *testing.T) {
 		Urn: urn("Pod"),
 		Properties: property.NewMap(map[string]property.Value{
 			"name":          property.New("test-cpu-pod"),
-			"gpuTypeId":     property.New("NVIDIA RTX A4000"),
+			"gpuTypeId":     property.New(""),
 			"computeType":   property.New("CPU"),
+			"instanceIds":   property.New([]property.Value{property.New("cpu3m-2-16")}),
 			"globalNetwork": property.New(true),
 			"countryCode":   property.New("US"),
 		}),
@@ -119,6 +120,25 @@ func TestPodWithComputeTypeDryRun(t *testing.T) {
 	require.Equal(t, "CPU", response.Properties.Get("computeType").AsString())
 	require.Equal(t, true, response.Properties.Get("globalNetwork").AsBool())
 	require.Equal(t, "US", response.Properties.Get("countryCode").AsString())
+}
+
+func TestCPUPodMissingInstanceIDsDryRun(t *testing.T) {
+	t.Parallel()
+
+	prov := newProvider(t)
+
+	_, err := prov.Create(p.CreateRequest{
+		Urn: urn("Pod"),
+		Properties: property.NewMap(map[string]property.Value{
+			"name":        property.New("test-cpu-pod-no-ids"),
+			"gpuTypeId":   property.New(""),
+			"computeType": property.New("CPU"),
+		}),
+		DryRun: true,
+	})
+
+	require.Error(t, err)
+	require.Contains(t, err.Error(), "instanceIds is required for CPU pods")
 }
 
 func TestNetworkVolumeDryRun(t *testing.T) {
