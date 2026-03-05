@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/Khan/genqlient/graphql"
+
 	"github.com/pulumi/pulumi-go-provider/infer"
 
 	"github.com/runpod/pulumi-runpod/provider/pkg/runpod"
