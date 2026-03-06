@@ -1,0 +1,70 @@
+# @genqlient
+mutation SaveTemplate($input: SaveTemplateInput) {
+  # @genqlient(typename: "TemplateResponse")
+  saveTemplate(input: $input) {
+    id
+    name
+    imageName
+    dockerArgs
+    env {
+      key
+      value
+    }
+    ports
+    portsConfig {
+      port
+      name
+    }
+    volumeMountPath
+    volumeInGb
+    containerDiskInGb
+    startJupyter
+    startSsh
+    startScript
+    isServerless
+    isPublic
+    containerRegistryAuthId
+    readme
+    advancedStart
+    category
+  }
+}
+
+# @genqlient
+query GetMyTemplates {
+  myself {
+    # @genqlient(typename: "TemplateResponse")
+    podTemplates {
+      id
+      name
+      imageName
+      dockerArgs
+      env {
+        key
+        value
+      }
+      ports
+      portsConfig {
+        port
+        name
+      }
+      volumeMountPath
+      volumeInGb
+      containerDiskInGb
+      startJupyter
+      startSsh
+      startScript
+      isServerless
+      isPublic
+      containerRegistryAuthId
+      readme
+      advancedStart
+      category
+    }
+  }
+}
+
+# @genqlient
+mutation DeleteTemplate($templateName: String) {
+  deleteTemplate(templateName: $templateName)
+}

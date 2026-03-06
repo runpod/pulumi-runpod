@@ -15,10 +15,20 @@
     "files": [
         "config/index.ts",
         "config/vars.ts",
+        "containerRegistryAuth.ts",
+        "endpoint.ts",
+        "getCPUFlavors.ts",
+        "getDataCenters.ts",
+        "getGpuTypes.ts",
         "index.ts",
+        "networkVolume.ts",
+        "pod.ts",
         "provider.ts",
-        "random.ts",
-        "randomComponent.ts",
+        "secret.ts",
+        "template.ts",
+        "types/index.ts",
+        "types/input.ts",
+        "types/output.ts",
         "utilities.ts"
     ]
 }

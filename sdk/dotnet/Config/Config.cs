@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.ProviderBoilerplate
+namespace Pulumi.Runpod
 {
     public static class Config
     {
@@ -30,13 +30,26 @@ namespace Pulumi.ProviderBoilerplate
             }
         }
 
-        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("provider-boilerplate");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("runpod");
 
-        private static readonly __Value<bool?> _itsasecret = new __Value<bool?>(() => __config.GetBoolean("itsasecret"));
-        public static bool? Itsasecret
+        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey") ?? Utilities.GetEnv("RUNPOD_API_KEY"));
+        /// <summary>
+        /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        /// </summary>
+        public static string? ApiKey
         {
-            get => _itsasecret.Get();
-            set => _itsasecret.Set(value);
+            get => _apiKey.Get();
+            set => _apiKey.Set(value);
+        }
+
+        private static readonly __Value<string?> _apiUrl = new __Value<string?>(() => __config.Get("apiUrl") ?? Utilities.GetEnv("RUNPOD_API_URL"));
+        /// <summary>
+        /// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        /// </summary>
+        public static string? ApiUrl
+        {
+            get => _apiUrl.Get();
+            set => _apiUrl.Set(value);
         }
 
     }

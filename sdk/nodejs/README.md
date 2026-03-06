@@ -1,1 +1,1 @@
-An example built with pulumi-go-provider.
+Manage RunPod GPU cloud resources.

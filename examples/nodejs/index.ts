@@ -1,12 +1,11 @@
-import * as pulumi from "@pulumi/pulumi";
-import * as boilerplate from "@mynamespace/provider-boilerplate";
+import * as runpod from "@runpod/pulumi";
 
-const myRandomResource = new boilerplate.Random("myRandomResource", {
-  length: 24,
+const myTemplate = new runpod.Template("myTemplate", {
+    name: "my-pulumi-template",
+    imageName: "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04",
+    containerDiskInGb: 20,
+    volumeInGb: 20,
+    startSsh: true,
 });
-const myRandomComponent = new boilerplate.RandomComponent("myRandomComponent", {
-  length: 24,
-});
-export const output = {
-  value: myRandomResource.result,
-};
+
+export const templateId = myTemplate.templateId;

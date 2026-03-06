@@ -14,13 +14,17 @@ import (
 )
 
 func TestGoExampleLifecycle(t *testing.T) {
+	if os.Getenv("RUNPOD_API_KEY") == "" {
+		t.Skip("RUNPOD_API_KEY not set, skipping integration test")
+	}
+
 	cwd, err := os.Getwd()
 	require.NoError(t, err)
 
-	module := filepath.Join(cwd, "../sdk/go/pulumi-provider-boilerplate")
+	module := filepath.Join(cwd, "../sdk/go/runpod")
 	pt := pulumitest.NewPulumiTest(t, "go",
-		opttest.GoModReplacement("github.com/pulumi/pulumi-provider-boilerplate/sdk/go/pulumi-provider-boilerplate", module),
-		opttest.AttachProviderServer("provider-boilerplate", providerFactory),
+		opttest.GoModReplacement("github.com/runpod/pulumi-runpod/sdk/go/runpod", module),
+		opttest.AttachProviderServer("runpod", providerFactory),
 		opttest.SkipInstall(),
 	)
 

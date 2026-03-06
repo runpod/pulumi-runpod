@@ -1,16 +1,35 @@
-name: provider-boilerplate
+name: runpod-example
 runtime: yaml
 
+# Set your RunPod API key via: pulumi config set runpod:apiKey --secret YOUR_KEY
+# Or set the RUNPOD_API_KEY environment variable.
+
 resources:
-  myRandomResource:
-    type: provider-boilerplate:Random
+  myTemplate:
+    type: runpod:Template
     properties:
-      length: 24
-  myRandomComponent:
-    type: provider-boilerplate:RandomComponent
+      name: my-pulumi-template
+      imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+      containerDiskInGb: 20
+      volumeInGb: 20
+      startSsh: true
+      startJupyter: true
+      env:
+        MY_VAR: hello
+      portsConfig:
+        - port: "8888"
+          name: Jupyter Lab
+        - port: "22"
+          name: SSH
+
+  myNetworkVolume:
+    type: runpod:NetworkVolume
     properties:
-      length: 24
+      name: my-pulumi-volume
+      size: 10
+      dataCenterId: EU-RO-1
 
 outputs:
-  output:
-    value: ${myRandomResource.result}
+  templateId: ${myTemplate.templateId}
+  networkVolumeId: ${myNetworkVolume.networkVolumeId}
+  storageType: ${myNetworkVolume.storageType}

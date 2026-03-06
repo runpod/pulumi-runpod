@@ -14,8 +14,8 @@ func TestNodejsExampleLifecycle(t *testing.T) {
 	t.Skip("linking isn't working correctly")
 
 	pt := pulumitest.NewPulumiTest(t, "nodejs",
-		opttest.YarnLink("@mynamespace/provider-boilerplate"),
-		opttest.AttachProviderServer("provider-boilerplate", providerFactory),
+		opttest.YarnLink("@runpod/pulumi"),
+		opttest.AttachProviderServer("runpod", providerFactory),
 	)
 
 	pt.Preview(t)

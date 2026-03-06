@@ -1,0 +1,45 @@
+# @genqlient
+mutation CreateNetworkVolume($input: CreateNetworkVolumeInput!) {
+  # @genqlient(typename: "NetworkVolumeResponse")
+  createNetworkVolume(input: $input) {
+    id
+    name
+    size
+    dataCenterId
+    storageClusterId
+    storageType
+  }
+}
+
+# @genqlient
+query GetMyNetworkVolumes {
+  myself {
+    # @genqlient(typename: "NetworkVolumeResponse")
+    networkVolumes {
+      id
+      name
+      size
+      dataCenterId
+      storageClusterId
+      storageType
+    }
+  }
+}
+
+# @genqlient
+mutation UpdateNetworkVolume($input: UpdateNetworkVolumeInput!) {
+  # @genqlient(typename: "NetworkVolumeResponse")
+  updateNetworkVolume(input: $input) {
+    id
+    name
+    size
+    dataCenterId
+    storageClusterId
+    storageType
+  }
+}
+
+# @genqlient
+mutation DeleteNetworkVolume($input: DeleteNetworkVolumeInput!) {
+  deleteNetworkVolume(input: $input)
+}

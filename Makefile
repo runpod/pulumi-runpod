@@ -1,18 +1,18 @@
-PROJECT_NAME := Pulumi Provider Boilerplate
+PROJECT_NAME := Pulumi RunPod Provider
 
-PACK             := provider-boilerplate
+PACK             := runpod
 PACKDIR          := sdk
-PROJECT          := github.com/pulumi/pulumi-provider-boilerplate
-NODE_MODULE_NAME := @pulumi/boilerplate
-NUGET_PKG_NAME   := Pulumi.Boilerplate
+PROJECT          := github.com/runpod/pulumi-runpod
+NODE_MODULE_NAME := @runpod/pulumi
+NUGET_PKG_NAME   := Pulumi.Runpod
 
 PROVIDER        := pulumi-resource-${PACK}
 PROVIDER_PATH   := provider
-VERSION_PATH    := ${PROVIDER_PATH}/version.Version
+VERSION_PATH    := ${PROVIDER_PATH}.Version
 
 PULUMI          := .pulumi/bin/pulumi
 
-SCHEMA_FILE     := provider/cmd/pulumi-resource-provider-boilerplate/schema.json
+SCHEMA_FILE     := provider/cmd/pulumi-resource-runpod/schema.json
 export GOPATH   := $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
@@ -22,13 +22,13 @@ prepare:
 	@if test -z "${NAME}"; then echo "NAME not set"; exit 1; fi
 	@if test -z "${REPOSITORY}"; then echo "REPOSITORY not set"; exit 1; fi
 	@if test -z "${ORG}"; then echo "ORG not set"; exit 1; fi
-	@if test ! -d "provider/cmd/pulumi-resource-provider-boilerplate"; then "Project already prepared"; exit 1; fi # SED_SKIP
+	@if test ! -d "provider/cmd/pulumi-resource-runpod"; then "Project already prepared"; exit 1; fi # SED_SKIP
 
 	# SED needs to not fail when encountering unicode characters
 	LC_CTYPE=C 
 	LANG=C
 
-	mv "provider/cmd/pulumi-resource-provider-boilerplate" provider/cmd/pulumi-resource-${NAME} # SED_SKIP
+	mv "provider/cmd/pulumi-resource-runpod" provider/cmd/pulumi-resource-${NAME} # SED_SKIP
 	
 	# In MacOS the -i parameter needs an empty  to execute in place.
 	if [[ "${OS}" == "Darwin" ]]; then \
@@ -53,6 +53,13 @@ export PULUMI_IGNORE_AMBIENT_PLUGINS = true
 ensure::
 	go mod tidy
 
+# Regenerate GraphQL client code from schema + operations, then apply JSON tag
+# fixups (omitempty on pointer fields, keep env without omitempty).
+.PHONY: generate
+generate:
+	cd provider/pkg/runpod && ~/go/bin/genqlient genqlient.yaml
+	cd provider/pkg/runpod && go run ../genqlient_fixup.go
+
 $(SCHEMA_FILE): provider $(PULUMI)
 	$(PULUMI) package get-schema $(WORKING_DIR)/bin/${PROVIDER} | \
 		jq 'del(.version)' > $(SCHEMA_FILE)
@@ -63,7 +70,19 @@ $(SCHEMA_FILE): provider $(PULUMI)
 # To build the SDKs, use `make build_sdks`
 #
 # Required by CI (weekly-pulumi-update)
-codegen: $(SCHEMA_FILE) sdk/dotnet sdk/go sdk/nodejs sdk/python sdk/java
+codegen: $(SCHEMA_FILE) sdk/dotnet sdk/go sdk/nodejs sdk/python sdk/java nodejs_sdk_fixup
+
+# Apply post-codegen fixups to the Node.js SDK that the Pulumi codegen does not emit:
+#   - "main"/"types" fields in package.json pointing to the compiled bin/ output
+#   - utilities.ts require path uses '../package.json' so bin/utilities.js can find it
+.PHONY: nodejs_sdk_fixup
+nodejs_sdk_fixup:
+	@python3 -c "import json; f='sdk/nodejs/package.json'; p=json.load(open(f)); p['main']='bin/index.js'; p['types']='bin/index.d.ts'; open(f,'w').write(json.dumps(p, indent=4)+'\n')"
+	@echo "patched sdk/nodejs/package.json"
+	@grep -q "require('../package.json')" sdk/nodejs/utilities.ts || \
+		(content=$$(cat sdk/nodejs/utilities.ts) && \
+		 echo "$$content" | sed "s|require('./package.json')|require('../package.json')|g" > sdk/nodejs/utilities.ts && \
+		 echo "patched sdk/nodejs/utilities.ts") || true
 
 .PHONY: sdk/%
 sdk/%: $(SCHEMA_FILE)
@@ -87,9 +106,11 @@ sdk/dotnet: $(SCHEMA_FILE)
 sdk/go: ${SCHEMA_FILE}
 	rm -rf $@
 	$(PULUMI) package gen-sdk --language go ${SCHEMA_FILE} --version "${VERSION_GENERIC}"
-	cp go.mod ${PACKDIR}/go/pulumi-${PACK}/go.mod
-	cd ${PACKDIR}/go/pulumi-${PACK} && \
-		go mod edit -module=github.com/pulumi/pulumi-${PACK}/${PACKDIR}/go/pulumi-${PACK} && \
+	cp go.mod ${PACKDIR}/go/${PACK}/go.mod
+	cd ${PACKDIR}/go/${PACK} && \
+		go mod edit -module=github.com/runpod/pulumi-runpod/${PACKDIR}/go/${PACK} && \
+		go mod edit -droprequire=github.com/runpod/pulumi-runpod/provider && \
+		go mod edit -dropreplace=github.com/runpod/pulumi-runpod/provider && \
 		go mod tidy
 
 .PHONY: provider
@@ -117,6 +138,8 @@ nodejs_sdk: sdk/nodejs
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	# Patch directory import for Node.js v22+ ESM compatibility (SST Ion / esbuild context)
+	sed -i.bak 's|require("@pulumi/pulumi/runtime")|require("@pulumi/pulumi/runtime/index.js")|g' ${PACKDIR}/nodejs/bin/utilities.js && rm -f ${PACKDIR}/nodejs/bin/utilities.js.bak
 
 python_sdk: sdk/python
 	cp README.md ${PACKDIR}/python/
@@ -153,9 +176,6 @@ GO_TEST := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
 test_all:: test
 	cd provider/pkg && $(GO_TEST) ./...
-	cd tests/sdk/nodejs && $(GO_TEST) ./...
-	cd tests/sdk/python && $(GO_TEST) ./...
-	cd tests/sdk/dotnet && $(GO_TEST) ./...
 	cd tests/sdk/go && $(GO_TEST) ./...
 
 install_dotnet_sdk::
@@ -173,8 +193,8 @@ install_java_sdk::
 	#target intentionally blank
 
 install_nodejs_sdk::
-	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
-	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+	-cd $(WORKING_DIR)/sdk/nodejs/bin && yarn unlink
+	cd $(WORKING_DIR)/sdk/nodejs/bin && yarn link
 
 test:: test_provider
 	cd examples && go test -v -tags=all -timeout 2h
@@ -220,7 +240,7 @@ sign-goreleaser-exe-%: bin/jsign-6.0.jar
 			echo "To rebuild with signing delete the unsigned windows exe file and rebuild with the fixed configuration"; \
 			if [[ "${CI}" == "true" ]]; then exit 1; fi; \
 		else \
-			file=dist/build-provider-sign-windows_windows_${GORELEASER_ARCH}/pulumi-resource-provider-boilerplate.exe; \
+			file=dist/build-provider-sign-windows_windows_${GORELEASER_ARCH}/pulumi-resource-runpod.exe; \
 			mv $${file} $${file}.unsigned; \
 			az login --service-principal \
 				--username "${AZURE_SIGNING_CLIENT_ID}" \
@@ -252,7 +272,7 @@ ci-mgmt: .ci-mgmt.yaml
 local_generate: # Required by CI
 
 .PHONY: generate_schema
-generate_schema: ${SCHEMA_PATH} # Required by CI
+generate_schema: ${SCHEMA_FILE} # Required by CI
 
 .PHONY: build_go install_go_sdk
 generate_go: sdk/go # Required by CI

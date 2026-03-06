@@ -1,6 +1,15 @@
 {
-    "name": "@pulumi/provider-boilerplate",
+    "name": "@runpod/pulumi",
     "version": "1.0.0-alpha.0+dev",
+    "keywords": [
+        "category/infrastructure",
+        "kind/native"
+    ],
+    "homepage": "https://www.runpod.io",
+    "repository": "https://github.com/runpod/pulumi-runpod",
+    "license": "Apache-2.0",
+    "main": "bin/index.js",
+    "types": "bin/index.d.ts",
     "scripts": {
         "build": "tsc"
     },
@@ -13,7 +22,8 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "provider-boilerplate",
-        "version": "1.0.0-alpha.0+dev"
+        "name": "runpod",
+        "version": "1.0.0-alpha.0+dev",
+        "server": "github://api.github.com/runpod/pulumi-runpod"
     }
 }

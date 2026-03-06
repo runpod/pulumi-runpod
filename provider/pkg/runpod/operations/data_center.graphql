@@ -1,0 +1,20 @@
+# @genqlient
+query GetDataCenters {
+  # @genqlient(typename: "DataCenterResponse")
+  dataCenters {
+    id
+    name
+    location
+    listed
+    storageSupport
+    globalNetwork
+    region
+    compliance
+    gpuAvailability {
+      gpuTypeId
+      gpuTypeDisplayName
+      available
+      stockStatus
+    }
+  }
+}

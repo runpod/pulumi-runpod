@@ -1,0 +1,15 @@
+# @genqlient
+query GetCpuFlavors($input: CpuFlavorInput) {
+  # @genqlient(typename: "CpuFlavorResponse")
+  cpuFlavors(input: $input) {
+    id
+    groupId
+    groupName
+    displayName
+    minVcpu
+    maxVcpu
+    vcpuBurstable
+    ramMultiplier
+    diskLimitPerVcpu
+  }
+}

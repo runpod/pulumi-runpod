@@ -1,0 +1,654 @@
+# Minimal schema: only types used by operations/*.graphql
+# -----------------------------------------------------------
+
+# Custom scalars
+scalar DateTime
+scalar JSON
+scalar Port
+scalar Void
+
+# ── Root Query ──────────────────────────────────────────────
+
+type Query {
+  gpuTypes(input: GpuTypeFilter): [GpuType]
+  cpuFlavors(input: CpuFlavorInput): [CpuFlavor]
+  dataCenters: [DataCenter]
+  pod(input: PodFilter): Pod
+  myself: User
+}
+
+# ── Root Mutation ───────────────────────────────────────────
+
+type Mutation {
+  # Endpoints
+  saveEndpoint(input: EndpointInput!): Endpoint!
+  deleteEndpoint(id: String!): Void
+
+  # Network Volumes
+  createNetworkVolume(input: CreateNetworkVolumeInput!): NetworkVolume
+  updateNetworkVolume(input: UpdateNetworkVolumeInput!): NetworkVolume
+  deleteNetworkVolume(input: DeleteNetworkVolumeInput!): Void
+
+  # GPU Pods
+  podFindAndDeployOnDemand(input: PodFindAndDeployOnDemandInput): Pod
+  podEditJob(input: PodEditJobInput!): Pod
+  podTerminate(input: PodTerminateInput!): Void
+
+  # CPU Pods
+  deployCpuPod(input: deployCpuPodInput!): Pod
+
+  # Container Registry Auth
+  saveRegistryAuth(input: SaveRegistryAuthInput): ContainerRegistryAuth
+  updateRegistryAuth(input: UpdateRegistryAuthInput): ContainerRegistryAuth
+  deleteRegistryAuth(registryAuthId: String): Void
+
+  # Secrets
+  secretCreate(input: SecretCreateInput!): Secret
+  secretValueUpdate(input: SecretValueUpdateInput!): Secret
+  secretDescriptionUpdate(input: SecretDescriptionUpdateInput!): Secret
+  secretDelete(id: ID!): Void
+
+  # Templates
+  saveTemplate(input: SaveTemplateInput): PodTemplate
+  deleteTemplate(templateName: String): Void
+}
+
+# ── User (myself) ──────────────────────────────────────────
+
+type User {
+  endpoints: [Endpoint]!
+  networkVolumes: [NetworkVolume]
+  containerRegistryCreds: [ContainerRegistryAuth]
+  podTemplates: [PodTemplate]
+  secrets: [Secret!]!
+}
+
+# ── GPU Types ──────────────────────────────────────────────
+
+input GpuTypeFilter {
+  id: String
+  ids: [String!]
+  cluster: Boolean
+}
+
+type GpuType {
+  id: String
+  displayName: String
+  manufacturer: String
+  memoryInGb: Int
+  cudaCores: Int
+  secureCloud: Boolean
+  communityCloud: Boolean
+  securePrice: Float
+  communityPrice: Float
+  communitySpotPrice: Float
+  secureSpotPrice: Float
+  maxGpuCount: Int
+  maxGpuCountCommunityCloud: Int
+  maxGpuCountSecureCloud: Int
+  minPodGpuCount: Int
+  lowestPrice(input: GpuLowestPriceInput): LowestPrice
+}
+
+input GpuLowestPriceInput {
+  gpuCount: Int!
+  countryCode: String
+  dataCenterId: String
+  includeAiApi: Boolean
+  minDisk: Int
+  minDownload: Int
+  minMemoryInGb: Int
+  minUpload: Int
+  minVcpuCount: Int
+  secureCloud: Boolean
+  supportPublicIp: Boolean
+  totalDisk: Int
+  cudaVersion: String
+  allowedCudaVersions: [String]
+  minCudaVersion: String
+  compliance: [Compliance]
+  isCluster: Boolean
+  podCount: Int
+  throughput: Int
+  globalNetwork: Boolean
+  machineProducts: [MachineProduct]
+}
+
+type LowestPrice {
+  gpuName: String
+  gpuTypeId: String
+  minimumBidPrice: Float
+  uninterruptablePrice: Float
+  clusterPrice: Float
+  minMemory: Int
+  minVcpu: Int
+  rentalPercentage: Float
+  rentedCount: Int
+  totalCount: Int
+  stockStatus: String
+  minDownload: Int
+  minDisk: Int
+  minUpload: Int
+  countryCode: String
+  supportPublicIp: Boolean
+  compliance: [Compliance]
+  maxGpuCount: Int
+  maxUnreservedGpuCount: Int
+  availableGpuCounts: [Int]
+  gpuTypeDatacenters: [GpuTypeDataCenterAvailability]
+}
+
+type GpuTypeDataCenterAvailability {
+  dataCenterId: String
+  supportNetworkVolumes: Boolean
+  availability: Availability
+}
+
+enum Availability {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum MachineProduct {
+  PODCLOUD
+  CLUSTER
+  SERVERLESS
+}
+
+enum Compliance {
+  GDPR
+  ISO_IEC_27001
+  ISO_14001
+  PCI_DSS
+  HITRUST
+  SOC_1_TYPE_2
+  SOC_2_TYPE_2
+  SOC_3_TYPE_2
+  ITAR
+  FISMA_HIGH
+  HIPAA
+}
+
+# ── CPU Flavors ────────────────────────────────────────────
+
+input CpuFlavorInput {
+  id: String
+  slsOnly: Boolean
+  isSls: Boolean
+}
+
+type CpuFlavor {
+  id: String
+  groupId: String
+  groupName: String
+  displayName: String
+  minVcpu: Float
+  maxVcpu: Int
+  vcpuBurstable: Boolean
+  ramMultiplier: Float
+  diskLimitPerVcpu: Int
+}
+
+# ── Data Centers ───────────────────────────────────────────
+
+type DataCenter {
+  id: String
+  name: String
+  location: String
+  listed: Boolean
+  storageSupport: Boolean
+  globalNetwork: Boolean
+  region: DataCenterRegion
+  compliance: [Compliance]
+  gpuAvailability(input: GpuAvailabilityInput): [GpuAvailability]
+}
+
+enum DataCenterRegion {
+  NORTH_AMERICA
+  ASIA
+  EUROPE
+  MIDDLE_EAST
+  AFRICA
+  SOUTH_AMERICA
+  OCEANIA
+  ANTARCTICA
+  UNKNOWN
+}
+
+input GpuAvailabilityInput {
+  gpuCount: Int
+  minDisk: Int
+  minMemoryInGb: Int
+  minVcpuCount: Int
+  secureCloud: Boolean
+  allowedCudaVersions: [String]
+  minCudaVersion: String
+  includeAiApi: Boolean
+  machineProducts: [MachineProduct]
+}
+
+type GpuAvailability {
+  available: Boolean
+  stockStatus: String
+  gpuTypeId: String
+  gpuTypeDisplayName: String
+  displayName: String
+  id: String
+}
+
+# ── Pod ────────────────────────────────────────────────────
+
+input PodFilter {
+  podId: String!
+}
+
+type Pod {
+  id: String!
+  name: String!
+  machineId: String!
+  imageName: String
+  dockerArgs: String
+  gpuCount: Int!
+  vcpuCount: Float!
+  memoryInGb: Float!
+  containerDiskInGb: Int
+  volumeInGb: Float
+  volumeMountPath: String
+  desiredStatus: PodStatus!
+  costPerHr: Float!
+  env: [String]
+  ports: String
+  templateId: String
+  networkVolumeId: String
+  containerRegistryAuthId: String
+  podType: PodType
+  port: Port
+}
+
+enum PodStatus {
+  CREATED
+  RUNNING
+  RESTARTING
+  EXITED
+  PAUSED
+  DEAD
+  TERMINATED
+}
+
+enum PodType {
+  INTERRUPTABLE
+  RESERVED
+  BID
+  BACKGROUND
+}
+
+# ── Pod Mutation Inputs ────────────────────────────────────
+
+input PodFindAndDeployOnDemandInput {
+  aiApiId: String
+  cloudType: CloudTypeEnum
+  containerDiskInGb: Int
+  containerRegistryAuthId: String
+  countryCode: String
+  deployCost: Float
+  dockerArgs: String
+  env: [EnvironmentVariableInput]
+  gpuCount: Int
+  gpuTypeId: String
+  gpuTypeIdList: [String]
+  imageName: String
+  minDisk: Int
+  minDownload: Int
+  minMemoryInGb: Int
+  minUpload: Int
+  minVcpuCount: Int
+  name: String
+  networkVolumeId: String
+  port: Port
+  ports: String
+  startJupyter: Boolean
+  startSsh: Boolean
+  stopAfter: DateTime
+  supportPublicIp: Boolean
+  templateId: String
+  terminateAfter: DateTime
+  volumeInGb: Int
+  volumeKey: String
+  volumeMountPath: String
+  dataCenterId: String
+  savingsPlan: SavingsPlanInput
+  cudaVersion: String
+  allowedCudaVersions: [String]
+  minCudaVersion: String
+  instanceIds: [String]
+  computeType: ComputeType
+  globalNetwork: Boolean
+  ideAiApiId: String
+  modelReferences: [String]
+}
+
+input SavingsPlanInput {
+  planLength: String
+  upfrontCost: Float
+}
+
+input PodEditJobInput {
+  podId: String!
+  dockerArgs: String
+  imageName: String!
+  env: [EnvironmentVariableInput]
+  port: Port
+  ports: String
+  containerDiskInGb: Int!
+  volumeInGb: Int
+  volumeMountPath: String
+  containerRegistryAuthId: String
+}
+
+input PodTerminateInput {
+  podId: String!
+}
+
+input deployCpuPodInput {
+  """instanceId sample: cpu3m-2-16 (flavorId-vcpuCount-memoryInGb)"""
+  instanceId: String!
+  containerDiskInGb: Int = 10
+  containerRegistryAuthId: String
+  cloudType: CloudTypeEnum
+  countryCode: String
+  deployCost: Float
+  dockerArgs: String
+  env: [EnvironmentVariableInput]
+  imageName: String
+  minDisk: Int
+  minDownload: Int
+  minUpload: Int
+  name: String
+  networkVolumeId: String
+  ports: String
+  startJupyter: Boolean
+  startSsh: Boolean
+  stopAfter: DateTime
+  supportPublicIp: Boolean
+  templateId: String
+  terminateAfter: DateTime
+  volumeKey: String
+  volumeMountPath: String
+  dataCenterId: String
+}
+
+enum CloudTypeEnum {
+  SECURE
+  COMMUNITY
+  ALL
+}
+
+enum ComputeType {
+  CPU
+  GPU
+}
+
+input EnvironmentVariableInput {
+  key: String!
+  value: String!
+}
+
+# ── Endpoint ───────────────────────────────────────────────
+
+type Endpoint {
+  id: String
+  name: String
+  templateId: String
+  gpuIds: String
+  workersMin: Int
+  workersMax: Int
+  idleTimeout: Int
+  locations: String
+  scalerType: String
+  scalerValue: Int
+  networkVolumeId: String
+  networkVolumeIds: [NetworkVolumeIds]
+  gpuCount: Int
+  instanceIds: [String]
+  workersPFBTarget: Int
+  allowedCudaVersions: String
+  minCudaVersion: String
+  executionTimeoutMs: Int
+  flashBootType: FlashBootType
+  flashEnvironmentId: String
+  type: String
+  modelReferences: [String]
+  env: [EnvironmentVariable]
+}
+
+type NetworkVolumeIds {
+  networkVolumeId: String
+  dataCenterId: String
+}
+
+enum StorageType {
+  CEPH_FS
+  DDN
+  MOOSE_FS
+  ONE_FS
+  PURE
+  VAST
+}
+
+enum FlashBootType {
+  OFF
+  FLASHBOOT
+  PRIORITY_FLASHBOOT
+}
+
+input EndpointInput {
+  instanceIds: [String]
+  gpuIds: String
+  id: String
+  idleTimeout: Int = 10
+  locations: String
+  name: String!
+  flashEnvironmentId: String
+  networkVolumeId: String
+  networkVolumeIds: [NetworkVolumeIdsInput]
+  scalerType: String
+  scalerValue: Int = 4
+  templateId: String
+  template: EndpointTemplateInput
+  workersMax: Int = 3
+  workersMin: Int = 0
+  workersPFBTarget: Int = 0
+  gpuCount: Int = 1
+  env: [EnvironmentVariableInput]
+  allowedCudaVersions: String
+  minCudaVersion: String
+  executionTimeoutMs: Int
+  bindEndpoint: Boolean = true
+  repo: EndpointRepoInput
+  hubReleaseId: String
+  type: String
+  modelName: String
+  modelReferences: [String]
+  cloudStorageConfig: CloudStorageConfigInput
+  flashBootType: FlashBootType
+}
+
+input NetworkVolumeIdsInput {
+  networkVolumeId: String!
+}
+
+input EndpointTemplateInput {
+  advancedStart: Boolean
+  containerDiskInGb: Int!
+  containerRegistryAuthId: String
+  dockerArgs: String!
+  env: [EnvironmentVariableInput]!
+  imageName: String
+  name: String!
+  readme: String
+  startJupyter: Boolean
+  startScript: String
+  startSsh: Boolean
+  config: JSON
+  ports: String
+}
+
+input EndpointRepoInput {
+  repoName: String!
+  branch: String
+  dockerFilePath: String
+  buildContext: String
+  dockerArgs: String
+  containerRegistryAuthId: String
+}
+
+input CloudStorageConfigInput {
+  provider: String!
+  region: String!
+  bucketName: String!
+  accessKey: String!
+  secretKey: String!
+}
+
+# ── Network Volume ─────────────────────────────────────────
+
+type NetworkVolume {
+  id: String
+  name: String
+  size: Int
+  dataCenterId: String
+  storageClusterId: String
+  storageType: StorageType
+}
+
+input CreateNetworkVolumeInput {
+  name: String
+  size: Int
+  dataCenterId: String!
+  userId: String
+  isNextGenStorage: Boolean
+}
+
+input UpdateNetworkVolumeInput {
+  id: String!
+  name: String
+  size: Int
+}
+
+input DeleteNetworkVolumeInput {
+  id: String!
+}
+
+# ── Container Registry Auth ────────────────────────────────
+
+type ContainerRegistryAuth {
+  id: String
+  name: String
+}
+
+input SaveRegistryAuthInput {
+  name: String!
+  username: String!
+  password: String!
+}
+
+input UpdateRegistryAuthInput {
+  id: String!
+  username: String!
+  password: String!
+}
+
+# ── Secret ─────────────────────────────────────────────────
+
+type Secret {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+input SecretCreateInput {
+  name: String!
+  value: String!
+  description: String
+}
+
+input SecretValueUpdateInput {
+  id: ID!
+  value: String!
+}
+
+input SecretDescriptionUpdateInput {
+  id: ID!
+  description: String!
+}
+
+# ── Template ───────────────────────────────────────────────
+
+type PodTemplate {
+  id: String
+  name: String
+  imageName: String
+  dockerArgs: String
+  env: [EnvironmentVariable]
+  ports: String
+  portsConfig: [PortConfig]
+  volumeMountPath: String
+  volumeInGb: Int
+  containerDiskInGb: Int
+  containerRegistryAuthId: String
+  startJupyter: Boolean
+  startSsh: Boolean
+  startScript: String
+  isServerless: Boolean
+  isPublic: Boolean
+  readme: String
+  advancedStart: Boolean
+  category: String
+}
+
+type PortConfig {
+  port: String
+  name: String
+}
+
+type EnvironmentVariable {
+  key: String
+  value: String
+}
+
+input SaveTemplateInput {
+  advancedStart: Boolean
+  containerDiskInGb: Int!
+  containerRegistryAuthId: String
+  dockerArgs: String!
+  env: [EnvironmentVariableInput]!
+  id: String
+  imageName: String
+  isPublic: Boolean
+  isServerless: Boolean
+  name: String!
+  ports: String
+  portsConfig: [PortConfigInput]
+  readme: String
+  startJupyter: Boolean
+  startScript: String
+  startSsh: Boolean
+  volumeInGb: Int!
+  volumeMountPath: String
+  config: JSON
+  category: TemplateCategory
+}
+
+input PortConfigInput {
+  port: String!
+  name: String!
+}
+
+enum TemplateCategory {
+  CPU
+  GPU
+  NVIDIA
+  AMD
+}

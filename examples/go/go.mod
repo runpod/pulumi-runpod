@@ -1,12 +1,13 @@
-module github.com/pulumi/pulumi-provider-boilerplate/examples/go
+module github.com/runpod/pulumi-runpod/examples/go
 
-go 1.24.2
+go 1.24
 
-replace github.com/pulumi/pulumi-provider-boilerplate/sdk/go/pulumi-provider-boilerplate => ../../sdk/go/pulumi-provider-boilerplate
+// Local development only — remove this for your own projects.
+replace github.com/runpod/pulumi-runpod/sdk/go/runpod => ../../sdk/go/runpod
 
 require (
-	github.com/pulumi/pulumi-provider-boilerplate/sdk/go/pulumi-provider-boilerplate v0.0.3
 	github.com/pulumi/pulumi/sdk/v3 v3.175.0
+	github.com/runpod/pulumi-runpod/sdk/go/runpod v0.0.0
 )
 
 require (
@@ -77,13 +78,13 @@ require (
 	go.uber.org/atomic v1.11.0 // indirect
 	golang.org/x/crypto v0.37.0 // indirect
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
-	golang.org/x/mod v0.19.0 // indirect
+	golang.org/x/mod v0.20.0 // indirect
 	golang.org/x/net v0.39.0 // indirect
 	golang.org/x/sync v0.13.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
 	golang.org/x/term v0.31.0 // indirect
 	golang.org/x/text v0.24.0 // indirect
-	golang.org/x/tools v0.23.0 // indirect
+	golang.org/x/tools v0.24.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240814211410-ddb44dafa142 // indirect
 	google.golang.org/grpc v1.67.1 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect

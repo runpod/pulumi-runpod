@@ -1,0 +1,78 @@
+# @genqlient
+mutation SaveEndpoint($input: EndpointInput!) {
+  # @genqlient(typename: "EndpointResponse")
+  saveEndpoint(input: $input) {
+    id
+    name
+    templateId
+    gpuIds
+    workersMin
+    workersMax
+    idleTimeout
+    locations
+    scalerType
+    scalerValue
+    networkVolumeId
+    networkVolumeIds {
+      networkVolumeId
+      dataCenterId
+    }
+    gpuCount
+    instanceIds
+    workersPFBTarget
+    allowedCudaVersions
+    minCudaVersion
+    executionTimeoutMs
+    flashBootType
+    flashEnvironmentId
+    type
+    modelReferences
+    env {
+      key
+      value
+    }
+  }
+}
+
+# @genqlient
+query GetMyEndpoints {
+  myself {
+    # @genqlient(typename: "EndpointResponse")
+    endpoints {
+      id
+      name
+      templateId
+      gpuIds
+      workersMin
+      workersMax
+      idleTimeout
+      locations
+      scalerType
+      scalerValue
+      networkVolumeId
+      networkVolumeIds {
+        networkVolumeId
+        dataCenterId
+      }
+      gpuCount
+      instanceIds
+      workersPFBTarget
+      allowedCudaVersions
+      minCudaVersion
+      executionTimeoutMs
+      flashBootType
+      flashEnvironmentId
+      type
+      modelReferences
+      env {
+        key
+        value
+      }
+    }
+  }
+}
+
+# @genqlient
+mutation DeleteEndpoint($id: String!) {
+  deleteEndpoint(id: $id)
+}

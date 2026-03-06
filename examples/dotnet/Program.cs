@@ -1,26 +1,20 @@
 using System.Collections.Generic;
-using System.Linq;
 using Pulumi;
-using Boilerplate = Mynamespace.ProviderBoilerplate;
+using Runpod = Pulumi.Runpod;
 
-return await Deployment.RunAsync(() => 
+return await Deployment.RunAsync(() =>
 {
-    var myRandomResource = new Boilerplate.Random("myRandomResource", new()
+    var myTemplate = new Runpod.Template("myTemplate", new()
     {
-        Length = 24,
-    });
-
-    var myRandomComponent = new Boilerplate.RandomComponent("myRandomComponent", new()
-    {
-        Length = 24,
+        Name = "my-pulumi-template",
+        ImageName = "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04",
+        ContainerDiskInGb = 20,
+        VolumeInGb = 20,
+        StartSsh = true,
     });
 
     return new Dictionary<string, object?>
     {
-        ["output"] = 
-        {
-            { "value", myRandomResource.Result },
-        },
+        ["templateId"] = myTemplate.TemplateId,
     };
 });
-

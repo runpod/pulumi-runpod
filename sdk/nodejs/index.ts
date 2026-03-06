@@ -5,47 +5,92 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export { ContainerRegistryAuthArgs } from "./containerRegistryAuth";
+export type ContainerRegistryAuth = import("./containerRegistryAuth").ContainerRegistryAuth;
+export const ContainerRegistryAuth: typeof import("./containerRegistryAuth").ContainerRegistryAuth = null as any;
+utilities.lazyLoad(exports, ["ContainerRegistryAuth"], () => require("./containerRegistryAuth"));
+
+export { EndpointArgs } from "./endpoint";
+export type Endpoint = import("./endpoint").Endpoint;
+export const Endpoint: typeof import("./endpoint").Endpoint = null as any;
+utilities.lazyLoad(exports, ["Endpoint"], () => require("./endpoint"));
+
+export { GetCPUFlavorsArgs, GetCPUFlavorsResult, GetCPUFlavorsOutputArgs } from "./getCPUFlavors";
+export const getCPUFlavors: typeof import("./getCPUFlavors").getCPUFlavors = null as any;
+export const getCPUFlavorsOutput: typeof import("./getCPUFlavors").getCPUFlavorsOutput = null as any;
+utilities.lazyLoad(exports, ["getCPUFlavors","getCPUFlavorsOutput"], () => require("./getCPUFlavors"));
+
+export { GetDataCentersArgs, GetDataCentersResult } from "./getDataCenters";
+export const getDataCenters: typeof import("./getDataCenters").getDataCenters = null as any;
+export const getDataCentersOutput: typeof import("./getDataCenters").getDataCentersOutput = null as any;
+utilities.lazyLoad(exports, ["getDataCenters","getDataCentersOutput"], () => require("./getDataCenters"));
+
+export { GetGpuTypesArgs, GetGpuTypesResult } from "./getGpuTypes";
+export const getGpuTypes: typeof import("./getGpuTypes").getGpuTypes = null as any;
+export const getGpuTypesOutput: typeof import("./getGpuTypes").getGpuTypesOutput = null as any;
+utilities.lazyLoad(exports, ["getGpuTypes","getGpuTypesOutput"], () => require("./getGpuTypes"));
+
+export { NetworkVolumeArgs } from "./networkVolume";
+export type NetworkVolume = import("./networkVolume").NetworkVolume;
+export const NetworkVolume: typeof import("./networkVolume").NetworkVolume = null as any;
+utilities.lazyLoad(exports, ["NetworkVolume"], () => require("./networkVolume"));
+
+export { PodArgs } from "./pod";
+export type Pod = import("./pod").Pod;
+export const Pod: typeof import("./pod").Pod = null as any;
+utilities.lazyLoad(exports, ["Pod"], () => require("./pod"));
+
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
-export { RandomArgs } from "./random";
-export type Random = import("./random").Random;
-export const Random: typeof import("./random").Random = null as any;
-utilities.lazyLoad(exports, ["Random"], () => require("./random"));
+export { SecretArgs } from "./secret";
+export type Secret = import("./secret").Secret;
+export const Secret: typeof import("./secret").Secret = null as any;
+utilities.lazyLoad(exports, ["Secret"], () => require("./secret"));
 
-export { RandomComponentArgs } from "./randomComponent";
-export type RandomComponent = import("./randomComponent").RandomComponent;
-export const RandomComponent: typeof import("./randomComponent").RandomComponent = null as any;
-utilities.lazyLoad(exports, ["RandomComponent"], () => require("./randomComponent"));
+export { TemplateArgs } from "./template";
+export type Template = import("./template").Template;
+export const Template: typeof import("./template").Template = null as any;
+utilities.lazyLoad(exports, ["Template"], () => require("./template"));
 
 
 // Export sub-modules:
 import * as config from "./config";
+import * as types from "./types";
 
 export {
     config,
+    types,
 };
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "provider-boilerplate:index:Random":
-                return new Random(name, <any>undefined, { urn })
-            case "provider-boilerplate:index:RandomComponent":
-                return new RandomComponent(name, <any>undefined, { urn })
+            case "runpod:index:ContainerRegistryAuth":
+                return new ContainerRegistryAuth(name, <any>undefined, { urn })
+            case "runpod:index:Endpoint":
+                return new Endpoint(name, <any>undefined, { urn })
+            case "runpod:index:NetworkVolume":
+                return new NetworkVolume(name, <any>undefined, { urn })
+            case "runpod:index:Pod":
+                return new Pod(name, <any>undefined, { urn })
+            case "runpod:index:Secret":
+                return new Secret(name, <any>undefined, { urn })
+            case "runpod:index:Template":
+                return new Template(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("provider-boilerplate", "index", _module)
-pulumi.runtime.registerResourcePackage("provider-boilerplate", {
+pulumi.runtime.registerResourceModule("runpod", "index", _module)
+pulumi.runtime.registerResourcePackage("runpod", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:provider-boilerplate") {
+        if (type !== "pulumi:providers:runpod") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });
