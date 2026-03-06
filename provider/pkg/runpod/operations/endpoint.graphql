@@ -24,8 +24,13 @@ mutation SaveEndpoint($input: EndpointInput!) {
     minCudaVersion
     executionTimeoutMs
     flashBootType
+    flashEnvironmentId
     type
     modelReferences
+    env {
+      key
+      value
+    }
   }
 }
 
@@ -56,8 +61,13 @@ query GetMyEndpoints {
       minCudaVersion
       executionTimeoutMs
       flashBootType
+      flashEnvironmentId
       type
       modelReferences
+      env {
+        key
+        value
+      }
     }
   }
 }

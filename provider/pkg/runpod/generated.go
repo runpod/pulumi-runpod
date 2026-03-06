@@ -574,27 +574,29 @@ func (v *EndpointRepoInput) GetContainerRegistryAuthId() *string { return v.Cont
 
 // EndpointResponse includes the requested fields of the GraphQL type Endpoint.
 type EndpointResponse struct {
-	Id                  *string                             `json:"id,omitempty"`
-	Name                *string                             `json:"name,omitempty"`
-	TemplateId          *string                             `json:"templateId,omitempty"`
-	GpuIds              *string                             `json:"gpuIds,omitempty"`
-	WorkersMin          *int                                `json:"workersMin,omitempty"`
-	WorkersMax          *int                                `json:"workersMax,omitempty"`
-	IdleTimeout         *int                                `json:"idleTimeout,omitempty"`
-	Locations           *string                             `json:"locations,omitempty"`
-	ScalerType          *string                             `json:"scalerType,omitempty"`
-	ScalerValue         *int                                `json:"scalerValue,omitempty"`
-	NetworkVolumeId     *string                             `json:"networkVolumeId,omitempty"`
-	NetworkVolumeIds    []*EndpointResponseNetworkVolumeIds `json:"networkVolumeIds"`
-	GpuCount            *int                                `json:"gpuCount,omitempty"`
-	InstanceIds         []*string                           `json:"instanceIds"`
-	WorkersPFBTarget    *int                                `json:"workersPFBTarget,omitempty"`
-	AllowedCudaVersions *string                             `json:"allowedCudaVersions,omitempty"`
-	MinCudaVersion      *string                             `json:"minCudaVersion,omitempty"`
-	ExecutionTimeoutMs  *int                                `json:"executionTimeoutMs,omitempty"`
-	FlashBootType       *FlashBootType                      `json:"flashBootType,omitempty"`
-	Type                *string                             `json:"type,omitempty"`
-	ModelReferences     []*string                           `json:"modelReferences"`
+	Id                  *string                                   `json:"id,omitempty"`
+	Name                *string                                   `json:"name,omitempty"`
+	TemplateId          *string                                   `json:"templateId,omitempty"`
+	GpuIds              *string                                   `json:"gpuIds,omitempty"`
+	WorkersMin          *int                                      `json:"workersMin,omitempty"`
+	WorkersMax          *int                                      `json:"workersMax,omitempty"`
+	IdleTimeout         *int                                      `json:"idleTimeout,omitempty"`
+	Locations           *string                                   `json:"locations,omitempty"`
+	ScalerType          *string                                   `json:"scalerType,omitempty"`
+	ScalerValue         *int                                      `json:"scalerValue,omitempty"`
+	NetworkVolumeId     *string                                   `json:"networkVolumeId,omitempty"`
+	NetworkVolumeIds    []*EndpointResponseNetworkVolumeIds       `json:"networkVolumeIds"`
+	GpuCount            *int                                      `json:"gpuCount,omitempty"`
+	InstanceIds         []*string                                 `json:"instanceIds"`
+	WorkersPFBTarget    *int                                      `json:"workersPFBTarget,omitempty"`
+	AllowedCudaVersions *string                                   `json:"allowedCudaVersions,omitempty"`
+	MinCudaVersion      *string                                   `json:"minCudaVersion,omitempty"`
+	ExecutionTimeoutMs  *int                                      `json:"executionTimeoutMs,omitempty"`
+	FlashBootType       *FlashBootType                            `json:"flashBootType,omitempty"`
+	FlashEnvironmentId  *string                                   `json:"flashEnvironmentId,omitempty"`
+	Type                *string                                   `json:"type,omitempty"`
+	ModelReferences     []*string                                 `json:"modelReferences"`
+	Env                 []*EndpointResponseEnvEnvironmentVariable `json:"env"`
 }
 
 // GetId returns EndpointResponse.Id, and is useful for accessing the field via an interface.
@@ -656,11 +658,29 @@ func (v *EndpointResponse) GetExecutionTimeoutMs() *int { return v.ExecutionTime
 // GetFlashBootType returns EndpointResponse.FlashBootType, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetFlashBootType() *FlashBootType { return v.FlashBootType }
 
+// GetFlashEnvironmentId returns EndpointResponse.FlashEnvironmentId, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetFlashEnvironmentId() *string { return v.FlashEnvironmentId }
+
 // GetType returns EndpointResponse.Type, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetType() *string { return v.Type }
 
 // GetModelReferences returns EndpointResponse.ModelReferences, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetModelReferences() []*string { return v.ModelReferences }
+
+// GetEnv returns EndpointResponse.Env, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetEnv() []*EndpointResponseEnvEnvironmentVariable { return v.Env }
+
+// EndpointResponseEnvEnvironmentVariable includes the requested fields of the GraphQL type EnvironmentVariable.
+type EndpointResponseEnvEnvironmentVariable struct {
+	Key   *string `json:"key,omitempty"`
+	Value *string `json:"value,omitempty"`
+}
+
+// GetKey returns EndpointResponseEnvEnvironmentVariable.Key, and is useful for accessing the field via an interface.
+func (v *EndpointResponseEnvEnvironmentVariable) GetKey() *string { return v.Key }
+
+// GetValue returns EndpointResponseEnvEnvironmentVariable.Value, and is useful for accessing the field via an interface.
+func (v *EndpointResponseEnvEnvironmentVariable) GetValue() *string { return v.Value }
 
 // EndpointResponseNetworkVolumeIds includes the requested fields of the GraphQL type NetworkVolumeIds.
 type EndpointResponseNetworkVolumeIds struct {
@@ -962,10 +982,12 @@ func (v *NetworkVolumeIdsInput) GetNetworkVolumeId() string { return v.NetworkVo
 
 // NetworkVolumeResponse includes the requested fields of the GraphQL type NetworkVolume.
 type NetworkVolumeResponse struct {
-	Id           *string `json:"id,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	Size         *int    `json:"size,omitempty"`
-	DataCenterId *string `json:"dataCenterId,omitempty"`
+	Id               *string      `json:"id,omitempty"`
+	Name             *string      `json:"name,omitempty"`
+	Size             *int         `json:"size,omitempty"`
+	DataCenterId     *string      `json:"dataCenterId,omitempty"`
+	StorageClusterId *string      `json:"storageClusterId,omitempty"`
+	StorageType      *StorageType `json:"storageType,omitempty"`
 }
 
 // GetId returns NetworkVolumeResponse.Id, and is useful for accessing the field via an interface.
@@ -979,6 +1001,12 @@ func (v *NetworkVolumeResponse) GetSize() *int { return v.Size }
 
 // GetDataCenterId returns NetworkVolumeResponse.DataCenterId, and is useful for accessing the field via an interface.
 func (v *NetworkVolumeResponse) GetDataCenterId() *string { return v.DataCenterId }
+
+// GetStorageClusterId returns NetworkVolumeResponse.StorageClusterId, and is useful for accessing the field via an interface.
+func (v *NetworkVolumeResponse) GetStorageClusterId() *string { return v.StorageClusterId }
+
+// GetStorageType returns NetworkVolumeResponse.StorageType, and is useful for accessing the field via an interface.
+func (v *NetworkVolumeResponse) GetStorageType() *StorageType { return v.StorageType }
 
 type PodEditJobInput struct {
 	PodId                   string                      `json:"podId"`
@@ -1577,6 +1605,26 @@ func (v *SecretValueUpdateResponse) GetSecretValueUpdate() *SecretResponse {
 	return v.SecretValueUpdate
 }
 
+type StorageType string
+
+const (
+	StorageTypeCephFs  StorageType = "CEPH_FS"
+	StorageTypeDdn     StorageType = "DDN"
+	StorageTypeMooseFs StorageType = "MOOSE_FS"
+	StorageTypeOneFs   StorageType = "ONE_FS"
+	StorageTypePure    StorageType = "PURE"
+	StorageTypeVast    StorageType = "VAST"
+)
+
+var AllStorageType = []StorageType{
+	StorageTypeCephFs,
+	StorageTypeDdn,
+	StorageTypeMooseFs,
+	StorageTypeOneFs,
+	StorageTypePure,
+	StorageTypeVast,
+}
+
 type TemplateCategory string
 
 const (
@@ -1601,6 +1649,7 @@ type TemplateResponse struct {
 	DockerArgs              *string                                   `json:"dockerArgs,omitempty"`
 	Env                     []*TemplateResponseEnvEnvironmentVariable `json:"env"`
 	Ports                   *string                                   `json:"ports,omitempty"`
+	PortsConfig             []*TemplateResponsePortsConfigPortConfig  `json:"portsConfig"`
 	VolumeMountPath         *string                                   `json:"volumeMountPath,omitempty"`
 	VolumeInGb              *int                                      `json:"volumeInGb,omitempty"`
 	ContainerDiskInGb       *int                                      `json:"containerDiskInGb,omitempty"`
@@ -1632,6 +1681,11 @@ func (v *TemplateResponse) GetEnv() []*TemplateResponseEnvEnvironmentVariable { 
 
 // GetPorts returns TemplateResponse.Ports, and is useful for accessing the field via an interface.
 func (v *TemplateResponse) GetPorts() *string { return v.Ports }
+
+// GetPortsConfig returns TemplateResponse.PortsConfig, and is useful for accessing the field via an interface.
+func (v *TemplateResponse) GetPortsConfig() []*TemplateResponsePortsConfigPortConfig {
+	return v.PortsConfig
+}
 
 // GetVolumeMountPath returns TemplateResponse.VolumeMountPath, and is useful for accessing the field via an interface.
 func (v *TemplateResponse) GetVolumeMountPath() *string { return v.VolumeMountPath }
@@ -1680,6 +1734,18 @@ func (v *TemplateResponseEnvEnvironmentVariable) GetKey() *string { return v.Key
 
 // GetValue returns TemplateResponseEnvEnvironmentVariable.Value, and is useful for accessing the field via an interface.
 func (v *TemplateResponseEnvEnvironmentVariable) GetValue() *string { return v.Value }
+
+// TemplateResponsePortsConfigPortConfig includes the requested fields of the GraphQL type PortConfig.
+type TemplateResponsePortsConfigPortConfig struct {
+	Port *string `json:"port,omitempty"`
+	Name *string `json:"name,omitempty"`
+}
+
+// GetPort returns TemplateResponsePortsConfigPortConfig.Port, and is useful for accessing the field via an interface.
+func (v *TemplateResponsePortsConfigPortConfig) GetPort() *string { return v.Port }
+
+// GetName returns TemplateResponsePortsConfigPortConfig.Name, and is useful for accessing the field via an interface.
+func (v *TemplateResponsePortsConfigPortConfig) GetName() *string { return v.Name }
 
 // TerminatePodResponse is returned by TerminatePod on success.
 type TerminatePodResponse struct {
@@ -1975,6 +2041,8 @@ mutation CreateNetworkVolume ($input: CreateNetworkVolumeInput!) {
 		name
 		size
 		dataCenterId
+		storageClusterId
+		storageType
 	}
 }
 `
@@ -2344,8 +2412,13 @@ query GetMyEndpoints {
 			minCudaVersion
 			executionTimeoutMs
 			flashBootType
+			flashEnvironmentId
 			type
 			modelReferences
+			env {
+				key
+				value
+			}
 		}
 	}
 }
@@ -2381,6 +2454,8 @@ query GetMyNetworkVolumes {
 			name
 			size
 			dataCenterId
+			storageClusterId
+			storageType
 		}
 	}
 }
@@ -2490,6 +2565,10 @@ query GetMyTemplates {
 				value
 			}
 			ports
+			portsConfig {
+				port
+				name
+			}
 			volumeMountPath
 			volumeInGb
 			containerDiskInGb
@@ -2606,8 +2685,13 @@ mutation SaveEndpoint ($input: EndpointInput!) {
 		minCudaVersion
 		executionTimeoutMs
 		flashBootType
+		flashEnvironmentId
 		type
 		modelReferences
+		env {
+			key
+			value
+		}
 	}
 }
 `
@@ -2685,6 +2769,10 @@ mutation SaveTemplate ($input: SaveTemplateInput) {
 			value
 		}
 		ports
+		portsConfig {
+			port
+			name
+		}
 		volumeMountPath
 		volumeInGb
 		containerDiskInGb
@@ -2912,6 +3000,8 @@ mutation UpdateNetworkVolume ($input: UpdateNetworkVolumeInput!) {
 		name
 		size
 		dataCenterId
+		storageClusterId
+		storageType
 	}
 }
 `

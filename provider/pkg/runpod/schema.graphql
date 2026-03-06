@@ -415,13 +415,24 @@ type Endpoint {
   minCudaVersion: String
   executionTimeoutMs: Int
   flashBootType: FlashBootType
+  flashEnvironmentId: String
   type: String
   modelReferences: [String]
+  env: [EnvironmentVariable]
 }
 
 type NetworkVolumeIds {
   networkVolumeId: String
   dataCenterId: String
+}
+
+enum StorageType {
+  CEPH_FS
+  DDN
+  MOOSE_FS
+  ONE_FS
+  PURE
+  VAST
 }
 
 enum FlashBootType {
@@ -506,6 +517,8 @@ type NetworkVolume {
   name: String
   size: Int
   dataCenterId: String
+  storageClusterId: String
+  storageType: StorageType
 }
 
 input CreateNetworkVolumeInput {
@@ -580,6 +593,7 @@ type PodTemplate {
   dockerArgs: String
   env: [EnvironmentVariable]
   ports: String
+  portsConfig: [PortConfig]
   volumeMountPath: String
   volumeInGb: Int
   containerDiskInGb: Int
@@ -592,6 +606,11 @@ type PodTemplate {
   readme: String
   advancedStart: Boolean
   category: String
+}
+
+type PortConfig {
+  port: String
+  name: String
 }
 
 type EnvironmentVariable {

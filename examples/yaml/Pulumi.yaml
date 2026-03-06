@@ -13,6 +13,23 @@ resources:
       containerDiskInGb: 20
       volumeInGb: 20
       startSsh: true
+      startJupyter: true
+      env:
+        MY_VAR: hello
+      portsConfig:
+        - port: "8888"
+          name: Jupyter Lab
+        - port: "22"
+          name: SSH
+
+  myNetworkVolume:
+    type: runpod:NetworkVolume
+    properties:
+      name: my-pulumi-volume
+      size: 10
+      dataCenterId: EU-RO-1
 
 outputs:
   templateId: ${myTemplate.templateId}
+  networkVolumeId: ${myNetworkVolume.networkVolumeId}
+  storageType: ${myNetworkVolume.storageType}

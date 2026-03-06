@@ -43,9 +43,16 @@ type TemplateArgs struct {
 	IsPublic                *bool             `pulumi:"isPublic,optional"`
 	ContainerRegistryAuthID *string           `pulumi:"containerRegistryAuthId,optional"`
 	// New fields
-	Readme        *string `pulumi:"readme,optional"`
-	AdvancedStart *bool   `pulumi:"advancedStart,optional"`
-	Category      *string `pulumi:"category,optional"`
+	Readme        *string              `pulumi:"readme,optional"`
+	AdvancedStart *bool                `pulumi:"advancedStart,optional"`
+	Category      *string              `pulumi:"category,optional"`
+	PortsConfig   []TemplatePortConfig `pulumi:"portsConfig,optional"`
+}
+
+// TemplatePortConfig represents a named port configuration for a template.
+type TemplatePortConfig struct {
+	Port string  `pulumi:"port"`
+	Name *string `pulumi:"name,optional"`
 }
 
 // Annotate provides descriptions for TemplateArgs fields.
@@ -83,6 +90,8 @@ func (a *TemplateArgs) Annotate(an infer.Annotator) {
 		"Whether to use advanced start mode.")
 	an.Describe(&a.Category,
 		"The category of the template.")
+	an.Describe(&a.PortsConfig,
+		"Named port configurations (e.g. [{port: \"8888\", name: \"Jupyter Lab\"}]).")
 }
 
 // TemplateState is the persisted state of a template resource.
@@ -225,6 +234,7 @@ func templateArgsToSaveInput(
 		DockerArgs:              dockerArgs,
 		Env:                     runpod.EnvMapToGQL(args.Env),
 		Ports:                   args.Ports,
+		PortsConfig:             templatePortConfigsToGQL(args.PortsConfig),
 		VolumeMountPath:         args.VolumeMountPath,
 		StartJupyter:            args.StartJupyter,
 		StartSsh:                args.StartSSH,
@@ -254,5 +264,41 @@ func templateResponseToState(
 	if env := runpod.EnvGQLToMap(tmpl.Env); len(env) > 0 {
 		state.Env = env
 	}
+	if pc := templatePortConfigsFromGQL(tmpl.PortsConfig); len(pc) > 0 {
+		state.PortsConfig = pc
+	}
 	return state
+}
+
+func templatePortConfigsToGQL(pcs []TemplatePortConfig) []*runpod.PortConfigInput {
+	if len(pcs) == 0 {
+		return nil
+	}
+	result := make([]*runpod.PortConfigInput, 0, len(pcs))
+	for _, pc := range pcs {
+		name := ""
+		if pc.Name != nil {
+			name = *pc.Name
+		}
+		result = append(result, &runpod.PortConfigInput{Port: pc.Port, Name: name})
+	}
+	return result
+}
+
+func templatePortConfigsFromGQL(pcs []*runpod.TemplateResponsePortsConfigPortConfig) []TemplatePortConfig {
+	if len(pcs) == 0 {
+		return nil
+	}
+	result := make([]TemplatePortConfig, 0, len(pcs))
+	for _, pc := range pcs {
+		if pc == nil {
+			continue
+		}
+		cfg := TemplatePortConfig{Port: runpod.PtrString(pc.Port)}
+		if pc.Name != nil {
+			cfg.Name = pc.Name
+		}
+		result = append(result, cfg)
+	}
+	return result
 }

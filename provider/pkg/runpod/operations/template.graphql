@@ -11,6 +11,10 @@ mutation SaveTemplate($input: SaveTemplateInput) {
       value
     }
     ports
+    portsConfig {
+      port
+      name
+    }
     volumeMountPath
     volumeInGb
     containerDiskInGb
@@ -40,6 +44,10 @@ query GetMyTemplates {
         value
       }
       ports
+      portsConfig {
+        port
+        name
+      }
       volumeMountPath
       volumeInGb
       containerDiskInGb

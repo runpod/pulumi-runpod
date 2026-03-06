@@ -50,13 +50,19 @@ func (a *NetworkVolumeArgs) Annotate(an infer.Annotator) {
 // NetworkVolumeState is the persisted state of a network volume resource.
 type NetworkVolumeState struct {
 	NetworkVolumeArgs
-	NetworkVolumeID string `pulumi:"networkVolumeId"`
+	NetworkVolumeID  string  `pulumi:"networkVolumeId"`
+	StorageClusterID *string `pulumi:"storageClusterId,optional"`
+	StorageType      *string `pulumi:"storageType,optional"`
 }
 
 // Annotate provides descriptions for NetworkVolumeState fields.
 func (s *NetworkVolumeState) Annotate(a infer.Annotator) {
 	a.Describe(&s.NetworkVolumeID,
 		"The unique identifier of the network volume.")
+	a.Describe(&s.StorageClusterID,
+		"The storage cluster ID assigned to this volume.")
+	a.Describe(&s.StorageType,
+		"The storage backend type (e.g. MOOSE_FS, CEPH_FS).")
 }
 
 // Create creates a new network volume.
@@ -187,8 +193,16 @@ func (NetworkVolume) Delete(
 func networkVolumeResponseToState(
 	input NetworkVolumeArgs, vol *runpod.NetworkVolumeResponse,
 ) NetworkVolumeState {
-	return NetworkVolumeState{
+	state := NetworkVolumeState{
 		NetworkVolumeArgs: input,
 		NetworkVolumeID:   runpod.PtrString(vol.Id),
 	}
+	if vol.StorageClusterId != nil {
+		state.StorageClusterID = vol.StorageClusterId
+	}
+	if vol.StorageType != nil {
+		st := string(*vol.StorageType)
+		state.StorageType = &st
+	}
+	return state
 }

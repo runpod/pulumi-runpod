@@ -282,5 +282,27 @@ func endpointResponseToState(
 		state.NetworkVolumeIDs = bindings
 	}
 
+	// Read env back from the API, but only track keys the user declared.
+	// Runpod may inject system env vars at runtime; filtering prevents
+	// spurious drift on keys the user never set.
+	if len(ep.Env) > 0 {
+		apiEnv := runpod.EnvGQLResponseToMap(ep.Env)
+		merged := make(map[string]string, len(input.Env))
+		for k := range input.Env {
+			if v, ok := apiEnv[k]; ok {
+				merged[k] = v
+			} else {
+				merged[k] = input.Env[k]
+			}
+		}
+		if len(merged) > 0 {
+			state.Env = merged
+		}
+	}
+
+	if ep.FlashEnvironmentId != nil {
+		state.FlashEnvironmentID = ep.FlashEnvironmentId
+	}
+
 	return state
 }

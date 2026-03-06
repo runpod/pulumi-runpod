@@ -47,6 +47,25 @@ func EnvSliceToMap(env []*string) map[string]string {
 	return result
 }
 
+// EnvGQLResponseToMap converts EndpointResponseEnvEnvironmentVariable slice to a map.
+func EnvGQLResponseToMap(env []*EndpointResponseEnvEnvironmentVariable) map[string]string {
+	if len(env) == 0 {
+		return nil
+	}
+	result := make(map[string]string, len(env))
+	for _, e := range env {
+		if e == nil || e.Key == nil {
+			continue
+		}
+		val := ""
+		if e.Value != nil {
+			val = *e.Value
+		}
+		result[*e.Key] = val
+	}
+	return result
+}
+
 // EnvGQLToMap converts TemplateResponseEnvEnvironmentVariable slice to a map.
 func EnvGQLToMap(env []*TemplateResponseEnvEnvironmentVariable) map[string]string {
 	if len(env) == 0 {
