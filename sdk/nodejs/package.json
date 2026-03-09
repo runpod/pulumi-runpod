@@ -10,6 +10,13 @@
     "license": "Apache-2.0",
     "main": "bin/index.js",
     "types": "bin/index.d.ts",
+    "files": [
+        "bin/**/*.js",
+        "bin/**/*.d.ts",
+        "bin/LICENSE",
+        "bin/README.md",
+        "bin/package.json"
+    ],
     "scripts": {
         "build": "tsc"
     },
