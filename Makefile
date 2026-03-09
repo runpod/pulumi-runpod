@@ -77,7 +77,7 @@ codegen: $(SCHEMA_FILE) sdk/dotnet sdk/go sdk/nodejs sdk/python sdk/java nodejs_
 #   - utilities.ts require path uses '../package.json' so bin/utilities.js can find it
 .PHONY: nodejs_sdk_fixup
 nodejs_sdk_fixup:
-	@python3 -c "import json; f='sdk/nodejs/package.json'; p=json.load(open(f)); p['main']='bin/index.js'; p['types']='bin/index.d.ts'; open(f,'w').write(json.dumps(p, indent=4)+'\n')"
+	@python3 -c "import json; f='sdk/nodejs/package.json'; p=json.load(open(f)); p['main']='bin/index.js'; p['types']='bin/index.d.ts'; p['files']=['bin/**/*.js','bin/**/*.d.ts','bin/LICENSE','bin/README.md','bin/package.json']; open(f,'w').write(json.dumps(p, indent=4)+'\n')"
 	@echo "patched sdk/nodejs/package.json"
 	@grep -q "require('../package.json')" sdk/nodejs/utilities.ts || \
 		(content=$$(cat sdk/nodejs/utilities.ts) && \
@@ -133,7 +133,7 @@ dotnet_sdk: sdk/dotnet
 
 go_sdk:	sdk/go
 
-nodejs_sdk: sdk/nodejs
+nodejs_sdk: sdk/nodejs nodejs_sdk_fixup
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn run tsc
@@ -165,7 +165,11 @@ build_sdks: dotnet_sdk go_sdk nodejs_sdk python_sdk java_sdk
 only_build:: build
 
 lint:
-	golangci-lint --path-prefix provider --config .golangci.yml run --fix
+	cd provider && golangci-lint --path-prefix provider --config ../.golangci.yml run --fix
+
+.PHONY: tidy
+tidy:
+	./scripts/tidy-all.sh
 
 
 install:: install_nodejs_sdk install_dotnet_sdk

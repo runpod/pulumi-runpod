@@ -15,3 +15,8 @@ export interface SavingsPlanArgs {
      */
     upfrontCost?: pulumi.Input<number>;
 }
+
+export interface TemplatePortConfigArgs {
+    name?: pulumi.Input<string>;
+    port: pulumi.Input<string>;
+}

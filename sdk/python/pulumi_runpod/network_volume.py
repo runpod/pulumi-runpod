@@ -153,6 +153,8 @@ class NetworkVolume(pulumi.CustomResource):
                 raise TypeError("Missing required property 'size'")
             __props__.__dict__["size"] = size
             __props__.__dict__["network_volume_id"] = None
+            __props__.__dict__["storage_cluster_id"] = None
+            __props__.__dict__["storage_type"] = None
         replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["dataCenterId", "isNextGenStorage"])
         opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(NetworkVolume, __self__).__init__(
@@ -182,6 +184,8 @@ class NetworkVolume(pulumi.CustomResource):
         __props__.__dict__["name"] = None
         __props__.__dict__["network_volume_id"] = None
         __props__.__dict__["size"] = None
+        __props__.__dict__["storage_cluster_id"] = None
+        __props__.__dict__["storage_type"] = None
         return NetworkVolume(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -223,4 +227,20 @@ class NetworkVolume(pulumi.CustomResource):
         The size of the network volume in GB.
         """
         return pulumi.get(self, "size")
+
+    @property
+    @pulumi.getter(name="storageClusterId")
+    def storage_cluster_id(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The storage cluster ID assigned to this volume.
+        """
+        return pulumi.get(self, "storage_cluster_id")
+
+    @property
+    @pulumi.getter(name="storageType")
+    def storage_type(self) -> pulumi.Output[Optional[builtins.str]]:
+        """
+        The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+        """
+        return pulumi.get(self, "storage_type")
 

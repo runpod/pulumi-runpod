@@ -14,6 +14,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['TemplateArgs', 'Template']
 
@@ -32,6 +34,7 @@ class TemplateArgs:
                  is_public: Optional[pulumi.Input[builtins.bool]] = None,
                  is_serverless: Optional[pulumi.Input[builtins.bool]] = None,
                  ports: Optional[pulumi.Input[builtins.str]] = None,
+                 ports_config: Optional[pulumi.Input[Sequence[pulumi.Input['TemplatePortConfigArgs']]]] = None,
                  readme: Optional[pulumi.Input[builtins.str]] = None,
                  start_jupyter: Optional[pulumi.Input[builtins.bool]] = None,
                  start_script: Optional[pulumi.Input[builtins.str]] = None,
@@ -51,6 +54,7 @@ class TemplateArgs:
         :param pulumi.Input[builtins.bool] is_public: Whether this template is publicly visible.
         :param pulumi.Input[builtins.bool] is_serverless: Whether this template is for serverless endpoints.
         :param pulumi.Input[builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
+        :param pulumi.Input[Sequence[pulumi.Input['TemplatePortConfigArgs']]] ports_config: Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
         :param pulumi.Input[builtins.str] readme: A readme/description for the template in Markdown.
         :param pulumi.Input[builtins.bool] start_jupyter: Whether to start Jupyter notebook server.
         :param pulumi.Input[builtins.str] start_script: A bash script to run on container start.
@@ -77,6 +81,8 @@ class TemplateArgs:
             pulumi.set(__self__, "is_serverless", is_serverless)
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
+        if ports_config is not None:
+            pulumi.set(__self__, "ports_config", ports_config)
         if readme is not None:
             pulumi.set(__self__, "readme", readme)
         if start_jupyter is not None:
@@ -233,6 +239,18 @@ class TemplateArgs:
         pulumi.set(self, "ports", value)
 
     @property
+    @pulumi.getter(name="portsConfig")
+    def ports_config(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TemplatePortConfigArgs']]]]:
+        """
+        Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+        """
+        return pulumi.get(self, "ports_config")
+
+    @ports_config.setter
+    def ports_config(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TemplatePortConfigArgs']]]]):
+        pulumi.set(self, "ports_config", value)
+
+    @property
     @pulumi.getter
     def readme(self) -> Optional[pulumi.Input[builtins.str]]:
         """
@@ -310,6 +328,7 @@ class Template(pulumi.CustomResource):
                  is_serverless: Optional[pulumi.Input[builtins.bool]] = None,
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  ports: Optional[pulumi.Input[builtins.str]] = None,
+                 ports_config: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TemplatePortConfigArgs', 'TemplatePortConfigArgsDict']]]]] = None,
                  readme: Optional[pulumi.Input[builtins.str]] = None,
                  start_jupyter: Optional[pulumi.Input[builtins.bool]] = None,
                  start_script: Optional[pulumi.Input[builtins.str]] = None,
@@ -332,6 +351,7 @@ class Template(pulumi.CustomResource):
         :param pulumi.Input[builtins.bool] is_serverless: Whether this template is for serverless endpoints.
         :param pulumi.Input[builtins.str] name: A name for the template.
         :param pulumi.Input[builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
+        :param pulumi.Input[Sequence[pulumi.Input[Union['TemplatePortConfigArgs', 'TemplatePortConfigArgsDict']]]] ports_config: Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
         :param pulumi.Input[builtins.str] readme: A readme/description for the template in Markdown.
         :param pulumi.Input[builtins.bool] start_jupyter: Whether to start Jupyter notebook server.
         :param pulumi.Input[builtins.str] start_script: A bash script to run on container start.
@@ -373,6 +393,7 @@ class Template(pulumi.CustomResource):
                  is_serverless: Optional[pulumi.Input[builtins.bool]] = None,
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  ports: Optional[pulumi.Input[builtins.str]] = None,
+                 ports_config: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TemplatePortConfigArgs', 'TemplatePortConfigArgsDict']]]]] = None,
                  readme: Optional[pulumi.Input[builtins.str]] = None,
                  start_jupyter: Optional[pulumi.Input[builtins.bool]] = None,
                  start_script: Optional[pulumi.Input[builtins.str]] = None,
@@ -405,6 +426,7 @@ class Template(pulumi.CustomResource):
                 raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             __props__.__dict__["ports"] = ports
+            __props__.__dict__["ports_config"] = ports_config
             __props__.__dict__["readme"] = readme
             __props__.__dict__["start_jupyter"] = start_jupyter
             __props__.__dict__["start_script"] = start_script
@@ -447,6 +469,7 @@ class Template(pulumi.CustomResource):
         __props__.__dict__["is_serverless"] = None
         __props__.__dict__["name"] = None
         __props__.__dict__["ports"] = None
+        __props__.__dict__["ports_config"] = None
         __props__.__dict__["readme"] = None
         __props__.__dict__["start_jupyter"] = None
         __props__.__dict__["start_script"] = None
@@ -543,6 +566,14 @@ class Template(pulumi.CustomResource):
         Ports to expose (e.g. "8080/http,22/tcp").
         """
         return pulumi.get(self, "ports")
+
+    @property
+    @pulumi.getter(name="portsConfig")
+    def ports_config(self) -> pulumi.Output[Optional[Sequence['outputs.TemplatePortConfig']]]:
+        """
+        Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+        """
+        return pulumi.get(self, "ports_config")
 
     @property
     @pulumi.getter

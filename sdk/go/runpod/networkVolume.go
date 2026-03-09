@@ -25,6 +25,10 @@ type NetworkVolume struct {
 	NetworkVolumeId pulumi.StringOutput `pulumi:"networkVolumeId"`
 	// The size of the network volume in GB.
 	Size pulumi.IntOutput `pulumi:"size"`
+	// The storage cluster ID assigned to this volume.
+	StorageClusterId pulumi.StringPtrOutput `pulumi:"storageClusterId"`
+	// The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+	StorageType pulumi.StringPtrOutput `pulumi:"storageType"`
 }
 
 // NewNetworkVolume registers a new resource with the given unique name, arguments, and options.
@@ -213,6 +217,16 @@ func (o NetworkVolumeOutput) NetworkVolumeId() pulumi.StringOutput {
 // The size of the network volume in GB.
 func (o NetworkVolumeOutput) Size() pulumi.IntOutput {
 	return o.ApplyT(func(v *NetworkVolume) pulumi.IntOutput { return v.Size }).(pulumi.IntOutput)
+}
+
+// The storage cluster ID assigned to this volume.
+func (o NetworkVolumeOutput) StorageClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkVolume) pulumi.StringPtrOutput { return v.StorageClusterId }).(pulumi.StringPtrOutput)
+}
+
+// The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+func (o NetworkVolumeOutput) StorageType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkVolume) pulumi.StringPtrOutput { return v.StorageType }).(pulumi.StringPtrOutput)
 }
 
 type NetworkVolumeArrayOutput struct{ *pulumi.OutputState }

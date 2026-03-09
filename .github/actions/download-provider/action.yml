@@ -12,7 +12,7 @@ runs:
 
     - name: UnTar provider binaries
       shell: bash
-      run: tar -zxf ${{ github.workspace }}/bin/pulumi-${{ env.PROVIDER }}-provider.tar.gz -C ${{ github.workspace }}/bin
+      run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace }}/bin
 
     - name: Restore Binary Permissions
       shell: bash
