@@ -9,9 +9,11 @@ import com.pulumi.core.annotations.ResourceType;
 import com.pulumi.core.internal.Codegen;
 import com.runpod.runpod.TemplateArgs;
 import com.runpod.runpod.Utilities;
+import com.runpod.runpod.outputs.TemplatePortConfig;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -171,6 +173,20 @@ public class Template extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> ports() {
         return Codegen.optional(this.ports);
+    }
+    /**
+     * Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+     * 
+     */
+    @Export(name="portsConfig", refs={List.class,TemplatePortConfig.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<TemplatePortConfig>> portsConfig;
+
+    /**
+     * @return Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+     * 
+     */
+    public Output<Optional<List<TemplatePortConfig>>> portsConfig() {
+        return Codegen.optional(this.portsConfig);
     }
     /**
      * A readme/description for the template in Markdown.

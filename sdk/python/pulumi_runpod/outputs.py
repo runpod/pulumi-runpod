@@ -24,6 +24,7 @@ __all__ = [
     'GpuTypeOutput',
     'LowestPriceOutput',
     'SavingsPlan',
+    'TemplatePortConfig',
 ]
 
 @pulumi.output_type
@@ -518,5 +519,25 @@ class SavingsPlan(dict):
         The upfront cost for the savings plan.
         """
         return pulumi.get(self, "upfront_cost")
+
+
+@pulumi.output_type
+class TemplatePortConfig(dict):
+    def __init__(__self__, *,
+                 port: builtins.str,
+                 name: Optional[builtins.str] = None):
+        pulumi.set(__self__, "port", port)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def port(self) -> builtins.str:
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[builtins.str]:
+        return pulumi.get(self, "name")
 
 

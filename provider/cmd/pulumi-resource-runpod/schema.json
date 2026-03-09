@@ -302,6 +302,20 @@
         }
       },
       "type": "object"
+    },
+    "runpod:index:TemplatePortConfig": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "required": [
+        "port"
+      ]
     }
   },
   "provider": {
@@ -650,6 +664,14 @@
         "size": {
           "type": "integer",
           "description": "The size of the network volume in GB."
+        },
+        "storageClusterId": {
+          "type": "string",
+          "description": "The storage cluster ID assigned to this volume."
+        },
+        "storageType": {
+          "type": "string",
+          "description": "The storage backend type (e.g. MOOSE_FS, CEPH_FS)."
         }
       },
       "type": "object",
@@ -1264,6 +1286,13 @@
           "type": "string",
           "description": "Ports to expose (e.g. \"8080/http,22/tcp\")."
         },
+        "portsConfig": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/runpod:index:TemplatePortConfig"
+          },
+          "description": "Named port configurations (e.g. [{port: \"8888\", name: \"Jupyter Lab\"}])."
+        },
         "readme": {
           "type": "string",
           "description": "A readme/description for the template in Markdown."
@@ -1348,6 +1377,13 @@
         "ports": {
           "type": "string",
           "description": "Ports to expose (e.g. \"8080/http,22/tcp\")."
+        },
+        "portsConfig": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/runpod:index:TemplatePortConfig"
+          },
+          "description": "Named port configurations (e.g. [{port: \"8888\", name: \"Jupyter Lab\"}])."
         },
         "readme": {
           "type": "string",

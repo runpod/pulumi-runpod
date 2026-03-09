@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export class Template extends pulumi.CustomResource {
@@ -76,6 +78,10 @@ export class Template extends pulumi.CustomResource {
      */
     public readonly ports!: pulumi.Output<string | undefined>;
     /**
+     * Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+     */
+    public readonly portsConfig!: pulumi.Output<outputs.TemplatePortConfig[] | undefined>;
+    /**
      * A readme/description for the template in Markdown.
      */
     public readonly readme!: pulumi.Output<string | undefined>;
@@ -138,6 +144,7 @@ export class Template extends pulumi.CustomResource {
             resourceInputs["isServerless"] = args ? args.isServerless : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["ports"] = args ? args.ports : undefined;
+            resourceInputs["portsConfig"] = args ? args.portsConfig : undefined;
             resourceInputs["readme"] = args ? args.readme : undefined;
             resourceInputs["startJupyter"] = args ? args.startJupyter : undefined;
             resourceInputs["startScript"] = args ? args.startScript : undefined;
@@ -157,6 +164,7 @@ export class Template extends pulumi.CustomResource {
             resourceInputs["isServerless"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["ports"] = undefined /*out*/;
+            resourceInputs["portsConfig"] = undefined /*out*/;
             resourceInputs["readme"] = undefined /*out*/;
             resourceInputs["startJupyter"] = undefined /*out*/;
             resourceInputs["startScript"] = undefined /*out*/;
@@ -218,6 +226,10 @@ export interface TemplateArgs {
      * Ports to expose (e.g. "8080/http,22/tcp").
      */
     ports?: pulumi.Input<string>;
+    /**
+     * Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+     */
+    portsConfig?: pulumi.Input<pulumi.Input<inputs.TemplatePortConfigArgs>[]>;
     /**
      * A readme/description for the template in Markdown.
      */

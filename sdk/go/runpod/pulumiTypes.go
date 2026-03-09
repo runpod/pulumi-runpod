@@ -690,9 +690,111 @@ func (o SavingsPlanPtrOutput) UpfrontCost() pulumi.Float64PtrOutput {
 	}).(pulumi.Float64PtrOutput)
 }
 
+type TemplatePortConfig struct {
+	Name *string `pulumi:"name"`
+	Port string  `pulumi:"port"`
+}
+
+// TemplatePortConfigInput is an input type that accepts TemplatePortConfigArgs and TemplatePortConfigOutput values.
+// You can construct a concrete instance of `TemplatePortConfigInput` via:
+//
+//	TemplatePortConfigArgs{...}
+type TemplatePortConfigInput interface {
+	pulumi.Input
+
+	ToTemplatePortConfigOutput() TemplatePortConfigOutput
+	ToTemplatePortConfigOutputWithContext(context.Context) TemplatePortConfigOutput
+}
+
+type TemplatePortConfigArgs struct {
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	Port pulumi.StringInput    `pulumi:"port"`
+}
+
+func (TemplatePortConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TemplatePortConfig)(nil)).Elem()
+}
+
+func (i TemplatePortConfigArgs) ToTemplatePortConfigOutput() TemplatePortConfigOutput {
+	return i.ToTemplatePortConfigOutputWithContext(context.Background())
+}
+
+func (i TemplatePortConfigArgs) ToTemplatePortConfigOutputWithContext(ctx context.Context) TemplatePortConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TemplatePortConfigOutput)
+}
+
+// TemplatePortConfigArrayInput is an input type that accepts TemplatePortConfigArray and TemplatePortConfigArrayOutput values.
+// You can construct a concrete instance of `TemplatePortConfigArrayInput` via:
+//
+//	TemplatePortConfigArray{ TemplatePortConfigArgs{...} }
+type TemplatePortConfigArrayInput interface {
+	pulumi.Input
+
+	ToTemplatePortConfigArrayOutput() TemplatePortConfigArrayOutput
+	ToTemplatePortConfigArrayOutputWithContext(context.Context) TemplatePortConfigArrayOutput
+}
+
+type TemplatePortConfigArray []TemplatePortConfigInput
+
+func (TemplatePortConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TemplatePortConfig)(nil)).Elem()
+}
+
+func (i TemplatePortConfigArray) ToTemplatePortConfigArrayOutput() TemplatePortConfigArrayOutput {
+	return i.ToTemplatePortConfigArrayOutputWithContext(context.Background())
+}
+
+func (i TemplatePortConfigArray) ToTemplatePortConfigArrayOutputWithContext(ctx context.Context) TemplatePortConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TemplatePortConfigArrayOutput)
+}
+
+type TemplatePortConfigOutput struct{ *pulumi.OutputState }
+
+func (TemplatePortConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TemplatePortConfig)(nil)).Elem()
+}
+
+func (o TemplatePortConfigOutput) ToTemplatePortConfigOutput() TemplatePortConfigOutput {
+	return o
+}
+
+func (o TemplatePortConfigOutput) ToTemplatePortConfigOutputWithContext(ctx context.Context) TemplatePortConfigOutput {
+	return o
+}
+
+func (o TemplatePortConfigOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TemplatePortConfig) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o TemplatePortConfigOutput) Port() pulumi.StringOutput {
+	return o.ApplyT(func(v TemplatePortConfig) string { return v.Port }).(pulumi.StringOutput)
+}
+
+type TemplatePortConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (TemplatePortConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TemplatePortConfig)(nil)).Elem()
+}
+
+func (o TemplatePortConfigArrayOutput) ToTemplatePortConfigArrayOutput() TemplatePortConfigArrayOutput {
+	return o
+}
+
+func (o TemplatePortConfigArrayOutput) ToTemplatePortConfigArrayOutputWithContext(ctx context.Context) TemplatePortConfigArrayOutput {
+	return o
+}
+
+func (o TemplatePortConfigArrayOutput) Index(i pulumi.IntInput) TemplatePortConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TemplatePortConfig {
+		return vs[0].([]TemplatePortConfig)[vs[1].(int)]
+	}).(TemplatePortConfigOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanInput)(nil)).Elem(), SavingsPlanArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanPtrInput)(nil)).Elem(), SavingsPlanArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TemplatePortConfigInput)(nil)).Elem(), TemplatePortConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TemplatePortConfigArrayInput)(nil)).Elem(), TemplatePortConfigArray{})
 	pulumi.RegisterOutputType(CPUFlavorOutputOutput{})
 	pulumi.RegisterOutputType(CPUFlavorOutputArrayOutput{})
 	pulumi.RegisterOutputType(DataCenterOutputOutput{})
@@ -707,4 +809,6 @@ func init() {
 	pulumi.RegisterOutputType(LowestPriceOutputPtrOutput{})
 	pulumi.RegisterOutputType(SavingsPlanOutput{})
 	pulumi.RegisterOutputType(SavingsPlanPtrOutput{})
+	pulumi.RegisterOutputType(TemplatePortConfigOutput{})
+	pulumi.RegisterOutputType(TemplatePortConfigArrayOutput{})
 }

@@ -79,6 +79,12 @@ namespace Pulumi.Runpod
         public Output<string?> Ports { get; private set; } = null!;
 
         /// <summary>
+        /// Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+        /// </summary>
+        [Output("portsConfig")]
+        public Output<ImmutableArray<Outputs.TemplatePortConfig>> PortsConfig { get; private set; } = null!;
+
+        /// <summary>
         /// A readme/description for the template in Markdown.
         /// </summary>
         [Output("readme")]
@@ -237,6 +243,18 @@ namespace Pulumi.Runpod
         /// </summary>
         [Input("ports")]
         public Input<string>? Ports { get; set; }
+
+        [Input("portsConfig")]
+        private InputList<Inputs.TemplatePortConfigArgs>? _portsConfig;
+
+        /// <summary>
+        /// Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+        /// </summary>
+        public InputList<Inputs.TemplatePortConfigArgs> PortsConfig
+        {
+            get => _portsConfig ?? (_portsConfig = new InputList<Inputs.TemplatePortConfigArgs>());
+            set => _portsConfig = value;
+        }
 
         /// <summary>
         /// A readme/description for the template in Markdown.

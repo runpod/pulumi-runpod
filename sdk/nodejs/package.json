@@ -8,15 +8,6 @@
     "homepage": "https://www.runpod.io",
     "repository": "https://github.com/runpod/pulumi-runpod",
     "license": "Apache-2.0",
-    "main": "bin/index.js",
-    "types": "bin/index.d.ts",
-    "files": [
-        "bin/**/*.js",
-        "bin/**/*.d.ts",
-        "bin/LICENSE",
-        "bin/README.md",
-        "bin/package.json"
-    ],
     "scripts": {
         "build": "tsc"
     },
@@ -32,5 +23,14 @@
         "name": "runpod",
         "version": "1.0.0-alpha.0+dev",
         "server": "github://api.github.com/runpod/pulumi-runpod"
-    }
+    },
+    "main": "bin/index.js",
+    "types": "bin/index.d.ts",
+    "files": [
+        "bin/**/*.js",
+        "bin/**/*.d.ts",
+        "bin/LICENSE",
+        "bin/README.md",
+        "bin/package.json"
+    ]
 }
