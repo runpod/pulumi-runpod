@@ -32,6 +32,11 @@ jobs:
     - name: Disarm go:embed directives to enable linters that compile source code
       run: git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i
         's/go:embed/ goembed/g'
+    - name: Check go mod tidy
+      run: |
+        ./scripts/tidy-all.sh
+        git diff --exit-code -- '*.mod' '*.sum' || \
+          (echo "go.mod/go.sum not tidy — run scripts/tidy-all.sh and commit the changes" && exit 1)
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@55c2c1448f86e01eaae002a5a3a9624417608d84 # v6.5.2
       with:

@@ -167,6 +167,10 @@ only_build:: build
 lint:
 	cd provider && golangci-lint --path-prefix provider --config ../.golangci.yml run --fix
 
+.PHONY: tidy
+tidy:
+	./scripts/tidy-all.sh
+
 
 install:: install_nodejs_sdk install_dotnet_sdk
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
