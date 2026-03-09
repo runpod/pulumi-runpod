@@ -37,6 +37,8 @@ type Template struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Ports to expose (e.g. "8080/http,22/tcp").
 	Ports pulumi.StringPtrOutput `pulumi:"ports"`
+	// Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+	PortsConfig TemplatePortConfigArrayOutput `pulumi:"portsConfig"`
 	// A readme/description for the template in Markdown.
 	Readme pulumi.StringPtrOutput `pulumi:"readme"`
 	// Whether to start Jupyter notebook server.
@@ -127,6 +129,8 @@ type templateArgs struct {
 	Name string `pulumi:"name"`
 	// Ports to expose (e.g. "8080/http,22/tcp").
 	Ports *string `pulumi:"ports"`
+	// Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+	PortsConfig []TemplatePortConfig `pulumi:"portsConfig"`
 	// A readme/description for the template in Markdown.
 	Readme *string `pulumi:"readme"`
 	// Whether to start Jupyter notebook server.
@@ -165,6 +169,8 @@ type TemplateArgs struct {
 	Name pulumi.StringInput
 	// Ports to expose (e.g. "8080/http,22/tcp").
 	Ports pulumi.StringPtrInput
+	// Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+	PortsConfig TemplatePortConfigArrayInput
 	// A readme/description for the template in Markdown.
 	Readme pulumi.StringPtrInput
 	// Whether to start Jupyter notebook server.
@@ -319,6 +325,11 @@ func (o TemplateOutput) Name() pulumi.StringOutput {
 // Ports to expose (e.g. "8080/http,22/tcp").
 func (o TemplateOutput) Ports() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.StringPtrOutput { return v.Ports }).(pulumi.StringPtrOutput)
+}
+
+// Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
+func (o TemplateOutput) PortsConfig() TemplatePortConfigArrayOutput {
+	return o.ApplyT(func(v *Template) TemplatePortConfigArrayOutput { return v.PortsConfig }).(TemplatePortConfigArrayOutput)
 }
 
 // A readme/description for the template in Markdown.

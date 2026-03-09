@@ -87,6 +87,34 @@ public class NetworkVolume extends com.pulumi.resources.CustomResource {
     public Output<Integer> size() {
         return this.size;
     }
+    /**
+     * The storage cluster ID assigned to this volume.
+     * 
+     */
+    @Export(name="storageClusterId", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> storageClusterId;
+
+    /**
+     * @return The storage cluster ID assigned to this volume.
+     * 
+     */
+    public Output<Optional<String>> storageClusterId() {
+        return Codegen.optional(this.storageClusterId);
+    }
+    /**
+     * The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+     * 
+     */
+    @Export(name="storageType", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> storageType;
+
+    /**
+     * @return The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+     * 
+     */
+    public Output<Optional<String>> storageType() {
+        return Codegen.optional(this.storageType);
+    }
 
     /**
      *

@@ -162,3 +162,8 @@ export interface SavingsPlan {
     upfrontCost?: number;
 }
 
+export interface TemplatePortConfig {
+    name?: string;
+    port: string;
+}
+

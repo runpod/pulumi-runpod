@@ -18,6 +18,8 @@ from . import _utilities
 __all__ = [
     'SavingsPlanArgs',
     'SavingsPlanArgsDict',
+    'TemplatePortConfigArgs',
+    'TemplatePortConfigArgsDict',
 ]
 
 MYPY = False
@@ -72,5 +74,40 @@ class SavingsPlanArgs:
     @upfront_cost.setter
     def upfront_cost(self, value: Optional[pulumi.Input[builtins.float]]):
         pulumi.set(self, "upfront_cost", value)
+
+
+if not MYPY:
+    class TemplatePortConfigArgsDict(TypedDict):
+        port: pulumi.Input[builtins.str]
+        name: NotRequired[pulumi.Input[builtins.str]]
+elif False:
+    TemplatePortConfigArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TemplatePortConfigArgs:
+    def __init__(__self__, *,
+                 port: pulumi.Input[builtins.str],
+                 name: Optional[pulumi.Input[builtins.str]] = None):
+        pulumi.set(__self__, "port", port)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[builtins.str]:
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[builtins.str]]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "name", value)
 
 

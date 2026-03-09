@@ -42,6 +42,18 @@ namespace Pulumi.Runpod
         [Output("size")]
         public Output<int> Size { get; private set; } = null!;
 
+        /// <summary>
+        /// The storage cluster ID assigned to this volume.
+        /// </summary>
+        [Output("storageClusterId")]
+        public Output<string?> StorageClusterId { get; private set; } = null!;
+
+        /// <summary>
+        /// The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+        /// </summary>
+        [Output("storageType")]
+        public Output<string?> StorageType { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a NetworkVolume resource with the given unique name, arguments, and options.

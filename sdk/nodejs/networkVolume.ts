@@ -51,6 +51,14 @@ export class NetworkVolume extends pulumi.CustomResource {
      * The size of the network volume in GB.
      */
     public readonly size!: pulumi.Output<number>;
+    /**
+     * The storage cluster ID assigned to this volume.
+     */
+    public /*out*/ readonly storageClusterId!: pulumi.Output<string | undefined>;
+    /**
+     * The storage backend type (e.g. MOOSE_FS, CEPH_FS).
+     */
+    public /*out*/ readonly storageType!: pulumi.Output<string | undefined>;
 
     /**
      * Create a NetworkVolume resource with the given unique name, arguments, and options.
@@ -77,12 +85,16 @@ export class NetworkVolume extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["size"] = args ? args.size : undefined;
             resourceInputs["networkVolumeId"] = undefined /*out*/;
+            resourceInputs["storageClusterId"] = undefined /*out*/;
+            resourceInputs["storageType"] = undefined /*out*/;
         } else {
             resourceInputs["dataCenterId"] = undefined /*out*/;
             resourceInputs["isNextGenStorage"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["networkVolumeId"] = undefined /*out*/;
             resourceInputs["size"] = undefined /*out*/;
+            resourceInputs["storageClusterId"] = undefined /*out*/;
+            resourceInputs["storageType"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const replaceOnChanges = { replaceOnChanges: ["dataCenterId", "isNextGenStorage"] };

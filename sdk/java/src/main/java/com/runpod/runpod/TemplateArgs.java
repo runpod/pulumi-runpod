@@ -6,9 +6,11 @@ package com.runpod.runpod;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.runpod.runpod.inputs.TemplatePortConfigArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -185,6 +187,21 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+     * 
+     */
+    @Import(name="portsConfig")
+    private @Nullable Output<List<TemplatePortConfigArgs>> portsConfig;
+
+    /**
+     * @return Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+     * 
+     */
+    public Optional<Output<List<TemplatePortConfigArgs>>> portsConfig() {
+        return Optional.ofNullable(this.portsConfig);
+    }
+
+    /**
      * A readme/description for the template in Markdown.
      * 
      */
@@ -288,6 +305,7 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
         this.isServerless = $.isServerless;
         this.name = $.name;
         this.ports = $.ports;
+        this.portsConfig = $.portsConfig;
         this.readme = $.readme;
         this.startJupyter = $.startJupyter;
         this.startScript = $.startScript;
@@ -543,6 +561,37 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder ports(String ports) {
             return ports(Output.of(ports));
+        }
+
+        /**
+         * @param portsConfig Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder portsConfig(@Nullable Output<List<TemplatePortConfigArgs>> portsConfig) {
+            $.portsConfig = portsConfig;
+            return this;
+        }
+
+        /**
+         * @param portsConfig Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder portsConfig(List<TemplatePortConfigArgs> portsConfig) {
+            return portsConfig(Output.of(portsConfig));
+        }
+
+        /**
+         * @param portsConfig Named port configurations (e.g. [{port: &#34;8888&#34;, name: &#34;Jupyter Lab&#34;}]).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder portsConfig(TemplatePortConfigArgs... portsConfig) {
+            return portsConfig(List.of(portsConfig));
         }
 
         /**
