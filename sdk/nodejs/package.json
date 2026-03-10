@@ -1,6 +1,6 @@
 {
     "name": "@runpod/pulumi",
-    "version": "1.0.0-alpha.0+dev",
+    "version": "0.1.0",
     "keywords": [
         "category/infrastructure",
         "kind/native"
@@ -21,7 +21,7 @@
     "pulumi": {
         "resource": true,
         "name": "runpod",
-        "version": "1.0.0-alpha.0+dev",
+        "version": "0.1.0",
         "server": "github://api.github.com/runpod/pulumi-runpod"
     },
     "main": "bin/index.js",

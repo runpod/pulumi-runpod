@@ -3,7 +3,7 @@ PROJECT_NAME := Pulumi RunPod Provider
 PACK             := runpod
 PACKDIR          := sdk
 PROJECT          := github.com/runpod/pulumi-runpod
-NODE_MODULE_NAME := @runpod/pulumi
+NODE_MODULE_NAME := pulumi-runpod
 NUGET_PKG_NAME   := Pulumi.Runpod
 
 PROVIDER        := pulumi-resource-${PACK}
@@ -77,7 +77,7 @@ codegen: $(SCHEMA_FILE) sdk/dotnet sdk/go sdk/nodejs sdk/python sdk/java nodejs_
 #   - utilities.ts require path uses '../package.json' so bin/utilities.js can find it
 .PHONY: nodejs_sdk_fixup
 nodejs_sdk_fixup:
-	@python3 -c "import json; f='sdk/nodejs/package.json'; p=json.load(open(f)); p['main']='bin/index.js'; p['types']='bin/index.d.ts'; p['files']=['bin/**/*.js','bin/**/*.d.ts','bin/LICENSE','bin/README.md','bin/package.json']; open(f,'w').write(json.dumps(p, indent=4)+'\n')"
+	@python3 -c "import json; f='sdk/nodejs/package.json'; p=json.load(open(f)); p['name']='pulumi-runpod'; p['main']='bin/index.js'; p['types']='bin/index.d.ts'; p['files']=['bin/**/*.js','bin/**/*.d.ts','bin/LICENSE','bin/README.md','bin/package.json']; open(f,'w').write(json.dumps(p, indent=4)+'\n')"
 	@echo "patched sdk/nodejs/package.json"
 	@grep -q "require('../package.json')" sdk/nodejs/utilities.ts || \
 		(content=$$(cat sdk/nodejs/utilities.ts) && \
