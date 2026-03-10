@@ -1,0 +1,32 @@
+name: publish-npm
+
+on:
+  workflow_call:
+    inputs:
+      npm-tag:
+        description: 'npm dist-tag (e.g. next for prerelease, latest for release)'
+        type: string
+        required: true
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Setup Node
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
+      with:
+        registry-url: https://registry.npmjs.org
+    - name: Download nodejs SDK
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      with:
+        name: nodejs-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/
+    - name: Uncompress nodejs SDK
+      run: |
+        mkdir -p ${{ github.workspace }}/sdk/nodejs
+        tar -zxf ${{ github.workspace }}/sdk/nodejs.tar.gz -C ${{ github.workspace }}/sdk/nodejs
+    - name: Publish Node.js SDK
+      run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag ${{ inputs.npm-tag }} --provenance
