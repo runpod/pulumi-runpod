@@ -14,8 +14,8 @@ env:
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
   DOTNETVERSION: "8.0.x"
-  # NOTE: NPM_TOKEN removed from workflow-level env. It is scoped to the publish job only
-  # (as NODE_AUTH_TOKEN) to prevent exposure to setup-tools and other jobs.
+  # NOTE: npm publishing uses OIDC Trusted Publishing (no NPM_TOKEN needed).
+  # The publish_sdk job has id-token: write permission for OIDC auth with npmjs.com.
   IS_PRERELEASE: true
 
 jobs:
@@ -228,6 +228,7 @@ jobs:
     name: publish_sdk
     permissions:
       contents: read
+      id-token: write
     env:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN || '' }}
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY || '' }}
@@ -256,9 +257,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
         ${{github.workspace}}/sdk/nodejs
     - name: Publish Node.js SDK
-      run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag next
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag next --provenance
     - name: Download python SDK
       uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
       with:
