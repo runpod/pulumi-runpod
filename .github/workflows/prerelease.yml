@@ -5,6 +5,7 @@ on:
   push:
     tags:
     - v*.*.*-**
+  workflow_dispatch: {}
 env:
   PROVIDER: runpod
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
@@ -13,8 +14,8 @@ env:
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
   DOTNETVERSION: "8.0.x"
-  # NOTE: NPM_TOKEN removed from workflow-level env. It is scoped to the publish job only
-  # (as NODE_AUTH_TOKEN) to prevent exposure to setup-tools and other jobs.
+  # NOTE: npm publishing uses OIDC Trusted Publishing (no NPM_TOKEN needed).
+  # The publish_sdk job has id-token: write permission for OIDC auth with npmjs.com.
   IS_PRERELEASE: true
 
 jobs:
@@ -221,12 +222,21 @@ jobs:
         args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
 
+  publish_npm:
+    needs: publish
+    uses: ./.github/workflows/publish-npm.yml
+    with:
+      npm-tag: next
+
   publish_sdk:
     runs-on: ubuntu-latest
     needs: publish
     name: publish_sdk
     permissions:
       contents: read
+    env:
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN || '' }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY || '' }}
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -239,22 +249,6 @@ jobs:
         set-env: PROVIDER_VERSION
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Setup Node
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-      with:
-        registry-url: https://registry.npmjs.org
-    - name: Download nodejs SDK
-      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-      with:
-        name: nodejs-sdk.tar.gz
-        path: ${{ github.workspace}}/sdk/
-    - name: Uncompress nodejs SDK
-      run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
-        ${{github.workspace}}/sdk/nodejs
-    - name: Publish Node.js SDK
-      run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag next
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Download python SDK
       uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
       with:
@@ -263,7 +257,7 @@ jobs:
     - name: Uncompress python SDK
       run: tar -zxf ${{ github.workspace }}/sdk/python.tar.gz -C ${{ github.workspace }}/sdk/python
     - name: Publish package to PyPI
-      if: ${{ secrets.PYPI_API_TOKEN != '' }}
+      if: env.PYPI_API_TOKEN != ''
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: ${{ github.workspace }}/sdk/python/bin/dist/
@@ -276,13 +270,13 @@ jobs:
     - name: Uncompress dotnet SDK
       run: tar -zxf ${{ github.workspace }}/sdk/dotnet.tar.gz -C ${{ github.workspace }}/sdk/dotnet
     - name: Publish dotnet SDK to NuGet
-      if: ${{ secrets.NUGET_API_KEY != '' }}
+      if: env.NUGET_API_KEY != ''
       run: find ${{ github.workspace }}/sdk/dotnet -name "*.nupkg" | xargs -I{} dotnet nuget push {} -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
 
   publish_go_sdk:
     runs-on: ubuntu-latest
     name: publish-go-sdk
-    needs: publish_sdk
+    needs: publish_npm
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
