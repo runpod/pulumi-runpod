@@ -5,6 +5,7 @@ on:
   push:
     tags:
     - v*.*.*-**
+  workflow_dispatch: {}
 env:
   PROVIDER: runpod
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
