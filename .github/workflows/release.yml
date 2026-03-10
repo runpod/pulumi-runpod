@@ -227,6 +227,9 @@ jobs:
     name: publish_sdks
     permissions:
       contents: read
+    env:
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN || '' }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY || '' }}
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -263,7 +266,7 @@ jobs:
     - name: Uncompress python SDK
       run: tar -zxf ${{ github.workspace }}/sdk/python.tar.gz -C ${{ github.workspace }}/sdk/python
     - name: Publish package to PyPI
-      if: ${{ secrets.PYPI_API_TOKEN != '' }}
+      if: env.PYPI_API_TOKEN != ''
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: ${{ github.workspace }}/sdk/python/bin/dist/
@@ -276,7 +279,7 @@ jobs:
     - name: Uncompress dotnet SDK
       run: tar -zxf ${{ github.workspace }}/sdk/dotnet.tar.gz -C ${{ github.workspace }}/sdk/dotnet
     - name: Publish dotnet SDK to NuGet
-      if: ${{ secrets.NUGET_API_KEY != '' }}
+      if: env.NUGET_API_KEY != ''
       run: find ${{ github.workspace }}/sdk/dotnet -name "*.nupkg" | xargs -I{} dotnet nuget push {} -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
 
   publish_go_sdk:
