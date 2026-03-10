@@ -254,43 +254,6 @@ jobs:
         args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
 
-  publish_sdk:
-    runs-on: ubuntu-latest
-    needs: publish
-    name: publish_sdk
-    permissions:
-      contents: read
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      with:
-        lfs: true
-    - id: version
-      name: Set Provider Version
-      uses: pulumi/provider-version-action@3a647064cf4697c7c6352b9a1d9e554450cbe957 # v1.6.1
-      with:
-        set-env: PROVIDER_VERSION
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Setup Node
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-      with:
-        registry-url: https://registry.npmjs.org
-    - name: Download nodejs SDK
-      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-      with:
-        name: nodejs-sdk.tar.gz
-        path: ${{ github.workspace}}/sdk/
-    - name: Uncompress nodejs SDK
-      run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
-        ${{github.workspace}}/sdk/nodejs
-    - name: Publish Node.js SDK
-      run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag next
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    # TODO: Enable PyPI publishing once PYPI_API_TOKEN is configured
-    # TODO: Enable NuGet publishing once NUGET_API_KEY is configured
-
   lint:
     name: lint
     uses: ./.github/workflows/lint.yml
