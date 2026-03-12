@@ -41,7 +41,7 @@ type SavingsPlan struct {
 type PodArgs struct {
 	// Immutable fields (not in PodEditJobInput — require replacement)
 	Name            string  `pulumi:"name" provider:"replaceOnChanges"`
-	GpuTypeID       string  `pulumi:"gpuTypeId" provider:"replaceOnChanges"`
+	GpuTypeID       *string `pulumi:"gpuTypeId,optional" provider:"replaceOnChanges"`
 	GpuCount        *int    `pulumi:"gpuCount,optional" provider:"replaceOnChanges"`
 	CloudType       *string `pulumi:"cloudType,optional" provider:"replaceOnChanges"`
 	TemplateID      *string `pulumi:"templateId,optional" provider:"replaceOnChanges"`
@@ -254,7 +254,7 @@ func (Pod) Create(
 
 	createInput := runpod.PodFindAndDeployOnDemandInput{
 		Name:                    &input.Name,
-		GpuTypeId:               &input.GpuTypeID,
+		GpuTypeId:               input.GpuTypeID,
 		GpuCount:                input.GpuCount,
 		ImageName:               input.ImageName,
 		DockerArgs:              input.DockerArgs,
