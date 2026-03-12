@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.1](https://github.com/runpod/pulumi-runpod/compare/v0.1.0...v0.1.1) (2026-03-12)
+
+
+### Bug Fixes
+
+* make gpuTypeId optional for CPU pod support ([5ee962d](https://github.com/runpod/pulumi-runpod/commit/5ee962d3194d4bd63db810df9e5fa290bf2de972))
+* make gpuTypeId optional for CPU pod support ([e95d820](https://github.com/runpod/pulumi-runpod/commit/e95d820a3dad8017d0c6eec7a941e1681838582d))
+* rename npm package from @runpod/pulumi to pulumi-runpod ([5a35623](https://github.com/runpod/pulumi-runpod/commit/5a356237ca32812dad5be2568943a14cb3294607))
+* rename npm package to pulumi-runpod ([e1d961e](https://github.com/runpod/pulumi-runpod/commit/e1d961e1558e179733f6d62529787a0d6bda4255))
+* sync release-please manifest and config ([e5bd197](https://github.com/runpod/pulumi-runpod/commit/e5bd1977ec0bba97ef5736ba39a12875a612b133))
+* sync release-please manifest to v0.1.0 and add packages config ([90f75ba](https://github.com/runpod/pulumi-runpod/commit/90f75ba795eb3ce71bfd0fb8f0ab95fd2dbbf309))
+
 ## v0.1.0-alpha.1
 
 Initial pre-release of the RunPod Pulumi provider.
