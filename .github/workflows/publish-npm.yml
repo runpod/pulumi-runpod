@@ -30,5 +30,3 @@ jobs:
         tar -zxf ${{ github.workspace }}/sdk/nodejs.tar.gz -C ${{ github.workspace }}/sdk/nodejs
     - name: Publish Node.js SDK
       run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag ${{ inputs.npm-tag }} --provenance
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
