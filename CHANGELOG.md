@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/runpod/pulumi-runpod/compare/v0.1.1...v0.1.2) (2026-03-12)
+
+
+### Bug Fixes
+
+* use npm OIDC trusted publishing ([4b81758](https://github.com/runpod/pulumi-runpod/commit/4b81758c0f54b7164e3230559f334cc437ecbcc6))
+* use npm OIDC trusted publishing instead of NPM_TOKEN ([936ed88](https://github.com/runpod/pulumi-runpod/commit/936ed88f7a753064315e1f740aa7572c2e06c4ca))
+
 ## [0.1.1](https://github.com/runpod/pulumi-runpod/compare/v0.1.0...v0.1.1) (2026-03-12)
 
 
