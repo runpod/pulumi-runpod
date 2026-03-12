@@ -6,6 +6,7 @@ on:
     tags:
     - v*.*.*
     - "!v*.*.*-**"
+  workflow_dispatch: {}
 env:
   PROVIDER: runpod
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
