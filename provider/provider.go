@@ -54,7 +54,7 @@ func Provider() p.Provider {
 				"respectSchemaVersion":           true,
 			},
 			"nodejs": map[string]any{
-				"packageName":          "@runpod/pulumi",
+				"packageName":          "pulumi-runpod",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{

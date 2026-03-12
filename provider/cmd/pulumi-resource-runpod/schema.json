@@ -26,7 +26,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
-      "packageName": "@runpod/pulumi",
+      "packageName": "pulumi-runpod",
       "respectSchemaVersion": true
     },
     "python": {
@@ -972,7 +972,6 @@
       "required": [
         "costPerHr",
         "desiredStatus",
-        "gpuTypeId",
         "machineId",
         "memoryInGb",
         "name",
@@ -1185,7 +1184,6 @@
         }
       },
       "requiredInputs": [
-        "gpuTypeId",
         "name"
       ]
     },
