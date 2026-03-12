@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.3](https://github.com/runpod/pulumi-runpod/compare/v0.1.2...v0.1.3) (2026-03-12)
+
+
+### Bug Fixes
+
+* accept version config key to prevent provider replacement ([42fb55b](https://github.com/runpod/pulumi-runpod/commit/42fb55b65c2e1b02b731697bf2c3d33388fce8e7))
+* bump pulumi-go-provider to v1.1.1 and fix schema issues ([e58b8b7](https://github.com/runpod/pulumi-runpod/commit/e58b8b7e6390f9d76326d55cc26c22ffb3f29165))
+* update circl transitive dep to v1.6.1 in SDK and example go.mods ([dbfd8c6](https://github.com/runpod/pulumi-runpod/commit/dbfd8c63cac738de5d8134532d118ee3d642f813))
+
 ## [0.1.2](https://github.com/runpod/pulumi-runpod/compare/v0.1.1...v0.1.2) (2026-03-12)
 
 
