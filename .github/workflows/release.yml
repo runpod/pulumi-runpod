@@ -225,6 +225,7 @@ jobs:
   publish_npm:
     needs: publish
     uses: ./.github/workflows/publish-npm.yml
+    secrets: inherit
     with:
       npm-tag: latest
 
