@@ -94,7 +94,7 @@ func Provider() p.Provider {
 
 // Config defines provider-level configuration.
 type Config struct {
-	APIKey string `pulumi:"apiKey,optional" provider:"secret"`
+	APIKey string `pulumi:"apiKey,optional"`
 	APIURL string `pulumi:"apiUrl,optional"`
 }
 
