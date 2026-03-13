@@ -5,6 +5,7 @@ package examples
 
 import (
 	"os"
+	"os/exec"
 	"path/filepath"
 	"testing"
 
@@ -27,6 +28,14 @@ func TestGoExampleLifecycle(t *testing.T) {
 		opttest.AttachProviderServer("runpod", providerFactory),
 		opttest.SkipInstall(),
 	)
+
+	// The GoModReplacement option changes the replace directive, which can
+	// invalidate go.sum entries. Run go mod tidy so the copied project
+	// compiles cleanly under any Go toolchain version.
+	cmd := exec.Command("go", "mod", "tidy")
+	cmd.Dir = pt.WorkingDir()
+	out, tidyErr := cmd.CombinedOutput()
+	require.NoError(t, tidyErr, "go mod tidy failed: %s", string(out))
 
 	pt.Preview(t)
 	pt.Up(t)
