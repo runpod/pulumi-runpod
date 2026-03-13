@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.5](https://github.com/runpod/pulumi-runpod/compare/v0.1.4...v0.1.5) (2026-03-13)
+
+
+### Bug Fixes
+
+* populate go.sum with transitive dependency checksums ([c50a236](https://github.com/runpod/pulumi-runpod/commit/c50a236535ef4a336999edc86006136cdebc21d0))
+* remove provider:secret from apiKey (SST compatibility) ([83349f2](https://github.com/runpod/pulumi-runpod/commit/83349f2fee9ad4e7ec8d633d51ec0618cb6a2226))
+* remove provider:secret from apiKey to fix SST provider replacement ([8cefe8d](https://github.com/runpod/pulumi-runpod/commit/8cefe8d1c4fe49daaa3111293c7280808110a3c8))
+* run go mod tidy in Go example test after replace directive change ([767d30d](https://github.com/runpod/pulumi-runpod/commit/767d30dec17eba14d2e9fefb5098c2c7574e7c09))
+* update SDK and example go.mod to match provider dependency versions ([2e17ec9](https://github.com/runpod/pulumi-runpod/commit/2e17ec98ed03edebb9ad52a99c67083fc0902947))
+* upgrade pulumi-go-provider to v1.3.0 ([3ca3b0e](https://github.com/runpod/pulumi-runpod/commit/3ca3b0e0ea0471d1375f4273f781123a35186d9c))
+* use language-specific unique template names in examples ([05dcc0d](https://github.com/runpod/pulumi-runpod/commit/05dcc0d26537c67e2db41270e831ac05585dd7c6))
+* use unique template names in examples to prevent CI test collisions ([cd927ed](https://github.com/runpod/pulumi-runpod/commit/cd927ed6c1a3082d16c2cae4298b4c2564467eff))
+
 ## [0.1.4](https://github.com/runpod/pulumi-runpod/compare/v0.1.3...v0.1.4) (2026-03-13)
 
 
