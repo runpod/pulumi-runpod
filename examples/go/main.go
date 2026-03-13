@@ -8,7 +8,7 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		myTemplate, err := runpod.NewTemplate(ctx, "myTemplate", &runpod.TemplateArgs{
-			Name:              pulumi.Sprintf("my-pulumi-template-%s", ctx.Stack()),
+			Name:              pulumi.Sprintf("pulumi-go-test-%s-%s", ctx.Project(), ctx.Stack()),
 			ImageName:         pulumi.String("runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"),
 			ContainerDiskInGb: pulumi.Int(20),
 			VolumeInGb:        pulumi.Int(20),
