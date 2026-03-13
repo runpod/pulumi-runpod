@@ -3,6 +3,8 @@
   "displayName": "RunPod",
   "description": "Manage RunPod GPU cloud resources.",
   "keywords": [
+    "pulumi",
+    "runpod",
     "category/infrastructure",
     "kind/native"
   ],
@@ -26,6 +28,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
+      "packageDescription": "Manage RunPod GPU cloud resources with Pulumi.",
       "packageName": "pulumi-runpod",
       "respectSchemaVersion": true
     },
