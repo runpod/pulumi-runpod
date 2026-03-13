@@ -8,7 +8,7 @@ resources:
   myTemplate:
     type: runpod:Template
     properties:
-      name: my-pulumi-template
+      name: my-pulumi-template-${pulumi.stack}
       imageName: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
       containerDiskInGb: 20
       volumeInGb: 20
@@ -25,7 +25,7 @@ resources:
   myNetworkVolume:
     type: runpod:NetworkVolume
     properties:
-      name: my-pulumi-volume
+      name: my-pulumi-volume-${pulumi.stack}
       size: 10
       dataCenterId: EU-RO-1
 
