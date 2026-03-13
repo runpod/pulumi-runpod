@@ -94,7 +94,7 @@ func Provider() p.Provider {
 
 // Config defines provider-level configuration.
 type Config struct {
-	APIKey string `pulumi:"apiKey,optional"`
+	APIKey string `pulumi:"apiKey,optional" provider:"secret"`
 	APIURL string `pulumi:"apiUrl,optional"`
 }
 
@@ -103,7 +103,6 @@ func (c *Config) Annotate(a infer.Annotator) {
 	a.Describe(&c.APIKey,
 		"The RunPod API key for authentication. "+
 			"Can also be set via the RUNPOD_API_KEY environment variable.")
-	a.SetDefault(&c.APIKey, nil, "RUNPOD_API_KEY")
 	a.Describe(&c.APIURL,
 		"The RunPod API URL. Defaults to https://api.runpod.io/graphql. "+
 			"Can also be set via the RUNPOD_API_URL environment variable.")
