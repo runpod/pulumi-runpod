@@ -42,6 +42,7 @@
       "apiKey": {
         "type": "string",
         "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
@@ -323,6 +324,7 @@
       "apiKey": {
         "type": "string",
         "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
@@ -345,6 +347,7 @@
       "apiKey": {
         "type": "string",
         "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"

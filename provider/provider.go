@@ -103,10 +103,22 @@ func (c *Config) Annotate(a infer.Annotator) {
 	a.Describe(&c.APIKey,
 		"The RunPod API key for authentication. "+
 			"Can also be set via the RUNPOD_API_KEY environment variable.")
+	a.SetDefault(&c.APIKey, "", "RUNPOD_API_KEY")
 	a.Describe(&c.APIURL,
 		"The RunPod API URL. Defaults to https://api.runpod.io/graphql. "+
 			"Can also be set via the RUNPOD_API_URL environment variable.")
 	a.SetDefault(&c.APIURL, nil, "RUNPOD_API_URL")
+}
+
+// Configure validates the provider configuration.
+func (c *Config) Configure(_ context.Context) error {
+	if c.APIKey == "" {
+		c.APIKey = os.Getenv("RUNPOD_API_KEY")
+	}
+	if c.APIURL == "" {
+		c.APIURL = os.Getenv("RUNPOD_API_URL")
+	}
+	return nil
 }
 
 // getClient creates a genqlient GraphQL client from the provider config in context.
