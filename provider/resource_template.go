@@ -211,7 +211,7 @@ func (Template) Delete(
 ) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
 	name := req.State.Name
-	if _, err := runpod.DeleteTemplate(ctx, client, &name); err != nil {
+	if _, err := runpod.DeleteTemplate(ctx, client, &name); err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil

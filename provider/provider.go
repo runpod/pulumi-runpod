@@ -17,8 +17,10 @@ package provider
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 
@@ -35,6 +37,8 @@ var Version string
 // Name controls how this provider is referenced in package names and elsewhere.
 const Name string = "runpod"
 
+const defaultAPIURL = "https://api.runpod.io/graphql"
+
 // Provider creates a new instance of the RunPod provider.
 func Provider() p.Provider {
 	prov, err := infer.NewProviderBuilder().
@@ -43,7 +47,7 @@ func Provider() p.Provider {
 		WithHomepage("https://www.runpod.io").
 		WithNamespace("runpod").
 		WithPublisher("RunPod").
-		WithKeywords("category/infrastructure", "kind/native").
+		WithKeywords("pulumi", "runpod", "category/infrastructure", "kind/native").
 		WithLicense("Apache-2.0").
 		WithPluginDownloadURL("github://api.github.com/runpod/pulumi-runpod").
 		WithRepository("https://github.com/runpod/pulumi-runpod").
@@ -55,6 +59,7 @@ func Provider() p.Provider {
 			},
 			"nodejs": map[string]any{
 				"packageName":          "pulumi-runpod",
+				"packageDescription":   "Manage RunPod GPU cloud resources with Pulumi.",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -70,17 +75,17 @@ func Provider() p.Provider {
 			},
 		}).
 		WithResources(
-			infer.Resource(Pod{}),
-			infer.Resource(Template{}),
-			infer.Resource(Endpoint{}),
-			infer.Resource(NetworkVolume{}),
-			infer.Resource(Secret{}),
-			infer.Resource(ContainerRegistryAuth{}),
+			infer.Resource(&Pod{}),
+			infer.Resource(&Template{}),
+			infer.Resource(&Endpoint{}),
+			infer.Resource(&NetworkVolume{}),
+			infer.Resource(&Secret{}),
+			infer.Resource(&ContainerRegistryAuth{}),
 		).
 		WithFunctions(
-			infer.Function(GetGpuTypes{}),
-			infer.Function(GetCPUFlavors{}),
-			infer.Function(GetDataCenters{}),
+			infer.Function(&GetGpuTypes{}),
+			infer.Function(&GetCPUFlavors{}),
+			infer.Function(&GetDataCenters{}),
 		).
 		WithConfig(infer.Config(&Config{})).
 		WithModuleMap(map[tokens.ModuleName]tokens.ModuleName{
@@ -96,6 +101,9 @@ func Provider() p.Provider {
 type Config struct {
 	APIKey string `pulumi:"apiKey,optional" provider:"secret"`
 	APIURL string `pulumi:"apiUrl,optional"`
+
+	// client is the shared GraphQL client, initialized in Configure.
+	client graphql.Client
 }
 
 // Annotate provides descriptions for Config fields.
@@ -103,23 +111,45 @@ func (c *Config) Annotate(a infer.Annotator) {
 	a.Describe(&c.APIKey,
 		"The RunPod API key for authentication. "+
 			"Can also be set via the RUNPOD_API_KEY environment variable.")
-	a.SetDefault(&c.APIKey, nil, "RUNPOD_API_KEY")
+	a.SetDefault(&c.APIKey, "", "RUNPOD_API_KEY")
 	a.Describe(&c.APIURL,
-		"The RunPod API URL. Defaults to https://api.runpod.io/graphql. "+
+		"The RunPod API URL. Defaults to "+defaultAPIURL+". "+
 			"Can also be set via the RUNPOD_API_URL environment variable.")
 	a.SetDefault(&c.APIURL, nil, "RUNPOD_API_URL")
 }
 
-// getClient creates a genqlient GraphQL client from the provider config in context.
+// Configure validates the provider configuration and initializes the API client.
+func (c *Config) Configure(_ context.Context) error {
+	if c.APIKey == "" {
+		c.APIKey = os.Getenv("RUNPOD_API_KEY")
+	}
+	if c.APIKey == "" {
+		return errors.New("runpod:apiKey is required; set it via pulumi config or the RUNPOD_API_KEY environment variable")
+	}
+	if c.APIURL == "" {
+		c.APIURL = os.Getenv("RUNPOD_API_URL")
+	}
+	if c.APIURL == "" {
+		c.APIURL = defaultAPIURL
+	}
+	c.client = runpod.NewClient(c.APIKey, c.APIURL)
+	return nil
+}
+
+// getClient returns the shared GraphQL client from the provider config.
 func getClient(ctx context.Context) graphql.Client {
-	config := infer.GetConfig[Config](ctx)
-	apiKey := config.APIKey
-	if apiKey == "" {
-		apiKey = os.Getenv("RUNPOD_API_KEY")
+	return infer.GetConfig[Config](ctx).client
+}
+
+// isNotFound returns true if the error indicates the resource no longer exists.
+// This is used to make Delete idempotent — if the resource was already deleted
+// out-of-band, we treat it as a successful deletion.
+func isNotFound(err error) bool {
+	if err == nil {
+		return false
 	}
-	apiURL := config.APIURL
-	if apiURL == "" {
-		apiURL = os.Getenv("RUNPOD_API_URL")
-	}
-	return runpod.NewClient(apiKey, apiURL)
+	msg := strings.ToLower(err.Error())
+	return strings.Contains(msg, "not found") ||
+		strings.Contains(msg, "does not exist") ||
+		strings.Contains(msg, "could not find")
 }

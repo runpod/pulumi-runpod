@@ -465,7 +465,7 @@ func (Pod) Delete(
 	_, err := runpod.TerminatePod(
 		ctx, client, runpod.PodTerminateInput{PodId: req.ID},
 	)
-	if err != nil {
+	if err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil

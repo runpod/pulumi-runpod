@@ -3,6 +3,8 @@
   "displayName": "RunPod",
   "description": "Manage RunPod GPU cloud resources.",
   "keywords": [
+    "pulumi",
+    "runpod",
     "category/infrastructure",
     "kind/native"
   ],
@@ -26,6 +28,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
+      "packageDescription": "Manage RunPod GPU cloud resources with Pulumi.",
       "packageName": "pulumi-runpod",
       "respectSchemaVersion": true
     },
@@ -42,6 +45,7 @@
       "apiKey": {
         "type": "string",
         "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
@@ -323,6 +327,7 @@
       "apiKey": {
         "type": "string",
         "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
@@ -345,6 +350,7 @@
       "apiKey": {
         "type": "string",
         "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"

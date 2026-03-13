@@ -184,7 +184,7 @@ func (NetworkVolume) Delete(
 	_, err := runpod.DeleteNetworkVolume(
 		ctx, client, runpod.DeleteNetworkVolumeInput{Id: req.ID},
 	)
-	if err != nil {
+	if err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil

@@ -188,7 +188,7 @@ func (ContainerRegistryAuth) Delete(
 	client := getClient(ctx)
 	id := req.ID
 	_, err := runpod.DeleteRegistryAuth(ctx, client, &id)
-	if err != nil {
+	if err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
