@@ -28,5 +28,12 @@ jobs:
       run: |
         mkdir -p ${{ github.workspace }}/sdk/nodejs
         tar -zxf ${{ github.workspace }}/sdk/nodejs.tar.gz -C ${{ github.workspace }}/sdk/nodejs
-    - name: Publish Node.js SDK
+    - name: Publish Node.js SDK (OIDC)
+      id: oidc-publish
+      continue-on-error: true
       run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag ${{ inputs.npm-tag }} --provenance
+    - name: Publish Node.js SDK (NPM_TOKEN fallback)
+      if: steps.oidc-publish.outcome == 'failure'
+      run: npm publish ${{ github.workspace }}/sdk/nodejs --access public --tag ${{ inputs.npm-tag }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
