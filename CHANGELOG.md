@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.4](https://github.com/runpod/pulumi-runpod/compare/v0.1.3...v0.1.4) (2026-03-13)
+
+
+### Bug Fixes
+
+* add NPM_TOKEN fallback for npm publish ([f42d464](https://github.com/runpod/pulumi-runpod/commit/f42d46410016f9b3137d9cb18e49c9b78ce885fb))
+* address review feedback ([cdffa0c](https://github.com/runpod/pulumi-runpod/commit/cdffa0c9986ba95d9499d31c6f66bb53952d53b5))
+* follow standard provider pattern for apiKey config ([434f828](https://github.com/runpod/pulumi-runpod/commit/434f828bee6e0ba59e134e3029d054826b1f83fd))
+* initialize shared client in Configure, validate API key, use pointer receivers ([4655ab0](https://github.com/runpod/pulumi-runpod/commit/4655ab0e2da4fd4776b7617497a486d0544da898))
+* make Delete idempotent across all resources ([03e5780](https://github.com/runpod/pulumi-runpod/commit/03e5780eecb748cb7186559079ac3030ceeea9fe))
+* remove provider:secret from apiKey + use RELEASE_PAT ([b21d5ba](https://github.com/runpod/pulumi-runpod/commit/b21d5ba6c56a842bbb2cf29f86d66b66827671af))
+* remove provider:secret from apiKey and use RELEASE_PAT for release-please ([cf2b681](https://github.com/runpod/pulumi-runpod/commit/cf2b681dcf93f045605094165632467203f9a7bd))
+
 ## [0.1.3](https://github.com/runpod/pulumi-runpod/compare/v0.1.2...v0.1.3) (2026-03-12)
 
 
