@@ -17,8 +17,10 @@ package provider
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 
@@ -122,7 +124,7 @@ func (c *Config) Configure(_ context.Context) error {
 		c.APIKey = os.Getenv("RUNPOD_API_KEY")
 	}
 	if c.APIKey == "" {
-		return fmt.Errorf("runpod:apiKey is required; set it via pulumi config or the RUNPOD_API_KEY environment variable")
+		return errors.New("runpod:apiKey is required; set it via pulumi config or the RUNPOD_API_KEY environment variable")
 	}
 	if c.APIURL == "" {
 		c.APIURL = os.Getenv("RUNPOD_API_URL")
@@ -137,4 +139,17 @@ func (c *Config) Configure(_ context.Context) error {
 // getClient returns the shared GraphQL client from the provider config.
 func getClient(ctx context.Context) graphql.Client {
 	return infer.GetConfig[Config](ctx).client
+}
+
+// isNotFound returns true if the error indicates the resource no longer exists.
+// This is used to make Delete idempotent — if the resource was already deleted
+// out-of-band, we treat it as a successful deletion.
+func isNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	msg := strings.ToLower(err.Error())
+	return strings.Contains(msg, "not found") ||
+		strings.Contains(msg, "does not exist") ||
+		strings.Contains(msg, "could not find")
 }

@@ -214,7 +214,7 @@ func (Secret) Delete(
 	req infer.DeleteRequest[SecretState],
 ) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if _, err := runpod.SecretDelete(ctx, client, req.ID); err != nil {
+	if _, err := runpod.SecretDelete(ctx, client, req.ID); err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil

@@ -218,7 +218,7 @@ func (Endpoint) Delete(
 	req infer.DeleteRequest[EndpointState],
 ) (infer.DeleteResponse, error) {
 	client := getClient(ctx)
-	if _, err := runpod.DeleteEndpoint(ctx, client, req.ID); err != nil {
+	if _, err := runpod.DeleteEndpoint(ctx, client, req.ID); err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, err
 	}
 	return infer.DeleteResponse{}, nil
