@@ -250,14 +250,14 @@ public class Pod extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="gpuTypeId", refs={String.class}, tree="[0]")
-    private Output<String> gpuTypeId;
+    private Output</* @Nullable */ String> gpuTypeId;
 
     /**
      * @return The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
      * 
      */
-    public Output<String> gpuTypeId() {
-        return this.gpuTypeId;
+    public Output<Optional<String>> gpuTypeId() {
+        return Codegen.optional(this.gpuTypeId);
     }
     /**
      * A list of acceptable GPU type IDs (fallback options).

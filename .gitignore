@@ -34,3 +34,5 @@ examples/test-dev/
 .claude/
 specs/
 Library/
+examples/go/go
+provider/pulumi-resource-runpod
