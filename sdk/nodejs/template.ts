@@ -36,79 +36,79 @@ export class Template extends pulumi.CustomResource {
     /**
      * Whether to use advanced start mode.
      */
-    public readonly advancedStart!: pulumi.Output<boolean | undefined>;
+    declare public readonly advancedStart: pulumi.Output<boolean | undefined>;
     /**
      * The category of the template.
      */
-    public readonly category!: pulumi.Output<string | undefined>;
+    declare public readonly category: pulumi.Output<string | undefined>;
     /**
      * The size of the container disk in GB.
      */
-    public readonly containerDiskInGb!: pulumi.Output<number>;
+    declare public readonly containerDiskInGb: pulumi.Output<number>;
     /**
      * The ID of the container registry auth credentials to use.
      */
-    public readonly containerRegistryAuthId!: pulumi.Output<string | undefined>;
+    declare public readonly containerRegistryAuthId: pulumi.Output<string | undefined>;
     /**
      * Docker arguments to pass to the container.
      */
-    public readonly dockerArgs!: pulumi.Output<string | undefined>;
+    declare public readonly dockerArgs: pulumi.Output<string | undefined>;
     /**
      * Environment variables as key-value pairs.
      */
-    public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
+    declare public readonly env: pulumi.Output<{[key: string]: string} | undefined>;
     /**
      * The Docker image to use for the template.
      */
-    public readonly imageName!: pulumi.Output<string>;
+    declare public readonly imageName: pulumi.Output<string>;
     /**
      * Whether this template is publicly visible.
      */
-    public readonly isPublic!: pulumi.Output<boolean | undefined>;
+    declare public readonly isPublic: pulumi.Output<boolean | undefined>;
     /**
      * Whether this template is for serverless endpoints.
      */
-    public readonly isServerless!: pulumi.Output<boolean | undefined>;
+    declare public readonly isServerless: pulumi.Output<boolean | undefined>;
     /**
      * A name for the template.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
      * Ports to expose (e.g. "8080/http,22/tcp").
      */
-    public readonly ports!: pulumi.Output<string | undefined>;
+    declare public readonly ports: pulumi.Output<string | undefined>;
     /**
      * Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
      */
-    public readonly portsConfig!: pulumi.Output<outputs.TemplatePortConfig[] | undefined>;
+    declare public readonly portsConfig: pulumi.Output<outputs.TemplatePortConfig[] | undefined>;
     /**
      * A readme/description for the template in Markdown.
      */
-    public readonly readme!: pulumi.Output<string | undefined>;
+    declare public readonly readme: pulumi.Output<string | undefined>;
     /**
      * Whether to start Jupyter notebook server.
      */
-    public readonly startJupyter!: pulumi.Output<boolean | undefined>;
+    declare public readonly startJupyter: pulumi.Output<boolean | undefined>;
     /**
      * A bash script to run on container start.
      */
-    public readonly startScript!: pulumi.Output<string | undefined>;
+    declare public readonly startScript: pulumi.Output<string | undefined>;
     /**
      * Whether to start an SSH server.
      */
-    public readonly startSsh!: pulumi.Output<boolean | undefined>;
+    declare public readonly startSsh: pulumi.Output<boolean | undefined>;
     /**
      * The unique identifier of the template.
      */
-    public /*out*/ readonly templateId!: pulumi.Output<string>;
+    declare public /*out*/ readonly templateId: pulumi.Output<string>;
     /**
      * The size of the persistent volume in GB. Use 0 for no volume.
      */
-    public readonly volumeInGb!: pulumi.Output<number>;
+    declare public readonly volumeInGb: pulumi.Output<number>;
     /**
      * The path to mount the persistent volume.
      */
-    public readonly volumeMountPath!: pulumi.Output<string | undefined>;
+    declare public readonly volumeMountPath: pulumi.Output<string | undefined>;
 
     /**
      * Create a Template resource with the given unique name, arguments, and options.
@@ -121,36 +121,36 @@ export class Template extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.containerDiskInGb === undefined) && !opts.urn) {
+            if (args?.containerDiskInGb === undefined && !opts.urn) {
                 throw new Error("Missing required property 'containerDiskInGb'");
             }
-            if ((!args || args.imageName === undefined) && !opts.urn) {
+            if (args?.imageName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'imageName'");
             }
-            if ((!args || args.name === undefined) && !opts.urn) {
+            if (args?.name === undefined && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
-            if ((!args || args.volumeInGb === undefined) && !opts.urn) {
+            if (args?.volumeInGb === undefined && !opts.urn) {
                 throw new Error("Missing required property 'volumeInGb'");
             }
-            resourceInputs["advancedStart"] = args ? args.advancedStart : undefined;
-            resourceInputs["category"] = args ? args.category : undefined;
-            resourceInputs["containerDiskInGb"] = args ? args.containerDiskInGb : undefined;
-            resourceInputs["containerRegistryAuthId"] = args ? args.containerRegistryAuthId : undefined;
-            resourceInputs["dockerArgs"] = args ? args.dockerArgs : undefined;
-            resourceInputs["env"] = args ? args.env : undefined;
-            resourceInputs["imageName"] = args ? args.imageName : undefined;
-            resourceInputs["isPublic"] = args ? args.isPublic : undefined;
-            resourceInputs["isServerless"] = args ? args.isServerless : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["ports"] = args ? args.ports : undefined;
-            resourceInputs["portsConfig"] = args ? args.portsConfig : undefined;
-            resourceInputs["readme"] = args ? args.readme : undefined;
-            resourceInputs["startJupyter"] = args ? args.startJupyter : undefined;
-            resourceInputs["startScript"] = args ? args.startScript : undefined;
-            resourceInputs["startSsh"] = args ? args.startSsh : undefined;
-            resourceInputs["volumeInGb"] = args ? args.volumeInGb : undefined;
-            resourceInputs["volumeMountPath"] = args ? args.volumeMountPath : undefined;
+            resourceInputs["advancedStart"] = args?.advancedStart;
+            resourceInputs["category"] = args?.category;
+            resourceInputs["containerDiskInGb"] = args?.containerDiskInGb;
+            resourceInputs["containerRegistryAuthId"] = args?.containerRegistryAuthId;
+            resourceInputs["dockerArgs"] = args?.dockerArgs;
+            resourceInputs["env"] = args?.env;
+            resourceInputs["imageName"] = args?.imageName;
+            resourceInputs["isPublic"] = args?.isPublic;
+            resourceInputs["isServerless"] = args?.isServerless;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["ports"] = args?.ports;
+            resourceInputs["portsConfig"] = args?.portsConfig;
+            resourceInputs["readme"] = args?.readme;
+            resourceInputs["startJupyter"] = args?.startJupyter;
+            resourceInputs["startScript"] = args?.startScript;
+            resourceInputs["startSsh"] = args?.startSsh;
+            resourceInputs["volumeInGb"] = args?.volumeInGb;
+            resourceInputs["volumeMountPath"] = args?.volumeMountPath;
             resourceInputs["templateId"] = undefined /*out*/;
         } else {
             resourceInputs["advancedStart"] = undefined /*out*/;
