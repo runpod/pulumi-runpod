@@ -1,7 +1,10 @@
 {
-    "name": "@runpod/pulumi",
-    "version": "0.1.0",
+    "name": "pulumi-runpod",
+    "version": "1.0.0-alpha.0+dev",
+    "description": "Manage RunPod GPU cloud resources with Pulumi.",
     "keywords": [
+        "pulumi",
+        "runpod",
         "category/infrastructure",
         "kind/native"
     ],
@@ -21,7 +24,7 @@
     "pulumi": {
         "resource": true,
         "name": "runpod",
-        "version": "0.1.0",
+        "version": "1.0.0-alpha.0+dev",
         "server": "github://api.github.com/runpod/pulumi-runpod"
     },
     "main": "bin/index.js",
