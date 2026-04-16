@@ -114,7 +114,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ProviderArgs build() {
-            $.apiKey = Codegen.stringProp("apiKey").secret().arg($.apiKey).env("RUNPOD_API_KEY").getNullable();
+            $.apiKey = Codegen.stringProp("apiKey").output().arg($.apiKey).env("RUNPOD_API_KEY").def("").getNullable();
             $.apiUrl = Codegen.stringProp("apiUrl").output().arg($.apiUrl).env("RUNPOD_API_URL").getNullable();
             return $;
         }
