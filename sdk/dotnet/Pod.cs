@@ -112,7 +112,7 @@ namespace Pulumi.Runpod
         /// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
         /// </summary>
         [Output("gpuTypeId")]
-        public Output<string> GpuTypeId { get; private set; } = null!;
+        public Output<string?> GpuTypeId { get; private set; } = null!;
 
         /// <summary>
         /// A list of acceptable GPU type IDs (fallback options).
@@ -509,8 +509,8 @@ namespace Pulumi.Runpod
         /// <summary>
         /// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
         /// </summary>
-        [Input("gpuTypeId", required: true)]
-        public Input<string> GpuTypeId { get; set; } = null!;
+        [Input("gpuTypeId")]
+        public Input<string>? GpuTypeId { get; set; }
 
         [Input("gpuTypeIdList")]
         private InputList<string>? _gpuTypeIdList;
