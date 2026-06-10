@@ -61,7 +61,7 @@ func TestTemplateWithNewFieldsDryRun(t *testing.T) {
 		Urn: urn("Template"),
 		Properties: property.NewMap(map[string]property.Value{
 			"name":              property.New("test-template-cpu"),
-			"imageName":         property.New("runpod/pytorch:latest"),
+			"imageName":         property.New("runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04"),
 			"containerDiskInGb": property.New(10.0),
 			"volumeInGb":        property.New(10.0),
 			"readme":            property.New("# My Template"),
