@@ -18,7 +18,7 @@ func GetApiKey(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := internal.GetEnvOrDefault(nil, nil, "RUNPOD_API_KEY"); d != nil {
+	if d := internal.GetEnvOrDefault("", nil, "RUNPOD_API_KEY"); d != nil {
 		value = d.(string)
 	}
 	return value
