@@ -18,7 +18,7 @@ export interface GetDataCentersArgs {
 
 export interface GetDataCentersResult {
     /**
-     * The list of available RunPod data centers.
+     * The list of available Runpod data centers.
      */
     readonly dataCenters: outputs.DataCenterOutput[];
 }

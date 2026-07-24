@@ -12,14 +12,14 @@ import java.util.Objects;
 @CustomType
 public final class GetDataCentersResult {
     /**
-     * @return The list of available RunPod data centers.
+     * @return The list of available Runpod data centers.
      * 
      */
     private List<DataCenterOutput> dataCenters;
 
     private GetDataCentersResult() {}
     /**
-     * @return The list of available RunPod data centers.
+     * @return The list of available Runpod data centers.
      * 
      */
     public List<DataCenterOutput> dataCenters() {

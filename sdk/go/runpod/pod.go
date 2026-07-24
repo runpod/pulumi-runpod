@@ -37,8 +37,8 @@ type Pod struct {
 	DataCenterId pulumi.StringPtrOutput `pulumi:"dataCenterId"`
 	// The maximum bid price per GPU per hour for spot instances.
 	DeployCost pulumi.Float64PtrOutput `pulumi:"deployCost"`
-	// The desired status of the pod.
-	DesiredStatus pulumi.StringOutput `pulumi:"desiredStatus"`
+	// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+	DesiredStatus pulumi.StringPtrOutput `pulumi:"desiredStatus"`
 	// Docker arguments to pass to the container.
 	DockerArgs pulumi.StringPtrOutput `pulumi:"dockerArgs"`
 	// Environment variables as key-value pairs.
@@ -48,7 +48,7 @@ type Pod struct {
 	// The number of GPUs to allocate.
 	GpuCount pulumi.IntPtrOutput `pulumi:"gpuCount"`
 	// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
-	GpuTypeId pulumi.StringOutput `pulumi:"gpuTypeId"`
+	GpuTypeId pulumi.StringPtrOutput `pulumi:"gpuTypeId"`
 	// A list of acceptable GPU type IDs (fallback options).
 	GpuTypeIdList pulumi.StringArrayOutput `pulumi:"gpuTypeIdList"`
 	// The IDE AI API ID for the pod.
@@ -130,9 +130,6 @@ func NewPod(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.GpuTypeId == nil {
-		return nil, errors.New("invalid value for required argument 'GpuTypeId'")
-	}
 	if args.Name == nil {
 		return nil, errors.New("invalid value for required argument 'Name'")
 	}
@@ -223,6 +220,8 @@ type podArgs struct {
 	DataCenterId *string `pulumi:"dataCenterId"`
 	// The maximum bid price per GPU per hour for spot instances.
 	DeployCost *float64 `pulumi:"deployCost"`
+	// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+	DesiredStatus *string `pulumi:"desiredStatus"`
 	// Docker arguments to pass to the container.
 	DockerArgs *string `pulumi:"dockerArgs"`
 	// Environment variables as key-value pairs.
@@ -232,7 +231,7 @@ type podArgs struct {
 	// The number of GPUs to allocate.
 	GpuCount *int `pulumi:"gpuCount"`
 	// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
-	GpuTypeId string `pulumi:"gpuTypeId"`
+	GpuTypeId *string `pulumi:"gpuTypeId"`
 	// A list of acceptable GPU type IDs (fallback options).
 	GpuTypeIdList []string `pulumi:"gpuTypeIdList"`
 	// The IDE AI API ID for the pod.
@@ -305,6 +304,8 @@ type PodArgs struct {
 	DataCenterId pulumi.StringPtrInput
 	// The maximum bid price per GPU per hour for spot instances.
 	DeployCost pulumi.Float64PtrInput
+	// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+	DesiredStatus pulumi.StringPtrInput
 	// Docker arguments to pass to the container.
 	DockerArgs pulumi.StringPtrInput
 	// Environment variables as key-value pairs.
@@ -314,7 +315,7 @@ type PodArgs struct {
 	// The number of GPUs to allocate.
 	GpuCount pulumi.IntPtrInput
 	// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
-	GpuTypeId pulumi.StringInput
+	GpuTypeId pulumi.StringPtrInput
 	// A list of acceptable GPU type IDs (fallback options).
 	GpuTypeIdList pulumi.StringArrayInput
 	// The IDE AI API ID for the pod.
@@ -507,9 +508,9 @@ func (o PodOutput) DeployCost() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.Float64PtrOutput { return v.DeployCost }).(pulumi.Float64PtrOutput)
 }
 
-// The desired status of the pod.
-func (o PodOutput) DesiredStatus() pulumi.StringOutput {
-	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.DesiredStatus }).(pulumi.StringOutput)
+// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+func (o PodOutput) DesiredStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.DesiredStatus }).(pulumi.StringPtrOutput)
 }
 
 // Docker arguments to pass to the container.
@@ -533,8 +534,8 @@ func (o PodOutput) GpuCount() pulumi.IntPtrOutput {
 }
 
 // The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
-func (o PodOutput) GpuTypeId() pulumi.StringOutput {
-	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.GpuTypeId }).(pulumi.StringOutput)
+func (o PodOutput) GpuTypeId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.GpuTypeId }).(pulumi.StringPtrOutput)
 }
 
 // A list of acceptable GPU type IDs (fallback options).

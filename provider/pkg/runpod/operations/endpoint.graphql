@@ -8,6 +8,7 @@ mutation SaveEndpoint($input: EndpointInput!) {
     gpuIds
     workersMin
     workersMax
+    workersStandby
     idleTimeout
     locations
     scalerType
@@ -45,6 +46,7 @@ query GetMyEndpoints {
       gpuIds
       workersMin
       workersMax
+      workersStandby
       idleTimeout
       locations
       scalerType

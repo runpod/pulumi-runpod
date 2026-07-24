@@ -1,2 +1,2 @@
-// Manage RunPod GPU cloud resources.
+// Manage Runpod GPU cloud resources.
 package runpod

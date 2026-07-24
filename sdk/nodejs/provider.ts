@@ -20,13 +20,13 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      */
-    public readonly apiKey!: pulumi.Output<string | undefined>;
+    declare public readonly apiKey: pulumi.Output<string | undefined>;
     /**
-     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      */
-    public readonly apiUrl!: pulumi.Output<string | undefined>;
+    declare public readonly apiUrl: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -39,12 +39,10 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["apiKey"] = (args?.apiKey ? pulumi.secret(args.apiKey) : undefined) ?? utilities.getEnv("RUNPOD_API_KEY");
-            resourceInputs["apiUrl"] = (args ? args.apiUrl : undefined) ?? utilities.getEnv("RUNPOD_API_URL");
+            resourceInputs["apiKey"] = (args?.apiKey) ?? (utilities.getEnv("RUNPOD_API_KEY") || "");
+            resourceInputs["apiUrl"] = (args?.apiUrl) ?? utilities.getEnv("RUNPOD_API_URL");
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["apiKey"] };
-        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -54,11 +52,11 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      */
     apiKey?: pulumi.Input<string>;
     /**
-     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      */
     apiUrl?: pulumi.Input<string>;
 }

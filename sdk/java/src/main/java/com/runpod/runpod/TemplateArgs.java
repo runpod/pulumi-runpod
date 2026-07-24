@@ -157,6 +157,36 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The minimum system RAM, in GB, required to run this template.
+     * 
+     */
+    @Import(name="minRam")
+    private @Nullable Output<Integer> minRam;
+
+    /**
+     * @return The minimum system RAM, in GB, required to run this template.
+     * 
+     */
+    public Optional<Output<Integer>> minRam() {
+        return Optional.ofNullable(this.minRam);
+    }
+
+    /**
+     * The minimum GPU VRAM, in GB, required to run this template.
+     * 
+     */
+    @Import(name="minVram")
+    private @Nullable Output<Integer> minVram;
+
+    /**
+     * @return The minimum GPU VRAM, in GB, required to run this template.
+     * 
+     */
+    public Optional<Output<Integer>> minVram() {
+        return Optional.ofNullable(this.minVram);
+    }
+
+    /**
      * A name for the template.
      * 
      */
@@ -303,6 +333,8 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
         this.imageName = $.imageName;
         this.isPublic = $.isPublic;
         this.isServerless = $.isServerless;
+        this.minRam = $.minRam;
+        this.minVram = $.minVram;
         this.name = $.name;
         this.ports = $.ports;
         this.portsConfig = $.portsConfig;
@@ -519,6 +551,48 @@ public final class TemplateArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder isServerless(Boolean isServerless) {
             return isServerless(Output.of(isServerless));
+        }
+
+        /**
+         * @param minRam The minimum system RAM, in GB, required to run this template.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder minRam(@Nullable Output<Integer> minRam) {
+            $.minRam = minRam;
+            return this;
+        }
+
+        /**
+         * @param minRam The minimum system RAM, in GB, required to run this template.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder minRam(Integer minRam) {
+            return minRam(Output.of(minRam));
+        }
+
+        /**
+         * @param minVram The minimum GPU VRAM, in GB, required to run this template.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder minVram(@Nullable Output<Integer> minVram) {
+            $.minVram = minVram;
+            return this;
+        }
+
+        /**
+         * @param minVram The minimum GPU VRAM, in GB, required to run this template.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder minVram(Integer minVram) {
+            return minVram(Output.of(minVram));
         }
 
         /**

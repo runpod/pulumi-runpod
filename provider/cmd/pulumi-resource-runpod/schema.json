@@ -1,7 +1,7 @@
 {
   "name": "runpod",
-  "displayName": "RunPod",
-  "description": "Manage RunPod GPU cloud resources.",
+  "displayName": "Runpod",
+  "description": "Manage Runpod GPU cloud resources.",
   "keywords": [
     "pulumi",
     "runpod",
@@ -12,11 +12,8 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/runpod/pulumi-runpod",
   "pluginDownloadURL": "github://api.github.com/runpod/pulumi-runpod",
-  "publisher": "RunPod",
+  "publisher": "Runpod",
   "namespace": "runpod",
-  "meta": {
-    "moduleFormat": "(.*)"
-  },
   "language": {
     "csharp": {
       "respectSchemaVersion": true,
@@ -28,7 +25,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
-      "packageDescription": "Manage RunPod GPU cloud resources with Pulumi.",
+      "packageDescription": "Manage Runpod GPU cloud resources with Pulumi.",
       "packageName": "pulumi-runpod",
       "respectSchemaVersion": true
     },
@@ -44,18 +41,17 @@
     "variables": {
       "apiKey": {
         "type": "string",
-        "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "description": "The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
         "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
           ]
-        },
-        "secret": true
+        }
       },
       "apiUrl": {
         "type": "string",
-        "description": "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
+        "description": "The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_URL"
@@ -65,6 +61,38 @@
     }
   },
   "types": {
+    "runpod:index:CPUAvailabilityItem": {
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether this CPU flavor is currently available at this data center."
+        },
+        "cpuFlavorId": {
+          "type": "string",
+          "description": "The CPU flavor identifier."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The human-readable CPU flavor name."
+        },
+        "id": {
+          "type": "string",
+          "description": "The CPU availability identifier."
+        },
+        "stockStatus": {
+          "type": "string",
+          "description": "Current stock status (e.g. High, Medium, Low)."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "cpuFlavorId",
+        "displayName",
+        "available",
+        "stockStatus"
+      ]
+    },
     "runpod:index:CPUFlavorOutput": {
       "properties": {
         "diskLimitPerVcpu": {
@@ -106,15 +134,15 @@
       },
       "type": "object",
       "required": [
-        "diskLimitPerVcpu",
-        "displayName",
+        "id",
         "groupId",
         "groupName",
-        "id",
-        "maxVcpu",
+        "displayName",
         "minVcpu",
+        "maxVcpu",
+        "vcpuBurstable",
         "ramMultiplier",
-        "vcpuBurstable"
+        "diskLimitPerVcpu"
       ]
     },
     "runpod:index:DataCenterOutput": {
@@ -125,6 +153,13 @@
             "type": "string"
           },
           "description": "Compliance certifications held by this data center."
+        },
+        "cpuAvailability": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/runpod:index:CPUAvailabilityItem"
+          },
+          "description": "CPU availability within this data center."
         },
         "globalNetwork": {
           "type": "boolean",
@@ -164,15 +199,16 @@
       },
       "type": "object",
       "required": [
-        "compliance",
-        "globalNetwork",
-        "gpuAvailability",
         "id",
-        "listed",
-        "location",
         "name",
+        "location",
         "region",
-        "storageSupport"
+        "listed",
+        "storageSupport",
+        "globalNetwork",
+        "compliance",
+        "gpuAvailability",
+        "cpuAvailability"
       ]
     },
     "runpod:index:EndpointNetworkVolumeBinding": {
@@ -186,8 +222,8 @@
       },
       "type": "object",
       "required": [
-        "dataCenterId",
-        "networkVolumeId"
+        "networkVolumeId",
+        "dataCenterId"
       ]
     },
     "runpod:index:GpuAvailabilityItem": {
@@ -211,9 +247,9 @@
       },
       "type": "object",
       "required": [
-        "available",
-        "gpuTypeDisplayName",
         "gpuTypeId",
+        "gpuTypeDisplayName",
+        "available",
         "stockStatus"
       ]
     },
@@ -257,14 +293,14 @@
       },
       "type": "object",
       "required": [
-        "communityCloud",
-        "communityPrice",
-        "displayName",
         "id",
-        "maxGpuCount",
+        "displayName",
         "memoryInGb",
         "secureCloud",
-        "securePrice"
+        "communityCloud",
+        "securePrice",
+        "communityPrice",
+        "maxGpuCount"
       ]
     },
     "runpod:index:LowestPriceOutput": {
@@ -288,10 +324,10 @@
       "type": "object",
       "required": [
         "minimumBidPrice",
+        "uninterruptablePrice",
         "rentedCount",
-        "stockStatus",
         "totalCount",
-        "uninterruptablePrice"
+        "stockStatus"
       ]
     },
     "runpod:index:SavingsPlan": {
@@ -326,18 +362,17 @@
     "properties": {
       "apiKey": {
         "type": "string",
-        "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "description": "The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
         "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
           ]
-        },
-        "secret": true
+        }
       },
       "apiUrl": {
         "type": "string",
-        "description": "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
+        "description": "The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_URL"
@@ -345,22 +380,20 @@
         }
       }
     },
-    "type": "object",
     "inputProperties": {
       "apiKey": {
         "type": "string",
-        "description": "The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
+        "description": "The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.",
         "default": "",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_KEY"
           ]
-        },
-        "secret": true
+        }
       },
       "apiUrl": {
         "type": "string",
-        "description": "The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
+        "description": "The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.",
         "defaultInfo": {
           "environment": [
             "RUNPOD_API_URL"
@@ -391,12 +424,11 @@
           "description": "The username for the container registry."
         }
       },
-      "type": "object",
       "required": [
         "name",
+        "username",
         "password",
-        "registryAuthId",
-        "username"
+        "registryAuthId"
       ],
       "inputProperties": {
         "name": {
@@ -416,8 +448,8 @@
       },
       "requiredInputs": [
         "name",
-        "password",
-        "username"
+        "username",
+        "password"
       ]
     },
     "runpod:index:Endpoint": {
@@ -429,6 +461,13 @@
         "bindEndpoint": {
           "type": "boolean",
           "description": "Whether to bind the endpoint to specific workers."
+        },
+        "dataCenterIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field)."
         },
         "endpointId": {
           "type": "string",
@@ -484,10 +523,6 @@
           "type": "string",
           "description": "The minimum CUDA version required."
         },
-        "modelName": {
-          "type": "string",
-          "description": "The model name for the endpoint."
-        },
         "modelReferences": {
           "type": "array",
           "items": {
@@ -509,6 +544,10 @@
             "$ref": "#/types/runpod:index:EndpointNetworkVolumeBinding"
           },
           "description": "Network volumes attached to the endpoint, returned by the API."
+        },
+        "requestTTL": {
+          "type": "integer",
+          "description": "The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds)."
         },
         "scalerType": {
           "type": "string",
@@ -533,12 +572,19 @@
         "workersMin": {
           "type": "integer",
           "description": "The minimum number of workers to keep running."
+        },
+        "workersPFBTarget": {
+          "type": "integer",
+          "description": "The target number of flashboot pre-warmed workers the autoscaler aims to keep available."
+        },
+        "workersStandby": {
+          "type": "integer",
+          "description": "The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console."
         }
       },
-      "type": "object",
       "required": [
-        "endpointId",
-        "name"
+        "name",
+        "endpointId"
       ],
       "inputProperties": {
         "allowedCudaVersions": {
@@ -548,6 +594,13 @@
         "bindEndpoint": {
           "type": "boolean",
           "description": "Whether to bind the endpoint to specific workers."
+        },
+        "dataCenterIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field)."
         },
         "env": {
           "type": "object",
@@ -599,10 +652,6 @@
           "type": "string",
           "description": "The minimum CUDA version required."
         },
-        "modelName": {
-          "type": "string",
-          "description": "The model name for the endpoint."
-        },
         "modelReferences": {
           "type": "array",
           "items": {
@@ -617,6 +666,10 @@
         "networkVolumeId": {
           "type": "string",
           "description": "The network volume ID to attach to endpoint workers."
+        },
+        "requestTTL": {
+          "type": "integer",
+          "description": "The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds)."
         },
         "scalerType": {
           "type": "string",
@@ -641,6 +694,10 @@
         "workersMin": {
           "type": "integer",
           "description": "The minimum number of workers to keep running."
+        },
+        "workersPFBTarget": {
+          "type": "integer",
+          "description": "The target number of flashboot pre-warmed workers the autoscaler aims to keep available."
         }
       },
       "requiredInputs": [
@@ -680,12 +737,11 @@
           "description": "The storage backend type (e.g. MOOSE_FS, CEPH_FS)."
         }
       },
-      "type": "object",
       "required": [
-        "dataCenterId",
         "name",
-        "networkVolumeId",
-        "size"
+        "size",
+        "dataCenterId",
+        "networkVolumeId"
       ],
       "inputProperties": {
         "dataCenterId": {
@@ -708,9 +764,9 @@
         }
       },
       "requiredInputs": [
-        "dataCenterId",
         "name",
-        "size"
+        "size",
+        "dataCenterId"
       ]
     },
     "runpod:index:Pod": {
@@ -772,7 +828,7 @@
         },
         "desiredStatus": {
           "type": "string",
-          "description": "The desired status of the pod."
+          "description": "The desired run state of the pod: \"RUNNING\" or \"EXITED\". Set to \"EXITED\" to stop (pause) the pod and \"RUNNING\" to resume it in place, without replacing it. Leave unset to not manage run state."
         },
         "dockerArgs": {
           "type": "string",
@@ -974,16 +1030,14 @@
           "description": "The path to mount the persistent volume."
         }
       },
-      "type": "object",
       "required": [
-        "costPerHr",
-        "desiredStatus",
-        "machineId",
-        "memoryInGb",
         "name",
-        "outputGpuCount",
         "podId",
-        "vcpuCount"
+        "machineId",
+        "costPerHr",
+        "vcpuCount",
+        "memoryInGb",
+        "outputGpuCount"
       ],
       "inputProperties": {
         "aiApiId": {
@@ -1036,6 +1090,10 @@
           "type": "number",
           "description": "The maximum bid price per GPU per hour for spot instances.",
           "replaceOnChanges": true
+        },
+        "desiredStatus": {
+          "type": "string",
+          "description": "The desired run state of the pod: \"RUNNING\" or \"EXITED\". Set to \"EXITED\" to stop (pause) the pod and \"RUNNING\" to resume it in place, without replacing it. Leave unset to not manage run state."
         },
         "dockerArgs": {
           "type": "string",
@@ -1214,11 +1272,10 @@
           "secret": true
         }
       },
-      "type": "object",
       "required": [
         "name",
-        "secretId",
-        "value"
+        "value",
+        "secretId"
       ],
       "inputProperties": {
         "description": {
@@ -1282,6 +1339,14 @@
           "type": "boolean",
           "description": "Whether this template is for serverless endpoints."
         },
+        "minRam": {
+          "type": "integer",
+          "description": "The minimum system RAM, in GB, required to run this template."
+        },
+        "minVram": {
+          "type": "integer",
+          "description": "The minimum GPU VRAM, in GB, required to run this template."
+        },
         "name": {
           "type": "string",
           "description": "A name for the template."
@@ -1326,13 +1391,12 @@
           "description": "The path to mount the persistent volume."
         }
       },
-      "type": "object",
       "required": [
-        "containerDiskInGb",
-        "imageName",
         "name",
-        "templateId",
-        "volumeInGb"
+        "imageName",
+        "containerDiskInGb",
+        "volumeInGb",
+        "templateId"
       ],
       "inputProperties": {
         "advancedStart": {
@@ -1373,6 +1437,14 @@
         "isServerless": {
           "type": "boolean",
           "description": "Whether this template is for serverless endpoints."
+        },
+        "minRam": {
+          "type": "integer",
+          "description": "The minimum system RAM, in GB, required to run this template."
+        },
+        "minVram": {
+          "type": "integer",
+          "description": "The minimum GPU VRAM, in GB, required to run this template."
         },
         "name": {
           "type": "string",
@@ -1415,9 +1487,9 @@
         }
       },
       "requiredInputs": [
-        "containerDiskInGb",
-        "imageName",
         "name",
+        "imageName",
+        "containerDiskInGb",
         "volumeInGb"
       ]
     }
@@ -1460,7 +1532,7 @@
       "outputs": {
         "properties": {
           "dataCenters": {
-            "description": "The list of available RunPod data centers.",
+            "description": "The list of available Runpod data centers.",
             "items": {
               "$ref": "#/types/runpod:index:DataCenterOutput"
             },

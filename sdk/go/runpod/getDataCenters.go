@@ -25,7 +25,7 @@ type GetDataCentersArgs struct {
 }
 
 type GetDataCentersResult struct {
-	// The list of available RunPod data centers.
+	// The list of available Runpod data centers.
 	DataCenters []DataCenterOutput `pulumi:"dataCenters"`
 }
 
@@ -59,7 +59,7 @@ func (o GetDataCentersResultOutput) ToGetDataCentersResultOutputWithContext(ctx 
 	return o
 }
 
-// The list of available RunPod data centers.
+// The list of available Runpod data centers.
 func (o GetDataCentersResultOutput) DataCenters() DataCenterOutputArrayOutput {
 	return o.ApplyT(func(v GetDataCentersResult) []DataCenterOutput { return v.DataCenters }).(DataCenterOutputArrayOutput)
 }

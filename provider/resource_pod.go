@@ -86,6 +86,12 @@ type PodArgs struct {
 	VolumeMountPath         *string           `pulumi:"volumeMountPath,optional"`
 	ContainerDiskInGb       *int              `pulumi:"containerDiskInGb,optional"`
 	ContainerRegistryAuthID *string           `pulumi:"containerRegistryAuthId,optional"`
+
+	// DesiredStatus controls the pod's running state declaratively.
+	// Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it,
+	// without replacing the pod. When unset, the provider does not manage
+	// the pod's run state.
+	DesiredStatus *string `pulumi:"desiredStatus,optional"`
 }
 
 // Annotate provides descriptions for PodArgs fields.
@@ -163,6 +169,10 @@ func (a *PodArgs) Annotate(an infer.Annotator) {
 		"Model references for the pod.")
 	an.Describe(&a.SavingsPlan,
 		"Savings plan configuration for reduced pricing.")
+	an.Describe(&a.DesiredStatus,
+		"The desired run state of the pod: \"RUNNING\" or \"EXITED\". "+
+			"Set to \"EXITED\" to stop (pause) the pod and \"RUNNING\" to resume it "+
+			"in place, without replacing it. Leave unset to not manage run state.")
 }
 
 // Annotate provides descriptions for SavingsPlan fields.
@@ -180,7 +190,6 @@ type PodState struct {
 	PodID          string  `pulumi:"podId"`
 	MachineID      string  `pulumi:"machineId"`
 	CostPerHr      float64 `pulumi:"costPerHr"`
-	DesiredStatus  string  `pulumi:"desiredStatus"`
 	VcpuCount      float64 `pulumi:"vcpuCount"`
 	MemoryInGb     float64 `pulumi:"memoryInGb"`
 	OutputGpuCount int     `pulumi:"outputGpuCount"`
@@ -203,8 +212,6 @@ func (s *PodState) Annotate(a infer.Annotator) {
 		"The ID of the machine the pod is running on.")
 	a.Describe(&s.CostPerHr,
 		"The cost per hour for the pod in USD.")
-	a.Describe(&s.DesiredStatus,
-		"The desired status of the pod.")
 	a.Describe(&s.VcpuCount,
 		"The number of vCPUs allocated.")
 	a.Describe(&s.MemoryInGb,
@@ -414,6 +421,37 @@ func (Pod) Update(
 
 	client := getClient(ctx)
 
+	// Reconcile declarative run-state transitions (stop/resume) before field
+	// edits. Only acts when the user manages desiredStatus.
+	desired := runpod.PtrString(req.Inputs.DesiredStatus)
+	previous := runpod.PtrString(req.State.DesiredStatus)
+
+	if desired == "EXITED" && previous != "EXITED" {
+		resp, err := runpod.StopPod(ctx, client, runpod.PodStopInput{PodId: req.ID})
+		if err != nil {
+			return infer.UpdateResponse[PodState]{}, err
+		}
+		if resp.PodStop == nil {
+			return infer.UpdateResponse[PodState]{},
+				errors.New("API returned nil pod on stop")
+		}
+		// A stopped pod cannot accept field edits; return after stopping.
+		state := podResponseToState(req.Inputs, resp.PodStop)
+		return infer.UpdateResponse[PodState]{Output: state}, nil
+	}
+
+	if desired == "RUNNING" && previous == "EXITED" {
+		resumeInput := runpod.PodResumeInput{
+			PodId:    req.ID,
+			GpuCount: req.Inputs.GpuCount,
+		}
+		if _, err := runpod.ResumePod(ctx, client, resumeInput); err != nil {
+			return infer.UpdateResponse[PodState]{}, err
+		}
+		// Fall through to apply any other mutable field changes now that the
+		// pod is running again.
+	}
+
 	// imageName and containerDiskInGb are required by the API (non-null).
 	// Fall back to current state values when not set in inputs.
 	imageName := ""
@@ -479,7 +517,6 @@ func podResponseToState(
 		PodID:          pod.Id,
 		MachineID:      pod.MachineId,
 		CostPerHr:      pod.CostPerHr,
-		DesiredStatus:  string(pod.DesiredStatus),
 		VcpuCount:      pod.VcpuCount,
 		MemoryInGb:     pod.MemoryInGb,
 		OutputGpuCount: pod.GpuCount,
@@ -494,6 +531,12 @@ func podResponseToState(
 	if pod.PodType != nil {
 		pt := string(*pod.PodType)
 		state.OutputPodType = &pt
+	}
+	// Sync the desired run state from the API only when the user manages it,
+	// so an unset input never drifts against the API's reported status.
+	if input.DesiredStatus != nil {
+		ds := string(pod.DesiredStatus)
+		state.DesiredStatus = &ds
 	}
 	// Sync mutable fields from API response
 	if pod.ImageName != nil {

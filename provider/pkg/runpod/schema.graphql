@@ -33,6 +33,8 @@ type Mutation {
   podFindAndDeployOnDemand(input: PodFindAndDeployOnDemandInput): Pod
   podEditJob(input: PodEditJobInput!): Pod
   podTerminate(input: PodTerminateInput!): Void
+  podStop(input: PodStopInput!): Pod
+  podResume(input: PodResumeInput!): Pod
 
   # CPU Pods
   deployCpuPod(input: deployCpuPodInput!): Pod
@@ -201,6 +203,7 @@ type DataCenter {
   region: DataCenterRegion
   compliance: [Compliance]
   gpuAvailability(input: GpuAvailabilityInput): [GpuAvailability]
+  cpuAvailability: [CpuAvailability]
 }
 
 enum DataCenterRegion {
@@ -234,6 +237,14 @@ type GpuAvailability {
   gpuTypeDisplayName: String
   displayName: String
   id: String
+}
+
+type CpuAvailability {
+  id: String
+  cpuFlavorId: String
+  displayName: String
+  stockStatus: String
+  available: Boolean
 }
 
 # ── Pod ────────────────────────────────────────────────────
@@ -349,6 +360,15 @@ input PodTerminateInput {
   podId: String!
 }
 
+input PodStopInput {
+  podId: String!
+}
+
+input PodResumeInput {
+  podId: String!
+  gpuCount: Int
+}
+
 input deployCpuPodInput {
   """instanceId sample: cpu3m-2-16 (flavorId-vcpuCount-memoryInGb)"""
   instanceId: String!
@@ -402,6 +422,7 @@ type Endpoint {
   gpuIds: String
   workersMin: Int
   workersMax: Int
+  workersStandby: Int
   idleTimeout: Int
   locations: String
   scalerType: String
@@ -463,11 +484,12 @@ input EndpointInput {
   allowedCudaVersions: String
   minCudaVersion: String
   executionTimeoutMs: Int
+  requestTTL: Int
+  dataCenterIds: [String]
   bindEndpoint: Boolean = true
   repo: EndpointRepoInput
   hubReleaseId: String
   type: String
-  modelName: String
   modelReferences: [String]
   cloudStorageConfig: CloudStorageConfigInput
   flashBootType: FlashBootType
@@ -639,6 +661,8 @@ input SaveTemplateInput {
   volumeMountPath: String
   config: JSON
   category: TemplateCategory
+  minVram: Int
+  minRam: Int
 }
 
 input PortConfigInput {

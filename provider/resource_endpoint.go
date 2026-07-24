@@ -49,8 +49,10 @@ type EndpointArgs struct {
 	BindEndpoint        *bool    `pulumi:"bindEndpoint,optional"`
 	HubReleaseID        *string  `pulumi:"hubReleaseId,optional"`
 	Type                *string  `pulumi:"type,optional"`
-	ModelName           *string  `pulumi:"modelName,optional"`
 	ModelReferences     []string `pulumi:"modelReferences,optional"`
+	WorkersPFBTarget    *int     `pulumi:"workersPFBTarget,optional"`
+	RequestTTL          *int     `pulumi:"requestTTL,optional"`
+	DataCenterIDs       []string `pulumi:"dataCenterIds,optional"`
 }
 
 // Annotate provides descriptions for EndpointArgs fields.
@@ -95,12 +97,19 @@ func (a *EndpointArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.BindEndpoint,
 		"Whether to bind the endpoint to specific workers.")
 	an.Describe(&a.Type, "The endpoint type.")
-	an.Describe(&a.ModelName,
-		"The model name for the endpoint.")
 	an.Describe(&a.HubReleaseID,
 		"The hub release ID for the endpoint.")
 	an.Describe(&a.ModelReferences,
 		"Model references for the endpoint.")
+	an.Describe(&a.WorkersPFBTarget,
+		"The target number of flashboot pre-warmed workers the autoscaler "+
+			"aims to keep available.")
+	an.Describe(&a.RequestTTL,
+		"The time-to-live, in milliseconds, for a queued request before it "+
+			"expires. Must be at least 10000 (10 seconds).")
+	an.Describe(&a.DataCenterIDs,
+		"The data center IDs where workers may be deployed "+
+			"(structured replacement for the legacy comma-separated locations field).")
 }
 
 // EndpointNetworkVolumeBinding represents a network volume attached to an endpoint in a specific data center.
@@ -114,6 +123,7 @@ type EndpointState struct {
 	EndpointArgs
 	EndpointID       string                         `pulumi:"endpointId"`
 	NetworkVolumeIDs []EndpointNetworkVolumeBinding `pulumi:"networkVolumeIds,optional"`
+	WorkersStandby   *int                           `pulumi:"workersStandby,optional"`
 }
 
 // Annotate provides descriptions for EndpointState fields.
@@ -122,6 +132,9 @@ func (s *EndpointState) Annotate(a infer.Annotator) {
 		"The unique identifier of the endpoint.")
 	a.Describe(&s.NetworkVolumeIDs,
 		"Network volumes attached to the endpoint, returned by the API.")
+	a.Describe(&s.WorkersStandby,
+		"The number of standby workers kept pre-warmed for the endpoint. "+
+			"Read from the API — configure via the Runpod console.")
 }
 
 // Create creates a new serverless endpoint.
@@ -249,8 +262,10 @@ func endpointArgsToInput(
 		BindEndpoint:        args.BindEndpoint,
 		HubReleaseId:        args.HubReleaseID,
 		Type:                args.Type,
-		ModelName:           args.ModelName,
 		ModelReferences:     runpod.StringPtrSlice(args.ModelReferences),
+		WorkersPFBTarget:    args.WorkersPFBTarget,
+		RequestTTL:          args.RequestTTL,
+		DataCenterIds:       runpod.StringPtrSlice(args.DataCenterIDs),
 	}
 
 	if args.FlashBootType != nil {
@@ -302,6 +317,10 @@ func endpointResponseToState(
 
 	if ep.FlashEnvironmentId != nil {
 		state.FlashEnvironmentID = ep.FlashEnvironmentId
+	}
+
+	if ep.WorkersStandby != nil {
+		state.WorkersStandby = ep.WorkersStandby
 	}
 
 	return state

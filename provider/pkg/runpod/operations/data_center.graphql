@@ -16,5 +16,12 @@ query GetDataCenters {
       available
       stockStatus
     }
+    cpuAvailability {
+      id
+      cpuFlavorId
+      displayName
+      available
+      stockStatus
+    }
   }
 }

@@ -14,8 +14,8 @@ env:
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
   DOTNETVERSION: "8.0.x"
-  # NOTE: npm publishing uses OIDC Trusted Publishing (no NPM_TOKEN needed).
-  # The publish_sdk job has id-token: write permission for OIDC auth with npmjs.com.
+  # NOTE: npm publishing uses NPM_TOKEN (automation token required to bypass 2FA).
+  # OIDC Trusted Publishing is attempted first but falls back to NPM_TOKEN.
   IS_PRERELEASE: true
 
 jobs:
@@ -225,6 +225,7 @@ jobs:
   publish_npm:
     needs: publish
     uses: ./.github/workflows/publish-npm.yml
+    secrets: inherit
     with:
       npm-tag: next
 
@@ -276,7 +277,7 @@ jobs:
   publish_go_sdk:
     runs-on: ubuntu-latest
     name: publish-go-sdk
-    needs: publish_npm
+    needs: publish
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1

@@ -147,6 +147,34 @@ public class Template extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.isServerless);
     }
     /**
+     * The minimum system RAM, in GB, required to run this template.
+     * 
+     */
+    @Export(name="minRam", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> minRam;
+
+    /**
+     * @return The minimum system RAM, in GB, required to run this template.
+     * 
+     */
+    public Output<Optional<Integer>> minRam() {
+        return Codegen.optional(this.minRam);
+    }
+    /**
+     * The minimum GPU VRAM, in GB, required to run this template.
+     * 
+     */
+    @Export(name="minVram", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> minVram;
+
+    /**
+     * @return The minimum GPU VRAM, in GB, required to run this template.
+     * 
+     */
+    public Output<Optional<Integer>> minVram() {
+        return Codegen.optional(this.minVram);
+    }
+    /**
      * A name for the template.
      * 
      */
