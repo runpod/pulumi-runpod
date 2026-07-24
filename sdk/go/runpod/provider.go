@@ -14,9 +14,9 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
-	// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+	// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
 	ApiKey pulumi.StringPtrOutput `pulumi:"apiKey"`
-	// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+	// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
 	ApiUrl pulumi.StringPtrOutput `pulumi:"apiUrl"`
 }
 
@@ -47,17 +47,17 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
-	// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+	// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
 	ApiKey *string `pulumi:"apiKey"`
-	// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+	// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
 	ApiUrl *string `pulumi:"apiUrl"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
-	// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+	// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
 	ApiKey pulumi.StringPtrInput
-	// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+	// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
 	ApiUrl pulumi.StringPtrInput
 }
 
@@ -98,12 +98,12 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
-// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
 func (o ProviderOutput) ApiKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiKey }).(pulumi.StringPtrOutput)
 }
 
-// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
 func (o ProviderOutput) ApiUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiUrl }).(pulumi.StringPtrOutput)
 }

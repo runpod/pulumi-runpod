@@ -47,6 +47,8 @@ type TemplateArgs struct {
 	AdvancedStart *bool                `pulumi:"advancedStart,optional"`
 	Category      *string              `pulumi:"category,optional"`
 	PortsConfig   []TemplatePortConfig `pulumi:"portsConfig,optional"`
+	MinVram       *int                 `pulumi:"minVram,optional"`
+	MinRAM        *int                 `pulumi:"minRam,optional"`
 }
 
 // TemplatePortConfig represents a named port configuration for a template.
@@ -92,6 +94,10 @@ func (a *TemplateArgs) Annotate(an infer.Annotator) {
 		"The category of the template.")
 	an.Describe(&a.PortsConfig,
 		"Named port configurations (e.g. [{port: \"8888\", name: \"Jupyter Lab\"}]).")
+	an.Describe(&a.MinVram,
+		"The minimum GPU VRAM, in GB, required to run this template.")
+	an.Describe(&a.MinRAM,
+		"The minimum system RAM, in GB, required to run this template.")
 }
 
 // TemplateState is the persisted state of a template resource.
@@ -204,7 +210,7 @@ func (Template) Update(
 }
 
 // Delete removes a template.
-// Note: RunPod's deleteTemplate mutation takes the template name, not ID.
+// Note: Runpod's deleteTemplate mutation takes the template name, not ID.
 func (Template) Delete(
 	ctx context.Context,
 	req infer.DeleteRequest[TemplateState],
@@ -244,6 +250,8 @@ func templateArgsToSaveInput(
 		ContainerRegistryAuthId: args.ContainerRegistryAuthID,
 		Readme:                  args.Readme,
 		AdvancedStart:           args.AdvancedStart,
+		MinVram:                 args.MinVram,
+		MinRam:                  args.MinRAM,
 	}
 
 	if args.Category != nil {

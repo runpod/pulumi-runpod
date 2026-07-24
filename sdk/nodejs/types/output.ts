@@ -5,6 +5,29 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface CPUAvailabilityItem {
+    /**
+     * Whether this CPU flavor is currently available at this data center.
+     */
+    available: boolean;
+    /**
+     * The CPU flavor identifier.
+     */
+    cpuFlavorId: string;
+    /**
+     * The human-readable CPU flavor name.
+     */
+    displayName: string;
+    /**
+     * The CPU availability identifier.
+     */
+    id: string;
+    /**
+     * Current stock status (e.g. High, Medium, Low).
+     */
+    stockStatus: string;
+}
+
 export interface CPUFlavorOutput {
     /**
      * Disk limit per vCPU (in GB).
@@ -49,6 +72,10 @@ export interface DataCenterOutput {
      * Compliance certifications held by this data center.
      */
     compliance: string[];
+    /**
+     * CPU availability within this data center.
+     */
+    cpuAvailability: outputs.CPUAvailabilityItem[];
     /**
      * Whether this data center is part of the global network.
      */

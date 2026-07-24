@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package runpod provides a GraphQL client for the RunPod API.
+// Package runpod provides a GraphQL client for the Runpod API.
 //
 //go:generate genqlient genqlient.yaml
 //go:generate go run ../genqlient_fixup.go
@@ -25,7 +25,7 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
-// DefaultAPIURL is the production RunPod GraphQL endpoint.
+// DefaultAPIURL is the production Runpod GraphQL endpoint.
 const DefaultAPIURL = "https://api.runpod.io/graphql"
 
 // authTransport adds Bearer token authentication to HTTP requests.

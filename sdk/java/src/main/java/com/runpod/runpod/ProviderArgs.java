@@ -17,14 +17,14 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     public static final ProviderArgs Empty = new ProviderArgs();
 
     /**
-     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      * 
      */
     @Import(name="apiKey")
     private @Nullable Output<String> apiKey;
 
     /**
-     * @return The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * @return The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      * 
      */
     public Optional<Output<String>> apiKey() {
@@ -32,14 +32,14 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      * 
      */
     @Import(name="apiUrl")
     private @Nullable Output<String> apiUrl;
 
     /**
-     * @return The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * @return The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      * 
      */
     public Optional<Output<String>> apiUrl() {
@@ -72,7 +72,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiKey The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+         * @param apiKey The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
          * 
          * @return builder
          * 
@@ -83,7 +83,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiKey The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+         * @param apiKey The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
          * 
          * @return builder
          * 
@@ -93,7 +93,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiUrl The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+         * @param apiUrl The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
          * 
          * @return builder
          * 
@@ -104,7 +104,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiUrl The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+         * @param apiUrl The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
          * 
          * @return builder
          * 

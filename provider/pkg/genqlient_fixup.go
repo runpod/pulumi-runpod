@@ -3,10 +3,10 @@
 // This script applies post-genqlient fixes to generated.go:
 //
 //  1. Adds omitempty to scalar/struct pointer fields so nil is omitted from
-//     JSON (not sent as null). RunPod's API distinguishes null from absent
+//     JSON (not sent as null). Runpod's API distinguishes null from absent
 //     for fields like "repo" — sending null triggers validation errors.
 //
-//  2. Keeps "env" fields WITHOUT omitempty. RunPod mutations require
+//  2. Keeps "env" fields WITHOUT omitempty. Runpod mutations require
 //     env:[EnvironmentVariableInput]! (non-null array), so we must always
 //     send [] rather than omitting the field entirely.
 package main
@@ -34,7 +34,7 @@ func main() {
 	for i, line := range lines {
 		if rePointerField.MatchString(line) && !strings.Contains(line, "omitempty") {
 			lines[i] = strings.Replace(line, `json:"`, `json:"`, 1) // no-op anchor
-			lines[i] = regexp.MustCompile(`(json:"[^"]+)"` + "`").
+			lines[i] = regexp.MustCompile(`(json:"[^"]+)"`+"`").
 				ReplaceAllString(lines[i], `${1},omitempty"`+"`")
 		}
 	}

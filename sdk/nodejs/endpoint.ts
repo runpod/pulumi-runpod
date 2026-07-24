@@ -42,6 +42,10 @@ export class Endpoint extends pulumi.CustomResource {
      */
     declare public readonly bindEndpoint: pulumi.Output<boolean | undefined>;
     /**
+     * The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+     */
+    declare public readonly dataCenterIds: pulumi.Output<string[] | undefined>;
+    /**
      * The unique identifier of the endpoint.
      */
     declare public /*out*/ readonly endpointId: pulumi.Output<string>;
@@ -90,10 +94,6 @@ export class Endpoint extends pulumi.CustomResource {
      */
     declare public readonly minCudaVersion: pulumi.Output<string | undefined>;
     /**
-     * The model name for the endpoint.
-     */
-    declare public readonly modelName: pulumi.Output<string | undefined>;
-    /**
      * Model references for the endpoint.
      */
     declare public readonly modelReferences: pulumi.Output<string[] | undefined>;
@@ -109,6 +109,10 @@ export class Endpoint extends pulumi.CustomResource {
      * Network volumes attached to the endpoint, returned by the API.
      */
     declare public /*out*/ readonly networkVolumeIds: pulumi.Output<outputs.EndpointNetworkVolumeBinding[] | undefined>;
+    /**
+     * The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+     */
+    declare public readonly requestTTL: pulumi.Output<number | undefined>;
     /**
      * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
      */
@@ -133,6 +137,14 @@ export class Endpoint extends pulumi.CustomResource {
      * The minimum number of workers to keep running.
      */
     declare public readonly workersMin: pulumi.Output<number | undefined>;
+    /**
+     * The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+     */
+    declare public readonly workersPFBTarget: pulumi.Output<number | undefined>;
+    /**
+     * The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+     */
+    declare public /*out*/ readonly workersStandby: pulumi.Output<number | undefined>;
 
     /**
      * Create a Endpoint resource with the given unique name, arguments, and options.
@@ -150,6 +162,7 @@ export class Endpoint extends pulumi.CustomResource {
             }
             resourceInputs["allowedCudaVersions"] = args?.allowedCudaVersions;
             resourceInputs["bindEndpoint"] = args?.bindEndpoint;
+            resourceInputs["dataCenterIds"] = args?.dataCenterIds;
             resourceInputs["env"] = args?.env;
             resourceInputs["executionTimeoutMs"] = args?.executionTimeoutMs;
             resourceInputs["flashBootType"] = args?.flashBootType;
@@ -161,21 +174,24 @@ export class Endpoint extends pulumi.CustomResource {
             resourceInputs["instanceIds"] = args?.instanceIds;
             resourceInputs["locations"] = args?.locations;
             resourceInputs["minCudaVersion"] = args?.minCudaVersion;
-            resourceInputs["modelName"] = args?.modelName;
             resourceInputs["modelReferences"] = args?.modelReferences;
             resourceInputs["name"] = args?.name;
             resourceInputs["networkVolumeId"] = args?.networkVolumeId;
+            resourceInputs["requestTTL"] = args?.requestTTL;
             resourceInputs["scalerType"] = args?.scalerType;
             resourceInputs["scalerValue"] = args?.scalerValue;
             resourceInputs["templateId"] = args?.templateId;
             resourceInputs["type"] = args?.type;
             resourceInputs["workersMax"] = args?.workersMax;
             resourceInputs["workersMin"] = args?.workersMin;
+            resourceInputs["workersPFBTarget"] = args?.workersPFBTarget;
             resourceInputs["endpointId"] = undefined /*out*/;
             resourceInputs["networkVolumeIds"] = undefined /*out*/;
+            resourceInputs["workersStandby"] = undefined /*out*/;
         } else {
             resourceInputs["allowedCudaVersions"] = undefined /*out*/;
             resourceInputs["bindEndpoint"] = undefined /*out*/;
+            resourceInputs["dataCenterIds"] = undefined /*out*/;
             resourceInputs["endpointId"] = undefined /*out*/;
             resourceInputs["env"] = undefined /*out*/;
             resourceInputs["executionTimeoutMs"] = undefined /*out*/;
@@ -188,17 +204,19 @@ export class Endpoint extends pulumi.CustomResource {
             resourceInputs["instanceIds"] = undefined /*out*/;
             resourceInputs["locations"] = undefined /*out*/;
             resourceInputs["minCudaVersion"] = undefined /*out*/;
-            resourceInputs["modelName"] = undefined /*out*/;
             resourceInputs["modelReferences"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["networkVolumeId"] = undefined /*out*/;
             resourceInputs["networkVolumeIds"] = undefined /*out*/;
+            resourceInputs["requestTTL"] = undefined /*out*/;
             resourceInputs["scalerType"] = undefined /*out*/;
             resourceInputs["scalerValue"] = undefined /*out*/;
             resourceInputs["templateId"] = undefined /*out*/;
             resourceInputs["type"] = undefined /*out*/;
             resourceInputs["workersMax"] = undefined /*out*/;
             resourceInputs["workersMin"] = undefined /*out*/;
+            resourceInputs["workersPFBTarget"] = undefined /*out*/;
+            resourceInputs["workersStandby"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Endpoint.__pulumiType, name, resourceInputs, opts);
@@ -217,6 +235,10 @@ export interface EndpointArgs {
      * Whether to bind the endpoint to specific workers.
      */
     bindEndpoint?: pulumi.Input<boolean>;
+    /**
+     * The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+     */
+    dataCenterIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Environment variables as key-value pairs.
      */
@@ -262,10 +284,6 @@ export interface EndpointArgs {
      */
     minCudaVersion?: pulumi.Input<string>;
     /**
-     * The model name for the endpoint.
-     */
-    modelName?: pulumi.Input<string>;
-    /**
      * Model references for the endpoint.
      */
     modelReferences?: pulumi.Input<pulumi.Input<string>[]>;
@@ -277,6 +295,10 @@ export interface EndpointArgs {
      * The network volume ID to attach to endpoint workers.
      */
     networkVolumeId?: pulumi.Input<string>;
+    /**
+     * The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+     */
+    requestTTL?: pulumi.Input<number>;
     /**
      * The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
      */
@@ -301,4 +323,8 @@ export interface EndpointArgs {
      * The minimum number of workers to keep running.
      */
     workersMin?: pulumi.Input<number>;
+    /**
+     * The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+     */
+    workersPFBTarget?: pulumi.Input<number>;
 }

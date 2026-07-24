@@ -20,11 +20,11 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      */
     declare public readonly apiKey: pulumi.Output<string | undefined>;
     /**
-     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      */
     declare public readonly apiUrl: pulumi.Output<string | undefined>;
 
@@ -52,11 +52,11 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      */
     apiKey?: pulumi.Input<string>;
     /**
-     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      */
     apiUrl?: pulumi.Input<string>;
 }

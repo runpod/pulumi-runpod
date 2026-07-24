@@ -49,6 +49,20 @@ public class Endpoint extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.bindEndpoint);
     }
     /**
+     * The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+     * 
+     */
+    @Export(name="dataCenterIds", refs={List.class,String.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<String>> dataCenterIds;
+
+    /**
+     * @return The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+     * 
+     */
+    public Output<Optional<List<String>>> dataCenterIds() {
+        return Codegen.optional(this.dataCenterIds);
+    }
+    /**
      * The unique identifier of the endpoint.
      * 
      */
@@ -217,20 +231,6 @@ public class Endpoint extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.minCudaVersion);
     }
     /**
-     * The model name for the endpoint.
-     * 
-     */
-    @Export(name="modelName", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> modelName;
-
-    /**
-     * @return The model name for the endpoint.
-     * 
-     */
-    public Output<Optional<String>> modelName() {
-        return Codegen.optional(this.modelName);
-    }
-    /**
      * Model references for the endpoint.
      * 
      */
@@ -285,6 +285,20 @@ public class Endpoint extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<List<EndpointNetworkVolumeBinding>>> networkVolumeIds() {
         return Codegen.optional(this.networkVolumeIds);
+    }
+    /**
+     * The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+     * 
+     */
+    @Export(name="requestTTL", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> requestTTL;
+
+    /**
+     * @return The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+     * 
+     */
+    public Output<Optional<Integer>> requestTTL() {
+        return Codegen.optional(this.requestTTL);
     }
     /**
      * The autoscaler type (e.g. &#34;QUEUE_DELAY&#34;, &#34;REQUEST_COUNT&#34;).
@@ -369,6 +383,34 @@ public class Endpoint extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<Integer>> workersMin() {
         return Codegen.optional(this.workersMin);
+    }
+    /**
+     * The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+     * 
+     */
+    @Export(name="workersPFBTarget", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> workersPFBTarget;
+
+    /**
+     * @return The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+     * 
+     */
+    public Output<Optional<Integer>> workersPFBTarget() {
+        return Codegen.optional(this.workersPFBTarget);
+    }
+    /**
+     * The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+     * 
+     */
+    @Export(name="workersStandby", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> workersStandby;
+
+    /**
+     * @return The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+     * 
+     */
+    public Output<Optional<Integer>> workersStandby() {
+        return Codegen.optional(this.workersStandby);
     }
 
     /**

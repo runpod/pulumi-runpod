@@ -1,7 +1,7 @@
 {
     "name": "pulumi-runpod",
     "version": "1.0.0-alpha.0+dev",
-    "description": "Manage RunPod GPU cloud resources with Pulumi.",
+    "description": "Manage Runpod GPU cloud resources with Pulumi.",
     "keywords": [
         "pulumi",
         "runpod",

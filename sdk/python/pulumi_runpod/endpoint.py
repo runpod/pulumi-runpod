@@ -23,6 +23,7 @@ class EndpointArgs:
                  name: pulumi.Input[_builtins.str],
                  allowed_cuda_versions: Optional[pulumi.Input[_builtins.str]] = None,
                  bind_endpoint: Optional[pulumi.Input[_builtins.bool]] = None,
+                 data_center_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  execution_timeout_ms: Optional[pulumi.Input[_builtins.int]] = None,
                  flash_boot_type: Optional[pulumi.Input[_builtins.str]] = None,
@@ -34,20 +35,22 @@ class EndpointArgs:
                  instance_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  locations: Optional[pulumi.Input[_builtins.str]] = None,
                  min_cuda_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 model_name: Optional[pulumi.Input[_builtins.str]] = None,
                  model_references: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  network_volume_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 request_ttl: Optional[pulumi.Input[_builtins.int]] = None,
                  scaler_type: Optional[pulumi.Input[_builtins.str]] = None,
                  scaler_value: Optional[pulumi.Input[_builtins.int]] = None,
                  template_id: Optional[pulumi.Input[_builtins.str]] = None,
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  workers_max: Optional[pulumi.Input[_builtins.int]] = None,
-                 workers_min: Optional[pulumi.Input[_builtins.int]] = None):
+                 workers_min: Optional[pulumi.Input[_builtins.int]] = None,
+                 workers_pfb_target: Optional[pulumi.Input[_builtins.int]] = None):
         """
         The set of arguments for constructing a Endpoint resource.
         :param pulumi.Input[_builtins.str] name: A name for the endpoint.
         :param pulumi.Input[_builtins.str] allowed_cuda_versions: Comma-separated list of allowed CUDA versions.
         :param pulumi.Input[_builtins.bool] bind_endpoint: Whether to bind the endpoint to specific workers.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] data_center_ids: The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: Environment variables as key-value pairs.
         :param pulumi.Input[_builtins.int] execution_timeout_ms: Maximum execution time in milliseconds before a request is terminated.
         :param pulumi.Input[_builtins.str] flash_boot_type: The flash boot type.
@@ -59,21 +62,24 @@ class EndpointArgs:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] instance_ids: Specific instance IDs to use for workers.
         :param pulumi.Input[_builtins.str] locations: Comma-separated data center locations for worker deployment.
         :param pulumi.Input[_builtins.str] min_cuda_version: The minimum CUDA version required.
-        :param pulumi.Input[_builtins.str] model_name: The model name for the endpoint.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] model_references: Model references for the endpoint.
         :param pulumi.Input[_builtins.str] network_volume_id: The network volume ID to attach to endpoint workers.
+        :param pulumi.Input[_builtins.int] request_ttl: The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
         :param pulumi.Input[_builtins.str] scaler_type: The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
         :param pulumi.Input[_builtins.int] scaler_value: The autoscaler target value.
         :param pulumi.Input[_builtins.str] template_id: The template ID to use for the endpoint workers.
         :param pulumi.Input[_builtins.str] type: The endpoint type.
         :param pulumi.Input[_builtins.int] workers_max: The maximum number of workers to scale up to.
         :param pulumi.Input[_builtins.int] workers_min: The minimum number of workers to keep running.
+        :param pulumi.Input[_builtins.int] workers_pfb_target: The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
         """
         pulumi.set(__self__, "name", name)
         if allowed_cuda_versions is not None:
             pulumi.set(__self__, "allowed_cuda_versions", allowed_cuda_versions)
         if bind_endpoint is not None:
             pulumi.set(__self__, "bind_endpoint", bind_endpoint)
+        if data_center_ids is not None:
+            pulumi.set(__self__, "data_center_ids", data_center_ids)
         if env is not None:
             pulumi.set(__self__, "env", env)
         if execution_timeout_ms is not None:
@@ -96,12 +102,12 @@ class EndpointArgs:
             pulumi.set(__self__, "locations", locations)
         if min_cuda_version is not None:
             pulumi.set(__self__, "min_cuda_version", min_cuda_version)
-        if model_name is not None:
-            pulumi.set(__self__, "model_name", model_name)
         if model_references is not None:
             pulumi.set(__self__, "model_references", model_references)
         if network_volume_id is not None:
             pulumi.set(__self__, "network_volume_id", network_volume_id)
+        if request_ttl is not None:
+            pulumi.set(__self__, "request_ttl", request_ttl)
         if scaler_type is not None:
             pulumi.set(__self__, "scaler_type", scaler_type)
         if scaler_value is not None:
@@ -114,6 +120,8 @@ class EndpointArgs:
             pulumi.set(__self__, "workers_max", workers_max)
         if workers_min is not None:
             pulumi.set(__self__, "workers_min", workers_min)
+        if workers_pfb_target is not None:
+            pulumi.set(__self__, "workers_pfb_target", workers_pfb_target)
 
     @_builtins.property
     @pulumi.getter
@@ -150,6 +158,18 @@ class EndpointArgs:
     @bind_endpoint.setter
     def bind_endpoint(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "bind_endpoint", value)
+
+    @_builtins.property
+    @pulumi.getter(name="dataCenterIds")
+    def data_center_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+        """
+        return pulumi.get(self, "data_center_ids")
+
+    @data_center_ids.setter
+    def data_center_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "data_center_ids", value)
 
     @_builtins.property
     @pulumi.getter
@@ -284,18 +304,6 @@ class EndpointArgs:
         pulumi.set(self, "min_cuda_version", value)
 
     @_builtins.property
-    @pulumi.getter(name="modelName")
-    def model_name(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        The model name for the endpoint.
-        """
-        return pulumi.get(self, "model_name")
-
-    @model_name.setter
-    def model_name(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "model_name", value)
-
-    @_builtins.property
     @pulumi.getter(name="modelReferences")
     def model_references(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
@@ -318,6 +326,18 @@ class EndpointArgs:
     @network_volume_id.setter
     def network_volume_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "network_volume_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requestTTL")
+    def request_ttl(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+        """
+        return pulumi.get(self, "request_ttl")
+
+    @request_ttl.setter
+    def request_ttl(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "request_ttl", value)
 
     @_builtins.property
     @pulumi.getter(name="scalerType")
@@ -391,6 +411,18 @@ class EndpointArgs:
     def workers_min(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "workers_min", value)
 
+    @_builtins.property
+    @pulumi.getter(name="workersPFBTarget")
+    def workers_pfb_target(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+        """
+        return pulumi.get(self, "workers_pfb_target")
+
+    @workers_pfb_target.setter
+    def workers_pfb_target(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "workers_pfb_target", value)
+
 
 @pulumi.type_token("runpod:index:Endpoint")
 class Endpoint(pulumi.CustomResource):
@@ -400,6 +432,7 @@ class Endpoint(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allowed_cuda_versions: Optional[pulumi.Input[_builtins.str]] = None,
                  bind_endpoint: Optional[pulumi.Input[_builtins.bool]] = None,
+                 data_center_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  execution_timeout_ms: Optional[pulumi.Input[_builtins.int]] = None,
                  flash_boot_type: Optional[pulumi.Input[_builtins.str]] = None,
@@ -411,16 +444,17 @@ class Endpoint(pulumi.CustomResource):
                  instance_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  locations: Optional[pulumi.Input[_builtins.str]] = None,
                  min_cuda_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 model_name: Optional[pulumi.Input[_builtins.str]] = None,
                  model_references: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  network_volume_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 request_ttl: Optional[pulumi.Input[_builtins.int]] = None,
                  scaler_type: Optional[pulumi.Input[_builtins.str]] = None,
                  scaler_value: Optional[pulumi.Input[_builtins.int]] = None,
                  template_id: Optional[pulumi.Input[_builtins.str]] = None,
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  workers_max: Optional[pulumi.Input[_builtins.int]] = None,
                  workers_min: Optional[pulumi.Input[_builtins.int]] = None,
+                 workers_pfb_target: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         """
         Create a Endpoint resource with the given unique name, props, and options.
@@ -428,6 +462,7 @@ class Endpoint(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] allowed_cuda_versions: Comma-separated list of allowed CUDA versions.
         :param pulumi.Input[_builtins.bool] bind_endpoint: Whether to bind the endpoint to specific workers.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] data_center_ids: The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: Environment variables as key-value pairs.
         :param pulumi.Input[_builtins.int] execution_timeout_ms: Maximum execution time in milliseconds before a request is terminated.
         :param pulumi.Input[_builtins.str] flash_boot_type: The flash boot type.
@@ -439,16 +474,17 @@ class Endpoint(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] instance_ids: Specific instance IDs to use for workers.
         :param pulumi.Input[_builtins.str] locations: Comma-separated data center locations for worker deployment.
         :param pulumi.Input[_builtins.str] min_cuda_version: The minimum CUDA version required.
-        :param pulumi.Input[_builtins.str] model_name: The model name for the endpoint.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] model_references: Model references for the endpoint.
         :param pulumi.Input[_builtins.str] name: A name for the endpoint.
         :param pulumi.Input[_builtins.str] network_volume_id: The network volume ID to attach to endpoint workers.
+        :param pulumi.Input[_builtins.int] request_ttl: The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
         :param pulumi.Input[_builtins.str] scaler_type: The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
         :param pulumi.Input[_builtins.int] scaler_value: The autoscaler target value.
         :param pulumi.Input[_builtins.str] template_id: The template ID to use for the endpoint workers.
         :param pulumi.Input[_builtins.str] type: The endpoint type.
         :param pulumi.Input[_builtins.int] workers_max: The maximum number of workers to scale up to.
         :param pulumi.Input[_builtins.int] workers_min: The minimum number of workers to keep running.
+        :param pulumi.Input[_builtins.int] workers_pfb_target: The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
         """
         ...
     @overload
@@ -475,6 +511,7 @@ class Endpoint(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allowed_cuda_versions: Optional[pulumi.Input[_builtins.str]] = None,
                  bind_endpoint: Optional[pulumi.Input[_builtins.bool]] = None,
+                 data_center_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  execution_timeout_ms: Optional[pulumi.Input[_builtins.int]] = None,
                  flash_boot_type: Optional[pulumi.Input[_builtins.str]] = None,
@@ -486,16 +523,17 @@ class Endpoint(pulumi.CustomResource):
                  instance_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  locations: Optional[pulumi.Input[_builtins.str]] = None,
                  min_cuda_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 model_name: Optional[pulumi.Input[_builtins.str]] = None,
                  model_references: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  network_volume_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 request_ttl: Optional[pulumi.Input[_builtins.int]] = None,
                  scaler_type: Optional[pulumi.Input[_builtins.str]] = None,
                  scaler_value: Optional[pulumi.Input[_builtins.int]] = None,
                  template_id: Optional[pulumi.Input[_builtins.str]] = None,
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  workers_max: Optional[pulumi.Input[_builtins.int]] = None,
                  workers_min: Optional[pulumi.Input[_builtins.int]] = None,
+                 workers_pfb_target: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -507,6 +545,7 @@ class Endpoint(pulumi.CustomResource):
 
             __props__.__dict__["allowed_cuda_versions"] = allowed_cuda_versions
             __props__.__dict__["bind_endpoint"] = bind_endpoint
+            __props__.__dict__["data_center_ids"] = data_center_ids
             __props__.__dict__["env"] = env
             __props__.__dict__["execution_timeout_ms"] = execution_timeout_ms
             __props__.__dict__["flash_boot_type"] = flash_boot_type
@@ -518,20 +557,22 @@ class Endpoint(pulumi.CustomResource):
             __props__.__dict__["instance_ids"] = instance_ids
             __props__.__dict__["locations"] = locations
             __props__.__dict__["min_cuda_version"] = min_cuda_version
-            __props__.__dict__["model_name"] = model_name
             __props__.__dict__["model_references"] = model_references
             if name is None and not opts.urn:
                 raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             __props__.__dict__["network_volume_id"] = network_volume_id
+            __props__.__dict__["request_ttl"] = request_ttl
             __props__.__dict__["scaler_type"] = scaler_type
             __props__.__dict__["scaler_value"] = scaler_value
             __props__.__dict__["template_id"] = template_id
             __props__.__dict__["type"] = type
             __props__.__dict__["workers_max"] = workers_max
             __props__.__dict__["workers_min"] = workers_min
+            __props__.__dict__["workers_pfb_target"] = workers_pfb_target
             __props__.__dict__["endpoint_id"] = None
             __props__.__dict__["network_volume_ids"] = None
+            __props__.__dict__["workers_standby"] = None
         super(Endpoint, __self__).__init__(
             'runpod:index:Endpoint',
             resource_name,
@@ -556,6 +597,7 @@ class Endpoint(pulumi.CustomResource):
 
         __props__.__dict__["allowed_cuda_versions"] = None
         __props__.__dict__["bind_endpoint"] = None
+        __props__.__dict__["data_center_ids"] = None
         __props__.__dict__["endpoint_id"] = None
         __props__.__dict__["env"] = None
         __props__.__dict__["execution_timeout_ms"] = None
@@ -568,17 +610,19 @@ class Endpoint(pulumi.CustomResource):
         __props__.__dict__["instance_ids"] = None
         __props__.__dict__["locations"] = None
         __props__.__dict__["min_cuda_version"] = None
-        __props__.__dict__["model_name"] = None
         __props__.__dict__["model_references"] = None
         __props__.__dict__["name"] = None
         __props__.__dict__["network_volume_id"] = None
         __props__.__dict__["network_volume_ids"] = None
+        __props__.__dict__["request_ttl"] = None
         __props__.__dict__["scaler_type"] = None
         __props__.__dict__["scaler_value"] = None
         __props__.__dict__["template_id"] = None
         __props__.__dict__["type"] = None
         __props__.__dict__["workers_max"] = None
         __props__.__dict__["workers_min"] = None
+        __props__.__dict__["workers_pfb_target"] = None
+        __props__.__dict__["workers_standby"] = None
         return Endpoint(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -596,6 +640,14 @@ class Endpoint(pulumi.CustomResource):
         Whether to bind the endpoint to specific workers.
         """
         return pulumi.get(self, "bind_endpoint")
+
+    @_builtins.property
+    @pulumi.getter(name="dataCenterIds")
+    def data_center_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+        """
+        return pulumi.get(self, "data_center_ids")
 
     @_builtins.property
     @pulumi.getter(name="endpointId")
@@ -694,14 +746,6 @@ class Endpoint(pulumi.CustomResource):
         return pulumi.get(self, "min_cuda_version")
 
     @_builtins.property
-    @pulumi.getter(name="modelName")
-    def model_name(self) -> pulumi.Output[Optional[_builtins.str]]:
-        """
-        The model name for the endpoint.
-        """
-        return pulumi.get(self, "model_name")
-
-    @_builtins.property
     @pulumi.getter(name="modelReferences")
     def model_references(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
@@ -732,6 +776,14 @@ class Endpoint(pulumi.CustomResource):
         Network volumes attached to the endpoint, returned by the API.
         """
         return pulumi.get(self, "network_volume_ids")
+
+    @_builtins.property
+    @pulumi.getter(name="requestTTL")
+    def request_ttl(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+        """
+        return pulumi.get(self, "request_ttl")
 
     @_builtins.property
     @pulumi.getter(name="scalerType")
@@ -780,4 +832,20 @@ class Endpoint(pulumi.CustomResource):
         The minimum number of workers to keep running.
         """
         return pulumi.get(self, "workers_min")
+
+    @_builtins.property
+    @pulumi.getter(name="workersPFBTarget")
+    def workers_pfb_target(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+        """
+        return pulumi.get(self, "workers_pfb_target")
+
+    @_builtins.property
+    @pulumi.getter(name="workersStandby")
+    def workers_standby(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+        """
+        return pulumi.get(self, "workers_standby")
 

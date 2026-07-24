@@ -23,8 +23,8 @@ class ProviderArgs:
                  api_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Provider resource.
-        :param pulumi.Input[_builtins.str] api_key: The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
-        :param pulumi.Input[_builtins.str] api_url: The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        :param pulumi.Input[_builtins.str] api_key: The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        :param pulumi.Input[_builtins.str] api_url: The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         """
         if api_key is None:
             api_key = (_utilities.get_env('RUNPOD_API_KEY') or '')
@@ -39,7 +39,7 @@ class ProviderArgs:
     @pulumi.getter(name="apiKey")
     def api_key(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         """
         return pulumi.get(self, "api_key")
 
@@ -51,7 +51,7 @@ class ProviderArgs:
     @pulumi.getter(name="apiUrl")
     def api_url(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         """
         return pulumi.get(self, "api_url")
 
@@ -73,8 +73,8 @@ class Provider(pulumi.ProviderResource):
         Create a Runpod resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] api_key: The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
-        :param pulumi.Input[_builtins.str] api_url: The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        :param pulumi.Input[_builtins.str] api_key: The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        :param pulumi.Input[_builtins.str] api_url: The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         """
         ...
     @overload
@@ -126,7 +126,7 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="apiKey")
     def api_key(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         """
         return pulumi.get(self, "api_key")
 
@@ -134,7 +134,7 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="apiUrl")
     def api_url(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         """
         return pulumi.get(self, "api_url")
 

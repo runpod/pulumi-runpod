@@ -13,13 +13,13 @@ namespace Pulumi.Runpod
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
-        /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        /// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         /// </summary>
         [Output("apiKey")]
         public Output<string?> ApiKey { get; private set; } = null!;
 
         /// <summary>
-        /// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        /// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         /// </summary>
         [Output("apiUrl")]
         public Output<string?> ApiUrl { get; private set; } = null!;
@@ -54,13 +54,13 @@ namespace Pulumi.Runpod
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        /// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         /// </summary>
         [Input("apiKey")]
         public Input<string>? ApiKey { get; set; }
 
         /// <summary>
-        /// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        /// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         /// </summary>
         [Input("apiUrl")]
         public Input<string>? ApiUrl { get; set; }

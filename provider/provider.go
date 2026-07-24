@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package provider implements the RunPod Pulumi provider.
+// Package provider implements the Runpod Pulumi provider.
 package provider
 
 import (
@@ -39,14 +39,14 @@ const Name string = "runpod"
 
 const defaultAPIURL = "https://api.runpod.io/graphql"
 
-// Provider creates a new instance of the RunPod provider.
+// Provider creates a new instance of the Runpod provider.
 func Provider() p.Provider {
 	prov, err := infer.NewProviderBuilder().
-		WithDisplayName("RunPod").
-		WithDescription("Manage RunPod GPU cloud resources.").
+		WithDisplayName("Runpod").
+		WithDescription("Manage Runpod GPU cloud resources.").
 		WithHomepage("https://www.runpod.io").
 		WithNamespace("runpod").
-		WithPublisher("RunPod").
+		WithPublisher("Runpod").
 		WithKeywords("pulumi", "runpod", "category/infrastructure", "kind/native").
 		WithLicense("Apache-2.0").
 		WithPluginDownloadURL("github://api.github.com/runpod/pulumi-runpod").
@@ -59,7 +59,7 @@ func Provider() p.Provider {
 			},
 			"nodejs": map[string]any{
 				"packageName":          "pulumi-runpod",
-				"packageDescription":   "Manage RunPod GPU cloud resources with Pulumi.",
+				"packageDescription":   "Manage Runpod GPU cloud resources with Pulumi.",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -109,11 +109,11 @@ type Config struct {
 // Annotate provides descriptions for Config fields.
 func (c *Config) Annotate(a infer.Annotator) {
 	a.Describe(&c.APIKey,
-		"The RunPod API key for authentication. "+
+		"The Runpod API key for authentication. "+
 			"Can also be set via the RUNPOD_API_KEY environment variable.")
 	a.SetDefault(&c.APIKey, "", "RUNPOD_API_KEY")
 	a.Describe(&c.APIURL,
-		"The RunPod API URL. Defaults to "+defaultAPIURL+". "+
+		"The Runpod API URL. Defaults to "+defaultAPIURL+". "+
 			"Can also be set via the RUNPOD_API_URL environment variable.")
 	a.SetDefault(&c.APIURL, nil, "RUNPOD_API_URL")
 }

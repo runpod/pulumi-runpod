@@ -51,6 +51,21 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+     * 
+     */
+    @Import(name="dataCenterIds")
+    private @Nullable Output<List<String>> dataCenterIds;
+
+    /**
+     * @return The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+     * 
+     */
+    public Optional<Output<List<String>>> dataCenterIds() {
+        return Optional.ofNullable(this.dataCenterIds);
+    }
+
+    /**
      * Environment variables as key-value pairs.
      * 
      */
@@ -216,21 +231,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The model name for the endpoint.
-     * 
-     */
-    @Import(name="modelName")
-    private @Nullable Output<String> modelName;
-
-    /**
-     * @return The model name for the endpoint.
-     * 
-     */
-    public Optional<Output<String>> modelName() {
-        return Optional.ofNullable(this.modelName);
-    }
-
-    /**
      * Model references for the endpoint.
      * 
      */
@@ -273,6 +273,21 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> networkVolumeId() {
         return Optional.ofNullable(this.networkVolumeId);
+    }
+
+    /**
+     * The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+     * 
+     */
+    @Import(name="requestTTL")
+    private @Nullable Output<Integer> requestTTL;
+
+    /**
+     * @return The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+     * 
+     */
+    public Optional<Output<Integer>> requestTTL() {
+        return Optional.ofNullable(this.requestTTL);
     }
 
     /**
@@ -365,11 +380,27 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.workersMin);
     }
 
+    /**
+     * The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+     * 
+     */
+    @Import(name="workersPFBTarget")
+    private @Nullable Output<Integer> workersPFBTarget;
+
+    /**
+     * @return The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+     * 
+     */
+    public Optional<Output<Integer>> workersPFBTarget() {
+        return Optional.ofNullable(this.workersPFBTarget);
+    }
+
     private EndpointArgs() {}
 
     private EndpointArgs(EndpointArgs $) {
         this.allowedCudaVersions = $.allowedCudaVersions;
         this.bindEndpoint = $.bindEndpoint;
+        this.dataCenterIds = $.dataCenterIds;
         this.env = $.env;
         this.executionTimeoutMs = $.executionTimeoutMs;
         this.flashBootType = $.flashBootType;
@@ -381,16 +412,17 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         this.instanceIds = $.instanceIds;
         this.locations = $.locations;
         this.minCudaVersion = $.minCudaVersion;
-        this.modelName = $.modelName;
         this.modelReferences = $.modelReferences;
         this.name = $.name;
         this.networkVolumeId = $.networkVolumeId;
+        this.requestTTL = $.requestTTL;
         this.scalerType = $.scalerType;
         this.scalerValue = $.scalerValue;
         this.templateId = $.templateId;
         this.type = $.type;
         this.workersMax = $.workersMax;
         this.workersMin = $.workersMin;
+        this.workersPFBTarget = $.workersPFBTarget;
     }
 
     public static Builder builder() {
@@ -451,6 +483,37 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder bindEndpoint(Boolean bindEndpoint) {
             return bindEndpoint(Output.of(bindEndpoint));
+        }
+
+        /**
+         * @param dataCenterIds The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dataCenterIds(@Nullable Output<List<String>> dataCenterIds) {
+            $.dataCenterIds = dataCenterIds;
+            return this;
+        }
+
+        /**
+         * @param dataCenterIds The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dataCenterIds(List<String> dataCenterIds) {
+            return dataCenterIds(Output.of(dataCenterIds));
+        }
+
+        /**
+         * @param dataCenterIds The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dataCenterIds(String... dataCenterIds) {
+            return dataCenterIds(List.of(dataCenterIds));
         }
 
         /**
@@ -695,27 +758,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param modelName The model name for the endpoint.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder modelName(@Nullable Output<String> modelName) {
-            $.modelName = modelName;
-            return this;
-        }
-
-        /**
-         * @param modelName The model name for the endpoint.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder modelName(String modelName) {
-            return modelName(Output.of(modelName));
-        }
-
-        /**
          * @param modelReferences Model references for the endpoint.
          * 
          * @return builder
@@ -786,6 +828,27 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder networkVolumeId(String networkVolumeId) {
             return networkVolumeId(Output.of(networkVolumeId));
+        }
+
+        /**
+         * @param requestTTL The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder requestTTL(@Nullable Output<Integer> requestTTL) {
+            $.requestTTL = requestTTL;
+            return this;
+        }
+
+        /**
+         * @param requestTTL The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder requestTTL(Integer requestTTL) {
+            return requestTTL(Output.of(requestTTL));
         }
 
         /**
@@ -912,6 +975,27 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder workersMin(Integer workersMin) {
             return workersMin(Output.of(workersMin));
+        }
+
+        /**
+         * @param workersPFBTarget The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder workersPFBTarget(@Nullable Output<Integer> workersPFBTarget) {
+            $.workersPFBTarget = workersPFBTarget;
+            return this;
+        }
+
+        /**
+         * @param workersPFBTarget The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder workersPFBTarget(Integer workersPFBTarget) {
+            return workersPFBTarget(Output.of(workersPFBTarget));
         }
 
         public EndpointArgs build() {

@@ -67,6 +67,18 @@ namespace Pulumi.Runpod
         public Output<bool?> IsServerless { get; private set; } = null!;
 
         /// <summary>
+        /// The minimum system RAM, in GB, required to run this template.
+        /// </summary>
+        [Output("minRam")]
+        public Output<int?> MinRam { get; private set; } = null!;
+
+        /// <summary>
+        /// The minimum GPU VRAM, in GB, required to run this template.
+        /// </summary>
+        [Output("minVram")]
+        public Output<int?> MinVram { get; private set; } = null!;
+
+        /// <summary>
         /// A name for the template.
         /// </summary>
         [Output("name")]
@@ -231,6 +243,18 @@ namespace Pulumi.Runpod
         /// </summary>
         [Input("isServerless")]
         public Input<bool>? IsServerless { get; set; }
+
+        /// <summary>
+        /// The minimum system RAM, in GB, required to run this template.
+        /// </summary>
+        [Input("minRam")]
+        public Input<int>? MinRam { get; set; }
+
+        /// <summary>
+        /// The minimum GPU VRAM, in GB, required to run this template.
+        /// </summary>
+        [Input("minVram")]
+        public Input<int>? MinVram { get; set; }
 
         /// <summary>
         /// A name for the template.

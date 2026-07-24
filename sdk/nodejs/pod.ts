@@ -78,9 +78,9 @@ export class Pod extends pulumi.CustomResource {
      */
     declare public readonly deployCost: pulumi.Output<number | undefined>;
     /**
-     * The desired status of the pod.
+     * The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
      */
-    declare public /*out*/ readonly desiredStatus: pulumi.Output<string>;
+    declare public readonly desiredStatus: pulumi.Output<string | undefined>;
     /**
      * Docker arguments to pass to the container.
      */
@@ -270,6 +270,7 @@ export class Pod extends pulumi.CustomResource {
             resourceInputs["cudaVersion"] = args?.cudaVersion;
             resourceInputs["dataCenterId"] = args?.dataCenterId;
             resourceInputs["deployCost"] = args?.deployCost;
+            resourceInputs["desiredStatus"] = args?.desiredStatus;
             resourceInputs["dockerArgs"] = args?.dockerArgs;
             resourceInputs["env"] = args?.env;
             resourceInputs["globalNetwork"] = args?.globalNetwork;
@@ -300,7 +301,6 @@ export class Pod extends pulumi.CustomResource {
             resourceInputs["volumeKey"] = args?.volumeKey;
             resourceInputs["volumeMountPath"] = args?.volumeMountPath;
             resourceInputs["costPerHr"] = undefined /*out*/;
-            resourceInputs["desiredStatus"] = undefined /*out*/;
             resourceInputs["machineId"] = undefined /*out*/;
             resourceInputs["memoryInGb"] = undefined /*out*/;
             resourceInputs["outputContainerDiskInGb"] = undefined /*out*/;
@@ -419,6 +419,10 @@ export interface PodArgs {
      * The maximum bid price per GPU per hour for spot instances.
      */
     deployCost?: pulumi.Input<number>;
+    /**
+     * The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+     */
+    desiredStatus?: pulumi.Input<string>;
     /**
      * Docker arguments to pass to the container.
      */

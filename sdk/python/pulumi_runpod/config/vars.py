@@ -23,14 +23,14 @@ class _ExportableConfig(types.ModuleType):
     @_builtins.property
     def api_key(self) -> str:
         """
-        The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         """
         return __config__.get('apiKey') or (_utilities.get_env('RUNPOD_API_KEY') or '')
 
     @_builtins.property
     def api_url(self) -> Optional[str]:
         """
-        The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         """
         return __config__.get('apiUrl') or _utilities.get_env('RUNPOD_API_URL')
 

@@ -16,6 +16,7 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'CPUAvailabilityItem',
     'CPUFlavorOutput',
     'DataCenterOutput',
     'EndpointNetworkVolumeBinding',
@@ -25,6 +26,68 @@ __all__ = [
     'SavingsPlan',
     'TemplatePortConfig',
 ]
+
+@pulumi.output_type
+class CPUAvailabilityItem(dict):
+    def __init__(__self__, *,
+                 available: _builtins.bool,
+                 cpu_flavor_id: _builtins.str,
+                 display_name: _builtins.str,
+                 id: _builtins.str,
+                 stock_status: _builtins.str):
+        """
+        :param _builtins.bool available: Whether this CPU flavor is currently available at this data center.
+        :param _builtins.str cpu_flavor_id: The CPU flavor identifier.
+        :param _builtins.str display_name: The human-readable CPU flavor name.
+        :param _builtins.str id: The CPU availability identifier.
+        :param _builtins.str stock_status: Current stock status (e.g. High, Medium, Low).
+        """
+        pulumi.set(__self__, "available", available)
+        pulumi.set(__self__, "cpu_flavor_id", cpu_flavor_id)
+        pulumi.set(__self__, "display_name", display_name)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "stock_status", stock_status)
+
+    @_builtins.property
+    @pulumi.getter
+    def available(self) -> _builtins.bool:
+        """
+        Whether this CPU flavor is currently available at this data center.
+        """
+        return pulumi.get(self, "available")
+
+    @_builtins.property
+    @pulumi.getter(name="cpuFlavorId")
+    def cpu_flavor_id(self) -> _builtins.str:
+        """
+        The CPU flavor identifier.
+        """
+        return pulumi.get(self, "cpu_flavor_id")
+
+    @_builtins.property
+    @pulumi.getter(name="displayName")
+    def display_name(self) -> _builtins.str:
+        """
+        The human-readable CPU flavor name.
+        """
+        return pulumi.get(self, "display_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The CPU availability identifier.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter(name="stockStatus")
+    def stock_status(self) -> _builtins.str:
+        """
+        Current stock status (e.g. High, Medium, Low).
+        """
+        return pulumi.get(self, "stock_status")
+
 
 @pulumi.output_type
 class CPUFlavorOutput(dict):
@@ -136,6 +199,7 @@ class CPUFlavorOutput(dict):
 class DataCenterOutput(dict):
     def __init__(__self__, *,
                  compliance: Sequence[_builtins.str],
+                 cpu_availability: Sequence['outputs.CPUAvailabilityItem'],
                  global_network: _builtins.bool,
                  gpu_availability: Sequence['outputs.GpuAvailabilityItem'],
                  id: _builtins.str,
@@ -146,6 +210,7 @@ class DataCenterOutput(dict):
                  storage_support: _builtins.bool):
         """
         :param Sequence[_builtins.str] compliance: Compliance certifications held by this data center.
+        :param Sequence['CPUAvailabilityItem'] cpu_availability: CPU availability within this data center.
         :param _builtins.bool global_network: Whether this data center is part of the global network.
         :param Sequence['GpuAvailabilityItem'] gpu_availability: GPU availability within this data center.
         :param _builtins.str id: The unique identifier of the data center (used as dataCenterId).
@@ -156,6 +221,7 @@ class DataCenterOutput(dict):
         :param _builtins.bool storage_support: Whether this data center supports network volumes.
         """
         pulumi.set(__self__, "compliance", compliance)
+        pulumi.set(__self__, "cpu_availability", cpu_availability)
         pulumi.set(__self__, "global_network", global_network)
         pulumi.set(__self__, "gpu_availability", gpu_availability)
         pulumi.set(__self__, "id", id)
@@ -172,6 +238,14 @@ class DataCenterOutput(dict):
         Compliance certifications held by this data center.
         """
         return pulumi.get(self, "compliance")
+
+    @_builtins.property
+    @pulumi.getter(name="cpuAvailability")
+    def cpu_availability(self) -> Sequence['outputs.CPUAvailabilityItem']:
+        """
+        CPU availability within this data center.
+        """
+        return pulumi.get(self, "cpu_availability")
 
     @_builtins.property
     @pulumi.getter(name="globalNetwork")

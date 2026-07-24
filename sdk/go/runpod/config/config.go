@@ -11,7 +11,7 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
 func GetApiKey(ctx *pulumi.Context) string {
 	v, err := config.Try(ctx, "runpod:apiKey")
 	if err == nil {
@@ -24,7 +24,7 @@ func GetApiKey(ctx *pulumi.Context) string {
 	return value
 }
 
-// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
 func GetApiUrl(ctx *pulumi.Context) string {
 	v, err := config.Try(ctx, "runpod:apiUrl")
 	if err == nil {

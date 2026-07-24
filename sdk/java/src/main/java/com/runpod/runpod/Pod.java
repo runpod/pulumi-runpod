@@ -176,18 +176,18 @@ public class Pod extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.deployCost);
     }
     /**
-     * The desired status of the pod.
+     * The desired run state of the pod: &#34;RUNNING&#34; or &#34;EXITED&#34;. Set to &#34;EXITED&#34; to stop (pause) the pod and &#34;RUNNING&#34; to resume it in place, without replacing it. Leave unset to not manage run state.
      * 
      */
     @Export(name="desiredStatus", refs={String.class}, tree="[0]")
-    private Output<String> desiredStatus;
+    private Output</* @Nullable */ String> desiredStatus;
 
     /**
-     * @return The desired status of the pod.
+     * @return The desired run state of the pod: &#34;RUNNING&#34; or &#34;EXITED&#34;. Set to &#34;EXITED&#34; to stop (pause) the pod and &#34;RUNNING&#34; to resume it in place, without replacing it. Leave unset to not manage run state.
      * 
      */
-    public Output<String> desiredStatus() {
-        return this.desiredStatus;
+    public Output<Optional<String>> desiredStatus() {
+        return Codegen.optional(this.desiredStatus);
     }
     /**
      * Docker arguments to pass to the container.

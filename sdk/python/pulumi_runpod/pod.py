@@ -32,6 +32,7 @@ class PodArgs:
                  cuda_version: Optional[pulumi.Input[_builtins.str]] = None,
                  data_center_id: Optional[pulumi.Input[_builtins.str]] = None,
                  deploy_cost: Optional[pulumi.Input[_builtins.float]] = None,
+                 desired_status: Optional[pulumi.Input[_builtins.str]] = None,
                  docker_args: Optional[pulumi.Input[_builtins.str]] = None,
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  global_network: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -73,6 +74,7 @@ class PodArgs:
         :param pulumi.Input[_builtins.str] cuda_version: The CUDA version to use.
         :param pulumi.Input[_builtins.str] data_center_id: The data center ID to deploy the pod in.
         :param pulumi.Input[_builtins.float] deploy_cost: The maximum bid price per GPU per hour for spot instances.
+        :param pulumi.Input[_builtins.str] desired_status: The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
         :param pulumi.Input[_builtins.str] docker_args: Docker arguments to pass to the container.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: Environment variables as key-value pairs.
         :param pulumi.Input[_builtins.bool] global_network: Whether to enable global networking.
@@ -123,6 +125,8 @@ class PodArgs:
             pulumi.set(__self__, "data_center_id", data_center_id)
         if deploy_cost is not None:
             pulumi.set(__self__, "deploy_cost", deploy_cost)
+        if desired_status is not None:
+            pulumi.set(__self__, "desired_status", desired_status)
         if docker_args is not None:
             pulumi.set(__self__, "docker_args", docker_args)
         if env is not None:
@@ -311,6 +315,18 @@ class PodArgs:
     @deploy_cost.setter
     def deploy_cost(self, value: Optional[pulumi.Input[_builtins.float]]):
         pulumi.set(self, "deploy_cost", value)
+
+    @_builtins.property
+    @pulumi.getter(name="desiredStatus")
+    def desired_status(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+        """
+        return pulumi.get(self, "desired_status")
+
+    @desired_status.setter
+    def desired_status(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "desired_status", value)
 
     @_builtins.property
     @pulumi.getter(name="dockerArgs")
@@ -665,6 +681,7 @@ class Pod(pulumi.CustomResource):
                  cuda_version: Optional[pulumi.Input[_builtins.str]] = None,
                  data_center_id: Optional[pulumi.Input[_builtins.str]] = None,
                  deploy_cost: Optional[pulumi.Input[_builtins.float]] = None,
+                 desired_status: Optional[pulumi.Input[_builtins.str]] = None,
                  docker_args: Optional[pulumi.Input[_builtins.str]] = None,
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  global_network: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -709,6 +726,7 @@ class Pod(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] cuda_version: The CUDA version to use.
         :param pulumi.Input[_builtins.str] data_center_id: The data center ID to deploy the pod in.
         :param pulumi.Input[_builtins.float] deploy_cost: The maximum bid price per GPU per hour for spot instances.
+        :param pulumi.Input[_builtins.str] desired_status: The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
         :param pulumi.Input[_builtins.str] docker_args: Docker arguments to pass to the container.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: Environment variables as key-value pairs.
         :param pulumi.Input[_builtins.bool] global_network: Whether to enable global networking.
@@ -772,6 +790,7 @@ class Pod(pulumi.CustomResource):
                  cuda_version: Optional[pulumi.Input[_builtins.str]] = None,
                  data_center_id: Optional[pulumi.Input[_builtins.str]] = None,
                  deploy_cost: Optional[pulumi.Input[_builtins.float]] = None,
+                 desired_status: Optional[pulumi.Input[_builtins.str]] = None,
                  docker_args: Optional[pulumi.Input[_builtins.str]] = None,
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  global_network: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -820,6 +839,7 @@ class Pod(pulumi.CustomResource):
             __props__.__dict__["cuda_version"] = cuda_version
             __props__.__dict__["data_center_id"] = data_center_id
             __props__.__dict__["deploy_cost"] = deploy_cost
+            __props__.__dict__["desired_status"] = desired_status
             __props__.__dict__["docker_args"] = docker_args
             __props__.__dict__["env"] = env
             __props__.__dict__["global_network"] = global_network
@@ -852,7 +872,6 @@ class Pod(pulumi.CustomResource):
             __props__.__dict__["volume_key"] = volume_key
             __props__.__dict__["volume_mount_path"] = volume_mount_path
             __props__.__dict__["cost_per_hr"] = None
-            __props__.__dict__["desired_status"] = None
             __props__.__dict__["machine_id"] = None
             __props__.__dict__["memory_in_gb"] = None
             __props__.__dict__["output_container_disk_in_gb"] = None
@@ -1034,9 +1053,9 @@ class Pod(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="desiredStatus")
-    def desired_status(self) -> pulumi.Output[_builtins.str]:
+    def desired_status(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The desired status of the pod.
+        The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
         """
         return pulumi.get(self, "desired_status")
 

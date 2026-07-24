@@ -32,6 +32,8 @@ class TemplateArgs:
                  env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  is_public: Optional[pulumi.Input[_builtins.bool]] = None,
                  is_serverless: Optional[pulumi.Input[_builtins.bool]] = None,
+                 min_ram: Optional[pulumi.Input[_builtins.int]] = None,
+                 min_vram: Optional[pulumi.Input[_builtins.int]] = None,
                  ports: Optional[pulumi.Input[_builtins.str]] = None,
                  ports_config: Optional[pulumi.Input[Sequence[pulumi.Input['TemplatePortConfigArgs']]]] = None,
                  readme: Optional[pulumi.Input[_builtins.str]] = None,
@@ -52,6 +54,8 @@ class TemplateArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: Environment variables as key-value pairs.
         :param pulumi.Input[_builtins.bool] is_public: Whether this template is publicly visible.
         :param pulumi.Input[_builtins.bool] is_serverless: Whether this template is for serverless endpoints.
+        :param pulumi.Input[_builtins.int] min_ram: The minimum system RAM, in GB, required to run this template.
+        :param pulumi.Input[_builtins.int] min_vram: The minimum GPU VRAM, in GB, required to run this template.
         :param pulumi.Input[_builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
         :param pulumi.Input[Sequence[pulumi.Input['TemplatePortConfigArgs']]] ports_config: Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
         :param pulumi.Input[_builtins.str] readme: A readme/description for the template in Markdown.
@@ -78,6 +82,10 @@ class TemplateArgs:
             pulumi.set(__self__, "is_public", is_public)
         if is_serverless is not None:
             pulumi.set(__self__, "is_serverless", is_serverless)
+        if min_ram is not None:
+            pulumi.set(__self__, "min_ram", min_ram)
+        if min_vram is not None:
+            pulumi.set(__self__, "min_vram", min_vram)
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
         if ports_config is not None:
@@ -226,6 +234,30 @@ class TemplateArgs:
         pulumi.set(self, "is_serverless", value)
 
     @_builtins.property
+    @pulumi.getter(name="minRam")
+    def min_ram(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The minimum system RAM, in GB, required to run this template.
+        """
+        return pulumi.get(self, "min_ram")
+
+    @min_ram.setter
+    def min_ram(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "min_ram", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVram")
+    def min_vram(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The minimum GPU VRAM, in GB, required to run this template.
+        """
+        return pulumi.get(self, "min_vram")
+
+    @min_vram.setter
+    def min_vram(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "min_vram", value)
+
+    @_builtins.property
     @pulumi.getter
     def ports(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -325,6 +357,8 @@ class Template(pulumi.CustomResource):
                  image_name: Optional[pulumi.Input[_builtins.str]] = None,
                  is_public: Optional[pulumi.Input[_builtins.bool]] = None,
                  is_serverless: Optional[pulumi.Input[_builtins.bool]] = None,
+                 min_ram: Optional[pulumi.Input[_builtins.int]] = None,
+                 min_vram: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  ports: Optional[pulumi.Input[_builtins.str]] = None,
                  ports_config: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TemplatePortConfigArgs', 'TemplatePortConfigArgsDict']]]]] = None,
@@ -348,6 +382,8 @@ class Template(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] image_name: The Docker image to use for the template.
         :param pulumi.Input[_builtins.bool] is_public: Whether this template is publicly visible.
         :param pulumi.Input[_builtins.bool] is_serverless: Whether this template is for serverless endpoints.
+        :param pulumi.Input[_builtins.int] min_ram: The minimum system RAM, in GB, required to run this template.
+        :param pulumi.Input[_builtins.int] min_vram: The minimum GPU VRAM, in GB, required to run this template.
         :param pulumi.Input[_builtins.str] name: A name for the template.
         :param pulumi.Input[_builtins.str] ports: Ports to expose (e.g. "8080/http,22/tcp").
         :param pulumi.Input[Sequence[pulumi.Input[Union['TemplatePortConfigArgs', 'TemplatePortConfigArgsDict']]]] ports_config: Named port configurations (e.g. [{port: "8888", name: "Jupyter Lab"}]).
@@ -390,6 +426,8 @@ class Template(pulumi.CustomResource):
                  image_name: Optional[pulumi.Input[_builtins.str]] = None,
                  is_public: Optional[pulumi.Input[_builtins.bool]] = None,
                  is_serverless: Optional[pulumi.Input[_builtins.bool]] = None,
+                 min_ram: Optional[pulumi.Input[_builtins.int]] = None,
+                 min_vram: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  ports: Optional[pulumi.Input[_builtins.str]] = None,
                  ports_config: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TemplatePortConfigArgs', 'TemplatePortConfigArgsDict']]]]] = None,
@@ -421,6 +459,8 @@ class Template(pulumi.CustomResource):
             __props__.__dict__["image_name"] = image_name
             __props__.__dict__["is_public"] = is_public
             __props__.__dict__["is_serverless"] = is_serverless
+            __props__.__dict__["min_ram"] = min_ram
+            __props__.__dict__["min_vram"] = min_vram
             if name is None and not opts.urn:
                 raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
@@ -466,6 +506,8 @@ class Template(pulumi.CustomResource):
         __props__.__dict__["image_name"] = None
         __props__.__dict__["is_public"] = None
         __props__.__dict__["is_serverless"] = None
+        __props__.__dict__["min_ram"] = None
+        __props__.__dict__["min_vram"] = None
         __props__.__dict__["name"] = None
         __props__.__dict__["ports"] = None
         __props__.__dict__["ports_config"] = None
@@ -549,6 +591,22 @@ class Template(pulumi.CustomResource):
         Whether this template is for serverless endpoints.
         """
         return pulumi.get(self, "is_serverless")
+
+    @_builtins.property
+    @pulumi.getter(name="minRam")
+    def min_ram(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The minimum system RAM, in GB, required to run this template.
+        """
+        return pulumi.get(self, "min_ram")
+
+    @_builtins.property
+    @pulumi.getter(name="minVram")
+    def min_vram(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The minimum GPU VRAM, in GB, required to run this template.
+        """
+        return pulumi.get(self, "min_vram")
 
     @_builtins.property
     @pulumi.getter

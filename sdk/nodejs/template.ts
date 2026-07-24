@@ -70,6 +70,14 @@ export class Template extends pulumi.CustomResource {
      */
     declare public readonly isServerless: pulumi.Output<boolean | undefined>;
     /**
+     * The minimum system RAM, in GB, required to run this template.
+     */
+    declare public readonly minRam: pulumi.Output<number | undefined>;
+    /**
+     * The minimum GPU VRAM, in GB, required to run this template.
+     */
+    declare public readonly minVram: pulumi.Output<number | undefined>;
+    /**
      * A name for the template.
      */
     declare public readonly name: pulumi.Output<string>;
@@ -142,6 +150,8 @@ export class Template extends pulumi.CustomResource {
             resourceInputs["imageName"] = args?.imageName;
             resourceInputs["isPublic"] = args?.isPublic;
             resourceInputs["isServerless"] = args?.isServerless;
+            resourceInputs["minRam"] = args?.minRam;
+            resourceInputs["minVram"] = args?.minVram;
             resourceInputs["name"] = args?.name;
             resourceInputs["ports"] = args?.ports;
             resourceInputs["portsConfig"] = args?.portsConfig;
@@ -162,6 +172,8 @@ export class Template extends pulumi.CustomResource {
             resourceInputs["imageName"] = undefined /*out*/;
             resourceInputs["isPublic"] = undefined /*out*/;
             resourceInputs["isServerless"] = undefined /*out*/;
+            resourceInputs["minRam"] = undefined /*out*/;
+            resourceInputs["minVram"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["ports"] = undefined /*out*/;
             resourceInputs["portsConfig"] = undefined /*out*/;
@@ -218,6 +230,14 @@ export interface TemplateArgs {
      * Whether this template is for serverless endpoints.
      */
     isServerless?: pulumi.Input<boolean>;
+    /**
+     * The minimum system RAM, in GB, required to run this template.
+     */
+    minRam?: pulumi.Input<number>;
+    /**
+     * The minimum GPU VRAM, in GB, required to run this template.
+     */
+    minVram?: pulumi.Input<number>;
     /**
      * A name for the template.
      */

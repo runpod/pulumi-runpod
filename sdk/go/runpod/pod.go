@@ -37,8 +37,8 @@ type Pod struct {
 	DataCenterId pulumi.StringPtrOutput `pulumi:"dataCenterId"`
 	// The maximum bid price per GPU per hour for spot instances.
 	DeployCost pulumi.Float64PtrOutput `pulumi:"deployCost"`
-	// The desired status of the pod.
-	DesiredStatus pulumi.StringOutput `pulumi:"desiredStatus"`
+	// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+	DesiredStatus pulumi.StringPtrOutput `pulumi:"desiredStatus"`
 	// Docker arguments to pass to the container.
 	DockerArgs pulumi.StringPtrOutput `pulumi:"dockerArgs"`
 	// Environment variables as key-value pairs.
@@ -220,6 +220,8 @@ type podArgs struct {
 	DataCenterId *string `pulumi:"dataCenterId"`
 	// The maximum bid price per GPU per hour for spot instances.
 	DeployCost *float64 `pulumi:"deployCost"`
+	// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+	DesiredStatus *string `pulumi:"desiredStatus"`
 	// Docker arguments to pass to the container.
 	DockerArgs *string `pulumi:"dockerArgs"`
 	// Environment variables as key-value pairs.
@@ -302,6 +304,8 @@ type PodArgs struct {
 	DataCenterId pulumi.StringPtrInput
 	// The maximum bid price per GPU per hour for spot instances.
 	DeployCost pulumi.Float64PtrInput
+	// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+	DesiredStatus pulumi.StringPtrInput
 	// Docker arguments to pass to the container.
 	DockerArgs pulumi.StringPtrInput
 	// Environment variables as key-value pairs.
@@ -504,9 +508,9 @@ func (o PodOutput) DeployCost() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *Pod) pulumi.Float64PtrOutput { return v.DeployCost }).(pulumi.Float64PtrOutput)
 }
 
-// The desired status of the pod.
-func (o PodOutput) DesiredStatus() pulumi.StringOutput {
-	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.DesiredStatus }).(pulumi.StringOutput)
+// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+func (o PodOutput) DesiredStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.DesiredStatus }).(pulumi.StringPtrOutput)
 }
 
 // Docker arguments to pass to the container.

@@ -33,7 +33,7 @@ class GetDataCentersResult:
     @pulumi.getter(name="dataCenters")
     def data_centers(self) -> Sequence['outputs.DataCenterOutput']:
         """
-        The list of available RunPod data centers.
+        The list of available Runpod data centers.
         """
         return pulumi.get(self, "data_centers")
 

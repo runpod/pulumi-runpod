@@ -16,11 +16,11 @@ from .. import _utilities
 
 apiKey: str
 """
-The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
 """
 
 apiUrl: Optional[str]
 """
-The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
 """
 

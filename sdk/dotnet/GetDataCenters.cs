@@ -35,7 +35,7 @@ namespace Pulumi.Runpod
     public sealed class GetDataCentersResult
     {
         /// <summary>
-        /// The list of available RunPod data centers.
+        /// The list of available Runpod data centers.
         /// </summary>
         public readonly ImmutableArray<Outputs.DataCenterOutput> DataCenters;
 
