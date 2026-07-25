@@ -58,7 +58,7 @@
 
 ## v0.1.0-alpha.1
 
-Initial pre-release of the RunPod Pulumi provider.
+Initial pre-release of the Runpod Pulumi provider.
 
 ### Resources
 
