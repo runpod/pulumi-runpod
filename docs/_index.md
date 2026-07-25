@@ -1,12 +1,12 @@
 ---
-title: RunPod
-meta_desc: Provides an overview of the RunPod Provider for Pulumi.
+title: Runpod
+meta_desc: Provides an overview of the Runpod Provider for Pulumi.
 layout: overview
 ---
 
-The RunPod provider for Pulumi can be used to provision and manage [RunPod](https://www.runpod.io) GPU cloud resources including pods, templates, serverless endpoints, network volumes, secrets, and container registry credentials.
+The Runpod provider for Pulumi can be used to provision and manage [Runpod](https://www.runpod.io) GPU cloud resources including pods, templates, serverless endpoints, network volumes, secrets, and container registry credentials.
 
-To manage RunPod resources with Pulumi, you need a RunPod API key. You can create one from the [RunPod Console](https://www.runpod.io/console/user/settings).
+To manage Runpod resources with Pulumi, you need a Runpod API key. You can create one from the [Runpod Console](https://www.runpod.io/console/user/settings).
 
 ## Example
 
