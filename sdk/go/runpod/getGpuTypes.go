@@ -30,12 +30,8 @@ type GetGpuTypesResult struct {
 }
 
 func GetGpuTypesOutput(ctx *pulumi.Context, args GetGpuTypesOutputArgs, opts ...pulumi.InvokeOption) GetGpuTypesResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (GetGpuTypesResultOutput, error) {
-			args := v.(GetGpuTypesArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("runpod:index:getGpuTypes", args, GetGpuTypesResultOutput{}, options).(GetGpuTypesResultOutput), nil
-		}).(GetGpuTypesResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("runpod:index:getGpuTypes", args, GetGpuTypesResultOutput{}, options).(GetGpuTypesResultOutput)
 }
 
 type GetGpuTypesOutputArgs struct {
