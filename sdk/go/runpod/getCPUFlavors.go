@@ -34,12 +34,8 @@ type GetCPUFlavorsResult struct {
 }
 
 func GetCPUFlavorsOutput(ctx *pulumi.Context, args GetCPUFlavorsOutputArgs, opts ...pulumi.InvokeOption) GetCPUFlavorsResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (GetCPUFlavorsResultOutput, error) {
-			args := v.(GetCPUFlavorsArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("runpod:index:getCPUFlavors", args, GetCPUFlavorsResultOutput{}, options).(GetCPUFlavorsResultOutput), nil
-		}).(GetCPUFlavorsResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("runpod:index:getCPUFlavors", args, GetCPUFlavorsResultOutput{}, options).(GetCPUFlavorsResultOutput)
 }
 
 type GetCPUFlavorsOutputArgs struct {
