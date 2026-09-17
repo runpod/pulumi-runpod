@@ -115,6 +115,9 @@ public class ContainerRegistryAuth extends com.pulumi.resources.CustomResource {
             .additionalSecretOutputs(List.of(
                 "password"
             ))
+            .replaceOnChanges(List.of(
+                "name"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }
