@@ -10,10 +10,10 @@ const __config = new pulumi.Config("runpod");
 /**
  * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
  */
-export declare const apiKey: string | undefined;
+export declare const apiKey: string;
 Object.defineProperty(exports, "apiKey", {
     get() {
-        return __config.get("apiKey") ?? utilities.getEnv("RUNPOD_API_KEY");
+        return __config.get("apiKey") ?? (utilities.getEnv("RUNPOD_API_KEY") || "");
     },
     enumerable: true,
 });
