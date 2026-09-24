@@ -9,14 +9,14 @@ export interface SavingsPlanArgs {
     /**
      * The length of the savings plan.
      */
-    planLength?: pulumi.Input<string>;
+    planLength?: pulumi.Input<string | undefined>;
     /**
      * The upfront cost for the savings plan.
      */
-    upfrontCost?: pulumi.Input<number>;
+    upfrontCost?: pulumi.Input<number | undefined>;
 }
 
 export interface TemplatePortConfigArgs {
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     port: pulumi.Input<string>;
 }
