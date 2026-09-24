@@ -236,15 +236,15 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
      * The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
      * 
      */
-    @Import(name="gpuTypeId", required=true)
-    private Output<String> gpuTypeId;
+    @Import(name="gpuTypeId")
+    private @Nullable Output<String> gpuTypeId;
 
     /**
      * @return The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
      * 
      */
-    public Output<String> gpuTypeId() {
-        return this.gpuTypeId;
+    public Optional<Output<String>> gpuTypeId() {
+        return Optional.ofNullable(this.gpuTypeId);
     }
 
     /**
@@ -979,7 +979,7 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder gpuTypeId(Output<String> gpuTypeId) {
+        public Builder gpuTypeId(@Nullable Output<String> gpuTypeId) {
             $.gpuTypeId = gpuTypeId;
             return this;
         }
@@ -1529,9 +1529,6 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PodArgs build() {
-            if ($.gpuTypeId == null) {
-                throw new MissingRequiredPropertyException("PodArgs", "gpuTypeId");
-            }
             if ($.name == null) {
                 throw new MissingRequiredPropertyException("PodArgs", "name");
             }

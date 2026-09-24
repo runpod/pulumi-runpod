@@ -14,9 +14,6 @@
   "pluginDownloadURL": "github://api.github.com/runpod/pulumi-runpod",
   "publisher": "RunPod",
   "namespace": "runpod",
-  "meta": {
-    "moduleFormat": "(.*)"
-  },
   "language": {
     "csharp": {
       "respectSchemaVersion": true,
@@ -50,8 +47,7 @@
           "environment": [
             "RUNPOD_API_KEY"
           ]
-        },
-        "secret": true
+        }
       },
       "apiUrl": {
         "type": "string",
@@ -106,15 +102,15 @@
       },
       "type": "object",
       "required": [
-        "diskLimitPerVcpu",
-        "displayName",
+        "id",
         "groupId",
         "groupName",
-        "id",
-        "maxVcpu",
+        "displayName",
         "minVcpu",
+        "maxVcpu",
+        "vcpuBurstable",
         "ramMultiplier",
-        "vcpuBurstable"
+        "diskLimitPerVcpu"
       ]
     },
     "runpod:index:DataCenterOutput": {
@@ -164,15 +160,15 @@
       },
       "type": "object",
       "required": [
-        "compliance",
-        "globalNetwork",
-        "gpuAvailability",
         "id",
-        "listed",
-        "location",
         "name",
+        "location",
         "region",
-        "storageSupport"
+        "listed",
+        "storageSupport",
+        "globalNetwork",
+        "compliance",
+        "gpuAvailability"
       ]
     },
     "runpod:index:EndpointNetworkVolumeBinding": {
@@ -186,8 +182,8 @@
       },
       "type": "object",
       "required": [
-        "dataCenterId",
-        "networkVolumeId"
+        "networkVolumeId",
+        "dataCenterId"
       ]
     },
     "runpod:index:GpuAvailabilityItem": {
@@ -211,9 +207,9 @@
       },
       "type": "object",
       "required": [
-        "available",
-        "gpuTypeDisplayName",
         "gpuTypeId",
+        "gpuTypeDisplayName",
+        "available",
         "stockStatus"
       ]
     },
@@ -257,14 +253,14 @@
       },
       "type": "object",
       "required": [
-        "communityCloud",
-        "communityPrice",
-        "displayName",
         "id",
-        "maxGpuCount",
+        "displayName",
         "memoryInGb",
         "secureCloud",
-        "securePrice"
+        "communityCloud",
+        "securePrice",
+        "communityPrice",
+        "maxGpuCount"
       ]
     },
     "runpod:index:LowestPriceOutput": {
@@ -288,10 +284,10 @@
       "type": "object",
       "required": [
         "minimumBidPrice",
+        "uninterruptablePrice",
         "rentedCount",
-        "stockStatus",
         "totalCount",
-        "uninterruptablePrice"
+        "stockStatus"
       ]
     },
     "runpod:index:SavingsPlan": {
@@ -332,8 +328,7 @@
           "environment": [
             "RUNPOD_API_KEY"
           ]
-        },
-        "secret": true
+        }
       },
       "apiUrl": {
         "type": "string",
@@ -345,7 +340,6 @@
         }
       }
     },
-    "type": "object",
     "inputProperties": {
       "apiKey": {
         "type": "string",
@@ -355,8 +349,7 @@
           "environment": [
             "RUNPOD_API_KEY"
           ]
-        },
-        "secret": true
+        }
       },
       "apiUrl": {
         "type": "string",
@@ -391,12 +384,11 @@
           "description": "The username for the container registry."
         }
       },
-      "type": "object",
       "required": [
         "name",
+        "username",
         "password",
-        "registryAuthId",
-        "username"
+        "registryAuthId"
       ],
       "inputProperties": {
         "name": {
@@ -416,8 +408,8 @@
       },
       "requiredInputs": [
         "name",
-        "password",
-        "username"
+        "username",
+        "password"
       ]
     },
     "runpod:index:Endpoint": {
@@ -535,10 +527,9 @@
           "description": "The minimum number of workers to keep running."
         }
       },
-      "type": "object",
       "required": [
-        "endpointId",
-        "name"
+        "name",
+        "endpointId"
       ],
       "inputProperties": {
         "allowedCudaVersions": {
@@ -680,12 +671,11 @@
           "description": "The storage backend type (e.g. MOOSE_FS, CEPH_FS)."
         }
       },
-      "type": "object",
       "required": [
-        "dataCenterId",
         "name",
-        "networkVolumeId",
-        "size"
+        "size",
+        "dataCenterId",
+        "networkVolumeId"
       ],
       "inputProperties": {
         "dataCenterId": {
@@ -708,9 +698,9 @@
         }
       },
       "requiredInputs": [
-        "dataCenterId",
         "name",
-        "size"
+        "size",
+        "dataCenterId"
       ]
     },
     "runpod:index:Pod": {
@@ -974,16 +964,15 @@
           "description": "The path to mount the persistent volume."
         }
       },
-      "type": "object",
       "required": [
+        "name",
+        "podId",
+        "machineId",
         "costPerHr",
         "desiredStatus",
-        "machineId",
+        "vcpuCount",
         "memoryInGb",
-        "name",
-        "outputGpuCount",
-        "podId",
-        "vcpuCount"
+        "outputGpuCount"
       ],
       "inputProperties": {
         "aiApiId": {
@@ -1214,11 +1203,10 @@
           "secret": true
         }
       },
-      "type": "object",
       "required": [
         "name",
-        "secretId",
-        "value"
+        "value",
+        "secretId"
       ],
       "inputProperties": {
         "description": {
@@ -1326,13 +1314,12 @@
           "description": "The path to mount the persistent volume."
         }
       },
-      "type": "object",
       "required": [
-        "containerDiskInGb",
-        "imageName",
         "name",
-        "templateId",
-        "volumeInGb"
+        "imageName",
+        "containerDiskInGb",
+        "volumeInGb",
+        "templateId"
       ],
       "inputProperties": {
         "advancedStart": {
@@ -1415,9 +1402,9 @@
         }
       },
       "requiredInputs": [
-        "containerDiskInGb",
-        "imageName",
         "name",
+        "imageName",
+        "containerDiskInGb",
         "volumeInGb"
       ]
     }
