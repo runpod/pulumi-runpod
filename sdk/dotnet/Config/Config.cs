@@ -32,7 +32,7 @@ namespace Pulumi.Runpod
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("runpod");
 
-        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey") ?? Utilities.GetEnv("RUNPOD_API_KEY"));
+        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey") ?? Utilities.GetEnv("RUNPOD_API_KEY") ?? "");
         /// <summary>
         /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         /// </summary>
