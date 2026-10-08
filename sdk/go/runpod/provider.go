@@ -28,7 +28,7 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.ApiKey == nil {
-		if d := internal.GetEnvOrDefault(nil, nil, "RUNPOD_API_KEY"); d != nil {
+		if d := internal.GetEnvOrDefault("", nil, "RUNPOD_API_KEY"); d != nil {
 			args.ApiKey = pulumi.StringPtr(d.(string))
 		}
 	}
@@ -37,13 +37,6 @@ func NewProvider(ctx *pulumi.Context,
 			args.ApiUrl = pulumi.StringPtr(d.(string))
 		}
 	}
-	if args.ApiKey != nil {
-		args.ApiKey = pulumi.ToSecret(args.ApiKey).(pulumi.StringPtrInput)
-	}
-	secrets := pulumi.AdditionalSecretOutputs([]string{
-		"apiKey",
-	})
-	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:runpod", name, args, &resource, opts...)
