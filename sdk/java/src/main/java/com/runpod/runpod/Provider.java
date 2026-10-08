@@ -10,7 +10,6 @@ import com.pulumi.core.internal.Codegen;
 import com.runpod.runpod.ProviderArgs;
 import com.runpod.runpod.Utilities;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -81,9 +80,6 @@ public class Provider extends com.pulumi.resources.ProviderResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/runpod/pulumi-runpod")
-            .additionalSecretOutputs(List.of(
-                "apiKey"
-            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

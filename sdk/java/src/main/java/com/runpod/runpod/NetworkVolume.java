@@ -12,6 +12,7 @@ import com.runpod.runpod.Utilities;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -156,6 +157,10 @@ public class NetworkVolume extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/runpod/pulumi-runpod")
+            .replaceOnChanges(List.of(
+                "dataCenterId",
+                "isNextGenStorage"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

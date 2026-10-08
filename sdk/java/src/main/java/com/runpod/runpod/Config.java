@@ -15,7 +15,7 @@ public final class Config {
  * 
  */
     public Optional<String> apiKey() {
-        return Codegen.stringProp("apiKey").config(config).env("RUNPOD_API_KEY").get();
+        return Codegen.stringProp("apiKey").config(config).env("RUNPOD_API_KEY").def("").get();
     }
 /**
  * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
