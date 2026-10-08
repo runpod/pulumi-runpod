@@ -34,19 +34,19 @@ export class ContainerRegistryAuth extends pulumi.CustomResource {
     /**
      * A name for the registry auth credentials.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
      * The password or access token for the container registry.
      */
-    public readonly password!: pulumi.Output<string>;
+    declare public readonly password: pulumi.Output<string>;
     /**
      * The unique identifier of the registry auth.
      */
-    public /*out*/ readonly registryAuthId!: pulumi.Output<string>;
+    declare public /*out*/ readonly registryAuthId: pulumi.Output<string>;
     /**
      * The username for the container registry.
      */
-    public readonly username!: pulumi.Output<string>;
+    declare public readonly username: pulumi.Output<string>;
 
     /**
      * Create a ContainerRegistryAuth resource with the given unique name, arguments, and options.
@@ -59,18 +59,18 @@ export class ContainerRegistryAuth extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.name === undefined) && !opts.urn) {
+            if (args?.name === undefined && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
-            if ((!args || args.password === undefined) && !opts.urn) {
+            if (args?.password === undefined && !opts.urn) {
                 throw new Error("Missing required property 'password'");
             }
-            if ((!args || args.username === undefined) && !opts.urn) {
+            if (args?.username === undefined && !opts.urn) {
                 throw new Error("Missing required property 'username'");
             }
-            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["name"] = args?.name;
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
-            resourceInputs["username"] = args ? args.username : undefined;
+            resourceInputs["username"] = args?.username;
             resourceInputs["registryAuthId"] = undefined /*out*/;
         } else {
             resourceInputs["name"] = undefined /*out*/;
