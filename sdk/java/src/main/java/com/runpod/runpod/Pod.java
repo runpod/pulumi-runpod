@@ -250,14 +250,14 @@ public class Pod extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="gpuTypeId", refs={String.class}, tree="[0]")
-    private Output<String> gpuTypeId;
+    private Output</* @Nullable */ String> gpuTypeId;
 
     /**
      * @return The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
      * 
      */
-    public Output<String> gpuTypeId() {
-        return this.gpuTypeId;
+    public Output<Optional<String>> gpuTypeId() {
+        return Codegen.optional(this.gpuTypeId);
     }
     /**
      * A list of acceptable GPU type IDs (fallback options).
@@ -804,6 +804,39 @@ public class Pod extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/runpod/pulumi-runpod")
+            .replaceOnChanges(List.of(
+                "aiApiId",
+                "allowedCudaVersions[*]",
+                "cloudType",
+                "computeType",
+                "countryCode",
+                "cudaVersion",
+                "dataCenterId",
+                "deployCost",
+                "globalNetwork",
+                "gpuCount",
+                "gpuTypeId",
+                "gpuTypeIdList[*]",
+                "ideAiApiId",
+                "instanceIds[*]",
+                "minCudaVersion",
+                "minDisk",
+                "minDownload",
+                "minMemoryInGb",
+                "minUpload",
+                "minVcpuCount",
+                "modelReferences[*]",
+                "name",
+                "networkVolumeId",
+                "savingsPlan",
+                "startJupyter",
+                "startSsh",
+                "stopAfter",
+                "supportPublicIp",
+                "templateId",
+                "terminateAfter",
+                "volumeKey"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }
