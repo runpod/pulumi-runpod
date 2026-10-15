@@ -45,9 +45,9 @@ export interface GetCPUFlavorsOutputArgs {
     /**
      * Filter by serverless eligibility.
      */
-    isSls?: pulumi.Input<boolean>;
+    isSls?: pulumi.Input<boolean | undefined>;
     /**
      * When true, return only serverless-eligible CPU flavors.
      */
-    slsOnly?: pulumi.Input<boolean>;
+    slsOnly?: pulumi.Input<boolean | undefined>;
 }
