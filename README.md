@@ -1,6 +1,6 @@
-# Pulumi RunPod Provider
+# Pulumi Runpod Provider
 
-The Pulumi RunPod provider lets you manage [RunPod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
+The Pulumi Runpod provider lets you manage [Runpod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
 
 <!-- runpod-agent-setup:start -->
 **For AI agents:** setup instructions for the Runpod skills and MCP server are at https://agents.runpod.io/
@@ -55,7 +55,7 @@ dotnet add package Pulumi.Runpod
 
 ## Configuration
 
-Set your RunPod API key:
+Set your Runpod API key:
 
 ```bash
 pulumi config set runpod:apiKey --secret YOUR_API_KEY
