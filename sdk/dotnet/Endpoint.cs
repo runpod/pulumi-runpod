@@ -25,6 +25,12 @@ namespace Pulumi.Runpod
         public Output<bool?> BindEndpoint { get; private set; } = null!;
 
         /// <summary>
+        /// The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+        /// </summary>
+        [Output("dataCenterIds")]
+        public Output<ImmutableArray<string>> DataCenterIds { get; private set; } = null!;
+
+        /// <summary>
         /// The unique identifier of the endpoint.
         /// </summary>
         [Output("endpointId")]
@@ -97,12 +103,6 @@ namespace Pulumi.Runpod
         public Output<string?> MinCudaVersion { get; private set; } = null!;
 
         /// <summary>
-        /// The model name for the endpoint.
-        /// </summary>
-        [Output("modelName")]
-        public Output<string?> ModelName { get; private set; } = null!;
-
-        /// <summary>
         /// Model references for the endpoint.
         /// </summary>
         [Output("modelReferences")]
@@ -125,6 +125,12 @@ namespace Pulumi.Runpod
         /// </summary>
         [Output("networkVolumeIds")]
         public Output<ImmutableArray<Outputs.EndpointNetworkVolumeBinding>> NetworkVolumeIds { get; private set; } = null!;
+
+        /// <summary>
+        /// The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+        /// </summary>
+        [Output("requestTTL")]
+        public Output<int?> RequestTTL { get; private set; } = null!;
 
         /// <summary>
         /// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
@@ -161,6 +167,18 @@ namespace Pulumi.Runpod
         /// </summary>
         [Output("workersMin")]
         public Output<int?> WorkersMin { get; private set; } = null!;
+
+        /// <summary>
+        /// The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+        /// </summary>
+        [Output("workersPFBTarget")]
+        public Output<int?> WorkersPFBTarget { get; private set; } = null!;
+
+        /// <summary>
+        /// The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+        /// </summary>
+        [Output("workersStandby")]
+        public Output<int?> WorkersStandby { get; private set; } = null!;
 
 
         /// <summary>
@@ -219,6 +237,18 @@ namespace Pulumi.Runpod
         /// </summary>
         [Input("bindEndpoint")]
         public Input<bool>? BindEndpoint { get; set; }
+
+        [Input("dataCenterIds")]
+        private InputList<string>? _dataCenterIds;
+
+        /// <summary>
+        /// The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+        /// </summary>
+        public InputList<string> DataCenterIds
+        {
+            get => _dataCenterIds ?? (_dataCenterIds = new InputList<string>());
+            set => _dataCenterIds = value;
+        }
 
         [Input("env")]
         private InputMap<string>? _env;
@@ -298,12 +328,6 @@ namespace Pulumi.Runpod
         [Input("minCudaVersion")]
         public Input<string>? MinCudaVersion { get; set; }
 
-        /// <summary>
-        /// The model name for the endpoint.
-        /// </summary>
-        [Input("modelName")]
-        public Input<string>? ModelName { get; set; }
-
         [Input("modelReferences")]
         private InputList<string>? _modelReferences;
 
@@ -327,6 +351,12 @@ namespace Pulumi.Runpod
         /// </summary>
         [Input("networkVolumeId")]
         public Input<string>? NetworkVolumeId { get; set; }
+
+        /// <summary>
+        /// The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+        /// </summary>
+        [Input("requestTTL")]
+        public Input<int>? RequestTTL { get; set; }
 
         /// <summary>
         /// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
@@ -363,6 +393,12 @@ namespace Pulumi.Runpod
         /// </summary>
         [Input("workersMin")]
         public Input<int>? WorkersMin { get; set; }
+
+        /// <summary>
+        /// The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+        /// </summary>
+        [Input("workersPFBTarget")]
+        public Input<int>? WorkersPFBTarget { get; set; }
 
         public EndpointArgs()
         {

@@ -5,6 +5,7 @@ package com.runpod.runpod.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.runpod.runpod.outputs.CPUAvailabilityItem;
 import com.runpod.runpod.outputs.GpuAvailabilityItem;
 import java.lang.Boolean;
 import java.lang.String;
@@ -18,6 +19,11 @@ public final class DataCenterOutput {
      * 
      */
     private List<String> compliance;
+    /**
+     * @return CPU availability within this data center.
+     * 
+     */
+    private List<CPUAvailabilityItem> cpuAvailability;
     /**
      * @return Whether this data center is part of the global network.
      * 
@@ -66,6 +72,13 @@ public final class DataCenterOutput {
      */
     public List<String> compliance() {
         return this.compliance;
+    }
+    /**
+     * @return CPU availability within this data center.
+     * 
+     */
+    public List<CPUAvailabilityItem> cpuAvailability() {
+        return this.cpuAvailability;
     }
     /**
      * @return Whether this data center is part of the global network.
@@ -134,6 +147,7 @@ public final class DataCenterOutput {
     @CustomType.Builder
     public static final class Builder {
         private List<String> compliance;
+        private List<CPUAvailabilityItem> cpuAvailability;
         private Boolean globalNetwork;
         private List<GpuAvailabilityItem> gpuAvailability;
         private String id;
@@ -146,6 +160,7 @@ public final class DataCenterOutput {
         public Builder(DataCenterOutput defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.compliance = defaults.compliance;
+    	      this.cpuAvailability = defaults.cpuAvailability;
     	      this.globalNetwork = defaults.globalNetwork;
     	      this.gpuAvailability = defaults.gpuAvailability;
     	      this.id = defaults.id;
@@ -166,6 +181,17 @@ public final class DataCenterOutput {
         }
         public Builder compliance(String... compliance) {
             return compliance(List.of(compliance));
+        }
+        @CustomType.Setter
+        public Builder cpuAvailability(List<CPUAvailabilityItem> cpuAvailability) {
+            if (cpuAvailability == null) {
+              throw new MissingRequiredPropertyException("DataCenterOutput", "cpuAvailability");
+            }
+            this.cpuAvailability = cpuAvailability;
+            return this;
+        }
+        public Builder cpuAvailability(CPUAvailabilityItem... cpuAvailability) {
+            return cpuAvailability(List.of(cpuAvailability));
         }
         @CustomType.Setter
         public Builder globalNetwork(Boolean globalNetwork) {
@@ -237,6 +263,7 @@ public final class DataCenterOutput {
         public DataCenterOutput build() {
             final var _resultValue = new DataCenterOutput();
             _resultValue.compliance = compliance;
+            _resultValue.cpuAvailability = cpuAvailability;
             _resultValue.globalNetwork = globalNetwork;
             _resultValue.gpuAvailability = gpuAvailability;
             _resultValue.id = id;

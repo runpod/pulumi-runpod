@@ -19,6 +19,8 @@ type Endpoint struct {
 	AllowedCudaVersions pulumi.StringPtrOutput `pulumi:"allowedCudaVersions"`
 	// Whether to bind the endpoint to specific workers.
 	BindEndpoint pulumi.BoolPtrOutput `pulumi:"bindEndpoint"`
+	// The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+	DataCenterIds pulumi.StringArrayOutput `pulumi:"dataCenterIds"`
 	// The unique identifier of the endpoint.
 	EndpointId pulumi.StringOutput `pulumi:"endpointId"`
 	// Environment variables as key-value pairs.
@@ -43,8 +45,6 @@ type Endpoint struct {
 	Locations pulumi.StringPtrOutput `pulumi:"locations"`
 	// The minimum CUDA version required.
 	MinCudaVersion pulumi.StringPtrOutput `pulumi:"minCudaVersion"`
-	// The model name for the endpoint.
-	ModelName pulumi.StringPtrOutput `pulumi:"modelName"`
 	// Model references for the endpoint.
 	ModelReferences pulumi.StringArrayOutput `pulumi:"modelReferences"`
 	// A name for the endpoint.
@@ -53,6 +53,8 @@ type Endpoint struct {
 	NetworkVolumeId pulumi.StringPtrOutput `pulumi:"networkVolumeId"`
 	// Network volumes attached to the endpoint, returned by the API.
 	NetworkVolumeIds EndpointNetworkVolumeBindingArrayOutput `pulumi:"networkVolumeIds"`
+	// The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+	RequestTTL pulumi.IntPtrOutput `pulumi:"requestTTL"`
 	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
 	ScalerType pulumi.StringPtrOutput `pulumi:"scalerType"`
 	// The autoscaler target value.
@@ -65,6 +67,10 @@ type Endpoint struct {
 	WorkersMax pulumi.IntPtrOutput `pulumi:"workersMax"`
 	// The minimum number of workers to keep running.
 	WorkersMin pulumi.IntPtrOutput `pulumi:"workersMin"`
+	// The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+	WorkersPFBTarget pulumi.IntPtrOutput `pulumi:"workersPFBTarget"`
+	// The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+	WorkersStandby pulumi.IntPtrOutput `pulumi:"workersStandby"`
 }
 
 // NewEndpoint registers a new resource with the given unique name, arguments, and options.
@@ -114,6 +120,8 @@ type endpointArgs struct {
 	AllowedCudaVersions *string `pulumi:"allowedCudaVersions"`
 	// Whether to bind the endpoint to specific workers.
 	BindEndpoint *bool `pulumi:"bindEndpoint"`
+	// The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+	DataCenterIds []string `pulumi:"dataCenterIds"`
 	// Environment variables as key-value pairs.
 	Env map[string]string `pulumi:"env"`
 	// Maximum execution time in milliseconds before a request is terminated.
@@ -136,14 +144,14 @@ type endpointArgs struct {
 	Locations *string `pulumi:"locations"`
 	// The minimum CUDA version required.
 	MinCudaVersion *string `pulumi:"minCudaVersion"`
-	// The model name for the endpoint.
-	ModelName *string `pulumi:"modelName"`
 	// Model references for the endpoint.
 	ModelReferences []string `pulumi:"modelReferences"`
 	// A name for the endpoint.
 	Name string `pulumi:"name"`
 	// The network volume ID to attach to endpoint workers.
 	NetworkVolumeId *string `pulumi:"networkVolumeId"`
+	// The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+	RequestTTL *int `pulumi:"requestTTL"`
 	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
 	ScalerType *string `pulumi:"scalerType"`
 	// The autoscaler target value.
@@ -156,6 +164,8 @@ type endpointArgs struct {
 	WorkersMax *int `pulumi:"workersMax"`
 	// The minimum number of workers to keep running.
 	WorkersMin *int `pulumi:"workersMin"`
+	// The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+	WorkersPFBTarget *int `pulumi:"workersPFBTarget"`
 }
 
 // The set of arguments for constructing a Endpoint resource.
@@ -164,6 +174,8 @@ type EndpointArgs struct {
 	AllowedCudaVersions pulumi.StringPtrInput
 	// Whether to bind the endpoint to specific workers.
 	BindEndpoint pulumi.BoolPtrInput
+	// The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+	DataCenterIds pulumi.StringArrayInput
 	// Environment variables as key-value pairs.
 	Env pulumi.StringMapInput
 	// Maximum execution time in milliseconds before a request is terminated.
@@ -186,14 +198,14 @@ type EndpointArgs struct {
 	Locations pulumi.StringPtrInput
 	// The minimum CUDA version required.
 	MinCudaVersion pulumi.StringPtrInput
-	// The model name for the endpoint.
-	ModelName pulumi.StringPtrInput
 	// Model references for the endpoint.
 	ModelReferences pulumi.StringArrayInput
 	// A name for the endpoint.
 	Name pulumi.StringInput
 	// The network volume ID to attach to endpoint workers.
 	NetworkVolumeId pulumi.StringPtrInput
+	// The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+	RequestTTL pulumi.IntPtrInput
 	// The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
 	ScalerType pulumi.StringPtrInput
 	// The autoscaler target value.
@@ -206,6 +218,8 @@ type EndpointArgs struct {
 	WorkersMax pulumi.IntPtrInput
 	// The minimum number of workers to keep running.
 	WorkersMin pulumi.IntPtrInput
+	// The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+	WorkersPFBTarget pulumi.IntPtrInput
 }
 
 func (EndpointArgs) ElementType() reflect.Type {
@@ -305,6 +319,11 @@ func (o EndpointOutput) BindEndpoint() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.BoolPtrOutput { return v.BindEndpoint }).(pulumi.BoolPtrOutput)
 }
 
+// The data center IDs where workers may be deployed (structured replacement for the legacy comma-separated locations field).
+func (o EndpointOutput) DataCenterIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.StringArrayOutput { return v.DataCenterIds }).(pulumi.StringArrayOutput)
+}
+
 // The unique identifier of the endpoint.
 func (o EndpointOutput) EndpointId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringOutput { return v.EndpointId }).(pulumi.StringOutput)
@@ -365,11 +384,6 @@ func (o EndpointOutput) MinCudaVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.MinCudaVersion }).(pulumi.StringPtrOutput)
 }
 
-// The model name for the endpoint.
-func (o EndpointOutput) ModelName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Endpoint) pulumi.StringPtrOutput { return v.ModelName }).(pulumi.StringPtrOutput)
-}
-
 // Model references for the endpoint.
 func (o EndpointOutput) ModelReferences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.StringArrayOutput { return v.ModelReferences }).(pulumi.StringArrayOutput)
@@ -388,6 +402,11 @@ func (o EndpointOutput) NetworkVolumeId() pulumi.StringPtrOutput {
 // Network volumes attached to the endpoint, returned by the API.
 func (o EndpointOutput) NetworkVolumeIds() EndpointNetworkVolumeBindingArrayOutput {
 	return o.ApplyT(func(v *Endpoint) EndpointNetworkVolumeBindingArrayOutput { return v.NetworkVolumeIds }).(EndpointNetworkVolumeBindingArrayOutput)
+}
+
+// The time-to-live, in milliseconds, for a queued request before it expires. Must be at least 10000 (10 seconds).
+func (o EndpointOutput) RequestTTL() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.RequestTTL }).(pulumi.IntPtrOutput)
 }
 
 // The autoscaler type (e.g. "QUEUE_DELAY", "REQUEST_COUNT").
@@ -418,6 +437,16 @@ func (o EndpointOutput) WorkersMax() pulumi.IntPtrOutput {
 // The minimum number of workers to keep running.
 func (o EndpointOutput) WorkersMin() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.WorkersMin }).(pulumi.IntPtrOutput)
+}
+
+// The target number of flashboot pre-warmed workers the autoscaler aims to keep available.
+func (o EndpointOutput) WorkersPFBTarget() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.WorkersPFBTarget }).(pulumi.IntPtrOutput)
+}
+
+// The number of standby workers kept pre-warmed for the endpoint. Read from the API — configure via the Runpod console.
+func (o EndpointOutput) WorkersStandby() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Endpoint) pulumi.IntPtrOutput { return v.WorkersStandby }).(pulumi.IntPtrOutput)
 }
 
 type EndpointArrayOutput struct{ *pulumi.OutputState }

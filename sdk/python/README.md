@@ -1,6 +1,6 @@
-# Pulumi RunPod Provider
+# Pulumi Runpod Provider
 
-The Pulumi RunPod provider lets you manage [RunPod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
+The Pulumi Runpod provider lets you manage [Runpod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
 
 ## Resources
 
@@ -28,7 +28,7 @@ The provider plugin is installed automatically when you use it in a Pulumi progr
 ### Node.js (TypeScript/JavaScript)
 
 ```bash
-npm install @runpod/pulumi
+npm install pulumi-runpod
 ```
 
 ### Python
@@ -51,7 +51,7 @@ dotnet add package Pulumi.Runpod
 
 ## Configuration
 
-Set your RunPod API key:
+Set your Runpod API key:
 
 ```bash
 pulumi config set runpod:apiKey --secret YOUR_API_KEY

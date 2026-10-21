@@ -230,6 +230,7 @@ type DataCenterResponse struct {
 	Region          *DataCenterRegion                    `json:"region,omitempty"`
 	Compliance      []*Compliance                        `json:"compliance"`
 	GpuAvailability []*DataCenterResponseGpuAvailability `json:"gpuAvailability"`
+	CpuAvailability []*DataCenterResponseCpuAvailability `json:"cpuAvailability"`
 }
 
 // GetId returns DataCenterResponse.Id, and is useful for accessing the field via an interface.
@@ -260,6 +261,35 @@ func (v *DataCenterResponse) GetCompliance() []*Compliance { return v.Compliance
 func (v *DataCenterResponse) GetGpuAvailability() []*DataCenterResponseGpuAvailability {
 	return v.GpuAvailability
 }
+
+// GetCpuAvailability returns DataCenterResponse.CpuAvailability, and is useful for accessing the field via an interface.
+func (v *DataCenterResponse) GetCpuAvailability() []*DataCenterResponseCpuAvailability {
+	return v.CpuAvailability
+}
+
+// DataCenterResponseCpuAvailability includes the requested fields of the GraphQL type CpuAvailability.
+type DataCenterResponseCpuAvailability struct {
+	Id          *string `json:"id,omitempty"`
+	CpuFlavorId *string `json:"cpuFlavorId,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Available   *bool   `json:"available,omitempty"`
+	StockStatus *string `json:"stockStatus,omitempty"`
+}
+
+// GetId returns DataCenterResponseCpuAvailability.Id, and is useful for accessing the field via an interface.
+func (v *DataCenterResponseCpuAvailability) GetId() *string { return v.Id }
+
+// GetCpuFlavorId returns DataCenterResponseCpuAvailability.CpuFlavorId, and is useful for accessing the field via an interface.
+func (v *DataCenterResponseCpuAvailability) GetCpuFlavorId() *string { return v.CpuFlavorId }
+
+// GetDisplayName returns DataCenterResponseCpuAvailability.DisplayName, and is useful for accessing the field via an interface.
+func (v *DataCenterResponseCpuAvailability) GetDisplayName() *string { return v.DisplayName }
+
+// GetAvailable returns DataCenterResponseCpuAvailability.Available, and is useful for accessing the field via an interface.
+func (v *DataCenterResponseCpuAvailability) GetAvailable() *bool { return v.Available }
+
+// GetStockStatus returns DataCenterResponseCpuAvailability.StockStatus, and is useful for accessing the field via an interface.
+func (v *DataCenterResponseCpuAvailability) GetStockStatus() *string { return v.StockStatus }
 
 // DataCenterResponseGpuAvailability includes the requested fields of the GraphQL type GpuAvailability.
 type DataCenterResponseGpuAvailability struct {
@@ -448,11 +478,12 @@ type EndpointInput struct {
 	AllowedCudaVersions *string                     `json:"allowedCudaVersions,omitempty"`
 	MinCudaVersion      *string                     `json:"minCudaVersion,omitempty"`
 	ExecutionTimeoutMs  *int                        `json:"executionTimeoutMs,omitempty"`
+	RequestTTL          *int                        `json:"requestTTL,omitempty"`
+	DataCenterIds       []*string                   `json:"dataCenterIds"`
 	BindEndpoint        *bool                       `json:"bindEndpoint,omitempty"`
 	Repo                *EndpointRepoInput          `json:"repo,omitempty"`
 	HubReleaseId        *string                     `json:"hubReleaseId,omitempty"`
 	Type                *string                     `json:"type,omitempty"`
-	ModelName           *string                     `json:"modelName,omitempty"`
 	ModelReferences     []*string                   `json:"modelReferences"`
 	CloudStorageConfig  *CloudStorageConfigInput    `json:"cloudStorageConfig,omitempty"`
 	FlashBootType       *FlashBootType              `json:"flashBootType,omitempty"`
@@ -521,6 +552,12 @@ func (v *EndpointInput) GetMinCudaVersion() *string { return v.MinCudaVersion }
 // GetExecutionTimeoutMs returns EndpointInput.ExecutionTimeoutMs, and is useful for accessing the field via an interface.
 func (v *EndpointInput) GetExecutionTimeoutMs() *int { return v.ExecutionTimeoutMs }
 
+// GetRequestTTL returns EndpointInput.RequestTTL, and is useful for accessing the field via an interface.
+func (v *EndpointInput) GetRequestTTL() *int { return v.RequestTTL }
+
+// GetDataCenterIds returns EndpointInput.DataCenterIds, and is useful for accessing the field via an interface.
+func (v *EndpointInput) GetDataCenterIds() []*string { return v.DataCenterIds }
+
 // GetBindEndpoint returns EndpointInput.BindEndpoint, and is useful for accessing the field via an interface.
 func (v *EndpointInput) GetBindEndpoint() *bool { return v.BindEndpoint }
 
@@ -532,9 +569,6 @@ func (v *EndpointInput) GetHubReleaseId() *string { return v.HubReleaseId }
 
 // GetType returns EndpointInput.Type, and is useful for accessing the field via an interface.
 func (v *EndpointInput) GetType() *string { return v.Type }
-
-// GetModelName returns EndpointInput.ModelName, and is useful for accessing the field via an interface.
-func (v *EndpointInput) GetModelName() *string { return v.ModelName }
 
 // GetModelReferences returns EndpointInput.ModelReferences, and is useful for accessing the field via an interface.
 func (v *EndpointInput) GetModelReferences() []*string { return v.ModelReferences }
@@ -580,6 +614,7 @@ type EndpointResponse struct {
 	GpuIds              *string                                   `json:"gpuIds,omitempty"`
 	WorkersMin          *int                                      `json:"workersMin,omitempty"`
 	WorkersMax          *int                                      `json:"workersMax,omitempty"`
+	WorkersStandby      *int                                      `json:"workersStandby,omitempty"`
 	IdleTimeout         *int                                      `json:"idleTimeout,omitempty"`
 	Locations           *string                                   `json:"locations,omitempty"`
 	ScalerType          *string                                   `json:"scalerType,omitempty"`
@@ -616,6 +651,9 @@ func (v *EndpointResponse) GetWorkersMin() *int { return v.WorkersMin }
 
 // GetWorkersMax returns EndpointResponse.WorkersMax, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetWorkersMax() *int { return v.WorkersMax }
+
+// GetWorkersStandby returns EndpointResponse.WorkersStandby, and is useful for accessing the field via an interface.
+func (v *EndpointResponse) GetWorkersStandby() *int { return v.WorkersStandby }
 
 // GetIdleTimeout returns EndpointResponse.IdleTimeout, and is useful for accessing the field via an interface.
 func (v *EndpointResponse) GetIdleTimeout() *int { return v.IdleTimeout }
@@ -1305,6 +1343,17 @@ func (v *PodResponse) GetContainerRegistryAuthId() *string { return v.ContainerR
 // GetPodType returns PodResponse.PodType, and is useful for accessing the field via an interface.
 func (v *PodResponse) GetPodType() *PodType { return v.PodType }
 
+type PodResumeInput struct {
+	PodId    string `json:"podId"`
+	GpuCount *int   `json:"gpuCount,omitempty"`
+}
+
+// GetPodId returns PodResumeInput.PodId, and is useful for accessing the field via an interface.
+func (v *PodResumeInput) GetPodId() string { return v.PodId }
+
+// GetGpuCount returns PodResumeInput.GpuCount, and is useful for accessing the field via an interface.
+func (v *PodResumeInput) GetGpuCount() *int { return v.GpuCount }
+
 type PodStatus string
 
 const (
@@ -1326,6 +1375,13 @@ var AllPodStatus = []PodStatus{
 	PodStatusDead,
 	PodStatusTerminated,
 }
+
+type PodStopInput struct {
+	PodId string `json:"podId"`
+}
+
+// GetPodId returns PodStopInput.PodId, and is useful for accessing the field via an interface.
+func (v *PodStopInput) GetPodId() string { return v.PodId }
 
 type PodTerminateInput struct {
 	PodId string `json:"podId"`
@@ -1372,6 +1428,14 @@ func (v *RegistryAuthResponse) GetId() *string { return v.Id }
 
 // GetName returns RegistryAuthResponse.Name, and is useful for accessing the field via an interface.
 func (v *RegistryAuthResponse) GetName() *string { return v.Name }
+
+// ResumePodResponse is returned by ResumePod on success.
+type ResumePodResponse struct {
+	PodResume *PodResponse `json:"podResume,omitempty"`
+}
+
+// GetPodResume returns ResumePodResponse.PodResume, and is useful for accessing the field via an interface.
+func (v *ResumePodResponse) GetPodResume() *PodResponse { return v.PodResume }
 
 // SaveEndpointResponse is returned by SaveEndpoint on success.
 type SaveEndpointResponse struct {
@@ -1427,6 +1491,8 @@ type SaveTemplateInput struct {
 	VolumeMountPath         *string                     `json:"volumeMountPath,omitempty"`
 	Config                  *interface{}                `json:"config,omitempty"`
 	Category                *TemplateCategory           `json:"category,omitempty"`
+	MinVram                 *int                        `json:"minVram,omitempty"`
+	MinRam                  *int                        `json:"minRam,omitempty"`
 }
 
 // GetAdvancedStart returns SaveTemplateInput.AdvancedStart, and is useful for accessing the field via an interface.
@@ -1488,6 +1554,12 @@ func (v *SaveTemplateInput) GetConfig() *interface{} { return v.Config }
 
 // GetCategory returns SaveTemplateInput.Category, and is useful for accessing the field via an interface.
 func (v *SaveTemplateInput) GetCategory() *TemplateCategory { return v.Category }
+
+// GetMinVram returns SaveTemplateInput.MinVram, and is useful for accessing the field via an interface.
+func (v *SaveTemplateInput) GetMinVram() *int { return v.MinVram }
+
+// GetMinRam returns SaveTemplateInput.MinRam, and is useful for accessing the field via an interface.
+func (v *SaveTemplateInput) GetMinRam() *int { return v.MinRam }
 
 // SaveTemplateResponse is returned by SaveTemplate on success.
 type SaveTemplateResponse struct {
@@ -1604,6 +1676,14 @@ type SecretValueUpdateResponse struct {
 func (v *SecretValueUpdateResponse) GetSecretValueUpdate() *SecretResponse {
 	return v.SecretValueUpdate
 }
+
+// StopPodResponse is returned by StopPod on success.
+type StopPodResponse struct {
+	PodStop *PodResponse `json:"podStop,omitempty"`
+}
+
+// GetPodStop returns StopPodResponse.PodStop, and is useful for accessing the field via an interface.
+func (v *StopPodResponse) GetPodStop() *PodResponse { return v.PodStop }
 
 type StorageType string
 
@@ -1893,6 +1973,14 @@ type __GetPodInput struct {
 // GetInput returns __GetPodInput.Input, and is useful for accessing the field via an interface.
 func (v *__GetPodInput) GetInput() PodFilter { return v.Input }
 
+// __ResumePodInput is used internally by genqlient
+type __ResumePodInput struct {
+	Input PodResumeInput `json:"input"`
+}
+
+// GetInput returns __ResumePodInput.Input, and is useful for accessing the field via an interface.
+func (v *__ResumePodInput) GetInput() PodResumeInput { return v.Input }
+
 // __SaveEndpointInput is used internally by genqlient
 type __SaveEndpointInput struct {
 	Input EndpointInput `json:"input"`
@@ -1948,6 +2036,14 @@ type __SecretValueUpdateInput struct {
 
 // GetInput returns __SecretValueUpdateInput.Input, and is useful for accessing the field via an interface.
 func (v *__SecretValueUpdateInput) GetInput() SecretValueUpdateInput { return v.Input }
+
+// __StopPodInput is used internally by genqlient
+type __StopPodInput struct {
+	Input PodStopInput `json:"input"`
+}
+
+// GetInput returns __StopPodInput.Input, and is useful for accessing the field via an interface.
+func (v *__StopPodInput) GetInput() PodStopInput { return v.Input }
 
 // __TerminatePodInput is used internally by genqlient
 type __TerminatePodInput struct {
@@ -2312,6 +2408,13 @@ query GetDataCenters {
 			available
 			stockStatus
 		}
+		cpuAvailability {
+			id
+			cpuFlavorId
+			displayName
+			available
+			stockStatus
+		}
 	}
 }
 `
@@ -2396,6 +2499,7 @@ query GetMyEndpoints {
 			gpuIds
 			workersMin
 			workersMax
+			workersStandby
 			idleTimeout
 			locations
 			scalerType
@@ -2659,6 +2763,58 @@ func GetPod(
 	return data_, err_
 }
 
+// The mutation executed by ResumePod.
+const ResumePod_Operation = `
+mutation ResumePod ($input: PodResumeInput!) {
+	podResume(input: $input) {
+		id
+		name
+		machineId
+		imageName
+		dockerArgs
+		gpuCount
+		vcpuCount
+		memoryInGb
+		containerDiskInGb
+		volumeInGb
+		volumeMountPath
+		desiredStatus
+		costPerHr
+		env
+		ports
+		templateId
+		networkVolumeId
+		containerRegistryAuthId
+		podType
+	}
+}
+`
+
+func ResumePod(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input PodResumeInput,
+) (data_ *ResumePodResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "ResumePod",
+		Query:  ResumePod_Operation,
+		Variables: &__ResumePodInput{
+			Input: input,
+		},
+	}
+
+	data_ = &ResumePodResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
 // The mutation executed by SaveEndpoint.
 const SaveEndpoint_Operation = `
 mutation SaveEndpoint ($input: EndpointInput!) {
@@ -2669,6 +2825,7 @@ mutation SaveEndpoint ($input: EndpointInput!) {
 		gpuIds
 		workersMin
 		workersMax
+		workersStandby
 		idleTimeout
 		locations
 		scalerType
@@ -2949,6 +3106,58 @@ func SecretValueUpdate(
 	}
 
 	data_ = &SecretValueUpdateResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by StopPod.
+const StopPod_Operation = `
+mutation StopPod ($input: PodStopInput!) {
+	podStop(input: $input) {
+		id
+		name
+		machineId
+		imageName
+		dockerArgs
+		gpuCount
+		vcpuCount
+		memoryInGb
+		containerDiskInGb
+		volumeInGb
+		volumeMountPath
+		desiredStatus
+		costPerHr
+		env
+		ports
+		templateId
+		networkVolumeId
+		containerRegistryAuthId
+		podType
+	}
+}
+`
+
+func StopPod(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	input PodStopInput,
+) (data_ *StopPodResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "StopPod",
+		Query:  StopPod_Operation,
+		Variables: &__StopPodInput{
+			Input: input,
+		},
+	}
+
+	data_ = &StopPodResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(

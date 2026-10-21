@@ -82,6 +82,58 @@ mutation TerminatePod($input: PodTerminateInput!) {
 }
 
 # @genqlient
+mutation StopPod($input: PodStopInput!) {
+  # @genqlient(typename: "PodResponse")
+  podStop(input: $input) {
+    id
+    name
+    machineId
+    imageName
+    dockerArgs
+    gpuCount
+    vcpuCount
+    memoryInGb
+    containerDiskInGb
+    volumeInGb
+    volumeMountPath
+    desiredStatus
+    costPerHr
+    env
+    ports
+    templateId
+    networkVolumeId
+    containerRegistryAuthId
+    podType
+  }
+}
+
+# @genqlient
+mutation ResumePod($input: PodResumeInput!) {
+  # @genqlient(typename: "PodResponse")
+  podResume(input: $input) {
+    id
+    name
+    machineId
+    imageName
+    dockerArgs
+    gpuCount
+    vcpuCount
+    memoryInGb
+    containerDiskInGb
+    volumeInGb
+    volumeMountPath
+    desiredStatus
+    costPerHr
+    env
+    ports
+    templateId
+    networkVolumeId
+    containerRegistryAuthId
+    podType
+  }
+}
+
+# @genqlient
 mutation CreateCpuPod($input: deployCpuPodInput!) {
   # @genqlient(typename: "PodResponse")
   deployCpuPod(input: $input) {

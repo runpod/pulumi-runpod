@@ -13,13 +13,13 @@ namespace Pulumi.Runpod
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
-        /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        /// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         /// </summary>
         [Output("apiKey")]
         public Output<string?> ApiKey { get; private set; } = null!;
 
         /// <summary>
-        /// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        /// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         /// </summary>
         [Output("apiUrl")]
         public Output<string?> ApiUrl { get; private set; } = null!;
@@ -43,10 +43,6 @@ namespace Pulumi.Runpod
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/runpod/pulumi-runpod",
-                AdditionalSecretOutputs =
-                {
-                    "apiKey",
-                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -57,31 +53,21 @@ namespace Pulumi.Runpod
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
-        [Input("apiKey")]
-        private Input<string>? _apiKey;
-
         /// <summary>
-        /// The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+        /// The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
         /// </summary>
-        public Input<string>? ApiKey
-        {
-            get => _apiKey;
-            set
-            {
-                var emptySecret = Output.CreateSecret(0);
-                _apiKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
-            }
-        }
+        [Input("apiKey")]
+        public Input<string>? ApiKey { get; set; }
 
         /// <summary>
-        /// The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+        /// The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
         /// </summary>
         [Input("apiUrl")]
         public Input<string>? ApiUrl { get; set; }
 
         public ProviderArgs()
         {
-            ApiKey = Utilities.GetEnv("RUNPOD_API_KEY");
+            ApiKey = Utilities.GetEnv("RUNPOD_API_KEY") ?? "";
             ApiUrl = Utilities.GetEnv("RUNPOD_API_URL");
         }
         public static new ProviderArgs Empty => new ProviderArgs();

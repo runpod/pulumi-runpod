@@ -92,6 +92,10 @@ sdk/%: $(SCHEMA_FILE)
 sdk/java: $(SCHEMA_FILE)
 	rm -rf $@
 	$(PULUMI) package gen-sdk --language java $(SCHEMA_FILE)
+	@# pulumi package gen-sdk emits settings.gradle expecting a "lib" subproject,
+	@# but writes sources flat under sdk/java/src — patch it to a single-project build.
+	@sed -i '' '/^include("lib")$$/d' sdk/java/settings.gradle
+	@echo "patched sdk/java/settings.gradle (removed stray include(\"lib\"))"
 
 sdk/python: $(SCHEMA_FILE)
 	rm -rf $@

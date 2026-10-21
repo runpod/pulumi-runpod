@@ -33,6 +33,10 @@ type Template struct {
 	IsPublic pulumi.BoolPtrOutput `pulumi:"isPublic"`
 	// Whether this template is for serverless endpoints.
 	IsServerless pulumi.BoolPtrOutput `pulumi:"isServerless"`
+	// The minimum system RAM, in GB, required to run this template.
+	MinRam pulumi.IntPtrOutput `pulumi:"minRam"`
+	// The minimum GPU VRAM, in GB, required to run this template.
+	MinVram pulumi.IntPtrOutput `pulumi:"minVram"`
 	// A name for the template.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Ports to expose (e.g. "8080/http,22/tcp").
@@ -125,6 +129,10 @@ type templateArgs struct {
 	IsPublic *bool `pulumi:"isPublic"`
 	// Whether this template is for serverless endpoints.
 	IsServerless *bool `pulumi:"isServerless"`
+	// The minimum system RAM, in GB, required to run this template.
+	MinRam *int `pulumi:"minRam"`
+	// The minimum GPU VRAM, in GB, required to run this template.
+	MinVram *int `pulumi:"minVram"`
 	// A name for the template.
 	Name string `pulumi:"name"`
 	// Ports to expose (e.g. "8080/http,22/tcp").
@@ -165,6 +173,10 @@ type TemplateArgs struct {
 	IsPublic pulumi.BoolPtrInput
 	// Whether this template is for serverless endpoints.
 	IsServerless pulumi.BoolPtrInput
+	// The minimum system RAM, in GB, required to run this template.
+	MinRam pulumi.IntPtrInput
+	// The minimum GPU VRAM, in GB, required to run this template.
+	MinVram pulumi.IntPtrInput
 	// A name for the template.
 	Name pulumi.StringInput
 	// Ports to expose (e.g. "8080/http,22/tcp").
@@ -315,6 +327,16 @@ func (o TemplateOutput) IsPublic() pulumi.BoolPtrOutput {
 // Whether this template is for serverless endpoints.
 func (o TemplateOutput) IsServerless() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Template) pulumi.BoolPtrOutput { return v.IsServerless }).(pulumi.BoolPtrOutput)
+}
+
+// The minimum system RAM, in GB, required to run this template.
+func (o TemplateOutput) MinRam() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Template) pulumi.IntPtrOutput { return v.MinRam }).(pulumi.IntPtrOutput)
+}
+
+// The minimum GPU VRAM, in GB, required to run this template.
+func (o TemplateOutput) MinVram() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Template) pulumi.IntPtrOutput { return v.MinVram }).(pulumi.IntPtrOutput)
 }
 
 // A name for the template.

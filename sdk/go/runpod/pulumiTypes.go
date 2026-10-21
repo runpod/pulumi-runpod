@@ -13,6 +13,78 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type CPUAvailabilityItem struct {
+	// Whether this CPU flavor is currently available at this data center.
+	Available bool `pulumi:"available"`
+	// The CPU flavor identifier.
+	CpuFlavorId string `pulumi:"cpuFlavorId"`
+	// The human-readable CPU flavor name.
+	DisplayName string `pulumi:"displayName"`
+	// The CPU availability identifier.
+	Id string `pulumi:"id"`
+	// Current stock status (e.g. High, Medium, Low).
+	StockStatus string `pulumi:"stockStatus"`
+}
+
+type CPUAvailabilityItemOutput struct{ *pulumi.OutputState }
+
+func (CPUAvailabilityItemOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CPUAvailabilityItem)(nil)).Elem()
+}
+
+func (o CPUAvailabilityItemOutput) ToCPUAvailabilityItemOutput() CPUAvailabilityItemOutput {
+	return o
+}
+
+func (o CPUAvailabilityItemOutput) ToCPUAvailabilityItemOutputWithContext(ctx context.Context) CPUAvailabilityItemOutput {
+	return o
+}
+
+// Whether this CPU flavor is currently available at this data center.
+func (o CPUAvailabilityItemOutput) Available() pulumi.BoolOutput {
+	return o.ApplyT(func(v CPUAvailabilityItem) bool { return v.Available }).(pulumi.BoolOutput)
+}
+
+// The CPU flavor identifier.
+func (o CPUAvailabilityItemOutput) CpuFlavorId() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUAvailabilityItem) string { return v.CpuFlavorId }).(pulumi.StringOutput)
+}
+
+// The human-readable CPU flavor name.
+func (o CPUAvailabilityItemOutput) DisplayName() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUAvailabilityItem) string { return v.DisplayName }).(pulumi.StringOutput)
+}
+
+// The CPU availability identifier.
+func (o CPUAvailabilityItemOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUAvailabilityItem) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Current stock status (e.g. High, Medium, Low).
+func (o CPUAvailabilityItemOutput) StockStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v CPUAvailabilityItem) string { return v.StockStatus }).(pulumi.StringOutput)
+}
+
+type CPUAvailabilityItemArrayOutput struct{ *pulumi.OutputState }
+
+func (CPUAvailabilityItemArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CPUAvailabilityItem)(nil)).Elem()
+}
+
+func (o CPUAvailabilityItemArrayOutput) ToCPUAvailabilityItemArrayOutput() CPUAvailabilityItemArrayOutput {
+	return o
+}
+
+func (o CPUAvailabilityItemArrayOutput) ToCPUAvailabilityItemArrayOutputWithContext(ctx context.Context) CPUAvailabilityItemArrayOutput {
+	return o
+}
+
+func (o CPUAvailabilityItemArrayOutput) Index(i pulumi.IntInput) CPUAvailabilityItemOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CPUAvailabilityItem {
+		return vs[0].([]CPUAvailabilityItem)[vs[1].(int)]
+	}).(CPUAvailabilityItemOutput)
+}
+
 type CPUFlavorOutput struct {
 	// Disk limit per vCPU (in GB).
 	DiskLimitPerVcpu int `pulumi:"diskLimitPerVcpu"`
@@ -116,6 +188,8 @@ func (o CPUFlavorOutputArrayOutput) Index(i pulumi.IntInput) CPUFlavorOutputOutp
 type DataCenterOutput struct {
 	// Compliance certifications held by this data center.
 	Compliance []string `pulumi:"compliance"`
+	// CPU availability within this data center.
+	CpuAvailability []CPUAvailabilityItem `pulumi:"cpuAvailability"`
 	// Whether this data center is part of the global network.
 	GlobalNetwork bool `pulumi:"globalNetwork"`
 	// GPU availability within this data center.
@@ -151,6 +225,11 @@ func (o DataCenterOutputOutput) ToDataCenterOutputOutputWithContext(ctx context.
 // Compliance certifications held by this data center.
 func (o DataCenterOutputOutput) Compliance() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DataCenterOutput) []string { return v.Compliance }).(pulumi.StringArrayOutput)
+}
+
+// CPU availability within this data center.
+func (o DataCenterOutputOutput) CpuAvailability() CPUAvailabilityItemArrayOutput {
+	return o.ApplyT(func(v DataCenterOutput) []CPUAvailabilityItem { return v.CpuAvailability }).(CPUAvailabilityItemArrayOutput)
 }
 
 // Whether this data center is part of the global network.
@@ -795,6 +874,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SavingsPlanPtrInput)(nil)).Elem(), SavingsPlanArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TemplatePortConfigInput)(nil)).Elem(), TemplatePortConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TemplatePortConfigArrayInput)(nil)).Elem(), TemplatePortConfigArray{})
+	pulumi.RegisterOutputType(CPUAvailabilityItemOutput{})
+	pulumi.RegisterOutputType(CPUAvailabilityItemArrayOutput{})
 	pulumi.RegisterOutputType(CPUFlavorOutputOutput{})
 	pulumi.RegisterOutputType(CPUFlavorOutputArrayOutput{})
 	pulumi.RegisterOutputType(DataCenterOutputOutput{})

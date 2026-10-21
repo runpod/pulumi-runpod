@@ -18,6 +18,10 @@ namespace Pulumi.Runpod.Outputs
         /// </summary>
         public readonly ImmutableArray<string> Compliance;
         /// <summary>
+        /// CPU availability within this data center.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.CPUAvailabilityItem> CpuAvailability;
+        /// <summary>
         /// Whether this data center is part of the global network.
         /// </summary>
         public readonly bool GlobalNetwork;
@@ -54,6 +58,8 @@ namespace Pulumi.Runpod.Outputs
         private DataCenterOutput(
             ImmutableArray<string> compliance,
 
+            ImmutableArray<Outputs.CPUAvailabilityItem> cpuAvailability,
+
             bool globalNetwork,
 
             ImmutableArray<Outputs.GpuAvailabilityItem> gpuAvailability,
@@ -71,6 +77,7 @@ namespace Pulumi.Runpod.Outputs
             bool storageSupport)
         {
             Compliance = compliance;
+            CpuAvailability = cpuAvailability;
             GlobalNetwork = globalNetwork;
             GpuAvailability = gpuAvailability;
             Id = id;

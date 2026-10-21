@@ -173,6 +173,21 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The desired run state of the pod: &#34;RUNNING&#34; or &#34;EXITED&#34;. Set to &#34;EXITED&#34; to stop (pause) the pod and &#34;RUNNING&#34; to resume it in place, without replacing it. Leave unset to not manage run state.
+     * 
+     */
+    @Import(name="desiredStatus")
+    private @Nullable Output<String> desiredStatus;
+
+    /**
+     * @return The desired run state of the pod: &#34;RUNNING&#34; or &#34;EXITED&#34;. Set to &#34;EXITED&#34; to stop (pause) the pod and &#34;RUNNING&#34; to resume it in place, without replacing it. Leave unset to not manage run state.
+     * 
+     */
+    public Optional<Output<String>> desiredStatus() {
+        return Optional.ofNullable(this.desiredStatus);
+    }
+
+    /**
      * Docker arguments to pass to the container.
      * 
      */
@@ -236,15 +251,15 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
      * The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
      * 
      */
-    @Import(name="gpuTypeId", required=true)
-    private Output<String> gpuTypeId;
+    @Import(name="gpuTypeId")
+    private @Nullable Output<String> gpuTypeId;
 
     /**
      * @return The GPU type ID to deploy (e.g. &#34;NVIDIA GeForce RTX 4090&#34;).
      * 
      */
-    public Output<String> gpuTypeId() {
-        return this.gpuTypeId;
+    public Optional<Output<String>> gpuTypeId() {
+        return Optional.ofNullable(this.gpuTypeId);
     }
 
     /**
@@ -620,6 +635,7 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
         this.cudaVersion = $.cudaVersion;
         this.dataCenterId = $.dataCenterId;
         this.deployCost = $.deployCost;
+        this.desiredStatus = $.desiredStatus;
         this.dockerArgs = $.dockerArgs;
         this.env = $.env;
         this.globalNetwork = $.globalNetwork;
@@ -890,6 +906,27 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param desiredStatus The desired run state of the pod: &#34;RUNNING&#34; or &#34;EXITED&#34;. Set to &#34;EXITED&#34; to stop (pause) the pod and &#34;RUNNING&#34; to resume it in place, without replacing it. Leave unset to not manage run state.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder desiredStatus(@Nullable Output<String> desiredStatus) {
+            $.desiredStatus = desiredStatus;
+            return this;
+        }
+
+        /**
+         * @param desiredStatus The desired run state of the pod: &#34;RUNNING&#34; or &#34;EXITED&#34;. Set to &#34;EXITED&#34; to stop (pause) the pod and &#34;RUNNING&#34; to resume it in place, without replacing it. Leave unset to not manage run state.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder desiredStatus(String desiredStatus) {
+            return desiredStatus(Output.of(desiredStatus));
+        }
+
+        /**
          * @param dockerArgs Docker arguments to pass to the container.
          * 
          * @return builder
@@ -979,7 +1016,7 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder gpuTypeId(Output<String> gpuTypeId) {
+        public Builder gpuTypeId(@Nullable Output<String> gpuTypeId) {
             $.gpuTypeId = gpuTypeId;
             return this;
         }
@@ -1529,9 +1566,6 @@ public final class PodArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PodArgs build() {
-            if ($.gpuTypeId == null) {
-                throw new MissingRequiredPropertyException("PodArgs", "gpuTypeId");
-            }
             if ($.name == null) {
                 throw new MissingRequiredPropertyException("PodArgs", "name");
             }

@@ -35,7 +35,7 @@ type GetDataCentersResult struct {
 
 // Annotate provides descriptions for GetDataCentersResult fields.
 func (r *GetDataCentersResult) Annotate(a infer.Annotator) {
-	a.Describe(&r.DataCenters, "The list of available RunPod data centers.")
+	a.Describe(&r.DataCenters, "The list of available Runpod data centers.")
 }
 
 // DataCenterOutput represents a single data center in the output.
@@ -49,6 +49,7 @@ type DataCenterOutput struct {
 	GlobalNetwork   bool                  `pulumi:"globalNetwork"`
 	Compliance      []string              `pulumi:"compliance"`
 	GpuAvailability []GpuAvailabilityItem `pulumi:"gpuAvailability"`
+	CPUAvailability []CPUAvailabilityItem `pulumi:"cpuAvailability"`
 }
 
 // Annotate provides descriptions for DataCenterOutput fields.
@@ -62,6 +63,7 @@ func (d *DataCenterOutput) Annotate(a infer.Annotator) {
 	a.Describe(&d.GlobalNetwork, "Whether this data center is part of the global network.")
 	a.Describe(&d.Compliance, "Compliance certifications held by this data center.")
 	a.Describe(&d.GpuAvailability, "GPU availability within this data center.")
+	a.Describe(&d.CPUAvailability, "CPU availability within this data center.")
 }
 
 // GpuAvailabilityItem represents GPU availability for a specific GPU type at a data center.
@@ -78,6 +80,24 @@ func (g *GpuAvailabilityItem) Annotate(a infer.Annotator) {
 	a.Describe(&g.GpuTypeDisplayName, "The human-readable GPU type name.")
 	a.Describe(&g.Available, "Whether this GPU type is currently available at this data center.")
 	a.Describe(&g.StockStatus, "Current stock status (e.g. High, Medium, Low).")
+}
+
+// CPUAvailabilityItem represents CPU flavor availability at a data center.
+type CPUAvailabilityItem struct {
+	ID          string `pulumi:"id"`
+	CPUFlavorID string `pulumi:"cpuFlavorId"`
+	DisplayName string `pulumi:"displayName"`
+	Available   bool   `pulumi:"available"`
+	StockStatus string `pulumi:"stockStatus"`
+}
+
+// Annotate provides descriptions for CPUAvailabilityItem fields.
+func (c *CPUAvailabilityItem) Annotate(a infer.Annotator) {
+	a.Describe(&c.ID, "The CPU availability identifier.")
+	a.Describe(&c.CPUFlavorID, "The CPU flavor identifier.")
+	a.Describe(&c.DisplayName, "The human-readable CPU flavor name.")
+	a.Describe(&c.Available, "Whether this CPU flavor is currently available at this data center.")
+	a.Describe(&c.StockStatus, "Current stock status (e.g. High, Medium, Low).")
 }
 
 // ptrRegionString safely dereferences a *runpod.DataCenterRegion to string.
@@ -126,6 +146,20 @@ func (GetDataCenters) Invoke(
 			})
 		}
 
+		cpuAvail := make([]CPUAvailabilityItem, 0, len(dc.CpuAvailability))
+		for _, c := range dc.CpuAvailability {
+			if c == nil {
+				continue
+			}
+			cpuAvail = append(cpuAvail, CPUAvailabilityItem{
+				ID:          runpod.PtrString(c.Id),
+				CPUFlavorID: runpod.PtrString(c.CpuFlavorId),
+				DisplayName: runpod.PtrString(c.DisplayName),
+				Available:   runpod.PtrBool(c.Available),
+				StockStatus: runpod.PtrString(c.StockStatus),
+			})
+		}
+
 		result = append(result, DataCenterOutput{
 			ID:              runpod.PtrString(dc.Id),
 			Name:            runpod.PtrString(dc.Name),
@@ -136,6 +170,7 @@ func (GetDataCenters) Invoke(
 			GlobalNetwork:   runpod.PtrBool(dc.GlobalNetwork),
 			Compliance:      compliance,
 			GpuAvailability: gpuAvail,
+			CPUAvailability: cpuAvail,
 		})
 	}
 

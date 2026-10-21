@@ -79,10 +79,10 @@ namespace Pulumi.Runpod
         public Output<double?> DeployCost { get; private set; } = null!;
 
         /// <summary>
-        /// The desired status of the pod.
+        /// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
         /// </summary>
         [Output("desiredStatus")]
-        public Output<string> DesiredStatus { get; private set; } = null!;
+        public Output<string?> DesiredStatus { get; private set; } = null!;
 
         /// <summary>
         /// Docker arguments to pass to the container.
@@ -112,7 +112,7 @@ namespace Pulumi.Runpod
         /// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
         /// </summary>
         [Output("gpuTypeId")]
-        public Output<string> GpuTypeId { get; private set; } = null!;
+        public Output<string?> GpuTypeId { get; private set; } = null!;
 
         /// <summary>
         /// A list of acceptable GPU type IDs (fallback options).
@@ -477,6 +477,12 @@ namespace Pulumi.Runpod
         public Input<double>? DeployCost { get; set; }
 
         /// <summary>
+        /// The desired run state of the pod: "RUNNING" or "EXITED". Set to "EXITED" to stop (pause) the pod and "RUNNING" to resume it in place, without replacing it. Leave unset to not manage run state.
+        /// </summary>
+        [Input("desiredStatus")]
+        public Input<string>? DesiredStatus { get; set; }
+
+        /// <summary>
         /// Docker arguments to pass to the container.
         /// </summary>
         [Input("dockerArgs")]
@@ -509,8 +515,8 @@ namespace Pulumi.Runpod
         /// <summary>
         /// The GPU type ID to deploy (e.g. "NVIDIA GeForce RTX 4090").
         /// </summary>
-        [Input("gpuTypeId", required: true)]
-        public Input<string> GpuTypeId { get; set; } = null!;
+        [Input("gpuTypeId")]
+        public Input<string>? GpuTypeId { get; set; }
 
         [Input("gpuTypeIdList")]
         private InputList<string>? _gpuTypeIdList;

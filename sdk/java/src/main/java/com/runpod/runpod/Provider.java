@@ -10,35 +10,34 @@ import com.pulumi.core.internal.Codegen;
 import com.runpod.runpod.ProviderArgs;
 import com.runpod.runpod.Utilities;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
 @ResourceType(type="pulumi:providers:runpod")
 public class Provider extends com.pulumi.resources.ProviderResource {
     /**
-     * The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      * 
      */
     @Export(name="apiKey", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiKey;
 
     /**
-     * @return The RunPod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
+     * @return The Runpod API key for authentication. Can also be set via the RUNPOD_API_KEY environment variable.
      * 
      */
     public Output<Optional<String>> apiKey() {
         return Codegen.optional(this.apiKey);
     }
     /**
-     * The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      * 
      */
     @Export(name="apiUrl", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiUrl;
 
     /**
-     * @return The RunPod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
+     * @return The Runpod API URL. Defaults to https://api.runpod.io/graphql. Can also be set via the RUNPOD_API_URL environment variable.
      * 
      */
     public Output<Optional<String>> apiUrl() {
@@ -81,9 +80,6 @@ public class Provider extends com.pulumi.resources.ProviderResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/runpod/pulumi-runpod")
-            .additionalSecretOutputs(List.of(
-                "apiKey"
-            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }
