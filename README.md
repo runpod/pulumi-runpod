@@ -1,6 +1,49 @@
-# Pulumi RunPod Provider
+# Pulumi Runpod Provider
 
-The Pulumi RunPod provider lets you manage [RunPod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
+> [!WARNING]
+> **This provider is deprecated and unmaintained.** It calls the Runpod GraphQL API and will get no further releases. Use the [Runpod Terraform provider](https://registry.terraform.io/providers/runpod/runpod/latest) 2.0.0, which runs on the Runpod REST v2 API. You can keep writing Pulumi programs: see [Migrating to the Terraform provider](#migrating-to-the-terraform-provider).
+
+## Migrating to the Terraform provider
+
+Pulumi can consume a Terraform provider directly. From your Pulumi project:
+
+```bash
+pulumi package add terraform-provider registry.terraform.io/runpod/runpod
+```
+
+That generates a local SDK for your project's language and pins Runpod provider 2.0.0 in `Pulumi.yaml`. Set your API key:
+
+```bash
+pulumi config set --secret runpod:apiKey YOUR_API_KEY
+```
+
+The provider also reads `RUNPOD_API_KEY` from the environment.
+
+### Resource mapping
+
+| This provider | Terraform provider 2.0.0, through Pulumi |
+|---|---|
+| `runpod:Pod` | `runpod.Pod` |
+| `runpod:Template` | `runpod.Template` |
+| `runpod:Endpoint` | `runpod.ServerlessEndpoint` |
+| `runpod:NetworkVolume` | `runpod.NetworkVolume` |
+| `runpod:ContainerRegistryAuth` | `runpod.Registry` |
+| `runpod:Secret` | no counterpart yet, see below |
+| `runpod:getGpuTypes` | `runpod.getGpuTypes` |
+| `runpod:getCPUFlavors` | `runpod.getCpuTypes` |
+| `runpod:getDataCenters` | `runpod.getDataCenters` |
+
+The Terraform provider also covers global volumes, Instant Clusters, account SSH keys, and billing and catalog data sources that this provider never had.
+
+### Secrets
+
+The Terraform provider has no secret resource yet. Until it does, manage secrets in the [Runpod console](https://www.runpod.io/console/user/settings) or through the REST v2 `/v2/account/secrets` endpoints, and reference them from pod and endpoint environment variables.
+
+---
+
+**Everything below describes the deprecated provider and is kept for existing users.**
+
+The Pulumi Runpod provider lets you manage [Runpod](https://www.runpod.io/) GPU cloud infrastructure using infrastructure as code.
 
 <!-- runpod-agent-setup:start -->
 **For AI agents:** setup instructions for the Runpod skills and MCP server are at https://agents.runpod.io/
